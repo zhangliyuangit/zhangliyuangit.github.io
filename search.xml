@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>安装Hexo</title>
+    <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
+<h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网</a><br>然后我们选择windows版本的下载<br>安装也是一直点下一步，安装官方默认的来就行，<br>安装完了，在开始菜单可以看到<br><img src="/img/2.png" alt="图片"></p>
+<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>创建一个工作目录  比如在c盘建一个blog文件夹<br>用管理员属性打开cmd  cd到工作目录<br>使用npm 安装hexo<br><code>npm install -g hexo-cli</code><br>输入<br><code>hexo -v</code><br>判断hexo是否安装成功<br><img src="/img/3.png" alt="表示成功"><br>输入<br><code>hexo init</code>初始化一个博客<br>这里是hexo常用的命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean #用来清理缓存文件</span><br><span class="line">hexo g      #生成文件</span><br><span class="line">hexo  s     #运行本地服务器</span><br><span class="line">hexo  d   #上传到服务器</span><br></pre></td></tr></table></figure>
+<p>输入<code>hexo s</code>之后可以进入<code>http://localhost:4000/</code>这个地址查看我们的博客</p>
+<h1 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h1><p>这里我们选用的部署到github上面<br>首先新建一个github的仓库<br><img src="/img/4.png" alt="新建仓库"><br><img src="/img/5.png" alt="仓库名"><br>这里的name一定要填自己的用户名.github.io 不然会出问题<br>去工作目录找到_config.yml这个文件  双击打开  我这里使用vscode打开的 用notepad++ 文本打开都可以<br><img src="/img/6.png" alt="要求"><br>红线换成自己的github用户名就行了 其他两行按照这个填写<br>安装 hexo-deployer-git。<br><code>npm install hexo-deployer-git --save</code><br>部署一下就好了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>第一篇博客</title>
     <url>/2020/04/06/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><ul>
@@ -8,7 +25,7 @@
 <li>列表2<br>  1<br>  2</li>
 </ul>
 <p><a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a><br><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1586149404&di=58e375a8b430c1b9bde3c6649378cc78&src=http://pic3.16pic.com/00/01/11/16pic_111395_b.jpg" alt="图片"><br><em>斜体字</em><br><code>//代码块</code><br><code>System.out.println(&quot;Hello world&quot;)</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;多行代码 </span><br><span class="line">public static void main(s)</span><br></pre></td></tr></table></figure>]]></content>
+<pre><code></code></pre>]]></content>
       <categories>
         <category>前端</category>
       </categories>
