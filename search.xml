@@ -1,6 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>XML解析器</title>
+    <url>/2020/04/07/XML%E8%A7%A3%E6%9E%90%E5%99%A8/</url>
+    <content><![CDATA[<h3 id="解析：操作xml文档，将文档中的数据读取到内存中"><a href="#解析：操作xml文档，将文档中的数据读取到内存中" class="headerlink" title="解析：操作xml文档，将文档中的数据读取到内存中"></a>解析：操作xml文档，将文档中的数据读取到内存中</h3><h4 id="操作xml文档"><a href="#操作xml文档" class="headerlink" title="操作xml文档"></a>操作xml文档</h4><ul>
+<li><ol>
+<li>解析(读取)：将文档中的数据读取到内存中</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>写入：将内存中的数据保存到xml文档中。持久化的存储</li>
+</ol>
+</li>
+</ul>
+<h3 id="解析xml的方式："><a href="#解析xml的方式：" class="headerlink" title="解析xml的方式："></a>解析xml的方式：</h3><ul>
+<li><ol>
+<li>DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树</li>
+</ol>
+</li>
+<li>优点：操作方便，可以对文档进行CRUD的所有操作</li>
+<li>缺点：占内存</li>
+<li><ol start="2">
+<li>SAX：逐行读取，基于事件驱动的。<pre><code>* 优点：不占内存。
+* 缺点：只能读取，不能增删改</code></pre></li>
+</ol>
+</li>
+</ul>
+<h3 id="xml常见的解析器："><a href="#xml常见的解析器：" class="headerlink" title="xml常见的解析器："></a>xml常见的解析器：</h3><ul>
+<li><ol>
+<li>JAXP：sun公司提供的解析器，支持dom和sax两种思想</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>DOM4J：一款非常优秀的解析器</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>PULL：Android操作系统内置的解析器，sax方式的。</li>
+</ol>
+</li>
+</ul>
+<pre><code>* Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</code></pre><h4 id="快速入门："><a href="#快速入门：" class="headerlink" title="快速入门："></a>快速入门：</h4><h5 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h5><ul>
+<li>1.导入jar包—-链接：<a href="https://pan.baidu.com/s/1-x81_JxGHvdMF-8Kc_7ECw" target="_blank" rel="noopener">https://pan.baidu.com/s/1-x81_JxGHvdMF-8Kc_7ECw</a><br>提取码：6sg6 下载完成后解压，将jsoup-1.11.2.jar 和 JsoupXpath-0.3.2.jar(后面Jsoup_Xpath查询会用到，现在一块导入)   ，压缩包包括jsoup-1.11.2-javadoc、jsoup-1.11.2.jar、jsoup-1.11.2-javadoc.jar、jsoup-1.11.2-sources.jar、JsoupXpath-0.3.2.jar   </li>
+<li>2 获取Document对象</li>
+<li>3.获取对应的标签Element对象</li>
+<li>4.获取数据     </li>
+</ul>
+<p>代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import org.jsoup.nodes.Document;</span><br><span class="line">import org.jsoup.nodes.Element;</span><br><span class="line">import org.jsoup.select.Elements;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class Demo1 &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;获取Document对象，根据XML文档获取</span><br><span class="line">        &#x2F;&#x2F;获取student.xml的path</span><br><span class="line">        String path &#x3D; Demo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        &#x2F;&#x2F;解析xlm文档，加载文档进内存，获取dom树----&gt;document对象</span><br><span class="line">        Document document &#x3D; Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        &#x2F;&#x2F;获取元素对象  Element</span><br><span class="line">        Elements elements &#x3D; document.getElementsByTag(&quot;name&quot;);</span><br><span class="line">        System.out.println(elements.size());</span><br><span class="line">        &#x2F;&#x2F;获取第一个name的Element对象</span><br><span class="line">        Element element &#x3D; elements.get(0);</span><br><span class="line">        &#x2F;&#x2F;获取数据</span><br><span class="line">        String name &#x3D; element.text();</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;   </span><br><span class="line"></span><br><span class="line">studen.xml文件中的代码</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;&lt;?xml version&#x3D;&#39;1.0&#39; encoding&#x3D;&#39;utf-8&#39;?&gt;</span><br><span class="line">&lt;users&gt;</span><br><span class="line">    &lt;user id&#x3D;&#39;1&#39;&gt;</span><br><span class="line">        &lt;name id&#x3D;&quot;0001&quot;&gt;张三&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;age&gt;23&lt;&#x2F;age&gt;</span><br><span class="line">        &lt;gender&gt;男&lt;&#x2F;gender&gt;</span><br><span class="line">    &lt;&#x2F;user&gt;</span><br><span class="line">    &lt;user id&#x3D;&#39;2&#39;&gt;</span><br><span class="line">        &lt;name&gt;李四&lt;&#x2F;name&gt;</span><br><span class="line">        &lt;age&gt;30&lt;&#x2F;age&gt;</span><br><span class="line">        &lt;gender&gt;男&lt;&#x2F;gender&gt;</span><br><span class="line">    &lt;&#x2F;user&gt;</span><br><span class="line">&lt;&#x2F;users&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="对象的使用："><a href="#对象的使用：" class="headerlink" title="对象的使用："></a>对象的使用：</h3><h4 id="1-Jsoup：工具类，可以解析html或xml文档，返回Document"><a href="#1-Jsoup：工具类，可以解析html或xml文档，返回Document" class="headerlink" title="1. Jsoup：工具类，可以解析html或xml文档，返回Document"></a>1. Jsoup：工具类，可以解析html或xml文档，返回Document</h4><ul>
+<li><p>parse：解析html或xml文档，返回Document</p>
+</li>
+<li><p>parse​(File in, String charsetName)：解析xml或html文件的。</p>
+</li>
+<li><p>parse​(String html)：解析xml或html字符串</p>
+</li>
+<li><p>parse​(URL url, int timeoutMillis)：通过网络路径获取指定的html或xml的文档对象</p>
+<h4 id="2-Document：文档对象。代表内存中的dom树"><a href="#2-Document：文档对象。代表内存中的dom树" class="headerlink" title="2. Document：文档对象。代表内存中的dom树"></a>2. Document：文档对象。代表内存中的dom树</h4></li>
+<li><p>获取Element对象</p>
+</li>
+<li><p>getElementById​(String id)：根据id属性值获取唯一的element对象</p>
+</li>
+<li><p>getElementsByTag​(String tagName)：根据标签名称获取元素对象集合</p>
+</li>
+<li><p>getElementsByAttribute​(String key)：根据属性名称获取元素对象集合</p>
+</li>
+<li><p>getElementsByAttributeValue​(String key, String value)：根据对应的属性名和属性值获取元素对象集合</p>
+<h4 id="3-Elements：元素Element对象的集合。可以当做-ArrayList来使用"><a href="#3-Elements：元素Element对象的集合。可以当做-ArrayList来使用" class="headerlink" title="3. Elements：元素Element对象的集合。可以当做 ArrayList来使用"></a>3. Elements：元素Element对象的集合。可以当做 ArrayList<Element>来使用</h4><h4 id="4-Element：元素对象"><a href="#4-Element：元素对象" class="headerlink" title="4. Element：元素对象"></a>4. Element：元素对象</h4></li>
+<li><p>1.获取子元素对象</p>
+</li>
+<li><p>getElementById​(String id)：根据id属性值获取唯一的element对象</p>
+</li>
+<li><p>getElementsByTag​(String tagName)：根据标签名称获取元素对象集合</p>
+</li>
+<li><p>getElementsByAttribute​(String key)：根据属性名称获取元素对象集合</p>
+</li>
+<li><p>getElementsByAttributeValue​(String key, String value)：根据对应的属性名和属性值获取元素对象集合</p>
+</li>
+<li><p>获取属性值</p>
+</li>
+</ul>
+<ul>
+<li>String attr(String key)：根据属性名称获取属性值</li>
+</ul>
+<ul>
+<li><ol start="3">
+<li>获取文本内容</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>String text():获取文本内容</li>
+<li>String html():获取标签体的所有内容(包括字标签的字符串内容)</li>
+</ul>
+<ul>
+<li><ol start="5">
+<li>Node：节点对象</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>是Document和Element的父类</li>
+</ul>
+<h4 id="快捷查询方式："><a href="#快捷查询方式：" class="headerlink" title="快捷查询方式："></a>快捷查询方式：</h4><ul>
+<li><ol>
+<li>selector:选择器</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>使用的方法：Elements    select​(String cssQuery)<br>cssQuery按照以前css选择器名字来做</li>
+</ul>
+<ul>
+<li>语法：参考Selector类中定义的语法</li>
+</ul>
+<ul>
+<li><ol start="2">
+<li>XPath：XPath即为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）文档中某部分位置的语言</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>使用Jsoup的Xpath需要额外导入jar包。</li>
+<li>查询w3cshool参考手册，使用xpath的语法完成查询</li>
+<li>示例代码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package Jsoup;</span><br><span class="line"></span><br><span class="line">import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXDocument;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXNode;</span><br><span class="line">import org.jsoup.Jsoup;</span><br><span class="line">import org.jsoup.nodes.Document;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class Demo5 &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException, XpathSyntaxErrorException &#123;</span><br><span class="line">        String path &#x3D; Demo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        &#x2F;&#x2F;解析xlm文档，加载文档进内存，获取dom树----&gt;document对象</span><br><span class="line">        Document document &#x3D; Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        JXDocument jxDocument &#x3D; new JXDocument(document);</span><br><span class="line">&#x2F;&#x2F;        List&lt;JXNode&gt; users &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&quot;);</span><br><span class="line">&#x2F;&#x2F;        for (JXNode j:users)&#123;</span><br><span class="line">&#x2F;&#x2F;            System.out.println(j);</span><br><span class="line">&#x2F;&#x2F;        &#125;</span><br><span class="line">        List&lt;JXNode&gt; list &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name[@id]&quot;);</span><br><span class="line">        for (JXNode jxNode:list)&#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>XML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫</title>
+    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
+    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
+]]></content>
+      <tags>
+        <tag>爬虫</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装Hexo</title>
     <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
@@ -15,33 +161,6 @@
       <tags>
         <tag>hexo</tag>
         <tag>软件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>第一篇博客</title>
-    <url>/2020/04/06/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><ul>
-<li>列表1<br>  a<br>  b</li>
-<li>列表2<br>  1<br>  2</li>
-</ul>
-<p><a href="https://www.baidu.com" target="_blank" rel="noopener">百度</a><br><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1586149404&di=58e375a8b430c1b9bde3c6649378cc78&src=http://pic3.16pic.com/00/01/11/16pic_111395_b.jpg" alt="图片"><br><em>斜体字</em><br><code>//代码块</code><br><code>System.out.println(&quot;Hello world&quot;)</code></p>
-<pre><code></code></pre>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>导航</tag>
-        <tag>分享</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫</title>
-    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
-    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
-]]></content>
-      <tags>
-        <tag>爬虫</tag>
-        <tag>python</tag>
       </tags>
   </entry>
 </search>
