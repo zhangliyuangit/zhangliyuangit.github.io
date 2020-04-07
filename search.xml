@@ -15,11 +15,10 @@
 </ul>
 <h3 id="解析xml的方式："><a href="#解析xml的方式：" class="headerlink" title="解析xml的方式："></a>解析xml的方式：</h3><ul>
 <li><ol>
-<li>DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树</li>
+<li>DOM：将标记语言文档一次性加载进内存，在内存中形成一颗dom树<pre><code>* 优点：操作方便，可以对文档进行CRUD的所有操作
+* 缺点：占内存</code></pre></li>
 </ol>
 </li>
-<li>优点：操作方便，可以对文档进行CRUD的所有操作</li>
-<li>缺点：占内存</li>
 <li><ol start="2">
 <li>SAX：逐行读取，基于事件驱动的。<pre><code>* 优点：不占内存。
 * 缺点：只能读取，不能增删改</code></pre></li>
@@ -44,7 +43,10 @@
 </ol>
 </li>
 </ul>
-<pre><code>* Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</code></pre><h4 id="快速入门："><a href="#快速入门：" class="headerlink" title="快速入门："></a>快速入门：</h4><h5 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h5><ul>
+<ul>
+<li>Jsoup：jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。<h4 id="快速入门："><a href="#快速入门：" class="headerlink" title="快速入门："></a>快速入门：</h4><h5 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h5></li>
+</ul>
+<ul>
 <li>1.导入jar包—-链接：<a href="https://pan.baidu.com/s/1-x81_JxGHvdMF-8Kc_7ECw" target="_blank" rel="noopener">https://pan.baidu.com/s/1-x81_JxGHvdMF-8Kc_7ECw</a><br>提取码：6sg6 下载完成后解压，将jsoup-1.11.2.jar 和 JsoupXpath-0.3.2.jar(后面Jsoup_Xpath查询会用到，现在一块导入)   ，压缩包包括jsoup-1.11.2-javadoc、jsoup-1.11.2.jar、jsoup-1.11.2-javadoc.jar、jsoup-1.11.2-sources.jar、JsoupXpath-0.3.2.jar   </li>
 <li>2 获取Document对象</li>
 <li>3.获取对应的标签Element对象</li>
@@ -137,16 +139,6 @@
       </tags>
   </entry>
   <entry>
-    <title>python爬虫</title>
-    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
-    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
-]]></content>
-      <tags>
-        <tag>爬虫</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装Hexo</title>
     <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
@@ -161,6 +153,16 @@
       <tags>
         <tag>hexo</tag>
         <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫</title>
+    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
+    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
+]]></content>
+      <tags>
+        <tag>爬虫</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
