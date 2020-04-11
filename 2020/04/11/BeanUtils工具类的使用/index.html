@@ -86,15 +86,15 @@
 
 
 
-<meta name="description" content="BeanUtils工具类，简化数据封装用于封装JavaBean的JavaBean：标准Java类要求： 1.类必须被public修饰 2.必须提供空参的构造器 3.成员变量必须使用private修饰 4.提供公共的setter和getter方法功能：封装数据下载点解链接下载  BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据| |">
+<meta name="description" content="BeanUtils工具类，简化数据封装用于封装JavaBean的JavaBean：标准Java类要求： 1.类必须被public修饰 2.必须提供空参的构造器 3.成员变量必须使用private修饰 4.提供公共的setter和getter方法功能：封装数据下载点解链接下载  BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BeanUtils工具类的使用">
 <meta property="og:url" content="http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="张利源">
-<meta property="og:description" content="BeanUtils工具类，简化数据封装用于封装JavaBean的JavaBean：标准Java类要求： 1.类必须被public修饰 2.必须提供空参的构造器 3.成员变量必须使用private修饰 4.提供公共的setter和getter方法功能：封装数据下载点解链接下载  BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据| |">
+<meta property="og:description" content="BeanUtils工具类，简化数据封装用于封装JavaBean的JavaBean：标准Java类要求： 1.类必须被public修饰 2.必须提供空参的构造器 3.成员变量必须使用private修饰 4.提供公共的setter和getter方法功能：封装数据下载点解链接下载  BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据">
 <meta property="og:image" content="http://yoursite.com/img/BeanUtils1.png">
 <meta property="article:published_time" content="2020-04-11T07:17:27.000Z">
-<meta property="article:modified_time" content="2020-04-11T07:32:12.912Z">
+<meta property="article:modified_time" content="2020-04-11T07:42:56.043Z">
 <meta property="article:author" content="张利源">
 <meta property="article:tag" content="JAVA">
 <meta name="twitter:card" content="summary">
@@ -378,7 +378,31 @@
 <li>3.成员变量必须使用private修饰</li>
 <li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
 </ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据<br>| |方法|描述|<br>|:——:|:—–:|:—–:|<br>|BeanUtils对象|populate(Object bean, Map&lt;String,String[]&gt;properties)  |将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean|<br>||setProperty(Object obj,String name,Object value)|设置属性值|<br>||getProperty(Object obj,String name)|获得属性值|</p>
+<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BeanUtils对象</td>
+<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
+<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
+</tr>
+<tr>
+<td></td>
+<td>setProperty(Object obj,String name,Object value)</td>
+<td>设置属性值</td>
+</tr>
+<tr>
+<td></td>
+<td>getProperty(Object obj,String name)</td>
+<td>获得属性值</td>
+</tr>
+</tbody></table>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
       
     </div>
