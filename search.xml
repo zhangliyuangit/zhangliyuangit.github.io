@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>python爬虫</title>
-    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
-    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
-]]></content>
+    <title>BeanUtils工具类的使用</title>
+    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
+<li>1.类必须被public修饰</li>
+<li>2.必须提供空参的构造器</li>
+<li>3.成员变量必须使用private修饰</li>
+<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+</ul>
+<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据<br>| |方法|描述|<br>|:——:|:—–:|:—–:|<br>|BeanUtils对象|populate(Object bean, Map&lt;String,String[]&gt;properties)  |将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean|<br>||setProperty(Object obj,String name,Object value)|设置属性值|<br>||getProperty(Object obj,String name)|获得属性值|</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>爬虫</tag>
-        <tag>python</tag>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -78,12 +83,39 @@ ServletInputStream getInputStream():获取字节输入流</code></pre></li>
 <pre><code>1.String getParameter(String name):根据参数名称获取参数值
 2.String[] getParameterValues(String name):根据参数名称获取参数值的数组
 3.Enumeration&lt;String&gt;  getParameterNames():获取所有请参数的名称
-4.Map&lt;String,String[]&gt; getParameterMap():获取参数的所有Map集合</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;设置流的编码 防止乱码</span><br><span class="line">        req.setCharacterEncoding(&quot;utf-8&quot;);</span><br></pre></td></tr></table></figure></li>
+4.Map&lt;String,String[]&gt; getParameterMap():获取参数的所有Map集合</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;设置流的编码 防止乱码</span><br><span class="line">        req.setCharacterEncoding(&quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
-]]></content>
+<h4 id="请求转发：一种在服务器内部资源的跳转方式"><a href="#请求转发：一种在服务器内部资源的跳转方式" class="headerlink" title="请求转发：一种在服务器内部资源的跳转方式"></a>请求转发：一种在服务器内部资源的跳转方式</h4><ul>
+<li><p>步骤：</p>
+<pre><code>1.通过request对象获取请求转发器对象：RequestDispatcher  getRequestDispatcher(String path)
+2.使用RequestDispatcher对象进行转发，forword(ServletRequest req,ServletRespnonse resp)</code></pre></li>
+<li><p>特点：</p>
+<pre><code>1.浏览器地址栏不发生变化
+2.只能转发到当前服务器内部资源中
+3.转发是一次请求</code></pre></li>
+</ul>
+<h4 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h4><pre><code>域对象：一个有作用范围的对象，可以在范围内共享数据
+request域：代表一次请求的范围，一般用域请求转发的多个资源中共享数据
+
+方法：
+1.void setAttribute(String name,Object obj):存储数据
+2.Object  getAttribute(String name):通过键获取值
+3.void removeAttribute(String name):通过键来移除键值对</code></pre><h4 id="获取ServletContext对象"><a href="#获取ServletContext对象" class="headerlink" title="获取ServletContext对象"></a>获取ServletContext对象</h4><pre><code>ServletContext getServletContext()</code></pre>]]></content>
       <tags>
         <tag>JAVA</tag>
         <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫</title>
+    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
+    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
+]]></content>
+      <tags>
+        <tag>爬虫</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
