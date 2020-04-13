@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="张利源">
 <meta property="og:description" content="http的request对象和response对象概念：Hyper Text Transfer Protocol 超文本传输协议特点： 1.基于TCP&#x2F;IP的高级协议  2.默认端口号8080  3.基于请求&#x2F;相应模型：一次请求对应一次相应  4.无状态的：每次请求直接相互独立 请求消息的数据格式 1.请求行 请求方式  请求url  请求协议&#x2F;版本 请求方式：     GET         1">
 <meta property="article:published_time" content="2020-04-10T04:53:03.000Z">
-<meta property="article:modified_time" content="2020-04-13T08:05:56.396Z">
+<meta property="article:modified_time" content="2020-04-13T09:25:01.989Z">
 <meta property="article:author" content="张利源">
 <meta property="article:tag" content="JAVA">
 <meta property="article:tag" content="JavaWeb">
@@ -532,7 +532,7 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
 <ul>
 <li>1.页面显示超链接</li>
 <li>2.点击链接后弹出下载提示框</li>
-<li>3.完成图片文件下载</li>
+<li>3.完成图片文件下载<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">       &#x2F;&#x2F;获取请求参数  文件名称</span><br><span class="line">       String filename &#x3D; req.getParameter(&quot;filename&quot;);</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F;使用字节输入流，加载文件进内存</span><br><span class="line">       ServletContext context &#x3D; this.getServletContext();</span><br><span class="line">       String realPath &#x3D; context.getRealPath(&quot;&#x2F;img&#x2F;&quot;+filename);&#x2F;&#x2F;获取文件真实路径</span><br><span class="line">       FileInputStream fis &#x3D; new FileInputStream(realPath);</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F;设置Response的相应头</span><br><span class="line">       String mineType &#x3D; context.getMimeType(filename);&#x2F;&#x2F;获取文件的MIME类型</span><br><span class="line">       resp.setHeader(&quot;content-type&quot;,mineType);</span><br><span class="line">       resp.setHeader(&quot;content-disposition&quot;,&quot;attachment;filename&#x3D;&quot;+filename);</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F;将输入流的数据写出到输出流</span><br><span class="line">       ServletOutputStream sos &#x3D; resp.getOutputStream();</span><br><span class="line">       byte[] bytes &#x3D; new byte[1024];</span><br><span class="line">       int len &#x3D; 0;</span><br><span class="line">       while ((len&#x3D;fis.read(bytes))!&#x3D;-1)&#123;</span><br><span class="line">           sos.write(bytes,0,len);</span><br><span class="line">       &#125;</span><br><span class="line">       fis.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
