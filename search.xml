@@ -40,6 +40,188 @@
       </tags>
   </entry>
   <entry>
+    <title>http的request对象和response对象</title>
+    <url>/2020/04/10/http/</url>
+    <content><![CDATA[<h2 id="http的request对象和response对象"><a href="#http的request对象和response对象" class="headerlink" title="http的request对象和response对象"></a>http的request对象和response对象</h2><h3 id="概念：Hyper-Text-Transfer-Protocol-超文本传输协议"><a href="#概念：Hyper-Text-Transfer-Protocol-超文本传输协议" class="headerlink" title="概念：Hyper Text Transfer Protocol 超文本传输协议"></a>概念：Hyper Text Transfer Protocol 超文本传输协议</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul>
+<li><p>1.基于TCP/IP的高级协议</p>
+</li>
+<li><p>2.默认端口号8080</p>
+</li>
+<li><p>3.基于请求/相应模型：一次请求对应一次相应</p>
+</li>
+<li><p>4.无状态的：每次请求直接相互独立</p>
+<h3 id="请求消息的数据格式"><a href="#请求消息的数据格式" class="headerlink" title="请求消息的数据格式"></a>请求消息的数据格式</h3></li>
+<li><p>1.请求行</p>
+<pre><code>请求方式  请求url  请求协议/版本
+请求方式：
+    GET
+        1.请求参数在请求行中，在url后面
+        2.请求url的长度有限
+        3.不太安全
+    POST
+        1.请求参数在请求体中
+        2.请求url长度没有限制
+        3.相对安全</code></pre></li>
+<li><p>2.请求头</p>
+</li>
+<li><p>3.请求空行</p>
+</li>
+<li><p>4.请求体 </p>
+</li>
+</ul>
+<h3 id="请求消息数据格式"><a href="#请求消息数据格式" class="headerlink" title="请求消息数据格式"></a>请求消息数据格式</h3><h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><ul>
+<li><p>request和response对象的原理</p>
+<pre><code>1.request和response对象由服务器创建，我蛮来使用他们
+2.request对象是来获取请求消息，response是来设置相应消息</code></pre></li>
+</ul>
+<h5 id="request获取请求消息"><a href="#request获取请求消息" class="headerlink" title="request获取请求消息"></a>request获取请求消息</h5><ul>
+<li><p>获取请求行的数据</p>
+<pre><code>GET /test/demo1?name=zhangsan HTTP/1.1
+1.获取请求方式 GET
+String getMethod()
+2.获取虚拟目录 /test
+String getContextPath()
+3.获取Servlet路径 /demo1
+String getServletPath()
+4.获取get方式请求传参 name=zhangsan 
+String getQueryString()
+5.获取URI /test/demo1
+String getRequestURI()
+6.获取协议及版本 HTTP/1.1
+String getProtocol()
+7.获取客户机的ip地址
+String getRemoteAddr()</code></pre></li>
+<li><p>获取请求头的方法</p>
+<pre><code>String getHeader(String name)通过获取请求头的名称，获取请求头的值 </code></pre></li>
+<li><p>获取请求体数据</p>
+<pre><code>只有post请求方式，才有请求体，在请求体中封装了post请求的请求参数</code></pre><p>  步骤：</p>
+<ul>
+<li><p>1.获取流对象</p>
+<pre><code>BufferedReader getReader():获取字符输入流
+ServletInputStream getInputStream():获取字节输入流</code></pre></li>
+<li><p>2.再从流对象中拿数据</p>
+</li>
+</ul>
+</li>
+<li><p>获取请求参数的通用方法</p>
+<pre><code>1.String getParameter(String name):根据参数名称获取参数值
+2.String[] getParameterValues(String name):根据参数名称获取参数值的数组
+3.Enumeration&lt;String&gt;  getParameterNames():获取所有请参数的名称
+4.Map&lt;String,String[]&gt; getParameterMap():获取参数的所有Map集合</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;设置流的编码 防止乱码</span><br><span class="line">        req.setCharacterEncoding(&quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="请求转发：一种在服务器内部资源的跳转方式"><a href="#请求转发：一种在服务器内部资源的跳转方式" class="headerlink" title="请求转发：一种在服务器内部资源的跳转方式"></a>请求转发：一种在服务器内部资源的跳转方式</h4><ul>
+<li><p>步骤：</p>
+<pre><code>1.通过request对象获取请求转发器对象：RequestDispatcher  getRequestDispatcher(String path)
+2.使用RequestDispatcher对象进行转发，forword(ServletRequest req,ServletRespnonse resp)</code></pre></li>
+<li><p>特点：</p>
+<pre><code>1.浏览器地址栏不发生变化
+2.只能转发到当前服务器内部资源中
+3.转发是一次请求</code></pre></li>
+</ul>
+<h4 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h4><pre><code>域对象：一个有作用范围的对象，可以在范围内共享数据
+request域：代表一次请求的范围，一般用域请求转发的多个资源中共享数据
+
+方法：
+1.void setAttribute(String name,Object obj):存储数据
+2.Object  getAttribute(String name):通过键获取值
+3.void removeAttribute(String name):通过键来移除键值对</code></pre><h4 id="获取ServletContext对象"><a href="#获取ServletContext对象" class="headerlink" title="获取ServletContext对象"></a>获取ServletContext对象</h4><pre><code>ServletContext getServletContext()</code></pre><h3 id="响应消息"><a href="#响应消息" class="headerlink" title="响应消息"></a>响应消息</h3><h4 id="相应消息的数据格式"><a href="#相应消息的数据格式" class="headerlink" title="相应消息的数据格式"></a>相应消息的数据格式</h4><ul>
+<li><p>1.相应行</p>
+<pre><code>组成：协议/版本 相应状态码  状态码描述
+状态码分类：
+        1.1XX:服务器接收客户端消息，但没有接收完全，等待一段时间后，发送1XX
+        2.2XX:成功。200
+        3.3XX:重定向  302(重定向) 304(访问缓存)
+        4.4XX:客户端错误 404(请求路径没有对应的资源) 405(请求方式没有对应的doXXX方法)
+        5.5XX:服务器端错误 500(服务器内部出现异常)</code></pre></li>
+<li><p>2.相应头</p>
+<pre><code>1.格式:头名称:值
+2.常见的相应头:
+        1.Content-Type:服务器告诉客户端本次相应体数据格式以及编码格式
+        2.Content-disposition:服务器告诉客户端以什么格式打开相应数据</code></pre></li>
+<li><p>3.相应空行</p>
+</li>
+<li><p>4.相应体</p>
+</li>
+</ul>
+<h4 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h4><h5 id="功能-设置相应消息"><a href="#功能-设置相应消息" class="headerlink" title="功能:设置相应消息"></a>功能:设置相应消息</h5><ul>
+<li><p>设置相应行</p>
+<pre><code>设置状态码:setStatus(int sc)</code></pre></li>
+<li><p>设置相应头</p>
+<pre><code>setHeader(String name,string value)</code></pre></li>
+<li><p>设置相应体</p>
+<pre><code>使用步骤:
+1.获取输出流
+字符输出流:PrintWriter getWriter()
+字节输出流:ServletOutputStream  getOutputStream()
+2.使用输出流，将数据输出到客户端浏览器</code></pre></li>
+</ul>
+<h5 id="完成重定向"><a href="#完成重定向" class="headerlink" title="完成重定向"></a>完成重定向</h5><p>代码实现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;简单的重定向的方法</span><br><span class="line">        resp.sendRedirect(&quot;&#x2F;ReaponseDemo_war_exploded&#x2F;responseDemo2&quot;);</span><br></pre></td></tr></table></figure>
+<p>特点:</p>
+<ul>
+<li>1.地址栏发生变化</li>
+<li>2.重定向可以访问其他站点</li>
+<li>3.重定向是两次请求，不能使用request对象来共享数据</li>
+</ul>
+<h4 id="路径的写法"><a href="#路径的写法" class="headerlink" title="路径的写法"></a>路径的写法</h4><ul>
+<li><p>相对路径:不可以确定唯一资源</p>
+<pre><code>规则:.开头  找到当前资源和目标资源之间的相对位置关系</code></pre></li>
+<li><p>据对路径:可以确定唯一资源</p>
+</li>
+</ul>
+<h4 id="服务器输出字符数据到浏览器"><a href="#服务器输出字符数据到浏览器" class="headerlink" title="服务器输出字符数据到浏览器"></a>服务器输出字符数据到浏览器</h4><pre><code>步骤:
+1.获取字符输出流
+2.输出数据</code></pre><p>防止乱码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">resp.setHeader(&quot;content-type&quot;,&quot;text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;简单的形式设计编码</span><br><span class="line">        resp.setContentType(&quot;text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="ServletContext对象"><a href="#ServletContext对象" class="headerlink" title="ServletContext对象"></a>ServletContext对象</h4><p>1.概念:代表整个web应用，可以和程序的容器(服务器)通信</p>
+<p>2.获取:</p>
+<ul>
+<li>1.通过request对象获取<br><code>request.getServletContext()</code></li>
+<li>2.通过HttpServlet获取<br><code>this.getServletContext</code></li>
+</ul>
+<p>3.功能:</p>
+<ul>
+<li><p>1.获取MIME类型</p>
+<pre><code>MIME类型:在互联网通信过程中定义的一种文件类型
+格式:大类型/小类型   text/html
+获取:
+`String getMineType(String file)`
+代码示例
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ServletContext context &#x3D; this.getServletContext();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;定义文件名称</span><br><span class="line">String filename &#x3D; &quot;a.jpg&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取MIME类型</span><br><span class="line">String MimeType &#x3D; context.getMimeType(filename);</span><br><span class="line">System.out.println(MimeType);</span><br></pre></td></tr></table></figure></code></pre></li>
+<li><p>2.域对象:共享数据</p>
+<pre><code>1.setAttribute(String name,String value)
+2.getAttribute(String name)
+3.removeAttribute(String name)
+ServletContext对象范围:所有用户请求的数据</code></pre></li>
+<li><p>3.获取文件的真实服务器路径</p>
+<pre><code>1.方法:String getRealPath()</code></pre></li>
+</ul>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>文件下载需求:</p>
+<ul>
+<li>1.页面显示超链接</li>
+<li>2.点击链接后弹出下载提示框</li>
+<li>3.完成图片文件下载</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JAVA</tag>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫</title>
+    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
+    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
+]]></content>
+      <tags>
+        <tag>爬虫</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>XML解析器</title>
     <url>/2020/04/07/XML%E8%A7%A3%E6%9E%90%E5%99%A8/</url>
     <content><![CDATA[<h3 id="解析：操作xml文档，将文档中的数据读取到内存中"><a href="#解析：操作xml文档，将文档中的数据读取到内存中" class="headerlink" title="解析：操作xml文档，将文档中的数据读取到内存中"></a>解析：操作xml文档，将文档中的数据读取到内存中</h3><h4 id="操作xml文档"><a href="#操作xml文档" class="headerlink" title="操作xml文档"></a>操作xml文档</h4><ul>
@@ -178,126 +360,6 @@
       </tags>
   </entry>
   <entry>
-    <title>http</title>
-    <url>/2020/04/10/http/</url>
-    <content><![CDATA[<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><h3 id="概念：Hyper-Text-Transfer-Protocol-超文本传输协议"><a href="#概念：Hyper-Text-Transfer-Protocol-超文本传输协议" class="headerlink" title="概念：Hyper Text Transfer Protocol 超文本传输协议"></a>概念：Hyper Text Transfer Protocol 超文本传输协议</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul>
-<li><p>1.基于TCP/IP的高级协议</p>
-</li>
-<li><p>2.默认端口号8080</p>
-</li>
-<li><p>3.基于请求/相应模型：一次请求对应一次相应</p>
-</li>
-<li><p>4.无状态的：每次请求直接相互独立</p>
-<h3 id="请求消息的数据格式"><a href="#请求消息的数据格式" class="headerlink" title="请求消息的数据格式"></a>请求消息的数据格式</h3></li>
-<li><p>1.请求行</p>
-<pre><code>请求方式  请求url  请求协议/版本
-请求方式：
-    GET
-        1.请求参数在请求行中，在url后面
-        2.请求url的长度有限
-        3.不太安全
-    POST
-        1.请求参数在请求体中
-        2.请求url长度没有限制
-        3.相对安全</code></pre></li>
-<li><p>2.请求头</p>
-</li>
-<li><p>3.请求空行</p>
-</li>
-<li><p>4.请求体 </p>
-</li>
-</ul>
-<h3 id="相应消息数据格式"><a href="#相应消息数据格式" class="headerlink" title="相应消息数据格式"></a>相应消息数据格式</h3><h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><ul>
-<li><p>request和response对象的原理</p>
-<pre><code>1.request和response对象由服务器创建，我蛮来使用他们
-2.request对象是来获取请求消息，response是来设置相应消息</code></pre></li>
-</ul>
-<h5 id="request获取请求消息"><a href="#request获取请求消息" class="headerlink" title="request获取请求消息"></a>request获取请求消息</h5><ul>
-<li><p>获取请求行的数据</p>
-<pre><code>GET /test/demo1?name=zhangsan HTTP/1.1
-1.获取请求方式 GET
-String getMethod()
-2.获取虚拟目录 /test
-String getContextPath()
-3.获取Servlet路径 /demo1
-String getServletPath()
-4.获取get方式请求传参 name=zhangsan 
-String getQueryString()
-5.获取URI /test/demo1
-String getRequestURI()
-6.获取协议及版本 HTTP/1.1
-String getProtocol()
-7.获取客户机的ip地址
-String getRemoteAddr()</code></pre></li>
-<li><p>获取请求头的方法</p>
-<pre><code>String getHeader(String name)通过获取请求头的名称，获取请求头的值 </code></pre></li>
-<li><p>获取请求体数据</p>
-<pre><code>只有post请求方式，才有请求体，在请求体中封装了post请求的请求参数</code></pre><p>  步骤：</p>
-<ul>
-<li><p>1.获取流对象</p>
-<pre><code>BufferedReader getReader():获取字符输入流
-ServletInputStream getInputStream():获取字节输入流</code></pre></li>
-<li><p>2.再从流对象中拿数据</p>
-</li>
-</ul>
-</li>
-<li><p>获取请求参数的通用方法</p>
-<pre><code>1.String getParameter(String name):根据参数名称获取参数值
-2.String[] getParameterValues(String name):根据参数名称获取参数值的数组
-3.Enumeration&lt;String&gt;  getParameterNames():获取所有请参数的名称
-4.Map&lt;String,String[]&gt; getParameterMap():获取参数的所有Map集合</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;设置流的编码 防止乱码</span><br><span class="line">        req.setCharacterEncoding(&quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="请求转发：一种在服务器内部资源的跳转方式"><a href="#请求转发：一种在服务器内部资源的跳转方式" class="headerlink" title="请求转发：一种在服务器内部资源的跳转方式"></a>请求转发：一种在服务器内部资源的跳转方式</h4><ul>
-<li><p>步骤：</p>
-<pre><code>1.通过request对象获取请求转发器对象：RequestDispatcher  getRequestDispatcher(String path)
-2.使用RequestDispatcher对象进行转发，forword(ServletRequest req,ServletRespnonse resp)</code></pre></li>
-<li><p>特点：</p>
-<pre><code>1.浏览器地址栏不发生变化
-2.只能转发到当前服务器内部资源中
-3.转发是一次请求</code></pre></li>
-</ul>
-<h4 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h4><pre><code>域对象：一个有作用范围的对象，可以在范围内共享数据
-request域：代表一次请求的范围，一般用域请求转发的多个资源中共享数据
-
-方法：
-1.void setAttribute(String name,Object obj):存储数据
-2.Object  getAttribute(String name):通过键获取值
-3.void removeAttribute(String name):通过键来移除键值对</code></pre><h4 id="获取ServletContext对象"><a href="#获取ServletContext对象" class="headerlink" title="获取ServletContext对象"></a>获取ServletContext对象</h4><pre><code>ServletContext getServletContext()</code></pre>]]></content>
-      <tags>
-        <tag>JAVA</tag>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫</title>
-    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
-    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
-]]></content>
-      <tags>
-        <tag>爬虫</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安装Hexo</title>
-    <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
-    <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
-<h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网</a><br>然后我们选择windows版本的下载<br>安装也是一直点下一步，安装官方默认的来就行，<br>安装完了，在开始菜单可以看到<br><img src="/img/2.png" alt="图片"></p>
-<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>创建一个工作目录  比如在c盘建一个blog文件夹<br>用管理员属性打开cmd  cd到工作目录<br>使用npm 安装hexo<br><code>npm install -g hexo-cli</code><br>输入<br><code>hexo -v</code><br>判断hexo是否安装成功<br><img src="/img/3.png" alt="表示成功"><br>输入<br><code>hexo init</code>初始化一个博客<br>这里是hexo常用的命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean #用来清理缓存文件</span><br><span class="line">hexo g      #生成文件</span><br><span class="line">hexo  s     #运行本地服务器</span><br><span class="line">hexo  d   #上传到服务器</span><br></pre></td></tr></table></figure>
-<p>输入<code>hexo s</code>之后可以进入<code>http://localhost:4000/</code>这个地址查看我们的博客</p>
-<h1 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h1><p>这里我们选用的部署到github上面<br>首先新建一个github的仓库<br><img src="/img/4.png" alt="新建仓库"><br><img src="/img/5.png" alt="仓库名"><br>这里的name一定要填自己的用户名.github.io 不然会出问题<br>去工作目录找到_config.yml这个文件  双击打开  我这里使用vscode打开的 用notepad++ 文本打开都可以<br><img src="/img/6.png" alt="要求"><br>红线换成自己的github用户名就行了 其他两行按照这个填写<br>安装 hexo-deployer-git。<br><code>npm install hexo-deployer-git --save</code><br>部署一下就好了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>软件</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>tomcat及Servlet</title>
     <url>/2020/04/08/tomcat%E5%8F%8AServlet/</url>
     <content><![CDATA[<h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><h3 id="安装tomcat"><a href="#安装tomcat" class="headerlink" title="安装tomcat"></a>安装tomcat</h3><p>进入官网，个人推荐下载解压版，方便快捷</p>
@@ -367,6 +429,23 @@ request域：代表一次请求的范围，一般用域请求转发的多个资�
 ]]></content>
       <tags>
         <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装Hexo</title>
+    <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
+<h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网</a><br>然后我们选择windows版本的下载<br>安装也是一直点下一步，安装官方默认的来就行，<br>安装完了，在开始菜单可以看到<br><img src="/img/2.png" alt="图片"></p>
+<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>创建一个工作目录  比如在c盘建一个blog文件夹<br>用管理员属性打开cmd  cd到工作目录<br>使用npm 安装hexo<br><code>npm install -g hexo-cli</code><br>输入<br><code>hexo -v</code><br>判断hexo是否安装成功<br><img src="/img/3.png" alt="表示成功"><br>输入<br><code>hexo init</code>初始化一个博客<br>这里是hexo常用的命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean #用来清理缓存文件</span><br><span class="line">hexo g      #生成文件</span><br><span class="line">hexo  s     #运行本地服务器</span><br><span class="line">hexo  d   #上传到服务器</span><br></pre></td></tr></table></figure>
+<p>输入<code>hexo s</code>之后可以进入<code>http://localhost:4000/</code>这个地址查看我们的博客</p>
+<h1 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h1><p>这里我们选用的部署到github上面<br>首先新建一个github的仓库<br><img src="/img/4.png" alt="新建仓库"><br><img src="/img/5.png" alt="仓库名"><br>这里的name一定要填自己的用户名.github.io 不然会出问题<br>去工作目录找到_config.yml这个文件  双击打开  我这里使用vscode打开的 用notepad++ 文本打开都可以<br><img src="/img/6.png" alt="要求"><br>红线换成自己的github用户名就行了 其他两行按照这个填写<br>安装 hexo-deployer-git。<br><code>npm install hexo-deployer-git --save</code><br>部署一下就好了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>软件</tag>
       </tags>
   </entry>
 </search>
