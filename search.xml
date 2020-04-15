@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>BeanUtils工具类的使用</title>
-    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>1.类必须被public修饰</li>
-<li>2.必须提供空参的构造器</li>
-<li>3.成员变量必须使用private修饰</li>
-<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+    <title>Jetbrains系列产品2020.1最新激活方法</title>
+    <url>/2020/04/15/Jetbrains%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%812020-1%E6%9C%80%E6%96%B0%E6%BF%80%E6%B4%BB%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>本文假定你知道Jetbrains家的产品。不知道可以问问搜索引擎。</p>
+<p>大家熟知Jetbrains的话应该知道：他们家的所有产品升级到2018.2.1及以上版本后，先前可用的注册服务器都失效了，无法激活升级到最新版本体验最新黑科技。</p>
+<p>这次要送的这份礼就是： Jetbrains全系列产品2020.1及以下版本（理论上适用于目前所有新老版本）最新注册服务器（License Server）的破解，可使用它来激活你手头上的Jetbrains IDE，具体支持产品和版本见下文的列表。</p>
+<p>传送门:</p>
+<p><a href="https://pan.baidu.com/s/1W7NDVhEd6J6mpN3-PoXFQA" target="_blank" rel="noopener">百度云下载</a>    提取码：w26y </p>
+<hr>
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法:"></a>使用方法:</h4><ul>
+<li><p>0.先下载压缩包解压后得到jetbrains-agent.jar。</p>
+</li>
+<li><p>1.启动你的IDE，如果上来就需要注册，选择：试用（Evaluate for free）进入IDE。如果你的IDE试用已过期可以使用reset_eval文件夹内的脚本重置一下。</p>
+<ul>
+<li>2.将 jetbrains-agent.jar 拖进IDE窗口（或者当作IDE插件安装），点 “Restart” 按钮重启IDE。（事实上你拖 jetbrains-agent-latest.zip 进去IDE窗口也没问题）</li>
+<li>3.在弹出的JetbrainsAgent Helper对话框中，选择激活方式，点击安装按钮。</li>
+<li>4.重启IDE，搞定。</li>
+<li>x. 支持两种注册方式：License server 和 Activation code:<ul>
+<li>1). 选择License server方式，地址填入：<a href="https://fls.jetbrains-agent.com" target="_blank" rel="noopener">https://fls.jetbrains-agent.com</a> （HTTP也可用，网络不佳用第2种方式）</li>
+<li>2). 选择Activation code方式离线激活，请使用：ACTIVATION_CODE.txt 内的注册码激活<br>  License key is in legacy format == Key invalid，表示agent配置未生效。<br>  如果你需要自定义License name，请访问：<a href="https://zhile.io/custom-license.html" target="_blank" rel="noopener">https://zhile.io/custom-license.html</a></li>
+<li>3). 现在你可以使用jetbrains-agent + activation code/license server激活jetbrains平台的付费插件了！<br>  现有Jetbrains付费插件Activation code: <a href="https://zhile.io/jetbrains-paid-plugins-license.html" target="_blank" rel="noopener">https://zhile.io/jetbrains-paid-plugins-license.html</a><br>  现在有这些付费插件：<a href="https://plugins.jetbrains.com/search?isPaid=true" target="_blank" rel="noopener">https://plugins.jetbrains.com/search?isPaid=true</a></li>
 </ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BeanUtils对象</td>
-<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
-<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
-</tr>
-<tr>
-<td></td>
-<td>setProperty(Object obj,String name,Object value)</td>
-<td>设置属性值</td>
-</tr>
-<tr>
-<td></td>
-<td>getProperty(Object obj,String name)</td>
-<td>获得属性值</td>
-</tr>
-</tbody></table>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
+</li>
+</ul>
+<p>本项目在最新2020.1上测试通过。<br>理论上适用于目前Jetbrains全系列所有新老版本。<br>IDE升级会从旧版本导入以上设置，导入配置后可能提示未注册（因为刚导入的vmoptions未生效），直接重启IDE即可，无需其他操作。</p>
+</li>
+</ul>
+<p> 本项目只做学习研究之用，不得用于商业用途！</p>
+]]></content>
       <tags>
-        <tag>JAVA</tag>
+        <tag>软件</tag>
       </tags>
   </entry>
   <entry>
@@ -175,6 +169,45 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package Jsoup;</span><br><span class="line"></span><br><span class="line">import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXDocument;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXNode;</span><br><span class="line">import org.jsoup.Jsoup;</span><br><span class="line">import org.jsoup.nodes.Document;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class Demo5 &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException, XpathSyntaxErrorException &#123;</span><br><span class="line">        String path &#x3D; Demo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        &#x2F;&#x2F;解析xlm文档，加载文档进内存，获取dom树----&gt;document对象</span><br><span class="line">        Document document &#x3D; Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        JXDocument jxDocument &#x3D; new JXDocument(document);</span><br><span class="line">&#x2F;&#x2F;        List&lt;JXNode&gt; users &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&quot;);</span><br><span class="line">&#x2F;&#x2F;        for (JXNode j:users)&#123;</span><br><span class="line">&#x2F;&#x2F;            System.out.println(j);</span><br><span class="line">&#x2F;&#x2F;        &#125;</span><br><span class="line">        List&lt;JXNode&gt; list &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name[@id]&quot;);</span><br><span class="line">        for (JXNode jxNode:list)&#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>XML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BeanUtils工具类的使用</title>
+    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
+<li>1.类必须被public修饰</li>
+<li>2.必须提供空参的构造器</li>
+<li>3.成员变量必须使用private修饰</li>
+<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+</ul>
+<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BeanUtils对象</td>
+<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
+<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
+</tr>
+<tr>
+<td></td>
+<td>setProperty(Object obj,String name,Object value)</td>
+<td>设置属性值</td>
+</tr>
+<tr>
+<td></td>
+<td>getProperty(Object obj,String name)</td>
+<td>获得属性值</td>
+</tr>
+</tbody></table>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -444,8 +477,8 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
 <p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
 ]]></content>
       <tags>
-        <tag>hexo</tag>
         <tag>软件</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
