@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BeanUtils工具类的使用</title>
+    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
+<li>1.类必须被public修饰</li>
+<li>2.必须提供空参的构造器</li>
+<li>3.成员变量必须使用private修饰</li>
+<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+</ul>
+<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BeanUtils对象</td>
+<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
+<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
+</tr>
+<tr>
+<td></td>
+<td>setProperty(Object obj,String name,Object value)</td>
+<td>设置属性值</td>
+</tr>
+<tr>
+<td></td>
+<td>getProperty(Object obj,String name)</td>
+<td>获得属性值</td>
+</tr>
+</tbody></table>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Filter过滤器</title>
+    <url>/2020/04/23/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="Filter：过滤器"><a href="#Filter：过滤器" class="headerlink" title="Filter：过滤器"></a>Filter：过滤器</h2><h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><ul>
+<li>1.定义一个类，实现Filter</li>
+<li>2.复写方法</li>
+<li>3.配置拦截路径</li>
+</ul>
+<h5 id="web-xml的配置"><a href="#web-xml的配置" class="headerlink" title="web.xml的配置"></a>web.xml的配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;cn.filter.demo1&lt;&#x2F;filter-class&gt;</span><br><span class="line">&lt;&#x2F;filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;&#x2F;&#x2F;拦截路径</span><br><span class="line">&lt;&#x2F;filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤器的生命周期"><a href="#过滤器的生命周期" class="headerlink" title="过滤器的生命周期"></a>过滤器的生命周期</h4><ul>
+<li>1.init:在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次用于加载资源</li>
+<li>2.doFilter:每次拦截资源时被执行，执行很多次。</li>
+<li>3.destroy:在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭，则会执行destroy方法。执行一次，用于释放资源。</li>
+</ul>
+<h4 id="拦截路径的配置"><a href="#拦截路径的配置" class="headerlink" title="拦截路径的配置"></a>拦截路径的配置</h4><ul>
+<li>1.具体的资源路径:/index.jsp    只有访问index.jsp资源时，过滤器才会被执行</li>
+<li>2.目录拦截:  /user/*    访问/user下的所有资源时，过滤器都会被执行</li>
+<li>3.后缀名拦截： *.jsp   访问所有后缀名为jsp的资源时，过滤器都会被执行</li>
+<li>4.拦截所有资源： /*    访问所有资源时，过滤器都会被执行</li>
+</ul>
+<h4 id="拦截方式的配置"><a href="#拦截方式的配置" class="headerlink" title="拦截方式的配置"></a>拦截方式的配置</h4><pre><code>注解配置：
+    1.REQUEST:默认值 浏览器直接请求资源
+    2.FORWARD:转发访问资源
+    3.INCLUDE:包含访问资源
+    4.ERROR:错误跳转
+    5.ASYNC:异步访问资源 </code></pre><h4 id="过滤器先后顺序问题"><a href="#过滤器先后顺序问题" class="headerlink" title="过滤器先后顺序问题"></a>过滤器先后顺序问题</h4><pre><code>1.注解配置:按照类名的字符串比较规则比较，值小的先执行
+2.web.xml配置:&lt;filter-mappping&gt;谁定义在前面，谁先执行</code></pre><h4 id="登录案例"><a href="#登录案例" class="headerlink" title="登录案例"></a>登录案例</h4><h5 id="判断是否登录"><a href="#判断是否登录" class="headerlink" title="判断是否登录"></a>判断是否登录</h5><h6 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h6><pre><code>1.判断是否是登录的相关资源
+* 是 直接放行
+* 不是 判断是否登录
+2.判断当前用户是否登录，判断Session是否有user
+* 有  已经登录  放行
+* 没有  没有登录   跳转到登录页面</code></pre><h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录验证的过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class loginFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;0.强制转换</span><br><span class="line">        HttpServletRequest request &#x3D; (HttpServletRequest) req;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1.获取请求资源的路径</span><br><span class="line">        String uri &#x3D; request.getRequestURI();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;2.判断是否包含登录相关的路径</span><br><span class="line">        if (uri.contains(&quot;&#x2F;login.jsp&quot;) || uri.contains(&quot;&#x2F;loginServlet&quot;) || uri.contains(&quot;&#x2F;checkcodeServlet&quot;) || uri.contains(&quot;&#x2F;js&#x2F;&quot;))&#123;</span><br><span class="line">            &#x2F;&#x2F;放行</span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不包含  需要验证用户是否登录</span><br><span class="line">            &#x2F;&#x2F;从Session获取user</span><br><span class="line">            Object user &#x3D; request.getSession().getAttribute(&quot;user&quot;);</span><br><span class="line">            if (user!&#x3D;null)&#123;</span><br><span class="line">                &#x2F;&#x2F;登录了  放行</span><br><span class="line">                chain.doFilter(req, resp);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                &#x2F;&#x2F;没有登录  跳转登录页面</span><br><span class="line">                request.setAttribute(&quot;login_msg&quot;,&quot;您尚未登录，请登录&quot;);</span><br><span class="line">                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,resp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="敏感词汇过滤"><a href="#敏感词汇过滤" class="headerlink" title="敏感词汇过滤"></a>敏感词汇过滤</h4><h5 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h5><pre><code>1.对request对象进行增强。增强获取参数相关方法
+2.放行。爨地代理对象</code></pre><h5 id="增强对象的功能"><a href="#增强对象的功能" class="headerlink" title="增强对象的功能"></a>增强对象的功能</h5><pre><code>设计模式：一些通用的解决固定问题的方式
+* 1.装饰模式
+* 2.代理模式
+
+实现步骤：
+    - 1.代理对象和真实对象实现相同的接口
+    - 2.代理对象  =  Proxy.newProxyInstance();
+    - 3.使用代理对象调用方法
+    - 4.增强方法 
+增强方式：
+    - 1.增强参数列表
+    - 2.增强返回值类型
+    - 3.增强方法体执行逻辑</code></pre><h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 敏感词汇过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class sensitiveWordsFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;创建代理对象，增强getParameter方法</span><br><span class="line">        ServletRequest proxy_req &#x3D; (ServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameter</span><br><span class="line">                if (method.getName().equals(&quot;getParameter&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;增强返回值</span><br><span class="line">                    &#x2F;&#x2F;获取返回值</span><br><span class="line">                    String value &#x3D; (String) method.invoke(req,args);</span><br><span class="line">                    if (value !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            if (value.contains(str))&#123;</span><br><span class="line">                                value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return value;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameterMap</span><br><span class="line">                if (method.getName().equals(&quot;getParameterMap&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;由request得到的原数组不可改变，他是被锁住的，所以这里创建一个新数组来复制原数组，返回新的数组</span><br><span class="line">                    &#x2F;&#x2F;其实想法很想简单，既然传递进来的映射不可改变，那么自己new一个出来不就行了</span><br><span class="line">                    Map&lt;String,String[]&gt; map1 &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">                    Map&lt;String,String[]&gt; map &#x3D; (Map&lt;String, String[]&gt;) method.invoke(req,args);</span><br><span class="line">                    Set&lt;String&gt; keySet &#x3D; map.keySet();</span><br><span class="line"></span><br><span class="line">                    if (keySet !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            for (String key:keySet)&#123;</span><br><span class="line">                                String[] values &#x3D; map.get(key);</span><br><span class="line">                                for (int i&#x3D;0;i&lt;values.length;i++)&#123;</span><br><span class="line">                                    String value &#x3D; values[i];</span><br><span class="line">                                    if (value.contains(str))&#123;</span><br><span class="line">                                        value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                                        values[i] &#x3D; value;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;map1.put(key,values);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return map1;</span><br><span class="line">                &#125;</span><br><span class="line">                return method.invoke(req,args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;放行</span><br><span class="line">        chain.doFilter(proxy_req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    private List&lt;String&gt; list &#x3D; new ArrayList&lt;String&gt;();&#x2F;&#x2F;敏感词汇</span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;获取文件真实路径</span><br><span class="line">            ServletContext context &#x3D; config.getServletContext();</span><br><span class="line">            String realPath &#x3D; context.getRealPath(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;敏感词汇.txt&quot;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;读取文件</span><br><span class="line">            BufferedReader br &#x3D; new BufferedReader(new FileReader(realPath));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将文件的每一行数据添加到list集合中</span><br><span class="line">            String line &#x3D; null;</span><br><span class="line">            while ((line&#x3D;br.readLine())!&#x3D;null)&#123;</span><br><span class="line">                list.add(line);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            br.close();&#x2F;&#x2F;释放资源</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JQuery笔记</title>
     <url>/2020/04/26/JQuery%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="JQuery笔记"><a href="#JQuery笔记" class="headerlink" title="JQuery笔记"></a>JQuery笔记</h2><pre><code>概念：一个JavaScript框架，简化JS开发
@@ -128,97 +219,6 @@ $(&quot;A[属性名=&apos;值&apos;][ ]...&quot;)   包含多个属性条件的�
       </tags>
   </entry>
   <entry>
-    <title>BeanUtils工具类的使用</title>
-    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>1.类必须被public修饰</li>
-<li>2.必须提供空参的构造器</li>
-<li>3.成员变量必须使用private修饰</li>
-<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
-</ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BeanUtils对象</td>
-<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
-<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
-</tr>
-<tr>
-<td></td>
-<td>setProperty(Object obj,String name,Object value)</td>
-<td>设置属性值</td>
-</tr>
-<tr>
-<td></td>
-<td>getProperty(Object obj,String name)</td>
-<td>获得属性值</td>
-</tr>
-</tbody></table>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JAVA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Filter过滤器</title>
-    <url>/2020/04/23/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="Filter：过滤器"><a href="#Filter：过滤器" class="headerlink" title="Filter：过滤器"></a>Filter：过滤器</h2><h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><ul>
-<li>1.定义一个类，实现Filter</li>
-<li>2.复写方法</li>
-<li>3.配置拦截路径</li>
-</ul>
-<h5 id="web-xml的配置"><a href="#web-xml的配置" class="headerlink" title="web.xml的配置"></a>web.xml的配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;cn.filter.demo1&lt;&#x2F;filter-class&gt;</span><br><span class="line">&lt;&#x2F;filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;&#x2F;&#x2F;拦截路径</span><br><span class="line">&lt;&#x2F;filter-mapping&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="过滤器的生命周期"><a href="#过滤器的生命周期" class="headerlink" title="过滤器的生命周期"></a>过滤器的生命周期</h4><ul>
-<li>1.init:在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次用于加载资源</li>
-<li>2.doFilter:每次拦截资源时被执行，执行很多次。</li>
-<li>3.destroy:在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭，则会执行destroy方法。执行一次，用于释放资源。</li>
-</ul>
-<h4 id="拦截路径的配置"><a href="#拦截路径的配置" class="headerlink" title="拦截路径的配置"></a>拦截路径的配置</h4><ul>
-<li>1.具体的资源路径:/index.jsp    只有访问index.jsp资源时，过滤器才会被执行</li>
-<li>2.目录拦截:  /user/*    访问/user下的所有资源时，过滤器都会被执行</li>
-<li>3.后缀名拦截： *.jsp   访问所有后缀名为jsp的资源时，过滤器都会被执行</li>
-<li>4.拦截所有资源： /*    访问所有资源时，过滤器都会被执行</li>
-</ul>
-<h4 id="拦截方式的配置"><a href="#拦截方式的配置" class="headerlink" title="拦截方式的配置"></a>拦截方式的配置</h4><pre><code>注解配置：
-    1.REQUEST:默认值 浏览器直接请求资源
-    2.FORWARD:转发访问资源
-    3.INCLUDE:包含访问资源
-    4.ERROR:错误跳转
-    5.ASYNC:异步访问资源 </code></pre><h4 id="过滤器先后顺序问题"><a href="#过滤器先后顺序问题" class="headerlink" title="过滤器先后顺序问题"></a>过滤器先后顺序问题</h4><pre><code>1.注解配置:按照类名的字符串比较规则比较，值小的先执行
-2.web.xml配置:&lt;filter-mappping&gt;谁定义在前面，谁先执行</code></pre><h4 id="登录案例"><a href="#登录案例" class="headerlink" title="登录案例"></a>登录案例</h4><h5 id="判断是否登录"><a href="#判断是否登录" class="headerlink" title="判断是否登录"></a>判断是否登录</h5><h6 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h6><pre><code>1.判断是否是登录的相关资源
-* 是 直接放行
-* 不是 判断是否登录
-2.判断当前用户是否登录，判断Session是否有user
-* 有  已经登录  放行
-* 没有  没有登录   跳转到登录页面</code></pre><h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录验证的过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class loginFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;0.强制转换</span><br><span class="line">        HttpServletRequest request &#x3D; (HttpServletRequest) req;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1.获取请求资源的路径</span><br><span class="line">        String uri &#x3D; request.getRequestURI();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;2.判断是否包含登录相关的路径</span><br><span class="line">        if (uri.contains(&quot;&#x2F;login.jsp&quot;) || uri.contains(&quot;&#x2F;loginServlet&quot;) || uri.contains(&quot;&#x2F;checkcodeServlet&quot;) || uri.contains(&quot;&#x2F;js&#x2F;&quot;))&#123;</span><br><span class="line">            &#x2F;&#x2F;放行</span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不包含  需要验证用户是否登录</span><br><span class="line">            &#x2F;&#x2F;从Session获取user</span><br><span class="line">            Object user &#x3D; request.getSession().getAttribute(&quot;user&quot;);</span><br><span class="line">            if (user!&#x3D;null)&#123;</span><br><span class="line">                &#x2F;&#x2F;登录了  放行</span><br><span class="line">                chain.doFilter(req, resp);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                &#x2F;&#x2F;没有登录  跳转登录页面</span><br><span class="line">                request.setAttribute(&quot;login_msg&quot;,&quot;您尚未登录，请登录&quot;);</span><br><span class="line">                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,resp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="敏感词汇过滤"><a href="#敏感词汇过滤" class="headerlink" title="敏感词汇过滤"></a>敏感词汇过滤</h4><h5 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h5><pre><code>1.对request对象进行增强。增强获取参数相关方法
-2.放行。爨地代理对象</code></pre><h5 id="增强对象的功能"><a href="#增强对象的功能" class="headerlink" title="增强对象的功能"></a>增强对象的功能</h5><pre><code>设计模式：一些通用的解决固定问题的方式
-* 1.装饰模式
-* 2.代理模式
-
-实现步骤：
-    - 1.代理对象和真实对象实现相同的接口
-    - 2.代理对象  =  Proxy.newProxyInstance();
-    - 3.使用代理对象调用方法
-    - 4.增强方法 
-增强方式：
-    - 1.增强参数列表
-    - 2.增强返回值类型
-    - 3.增强方法体执行逻辑</code></pre><h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 敏感词汇过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class sensitiveWordsFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;创建代理对象，增强getParameter方法</span><br><span class="line">        ServletRequest proxy_req &#x3D; (ServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameter</span><br><span class="line">                if (method.getName().equals(&quot;getParameter&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;增强返回值</span><br><span class="line">                    &#x2F;&#x2F;获取返回值</span><br><span class="line">                    String value &#x3D; (String) method.invoke(req,args);</span><br><span class="line">                    if (value !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            if (value.contains(str))&#123;</span><br><span class="line">                                value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return value;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameterMap</span><br><span class="line">                if (method.getName().equals(&quot;getParameterMap&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;由request得到的原数组不可改变，他是被锁住的，所以这里创建一个新数组来复制原数组，返回新的数组</span><br><span class="line">                    &#x2F;&#x2F;其实想法很想简单，既然传递进来的映射不可改变，那么自己new一个出来不就行了</span><br><span class="line">                    Map&lt;String,String[]&gt; map1 &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">                    Map&lt;String,String[]&gt; map &#x3D; (Map&lt;String, String[]&gt;) method.invoke(req,args);</span><br><span class="line">                    Set&lt;String&gt; keySet &#x3D; map.keySet();</span><br><span class="line"></span><br><span class="line">                    if (keySet !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            for (String key:keySet)&#123;</span><br><span class="line">                                String[] values &#x3D; map.get(key);</span><br><span class="line">                                for (int i&#x3D;0;i&lt;values.length;i++)&#123;</span><br><span class="line">                                    String value &#x3D; values[i];</span><br><span class="line">                                    if (value.contains(str))&#123;</span><br><span class="line">                                        value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                                        values[i] &#x3D; value;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;map1.put(key,values);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return map1;</span><br><span class="line">                &#125;</span><br><span class="line">                return method.invoke(req,args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;放行</span><br><span class="line">        chain.doFilter(proxy_req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    private List&lt;String&gt; list &#x3D; new ArrayList&lt;String&gt;();&#x2F;&#x2F;敏感词汇</span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;获取文件真实路径</span><br><span class="line">            ServletContext context &#x3D; config.getServletContext();</span><br><span class="line">            String realPath &#x3D; context.getRealPath(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;敏感词汇.txt&quot;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;读取文件</span><br><span class="line">            BufferedReader br &#x3D; new BufferedReader(new FileReader(realPath));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将文件的每一行数据添加到list集合中</span><br><span class="line">            String line &#x3D; null;</span><br><span class="line">            while ((line&#x3D;br.readLine())!&#x3D;null)&#123;</span><br><span class="line">                list.add(line);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            br.close();&#x2F;&#x2F;释放资源</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Jetbrains系列产品2020.1最新激活方法</title>
     <url>/2020/04/15/Jetbrains%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%812020-1%E6%9C%80%E6%96%B0%E6%BF%80%E6%B4%BB%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>本文假定你知道Jetbrains家的产品。不知道可以问问搜索引擎。</p>
@@ -249,16 +249,6 @@ $(&quot;A[属性名=&apos;值&apos;][ ]...&quot;)   包含多个属性条件的�
 ]]></content>
       <tags>
         <tag>软件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫</title>
-    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
-    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
-]]></content>
-      <tags>
-        <tag>爬虫</tag>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -397,6 +387,42 @@ $(&quot;A[属性名=&apos;值&apos;][ ]...&quot;)   包含多个属性条件的�
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package Jsoup;</span><br><span class="line"></span><br><span class="line">import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXDocument;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXNode;</span><br><span class="line">import org.jsoup.Jsoup;</span><br><span class="line">import org.jsoup.nodes.Document;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class Demo5 &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException, XpathSyntaxErrorException &#123;</span><br><span class="line">        String path &#x3D; Demo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        &#x2F;&#x2F;解析xlm文档，加载文档进内存，获取dom树----&gt;document对象</span><br><span class="line">        Document document &#x3D; Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        JXDocument jxDocument &#x3D; new JXDocument(document);</span><br><span class="line">&#x2F;&#x2F;        List&lt;JXNode&gt; users &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&quot;);</span><br><span class="line">&#x2F;&#x2F;        for (JXNode j:users)&#123;</span><br><span class="line">&#x2F;&#x2F;            System.out.println(j);</span><br><span class="line">&#x2F;&#x2F;        &#125;</span><br><span class="line">        List&lt;JXNode&gt; list &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name[@id]&quot;);</span><br><span class="line">        for (JXNode jxNode:list)&#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>XML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AJAX和JSON</title>
+    <url>/2020/04/28/ajax%E5%92%8CJSON/</url>
+    <content><![CDATA[<h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><h4 id="概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml"><a href="#概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml" class="headerlink" title="概念：ASynchronous JavaScript And XML   异步的javascript和xml"></a>概念：ASynchronous JavaScript And XML   异步的javascript和xml</h4><h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式:"></a>实现方式:</h4><ul>
+<li><p>1.原生的JS实现方式</p>
+</li>
+<li><p>2.JQuery实现方式</p>
+<p>  1.<font color="#DC143C">$.ajax()}</font></p>
+<pre><code>$.ajax({键值对});</code></pre><p>  2.<font color="#DC143C">$.get()</font></p>
+<p>  3.<font color="#DC143C">$.post()</font></p>
+</li>
+</ul>
+<h3 id="JOSN"><a href="#JOSN" class="headerlink" title="JOSN"></a>JOSN</h3><h4 id="概念：JavaScript-Object-Notation-JavaScript对象表示法"><a href="#概念：JavaScript-Object-Notation-JavaScript对象表示法" class="headerlink" title="概念：JavaScript Object Notation      JavaScript对象表示法"></a>概念：JavaScript Object Notation      JavaScript对象表示法</h4><h4 id="基本规则："><a href="#基本规则：" class="headerlink" title="基本规则："></a>基本规则：</h4><h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据:"></a>获取数据:</h4><p><font color="#DC143C">json对象.键名</font></p>
+<p><font color="#DC143C">json对象[“键名”]</font></p>
+<p><font color="#DC143C">数组对象[索引]</font></p>
+<h4 id="遍历JSON"><a href="#遍历JSON" class="headerlink" title="遍历JSON"></a>遍历JSON</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="JSON数据和Java对象的相互转换"><a href="#JSON数据和Java对象的相互转换" class="headerlink" title="JSON数据和Java对象的相互转换"></a>JSON数据和Java对象的相互转换</h4><pre><code>1.JSON转为Java
+    1.导入jar包
+    2.创建jackson核心对象   ObjectMapper
+    3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String json &#x3D; &quot;&#123;\&quot;name\&quot;:\&quot;zhangsan\&quot;,\&quot;age\&quot;:20,\&quot;gender\&quot;:\&quot;男\&quot;&#125;&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建ObjectMappper</span><br><span class="line">ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span><br><span class="line">&#x2F;&#x2F;转换为Java的对象</span><br><span class="line">Person person &#x3D; mapper.readValue(json,Person.class);</span><br><span class="line">System.out.println(person);</span><br></pre></td></tr></table></figure>
+<h5 id="2-Java转为JSON"><a href="#2-Java转为JSON" class="headerlink" title="2.Java转为JSON"></a>2.Java转为JSON</h5><pre><code>1.导入jar包
+2.创建jackson核心对象   ObjectMapper
+3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    Person p &#x3D; new Person();</span><br><span class="line">    p.setName(&quot;张三&quot;);</span><br><span class="line">    p.setAge(23);</span><br><span class="line">    p.setGendeer(&quot;男&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;创建Jackson的核心对象  ObjectMapper</span><br><span class="line">    ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">    &#x2F;&#x2F;调用方法 转换</span><br><span class="line">    String JSON &#x3D; mapper.writeValueAsString(p);</span><br><span class="line">    System.out.println(JSON);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;wirterValue  将数据写入到D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt中</span><br><span class="line">    &#x2F;&#x2F;mapper.writeValue(new File(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt&quot;),p);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;writeValue将数据关联到Writer中</span><br><span class="line">    mapper.writeValue(new FileWriter(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;b.txt&quot;),p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h5><pre><code>1.@JsonIgnore:排除属性
+2.@JsonFormat:属性值格式化</code></pre><h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>校验用户是否存在</p>
+<p>html代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;注册&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;JS&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;&#x2F;页面加载完成后 给文本框绑定离开焦点事件</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $(&quot;#username&quot;).blur(function () &#123;</span><br><span class="line">                &#x2F;&#x2F;获取username获取文本输入框的值</span><br><span class="line">                var username &#x3D; $(this).val();</span><br><span class="line">                &#x2F;&#x2F;发送ajax请求</span><br><span class="line">                $.get(&quot;findUserServlet&quot;,&#123;username:username&#125;,function (data) &#123;</span><br><span class="line">                    var span &#x3D; $(&quot;#s_username&quot;)</span><br><span class="line">                    if (data.userExsit)&#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;red&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名不存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;green&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,&quot;json&quot;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">    &lt;input id&#x3D;&quot;username&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; placeholder&#x3D;&quot;请输入用户名&quot;&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;s_username&quot;&gt;&lt;&#x2F;span&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; placeholder&#x3D;&quot;请输入密码&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;注册&quot;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>Servlet代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;&#x2F;findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        String username &#x3D; request.getParameter(&quot;username&quot;);</span><br><span class="line">        &#x2F;&#x2F;设置响应数据为JSON</span><br><span class="line">        response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">        Map&lt;String,Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        if (&quot;Tom&quot;.equals(username))&#123;</span><br><span class="line">            &#x2F;&#x2F;存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,true);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名已经存在&quot;);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,false);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名可用&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;将map转为json，并且传递给客户端</span><br><span class="line">        ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">        mapper.writeValue(response.getWriter(),map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -567,25 +593,18 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
 </ul>
 ]]></content>
       <tags>
-        <tag>JavaWeb</tag>
         <tag>JAVA</tag>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
-    <title>安装Hexo</title>
-    <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
-    <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
-<h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网</a><br>然后我们选择windows版本的下载<br>安装也是一直点下一步，安装官方默认的来就行，<br>安装完了，在开始菜单可以看到<br><img src="/img/2.png" alt="图片"></p>
-<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>创建一个工作目录  比如在c盘建一个blog文件夹<br>用管理员属性打开cmd  cd到工作目录<br>使用npm 安装hexo<br><code>npm install -g hexo-cli</code><br>输入<br><code>hexo -v</code><br>判断hexo是否安装成功<br><img src="/img/3.png" alt="表示成功"><br>输入<br><code>hexo init</code>初始化一个博客<br>这里是hexo常用的命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean #用来清理缓存文件</span><br><span class="line">hexo g      #生成文件</span><br><span class="line">hexo  s     #运行本地服务器</span><br><span class="line">hexo  d   #上传到服务器</span><br></pre></td></tr></table></figure>
-<p>输入<code>hexo s</code>之后可以进入<code>http://localhost:4000/</code>这个地址查看我们的博客</p>
-<h1 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h1><p>这里我们选用的部署到github上面<br>首先新建一个github的仓库<br><img src="/img/4.png" alt="新建仓库"><br><img src="/img/5.png" alt="仓库名"><br>这里的name一定要填自己的用户名.github.io 不然会出问题<br>去工作目录找到_config.yml这个文件  双击打开  我这里使用vscode打开的 用notepad++ 文本打开都可以<br><img src="/img/6.png" alt="要求"><br>红线换成自己的github用户名就行了 其他两行按照这个填写<br>安装 hexo-deployer-git。<br><code>npm install hexo-deployer-git --save</code><br>部署一下就好了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
+    <title>python爬虫</title>
+    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
+    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
 ]]></content>
       <tags>
-        <tag>软件</tag>
-        <tag>hexo</tag>
+        <tag>爬虫</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -658,6 +677,23 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
 ]]></content>
       <tags>
         <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装Hexo</title>
+    <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><h2 id="基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。"><a href="#基于b站视频-windows-10系统，所有以下在windows10-64位下进行演示。" class="headerlink" title="基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。"></a>基于b站视频 windows 10系统，所有以下在windows10 64位下进行演示。</h2><h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">官网</a><br><img src="/img/1.png" alt="图片">建议下载第一个<br>安装步骤非常简单，一直next，下一步就可以了，默认安装就行。</p>
+<h1 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h1><p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener">官网</a><br>然后我们选择windows版本的下载<br>安装也是一直点下一步，安装官方默认的来就行，<br>安装完了，在开始菜单可以看到<br><img src="/img/2.png" alt="图片"></p>
+<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>创建一个工作目录  比如在c盘建一个blog文件夹<br>用管理员属性打开cmd  cd到工作目录<br>使用npm 安装hexo<br><code>npm install -g hexo-cli</code><br>输入<br><code>hexo -v</code><br>判断hexo是否安装成功<br><img src="/img/3.png" alt="表示成功"><br>输入<br><code>hexo init</code>初始化一个博客<br>这里是hexo常用的命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean #用来清理缓存文件</span><br><span class="line">hexo g      #生成文件</span><br><span class="line">hexo  s     #运行本地服务器</span><br><span class="line">hexo  d   #上传到服务器</span><br></pre></td></tr></table></figure>
+<p>输入<code>hexo s</code>之后可以进入<code>http://localhost:4000/</code>这个地址查看我们的博客</p>
+<h1 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h1><p>这里我们选用的部署到github上面<br>首先新建一个github的仓库<br><img src="/img/4.png" alt="新建仓库"><br><img src="/img/5.png" alt="仓库名"><br>这里的name一定要填自己的用户名.github.io 不然会出问题<br>去工作目录找到_config.yml这个文件  双击打开  我这里使用vscode打开的 用notepad++ 文本打开都可以<br><img src="/img/6.png" alt="要求"><br>红线换成自己的github用户名就行了 其他两行按照这个填写<br>安装 hexo-deployer-git。<br><code>npm install hexo-deployer-git --save</code><br>部署一下就好了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
+]]></content>
+      <tags>
+        <tag>软件</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
