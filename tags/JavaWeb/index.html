@@ -1,720 +1,1278 @@
 <!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+      <meta name="robots" content="noindex,follow">
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-
-
+  <!-- 页面元数据 -->
+  
+    <title>Tag: JavaWeb - 张利源</title>
+  
   
 
+  <!-- feed -->
+  
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+  <!-- import meta -->
+  
 
-
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
   
   
     
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
     
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" href="/css/style.css">
 
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="但愿日子平静，抬头遇见的都是柔情">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张利源">
-<meta property="og:url" content="http://yoursite.com/tags/JavaWeb/index.html">
-<meta property="og:site_name" content="张利源">
-<meta property="og:description" content="但愿日子平静，抬头遇见的都是柔情">
-<meta property="article:author" content="张利源">
-<meta name="twitter:card" content="summary">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
     }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/tags/JavaWeb/"/>
-
-
-
-
-
-  <title>标签: JavaWeb | 张利源</title>
-  
-
-
-
-
-
-
-
-
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  </script>
 
   
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.6.6</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+
+<div class='l_main'>
   
     
-  
-
-  <div class="container sidebar-position-left ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+      
+  <section class="post-list ">
     
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">张利源</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
       
-        <p class="site-subtitle"></p>
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
       
-  </div>
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
+      redis数据库
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
+              
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：May 1, 2020</p>
+  </a>
 </div>
 
-
-
-    </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
             
-
-  
-  
-  
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>JavaWeb<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">
-              
-                <span itemprop="name">redis数据库</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-01T12:10:36+08:00"
-              content="2020-05-01" >
-          05-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/28/ajax%E5%92%8CJSON/" itemprop="url">
-              
-                <span itemprop="name">AJAX和JSON</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-28T19:12:12+08:00"
-              content="2020-04-28" >
-          04-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/26/JQuery%E7%AC%94%E8%AE%B0/" itemprop="url">
-              
-                <span itemprop="name">JQuery笔记</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-26T16:04:39+08:00"
-              content="2020-04-26" >
-          04-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/23/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/" itemprop="url">
-              
-                <span itemprop="name">Filter过滤器</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-23T14:49:44+08:00"
-              content="2020-04-23" >
-          04-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/10/http/" itemprop="url">
-              
-                <span itemprop="name">http的request对象和response对象</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-10T12:53:03+08:00"
-              content="2020-04-10" >
-          04-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-    </div>
-
-  </div>
-  
-  
-  
-
-  
-
-
-          </div>
           
+            
+              
 
-
+            
           
+            
+              
 
+            
+          
         </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
+          <hr>
+        
+      </div>
     
-    <div class="sidebar-inner">
+  </section>
 
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
       
-
+        <h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><h4 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h4><p><a href="https://pan.baidu.com/s/1FkHPTih-qGrGzFee0GW7QA" target="_blank" rel="noopener">百度云下载</a>       提取码：o1ui</p>
+<p><a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="noopener">Github下载</a></p>
+<h4 id="概念：一款高性能的NOSQL系列的非关系型数据库"><a href="#概念：一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念：一款高性能的NOSQL系列的非关系型数据库"></a>概念：一款高性能的NOSQL系列的非关系型数据库</h4><h4 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h4><pre><code>redis存储的是：key，value格式的数据，其中key都是字符串，value有5中不同的数据结构
+value的数据结构
+    1.字符串类型 string
+    2.哈希类型  hash     ：相当于map集合
+    3.列表集合  list        ：linkedlist格式
+    4.集合类型  set        
+    5.有序集合类型  sortedset</code></pre><h5 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a>字符串类型string</h5><p>1.存储 <font color="#A52A2A">set key value</font></p>
+<p>2.获取 <font color="#A52A2A">get key</font></p>
+<p>3.删除 <font color="#A52A2A">del key</font>    </p>
+<h5 id="哈希类型-hash"><a href="#哈希类型-hash" class="headerlink" title="哈希类型 hash"></a>哈希类型 hash</h5><p>1.存储  <font color="#A52A2A">hset key field value</font></p>
+<p>2.获取 <font color="#A52A2A">hget key field                hgetall key  获取所有的键和值</font> </p>
+<p>3.删除 <font color="#A52A2A">hdel key field</font> </p>
+<h5 id="列表类型-list"><a href="#列表类型-list" class="headerlink" title="列表类型 list"></a>列表类型 list</h5><p>1.<font color="#A52A2A">lpush key value 将元素加入列表左边</font></p>
+<p>2.<font color="#A52A2A">rpush key value 将元素加入列表右边</font></p>
+<p>3.<font color="#A52A2A">lrange key start end  获取范围</font></p>
+<p>4.<font color="#A52A2A">lpop key   删除列表最左边的元素，并将元素返回</font></p>
+<p>5.<font color="#A52A2A">rpop key  删除列表最右边的元素</font></p>
+<h5 id="集合类型-set"><a href="#集合类型-set" class="headerlink" title="集合类型 set"></a>集合类型 set</h5><p>1.<font color="#A52A2A">存储：sadd key value</font> </p>
+<p>2.<font color="#A52A2A">获取：smembers key ：获取集合中所有元素</font></p>
+<p>3.<font color="#A52A2A">删除：srem key value ：删除集合的某个元素</font></p>
+<h5 id="有序集合类型-sortedset"><a href="#有序集合类型-sortedset" class="headerlink" title="有序集合类型 sortedset"></a>有序集合类型 sortedset</h5><p>1.存储：<font color="#A52A2A">zadd key score  value</font></p>
+<p>2.获取：<font color="#A52A2A">zrange key start end</font></p>
+<p>3.删除：<font color="#A52A2A">zrem key value</font></p>
+<h5 id="通用命令："><a href="#通用命令：" class="headerlink" title="通用命令："></a>通用命令：</h5><p>1.<font color="#A52A2A">keys * ：查询所有的键</font></p>
+<p>2.<font color="#A52A2A">type key：获取键对应的value的类型</font></p>
+<p>3.<font color="#A52A2A">del key：删除指定的key value</font></p>
+<h5 id="持久化存储"><a href="#持久化存储" class="headerlink" title="持久化存储"></a>持久化存储</h5><ul>
+<li><p>1.redis是一个内存数据库，东redis服务器重启后，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘中</p>
+</li>
+<li><p>2.redis持久化机制</p>
+<pre><code>1.RDB：默认方式。 在一定的间隔时间中，检测key的变化情况，然后去持久化数据            
+2.AOF：日志记录的方式，可以检测每一条命令的操作。可以每一次命令操作后，持久化数据
+        编辑redis.windows.conf文件    appendonly  no  给成yes</code></pre></li>
+</ul>
+<h3 id="Java客户端Jedis"><a href="#Java客户端Jedis" class="headerlink" title="Java客户端Jedis"></a>Java客户端Jedis</h3><pre><code>Jedis是一款java操作redis数据库的工具</code></pre><h3 id="Jedis连接池：JedisPool"><a href="#Jedis连接池：JedisPool" class="headerlink" title="Jedis连接池：JedisPool"></a>Jedis连接池：JedisPool</h3><pre><code>1.创建JedisPool连接池对象
+2.调用getResource()方法获取Jedis的连接</code></pre><h4 id="工具类代码"><a href="#工具类代码" class="headerlink" title="工具类代码"></a>工具类代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package cn.jedis.utlis;</span><br><span class="line"></span><br><span class="line">import redis.clients.jedis.Jedis;</span><br><span class="line">import redis.clients.jedis.JedisPool;</span><br><span class="line">import redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">JedisPool工具类</span><br><span class="line">加载配置文件，配置连接池参数</span><br><span class="line">提供获取连接的方法</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class JedisPoolUtils &#123;</span><br><span class="line">    private static JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream is &#x3D; JedisPoolUtils.class.getClassLoader().getResourceAsStream(&quot;jedis.properties&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建一个Properties对象</span><br><span class="line">        Properties pro &#x3D; new Properties();</span><br><span class="line">        &#x2F;&#x2F;关联文件</span><br><span class="line">        try &#123;</span><br><span class="line">            pro.load(is);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;获取数据，设置到JedisPoolConfig中</span><br><span class="line">        JedisPoolConfig config &#x3D; new JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(pro.getProperty(&quot;maxTotal&quot;)));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(pro.getProperty(&quot;maxIdle&quot;)));</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;初始化JedisPool</span><br><span class="line">        jedisPool &#x3D; new JedisPool(config,pro.getProperty(&quot;host&quot;),Integer.parseInt(pro.getProperty(&quot;port&quot;)));</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;获取连接</span><br><span class="line">    public static Jedis getJedis()&#123;</span><br><span class="line">        return jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/touxiang.jpg"
-                alt="张利源" />
-            
-              <p class="site-author-name" itemprop="name">张利源</p>
-              <p class="site-description motion-element" itemprop="description">但愿日子平静，抬头遇见的都是柔情</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives">
-              
-                  <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/zhangliyuangit" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:495726603@qq.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/5538984059/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i>weibo</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-        <div id="music163player"><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=574919767&auto=0&height=66"></iframe></div>
-      </section>
-
-      
-
-      
-
     </div>
-  </aside>
+    
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/04/28/ajax%E5%92%8CJSON/">
+      AJAX和JSON
+    </a>
+  </h2>
 
 
         
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张利源</span>
-
-  
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
 </div>
 
-<!-- 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+            
+          
+            
+              
 
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 28, 2020</p>
+  </a>
+</div>
 
+            
+          
+            
+              
 
-  <span class="post-meta-divider">|</span>
+            
+          
+            
+              
 
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
- -->
-
-
-
+            
+          
+        </div>
         
-
-
-
-
-
-
-
+          <hr>
         
       </div>
-    </footer>
-
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><h4 id="概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml"><a href="#概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml" class="headerlink" title="概念：ASynchronous JavaScript And XML   异步的javascript和xml"></a>概念：ASynchronous JavaScript And XML   异步的javascript和xml</h4><h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式:"></a>实现方式:</h4><ul>
+<li><p>1.原生的JS实现方式</p>
+</li>
+<li><p>2.JQuery实现方式</p>
+<p>  1.<font color="#DC143C">$.ajax()}</font></p>
+<pre><code>$.ajax({键值对});</code></pre><p>  2.<font color="#DC143C">$.get()</font></p>
+<p>  3.<font color="#DC143C">$.post()</font></p>
+</li>
+</ul>
+<h3 id="JOSN"><a href="#JOSN" class="headerlink" title="JOSN"></a>JOSN</h3><h4 id="概念：JavaScript-Object-Notation-JavaScript对象表示法"><a href="#概念：JavaScript-Object-Notation-JavaScript对象表示法" class="headerlink" title="概念：JavaScript Object Notation      JavaScript对象表示法"></a>概念：JavaScript Object Notation      JavaScript对象表示法</h4><h4 id="基本规则："><a href="#基本规则：" class="headerlink" title="基本规则："></a>基本规则：</h4><h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据:"></a>获取数据:</h4><p><font color="#DC143C">json对象.键名</font></p>
+<p><font color="#DC143C">json对象[“键名”]</font></p>
+<p><font color="#DC143C">数组对象[索引]</font></p>
+<h4 id="遍历JSON"><a href="#遍历JSON" class="headerlink" title="遍历JSON"></a>遍历JSON</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (var key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="JSON数据和Java对象的相互转换"><a href="#JSON数据和Java对象的相互转换" class="headerlink" title="JSON数据和Java对象的相互转换"></a>JSON数据和Java对象的相互转换</h4><pre><code>1.JSON转为Java
+    1.导入jar包
+    2.创建jackson核心对象   ObjectMapper
+    3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String json &#x3D; &quot;&#123;\&quot;name\&quot;:\&quot;zhangsan\&quot;,\&quot;age\&quot;:20,\&quot;gender\&quot;:\&quot;男\&quot;&#125;&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建ObjectMappper</span><br><span class="line">ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span><br><span class="line">&#x2F;&#x2F;转换为Java的对象</span><br><span class="line">Person person &#x3D; mapper.readValue(json,Person.class);</span><br><span class="line">System.out.println(person);</span><br></pre></td></tr></table></figure>
+<h5 id="2-Java转为JSON"><a href="#2-Java转为JSON" class="headerlink" title="2.Java转为JSON"></a>2.Java转为JSON</h5><pre><code>1.导入jar包
+2.创建jackson核心对象   ObjectMapper
+3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    Person p &#x3D; new Person();</span><br><span class="line">    p.setName(&quot;张三&quot;);</span><br><span class="line">    p.setAge(23);</span><br><span class="line">    p.setGendeer(&quot;男&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;创建Jackson的核心对象  ObjectMapper</span><br><span class="line">    ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">    &#x2F;&#x2F;调用方法 转换</span><br><span class="line">    String JSON &#x3D; mapper.writeValueAsString(p);</span><br><span class="line">    System.out.println(JSON);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;wirterValue  将数据写入到D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt中</span><br><span class="line">    &#x2F;&#x2F;mapper.writeValue(new File(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt&quot;),p);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;writeValue将数据关联到Writer中</span><br><span class="line">    mapper.writeValue(new FileWriter(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;b.txt&quot;),p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h5><pre><code>1.@JsonIgnore:排除属性
+2.@JsonFormat:属性值格式化</code></pre><h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>校验用户是否存在</p>
+<p>html代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;注册&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;JS&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;&#x2F;页面加载完成后 给文本框绑定离开焦点事件</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $(&quot;#username&quot;).blur(function () &#123;</span><br><span class="line">                &#x2F;&#x2F;获取username获取文本输入框的值</span><br><span class="line">                var username &#x3D; $(this).val();</span><br><span class="line">                &#x2F;&#x2F;发送ajax请求</span><br><span class="line">                $.get(&quot;findUserServlet&quot;,&#123;username:username&#125;,function (data) &#123;</span><br><span class="line">                    var span &#x3D; $(&quot;#s_username&quot;)</span><br><span class="line">                    if (data.userExsit)&#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;red&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名不存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;green&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,&quot;json&quot;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">    &lt;input id&#x3D;&quot;username&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; placeholder&#x3D;&quot;请输入用户名&quot;&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;s_username&quot;&gt;&lt;&#x2F;span&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; placeholder&#x3D;&quot;请输入密码&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;注册&quot;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>Servlet代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">package cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;&#x2F;findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        String username &#x3D; request.getParameter(&quot;username&quot;);</span><br><span class="line">        &#x2F;&#x2F;设置响应数据为JSON</span><br><span class="line">        response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">        Map&lt;String,Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        if (&quot;Tom&quot;.equals(username))&#123;</span><br><span class="line">            &#x2F;&#x2F;存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,true);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名已经存在&quot;);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,false);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名可用&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;将map转为json，并且传递给客户端</span><br><span class="line">        ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">        mapper.writeValue(response.getWriter(),map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/04/26/JQuery%E7%AC%94%E8%AE%B0/">
+      JQuery笔记
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 26, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
         
       </div>
     
+  </section>
 
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JQuery笔记"><a href="#JQuery笔记" class="headerlink" title="JQuery笔记"></a>JQuery笔记</h2><pre><code>概念：一个JavaScript框架，简化JS开发
+使用步骤：
+    1.下载JQuery
+    2.导入JQuery的js文件  导入min.js
+    3.使用
+JQuery对象和JS对象的区别
+    方法不互通
+    转换：
+        jq -&gt; js  : jq对象[索引] 或者 jp对象.get(索引)
+        js -&gt; jq  : $(js对象)</code></pre><h3 id="选择器：筛选具有相似特征的元素-标签"><a href="#选择器：筛选具有相似特征的元素-标签" class="headerlink" title="选择器：筛选具有相似特征的元素(标签)"></a>选择器：筛选具有相似特征的元素(标签)</h3><h4 id="1-基本选择器"><a href="#1-基本选择器" class="headerlink" title="1.基本选择器"></a>1.基本选择器</h4><ul>
+<li><p>1.标签选择器(元素选择器)</p>
+<pre><code>`$(&quot;html标签名&quot;)`  获得所有匹配标签名称的元素</code></pre></li>
+<li><p>2.id选择器</p>
+<pre><code>`$(&quot;#id的属性值&quot;)`  获得与指定id值匹配的元素</code></pre></li>
+<li><p>3.类选择器</p>
+<pre><code>`$(&quot;.class的属性&quot;)`   获得与指定的class属性值相匹配的元素</code></pre><h4 id="2-层级选择器"><a href="#2-层级选择器" class="headerlink" title="2.层级选择器"></a>2.层级选择器</h4></li>
+<li><p>1.后代选择器：</p>
+<pre><code>`$(&quot;A B&quot;)`  选择A元素所有内部的B元素</code></pre></li>
+<li><p>2.子选择器</p>
+<pre><code>`$(&quot;A &gt; B&quot;)` 选择A元素内部的所有B子元素</code></pre></li>
+<li><p>3.属性选择器</p>
+<pre><code>1.属性名称选择器
+$(&quot;A[属性名]&quot;)    包含指定属性的选择器
+2.属性选择器
+$(&quot;A[属性名=&apos;值&apos;]&quot;)   包含指定属性等于指定值的选择器
+3.符合属性选择器
+$(&quot;A[属性名=&apos;值&apos;][ ]...&quot;)   包含多个属性条件的选择器</code></pre></li>
+<li><p>4.过滤选择器</p>
+<pre><code>1.首元素选择器
+    :first  获得选择的元素中第一个元素
+2.尾元素选择器
+    :last  获得选择的元素中最后一个元素
+3.非元素选择器
+    not(.selector)   不包括指定内容的元素
+4.偶数选择器
+    even   偶数，从0开始计数
+5.奇数选择器
+    odd  奇数 ，从0开始
+6.等于索引选择器
+    eq(index)  指定索引元素
+7.大于索引选择器
+    gt(index)  大于指定索引选择器
+8.小于索引选择器
+    lt(index)  小于指定索引选择器
+9.标题选择器
+    header  获得标题(h1-h6)元素，固定写法</code></pre></li>
+<li><p>5.表单过滤选择器</p>
+<pre><code>1.可用元素选择器
+    :enabled  获得可用元素
+2.不可以用元素选择器
+    :disabled  获得不可用元素
+3.选中选择器
+    :checked  获得单选，复选框中的元素
+4.选中选择器
+    :selected   获得下拉框中选中的元素</code></pre></li>
+</ul>
+<h3 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h3><h4 id="1-内容操作"><a href="#1-内容操作" class="headerlink" title="1.内容操作"></a>1.内容操作</h4><ul>
+<li><p>1.<code>html()</code> ： 获取/设置元素的标签体内容， <a><font>内容</font></a> –&gt;  <font>内容</font></p>
+</li>
+<li><p>2.<code>text()</code>  ： 获取/设置元素标签体纯文本内容  <a><font>内容</font></a> –&gt;  内容</p>
+</li>
+<li><p>3.<code>val()</code>  :   获取/设置元素的属性值</p>
+<h4 id="2-属性操作"><a href="#2-属性操作" class="headerlink" title="2.属性操作"></a>2.属性操作</h4></li>
+<li><p>1.通用属性操作</p>
+<pre><code>1.attr()                  获取/设置元素的属性
+2.removeAttr()     删除属性
+3.prop()                获取/设置元素的属性
+4.removeProp()    删除属性
+*attr和prop的区别
+    如果操作的是元素的固有属性，则建议使用prop
+    如果操作的是元素的自定义属性，则建议是attr</code></pre></li>
+<li><p>2.对class属性操作 </p>
+<pre><code>    1.addClass()      添加class属性值
+    2.removeClass() 删除class属性值
+    3.toggleClass()   切换class属性值
+3.CRUD操作
+    1.append(): 父元素将子元素追加到末尾
+            - 对象1.append(对象2)：将对象2添加到对象1元素内部，并且在末尾
+    2.prepend():父元素将子元素追加到开头
+            -对象1.prepend(对象2)：将对象2添加到对象1元素内部，并且在开头
+    3.appendto():
+    4.prependto():
+
+    5.after():添加元素到元素后边
+    6.before()：将元素添加到元素前边
+    7.insertAfter():
+    8.insertBrfore():
+    9.remove()：删除元素
+    10.empty()：清空元素的所有后代元素</code></pre><h3 id="JQuery高级"><a href="#JQuery高级" class="headerlink" title="JQuery高级"></a>JQuery高级</h3><h4 id="1-动画"><a href="#1-动画" class="headerlink" title="1.动画"></a>1.动画</h4></li>
+<li><p>1.三种方式显示和隐藏元素</p>
+<pre><code>1.show([speed,[easing],[fn]])
+2.hide([speed,[easing],[fn]])
+3.toggle([speed],[easing],[fn])</code></pre></li>
+<li><p>2.滑动显示和隐藏方式</p>
+<pre><code>1.slideDown([speed],[easing],[fn])
+2.slideUp([speed,[easing],[fn]])
+3.slieToggle([speed],[easing],[fn])</code></pre></li>
+<li><p>3.淡入淡出的显示和隐藏方式</p>
+<pre><code>1.fadeIn([speed],[easing],[fn])
+2.fadeOut([speed],[easing],[fn])
+3.fadeToggle([speed,[easing],[fn]])</code></pre><h4 id="2-遍历"><a href="#2-遍历" class="headerlink" title="2.遍历"></a>2.遍历</h4></li>
+<li><p>1.<code>jq对象.each(callback)</code></p>
+</li>
+<li><p>2.<code>$.each(object,[callback])</code></p>
+</li>
+<li><p>3.<code>for..of:</code></p>
+<h4 id="3-事件绑定"><a href="#3-事件绑定" class="headerlink" title="3.事件绑定"></a>3.事件绑定</h4><pre><code> 1.jquery标准的绑定方式
+     jq对象.事件方法(回调函数)
+ 2.on绑定事件/off绑定事件
+     jq对象.on(&quot;事件名称&quot;,回调函数)
+     jq对象.off(&quot;事件名称&quot;)
+3.事件切换
+     jq对象.toggle(fn1,fn2...)</code></pre></li>
+</ul>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><pre><code>1.当页面加载完后。3秒后，自动显示广告
+2.当广告显示5秒后自动消失</code></pre><h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;广告的自动显示与隐藏&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;..&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;*需求：</span><br><span class="line">         1.当页面加载完后。3秒后，自动显示广告</span><br><span class="line">         2.当广告显示5秒后自动消失</span><br><span class="line">         分析：</span><br><span class="line">         1.使用定时器来完成。setTimeout(执行一次)</span><br><span class="line">         2.JQuery的动画效果就是控制display属性</span><br><span class="line">        *&#x2F;</span><br><span class="line">        &#x2F;&#x2F;入口函数，在页面加载完成后定义定时器，调用这两个方法</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            &#x2F;&#x2F;定时器 调用adShow()方法</span><br><span class="line">            setTimeout(adShow,3000);</span><br><span class="line"></span><br><span class="line">            setTimeout(adHide,8000);</span><br><span class="line">        &#125;)</span><br><span class="line">        &#x2F;&#x2F;显示广告方法</span><br><span class="line">        function adShow() &#123;</span><br><span class="line">            &#x2F;&#x2F;获取广告div 调用show方法</span><br><span class="line">            $(&quot;#ad&quot;).show(&quot;slow&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;隐藏广告方法</span><br><span class="line">        function adHide() &#123;</span><br><span class="line">            $(&quot;#ad&quot;).hide(&quot;slow&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;ad&quot; style&#x3D;&quot;display: none;&quot;&gt;</span><br><span class="line">        &lt;img src&#x3D;&quot;..&#x2F;img&#x2F;广告.jpg&quot;&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id&#x3D;&quot;content&quot;&gt;</span><br><span class="line">        正文部分</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="需求：-1"><a href="#需求：-1" class="headerlink" title="需求："></a>需求：</h4><p>抽奖案例</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;抽奖&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;..&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;*</span><br><span class="line">        分析：</span><br><span class="line">        1.给开始按钮绑定单击事件</span><br><span class="line">            1.1定义循环定时器</span><br><span class="line">            1.2切换小相框的src属性</span><br><span class="line">                定义一个数组，存放图片资源的路径</span><br><span class="line">                生成随机数 数组索引</span><br><span class="line">        2.给结束按钮绑定单击事件</span><br><span class="line">            2.1停止定时器</span><br><span class="line">            2.2给大相框设置src属性</span><br><span class="line">         *&#x2F;</span><br><span class="line">        var imgs &#x3D; [&quot;..&#x2F;img&#x2F;1.jpg&quot;,&quot;..&#x2F;img&#x2F;2.jpg&quot;,&quot;..&#x2F;img&#x2F;3.jpg&quot;,&quot;..&#x2F;img&#x2F;4.jpg&quot;,&quot;..&#x2F;img&#x2F;5.jpg&quot;,&quot;..&#x2F;img&#x2F;6.jpg&quot;,&quot;..&#x2F;img&#x2F;0.jpg&quot;]</span><br><span class="line">        var startId;&#x2F;&#x2F;开始定时器的一个Id</span><br><span class="line">        var index;</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            &#x2F;&#x2F;开始按钮</span><br><span class="line">            $(&quot;#startID&quot;).click(function () &#123;</span><br><span class="line">                startId &#x3D; setInterval(function () &#123;</span><br><span class="line">                    &#x2F;&#x2F;生成随机角标</span><br><span class="line">                    index &#x3D; Math.floor(Math.random() * 7)</span><br><span class="line">                    &#x2F;&#x2F;设置小相框的src属性</span><br><span class="line">                    $(&quot;#img1ID&quot;).prop(&quot;src&quot;,imgs[index]);</span><br><span class="line">                &#125;,20)</span><br><span class="line">            &#125;)</span><br><span class="line">            &#x2F;&#x2F;结束按钮</span><br><span class="line">            $(&quot;#stopID&quot;).click(function () &#123;</span><br><span class="line">                $(&quot;#stopID&quot;).click(function () &#123;</span><br><span class="line">                    &#x2F;&#x2F;停止定时器</span><br><span class="line">                    clearInterval(startId)</span><br><span class="line">                    $(&quot;#img2ID&quot;).prop(&quot;src&quot;,imgs[index]);</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;!--小相框--&gt;</span><br><span class="line">&lt;div style&#x3D;&quot;border-style: dotted;width: 160px;height: 100px;&quot;&gt;</span><br><span class="line">    &lt;img id&#x3D;&quot;img1ID&quot; style&#x3D;&quot;width: 160px;height: 100px&quot; src&#x3D;&quot;..&#x2F;img&#x2F;1.jpg&quot;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--大相框--&gt;</span><br><span class="line">&lt;div style&#x3D;&quot;border-style: dotted;height: 500px;position: absolute;left: 500px;top: 10px&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&quot;..&#x2F;img&#x2F;1.jpg&quot; id&#x3D;&quot;img2ID&quot; width&#x3D;&quot;800px&quot;height&#x3D;&quot;600px&quot;&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--开始按钮--&gt;</span><br><span class="line">&lt;input id&#x3D;&quot;startID&quot; type&#x3D;&quot;button&quot; value&#x3D;&quot;点击开始&quot; style&#x3D;&quot;width: 150px;height: 50px;font-size: 22px&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--停止按钮--&gt;</span><br><span class="line">&lt;input id&#x3D;&quot;stopID&quot; type&#x3D;&quot;button&quot; value&#x3D;&quot;点击停止&quot; style&#x3D;&quot;width: 150px;height: 50px;font-size: 22px&quot;&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/04/23/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/">
+      Filter过滤器
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 23, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Filter：过滤器"><a href="#Filter：过滤器" class="headerlink" title="Filter：过滤器"></a>Filter：过滤器</h2><h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><ul>
+<li>1.定义一个类，实现Filter</li>
+<li>2.复写方法</li>
+<li>3.配置拦截路径</li>
+</ul>
+<h5 id="web-xml的配置"><a href="#web-xml的配置" class="headerlink" title="web.xml的配置"></a>web.xml的配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;cn.filter.demo1&lt;&#x2F;filter-class&gt;</span><br><span class="line">&lt;&#x2F;filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;&#x2F;&#x2F;拦截路径</span><br><span class="line">&lt;&#x2F;filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤器的生命周期"><a href="#过滤器的生命周期" class="headerlink" title="过滤器的生命周期"></a>过滤器的生命周期</h4><ul>
+<li>1.init:在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次用于加载资源</li>
+<li>2.doFilter:每次拦截资源时被执行，执行很多次。</li>
+<li>3.destroy:在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭，则会执行destroy方法。执行一次，用于释放资源。</li>
+</ul>
+<h4 id="拦截路径的配置"><a href="#拦截路径的配置" class="headerlink" title="拦截路径的配置"></a>拦截路径的配置</h4><ul>
+<li>1.具体的资源路径:/index.jsp    只有访问index.jsp资源时，过滤器才会被执行</li>
+<li>2.目录拦截:  /user/*    访问/user下的所有资源时，过滤器都会被执行</li>
+<li>3.后缀名拦截： *.jsp   访问所有后缀名为jsp的资源时，过滤器都会被执行</li>
+<li>4.拦截所有资源： /*    访问所有资源时，过滤器都会被执行</li>
+</ul>
+<h4 id="拦截方式的配置"><a href="#拦截方式的配置" class="headerlink" title="拦截方式的配置"></a>拦截方式的配置</h4><pre><code>注解配置：
+    1.REQUEST:默认值 浏览器直接请求资源
+    2.FORWARD:转发访问资源
+    3.INCLUDE:包含访问资源
+    4.ERROR:错误跳转
+    5.ASYNC:异步访问资源 </code></pre><h4 id="过滤器先后顺序问题"><a href="#过滤器先后顺序问题" class="headerlink" title="过滤器先后顺序问题"></a>过滤器先后顺序问题</h4><pre><code>1.注解配置:按照类名的字符串比较规则比较，值小的先执行
+2.web.xml配置:&lt;filter-mappping&gt;谁定义在前面，谁先执行</code></pre><h4 id="登录案例"><a href="#登录案例" class="headerlink" title="登录案例"></a>登录案例</h4><h5 id="判断是否登录"><a href="#判断是否登录" class="headerlink" title="判断是否登录"></a>判断是否登录</h5><h6 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h6><pre><code>1.判断是否是登录的相关资源
+* 是 直接放行
+* 不是 判断是否登录
+2.判断当前用户是否登录，判断Session是否有user
+* 有  已经登录  放行
+* 没有  没有登录   跳转到登录页面</code></pre><h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录验证的过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class loginFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;0.强制转换</span><br><span class="line">        HttpServletRequest request &#x3D; (HttpServletRequest) req;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1.获取请求资源的路径</span><br><span class="line">        String uri &#x3D; request.getRequestURI();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;2.判断是否包含登录相关的路径</span><br><span class="line">        if (uri.contains(&quot;&#x2F;login.jsp&quot;) || uri.contains(&quot;&#x2F;loginServlet&quot;) || uri.contains(&quot;&#x2F;checkcodeServlet&quot;) || uri.contains(&quot;&#x2F;js&#x2F;&quot;))&#123;</span><br><span class="line">            &#x2F;&#x2F;放行</span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不包含  需要验证用户是否登录</span><br><span class="line">            &#x2F;&#x2F;从Session获取user</span><br><span class="line">            Object user &#x3D; request.getSession().getAttribute(&quot;user&quot;);</span><br><span class="line">            if (user!&#x3D;null)&#123;</span><br><span class="line">                &#x2F;&#x2F;登录了  放行</span><br><span class="line">                chain.doFilter(req, resp);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                &#x2F;&#x2F;没有登录  跳转登录页面</span><br><span class="line">                request.setAttribute(&quot;login_msg&quot;,&quot;您尚未登录，请登录&quot;);</span><br><span class="line">                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,resp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="敏感词汇过滤"><a href="#敏感词汇过滤" class="headerlink" title="敏感词汇过滤"></a>敏感词汇过滤</h4><h5 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h5><pre><code>1.对request对象进行增强。增强获取参数相关方法
+2.放行。爨地代理对象</code></pre><h5 id="增强对象的功能"><a href="#增强对象的功能" class="headerlink" title="增强对象的功能"></a>增强对象的功能</h5><pre><code>设计模式：一些通用的解决固定问题的方式
+* 1.装饰模式
+* 2.代理模式
+
+实现步骤：
+    - 1.代理对象和真实对象实现相同的接口
+    - 2.代理对象  =  Proxy.newProxyInstance();
+    - 3.使用代理对象调用方法
+    - 4.增强方法 
+增强方式：
+    - 1.增强参数列表
+    - 2.增强返回值类型
+    - 3.增强方法体执行逻辑</code></pre><h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 敏感词汇过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class sensitiveWordsFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;创建代理对象，增强getParameter方法</span><br><span class="line">        ServletRequest proxy_req &#x3D; (ServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameter</span><br><span class="line">                if (method.getName().equals(&quot;getParameter&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;增强返回值</span><br><span class="line">                    &#x2F;&#x2F;获取返回值</span><br><span class="line">                    String value &#x3D; (String) method.invoke(req,args);</span><br><span class="line">                    if (value !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            if (value.contains(str))&#123;</span><br><span class="line">                                value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return value;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameterMap</span><br><span class="line">                if (method.getName().equals(&quot;getParameterMap&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;由request得到的原数组不可改变，他是被锁住的，所以这里创建一个新数组来复制原数组，返回新的数组</span><br><span class="line">                    &#x2F;&#x2F;其实想法很想简单，既然传递进来的映射不可改变，那么自己new一个出来不就行了</span><br><span class="line">                    Map&lt;String,String[]&gt; map1 &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">                    Map&lt;String,String[]&gt; map &#x3D; (Map&lt;String, String[]&gt;) method.invoke(req,args);</span><br><span class="line">                    Set&lt;String&gt; keySet &#x3D; map.keySet();</span><br><span class="line"></span><br><span class="line">                    if (keySet !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            for (String key:keySet)&#123;</span><br><span class="line">                                String[] values &#x3D; map.get(key);</span><br><span class="line">                                for (int i&#x3D;0;i&lt;values.length;i++)&#123;</span><br><span class="line">                                    String value &#x3D; values[i];</span><br><span class="line">                                    if (value.contains(str))&#123;</span><br><span class="line">                                        value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                                        values[i] &#x3D; value;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;map1.put(key,values);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return map1;</span><br><span class="line">                &#125;</span><br><span class="line">                return method.invoke(req,args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;放行</span><br><span class="line">        chain.doFilter(proxy_req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    private List&lt;String&gt; list &#x3D; new ArrayList&lt;String&gt;();&#x2F;&#x2F;敏感词汇</span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;获取文件真实路径</span><br><span class="line">            ServletContext context &#x3D; config.getServletContext();</span><br><span class="line">            String realPath &#x3D; context.getRealPath(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;敏感词汇.txt&quot;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;读取文件</span><br><span class="line">            BufferedReader br &#x3D; new BufferedReader(new FileReader(realPath));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将文件的每一行数据添加到list集合中</span><br><span class="line">            String line &#x3D; null;</span><br><span class="line">            while ((line&#x3D;br.readLine())!&#x3D;null)&#123;</span><br><span class="line">                list.add(line);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            br.close();&#x2F;&#x2F;释放资源</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/04/10/http/">
+      http的request对象和response对象
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://xaoxuu.com" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png">
+    <p>Mr. X</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 10, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="http的request对象和response对象"><a href="#http的request对象和response对象" class="headerlink" title="http的request对象和response对象"></a>http的request对象和response对象</h2><h3 id="概念：Hyper-Text-Transfer-Protocol-超文本传输协议"><a href="#概念：Hyper-Text-Transfer-Protocol-超文本传输协议" class="headerlink" title="概念：Hyper Text Transfer Protocol 超文本传输协议"></a>概念：Hyper Text Transfer Protocol 超文本传输协议</h3><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul>
+<li><p>1.基于TCP/IP的高级协议</p>
+</li>
+<li><p>2.默认端口号8080</p>
+</li>
+<li><p>3.基于请求/相应模型：一次请求对应一次相应</p>
+</li>
+<li><p>4.无状态的：每次请求直接相互独立</p>
+<h3 id="请求消息的数据格式"><a href="#请求消息的数据格式" class="headerlink" title="请求消息的数据格式"></a>请求消息的数据格式</h3></li>
+<li><p>1.请求行</p>
+<pre><code>请求方式  请求url  请求协议/版本
+请求方式：
+    GET
+        1.请求参数在请求行中，在url后面
+        2.请求url的长度有限
+        3.不太安全
+    POST
+        1.请求参数在请求体中
+        2.请求url长度没有限制
+        3.相对安全</code></pre></li>
+<li><p>2.请求头</p>
+</li>
+<li><p>3.请求空行</p>
+</li>
+<li><p>4.请求体 </p>
+</li>
+</ul>
+<h3 id="请求消息数据格式"><a href="#请求消息数据格式" class="headerlink" title="请求消息数据格式"></a>请求消息数据格式</h3><h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><ul>
+<li><p>request和response对象的原理</p>
+<pre><code>1.request和response对象由服务器创建，我蛮来使用他们
+2.request对象是来获取请求消息，response是来设置相应消息</code></pre></li>
+</ul>
+<h5 id="request获取请求消息"><a href="#request获取请求消息" class="headerlink" title="request获取请求消息"></a>request获取请求消息</h5><ul>
+<li><p>获取请求行的数据</p>
+<pre><code>GET /test/demo1?name=zhangsan HTTP/1.1
+1.获取请求方式 GET
+String getMethod()
+2.获取虚拟目录 /test
+String getContextPath()
+3.获取Servlet路径 /demo1
+String getServletPath()
+4.获取get方式请求传参 name=zhangsan 
+String getQueryString()
+5.获取URI /test/demo1
+String getRequestURI()
+6.获取协议及版本 HTTP/1.1
+String getProtocol()
+7.获取客户机的ip地址
+String getRemoteAddr()</code></pre></li>
+<li><p>获取请求头的方法</p>
+<pre><code>String getHeader(String name)通过获取请求头的名称，获取请求头的值 </code></pre></li>
+<li><p>获取请求体数据</p>
+<pre><code>只有post请求方式，才有请求体，在请求体中封装了post请求的请求参数</code></pre><p>  步骤：</p>
+<ul>
+<li><p>1.获取流对象</p>
+<pre><code>BufferedReader getReader():获取字符输入流
+ServletInputStream getInputStream():获取字节输入流</code></pre></li>
+<li><p>2.再从流对象中拿数据</p>
+</li>
+</ul>
+</li>
+<li><p>获取请求参数的通用方法</p>
+<pre><code>1.String getParameter(String name):根据参数名称获取参数值
+2.String[] getParameterValues(String name):根据参数名称获取参数值的数组
+3.Enumeration&lt;String&gt;  getParameterNames():获取所有请参数的名称
+4.Map&lt;String,String[]&gt; getParameterMap():获取参数的所有Map集合</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置流的编码 防止乱码</span><br><span class="line">        req.setCharacterEncoding(&quot;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="请求转发：一种在服务器内部资源的跳转方式"><a href="#请求转发：一种在服务器内部资源的跳转方式" class="headerlink" title="请求转发：一种在服务器内部资源的跳转方式"></a>请求转发：一种在服务器内部资源的跳转方式</h4><ul>
+<li><p>步骤：</p>
+<pre><code>1.通过request对象获取请求转发器对象：RequestDispatcher  getRequestDispatcher(String path)
+2.使用RequestDispatcher对象进行转发，forword(ServletRequest req,ServletRespnonse resp)</code></pre></li>
+<li><p>特点：</p>
+<pre><code>1.浏览器地址栏不发生变化
+2.只能转发到当前服务器内部资源中
+3.转发是一次请求</code></pre></li>
+</ul>
+<h4 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h4><pre><code>域对象：一个有作用范围的对象，可以在范围内共享数据
+request域：代表一次请求的范围，一般用域请求转发的多个资源中共享数据
+
+方法：
+1.void setAttribute(String name,Object obj):存储数据
+2.Object  getAttribute(String name):通过键获取值
+3.void removeAttribute(String name):通过键来移除键值对</code></pre><h4 id="获取ServletContext对象"><a href="#获取ServletContext对象" class="headerlink" title="获取ServletContext对象"></a>获取ServletContext对象</h4><pre><code>ServletContext getServletContext()</code></pre><h3 id="响应消息"><a href="#响应消息" class="headerlink" title="响应消息"></a>响应消息</h3><h4 id="相应消息的数据格式"><a href="#相应消息的数据格式" class="headerlink" title="相应消息的数据格式"></a>相应消息的数据格式</h4><ul>
+<li><p>1.相应行</p>
+<pre><code>组成：协议/版本 相应状态码  状态码描述
+状态码分类：
+        1.1XX:服务器接收客户端消息，但没有接收完全，等待一段时间后，发送1XX
+        2.2XX:成功。200
+        3.3XX:重定向  302(重定向) 304(访问缓存)
+        4.4XX:客户端错误 404(请求路径没有对应的资源) 405(请求方式没有对应的doXXX方法)
+        5.5XX:服务器端错误 500(服务器内部出现异常)</code></pre></li>
+<li><p>2.相应头</p>
+<pre><code>1.格式:头名称:值
+2.常见的相应头:
+        1.Content-Type:服务器告诉客户端本次相应体数据格式以及编码格式
+        2.Content-disposition:服务器告诉客户端以什么格式打开相应数据</code></pre></li>
+<li><p>3.相应空行</p>
+</li>
+<li><p>4.相应体</p>
+</li>
+</ul>
+<h4 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h4><h5 id="功能-设置相应消息"><a href="#功能-设置相应消息" class="headerlink" title="功能:设置相应消息"></a>功能:设置相应消息</h5><ul>
+<li><p>设置相应行</p>
+<pre><code>设置状态码:setStatus(int sc)</code></pre></li>
+<li><p>设置相应头</p>
+<pre><code>setHeader(String name,string value)</code></pre></li>
+<li><p>设置相应体</p>
+<pre><code>使用步骤:
+1.获取输出流
+字符输出流:PrintWriter getWriter()
+字节输出流:ServletOutputStream  getOutputStream()
+2.使用输出流，将数据输出到客户端浏览器</code></pre></li>
+</ul>
+<h5 id="完成重定向"><a href="#完成重定向" class="headerlink" title="完成重定向"></a>完成重定向</h5><p>代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;简单的重定向的方法</span><br><span class="line">        resp.sendRedirect(&quot;&#x2F;ReaponseDemo_war_exploded&#x2F;responseDemo2&quot;);</span><br></pre></td></tr></table></figure>
+<p>特点:</p>
+<ul>
+<li>1.地址栏发生变化</li>
+<li>2.重定向可以访问其他站点</li>
+<li>3.重定向是两次请求，不能使用request对象来共享数据</li>
+</ul>
+<h4 id="路径的写法"><a href="#路径的写法" class="headerlink" title="路径的写法"></a>路径的写法</h4><ul>
+<li><p>相对路径:不可以确定唯一资源</p>
+<pre><code>规则:.开头  找到当前资源和目标资源之间的相对位置关系</code></pre></li>
+<li><p>据对路径:可以确定唯一资源</p>
+</li>
+</ul>
+<h4 id="服务器输出字符数据到浏览器"><a href="#服务器输出字符数据到浏览器" class="headerlink" title="服务器输出字符数据到浏览器"></a>服务器输出字符数据到浏览器</h4><pre><code>步骤:
+1.获取字符输出流
+2.输出数据</code></pre><p>防止乱码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resp.setHeader(&quot;content-type&quot;,&quot;text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;简单的形式设计编码</span><br><span class="line">        resp.setContentType(&quot;text&#x2F;html;charset&#x3D;utf-8&quot;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="ServletContext对象"><a href="#ServletContext对象" class="headerlink" title="ServletContext对象"></a>ServletContext对象</h4><p>1.概念:代表整个web应用，可以和程序的容器(服务器)通信</p>
+<p>2.获取:</p>
+<ul>
+<li>1.通过request对象获取<br><code>request.getServletContext()</code></li>
+<li>2.通过HttpServlet获取<br><code>this.getServletContext</code></li>
+</ul>
+<p>3.功能:</p>
+<ul>
+<li><p>1.获取MIME类型</p>
+<pre><code>MIME类型:在互联网通信过程中定义的一种文件类型
+格式:大类型/小类型   text/html
+获取:
+`String getMineType(String file)`
+代码示例
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ServletContext context &#x3D; this.getServletContext();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;定义文件名称</span><br><span class="line">String filename &#x3D; &quot;a.jpg&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;获取MIME类型</span><br><span class="line">String MimeType &#x3D; context.getMimeType(filename);</span><br><span class="line">System.out.println(MimeType);</span><br></pre></td></tr></table></figure></code></pre></li>
+<li><p>2.域对象:共享数据</p>
+<pre><code>1.setAttribute(String name,String value)
+2.getAttribute(String name)
+3.removeAttribute(String name)
+ServletContext对象范围:所有用户请求的数据</code></pre></li>
+<li><p>3.获取文件的真实服务器路径</p>
+<pre><code>1.方法:String getRealPath()</code></pre></li>
+</ul>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>文件下载需求:</p>
+<ul>
+<li>1.页面显示超链接</li>
+<li>2.点击链接后弹出下载提示框</li>
+<li>3.完成图片文件下载<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">       &#x2F;&#x2F;获取请求参数  文件名称</span><br><span class="line">       String filename &#x3D; req.getParameter(&quot;filename&quot;);</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F;使用字节输入流，加载文件进内存</span><br><span class="line">       ServletContext context &#x3D; this.getServletContext();</span><br><span class="line">       String realPath &#x3D; context.getRealPath(&quot;&#x2F;img&#x2F;&quot;+filename);&#x2F;&#x2F;获取文件真实路径</span><br><span class="line">       FileInputStream fis &#x3D; new FileInputStream(realPath);</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F;设置Response的相应头</span><br><span class="line">       String mineType &#x3D; context.getMimeType(filename);&#x2F;&#x2F;获取文件的MIME类型</span><br><span class="line">       resp.setHeader(&quot;content-type&quot;,mineType);</span><br><span class="line">       resp.setHeader(&quot;content-disposition&quot;,&quot;attachment;filename&#x3D;&quot;+filename);</span><br><span class="line"></span><br><span class="line">       &#x2F;&#x2F;将输入流的数据写出到输出流</span><br><span class="line">       ServletOutputStream sos &#x3D; resp.getOutputStream();</span><br><span class="line">       byte[] bytes &#x3D; new byte[1024];</span><br><span class="line">       int len &#x3D; 0;</span><br><span class="line">       while ((len&#x3D;fis.read(bytes))!&#x3D;-1)&#123;</span><br><span class="line">           sos.write(bytes,0,len);</span><br><span class="line">       &#125;</span><br><span class="line">       fis.close();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+    
+  </section>
+  
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
     
 
+  
+
+
+    
+  
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box' href='/about/'>
+          <img no-lazy src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/avatar/avatar.png'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">张利源</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:me@xaoxuu.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/xaoxuu"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
   </div>
+</section>
 
   
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+  
+    
+    
 
   
 
-
+  
+    
+    
   
 
+  <section class="widget tagcloud shadow desktop mobile">
+    
+  <header>
+    
+      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
 
 
-  
-  
-
-
-
-  
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
+    <div class='content'>
+      <a href="/tags/JAVA/" style="font-size: 20.67px; color: #6c6c6c">JAVA</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/JavaWeb/" style="font-size: 24px; color: #555">JavaWeb</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 17.33px; color: #828282">软件</a>
+    </div>
+  </section>
 
 
   
@@ -722,407 +1280,345 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
+</aside>
 
 
   
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
 
-
-
-
-	
-
-
-
-
-
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
   
 
 
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:me@xaoxuu.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/xaoxuu"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://xaoxuu.com" target="_blank" rel="noopener">Copyright © 2017-2020 Mr. X</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
 
 
-
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
   
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
 
 
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
 
 
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
 
 
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
   <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'OomfKiiEGquHiBHfrCfvwVvB-gzGzoHsz',
-        appKey: 'nq1IpQt0e8cLs7nwQ8RLlamh',
-        placeholder: '输入内容',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
     });
   </script>
 
 
-
   
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
 
   <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
 
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
 
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
 
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
 
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
 
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
             }
           }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
         }
       });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
     }
+    initCopyCode();
+  }(window, document);
+</script>
 
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
 
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
       }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
     });
-  </script>
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
 
 
 
 
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
-   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-   <script type="text/javascript" src="/js/src/fireworks.js"></script>
-
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
