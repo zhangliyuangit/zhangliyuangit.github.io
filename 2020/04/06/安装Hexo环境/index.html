@@ -424,7 +424,15 @@
 <p>输入<code>hexo s</code>之后可以进入<code>http://localhost:4000/</code>这个地址查看我们的博客</p>
 <h1 id="部署服务器"><a href="#部署服务器" class="headerlink" title="部署服务器"></a>部署服务器</h1><p>这里我们选用的部署到github上面<br>首先新建一个github的仓库<br><img src="/img/4.png" alt="新建仓库"><br><img src="/img/5.png" alt="仓库名"><br>这里的name一定要填自己的用户名.github.io 不然会出问题<br>去工作目录找到_config.yml这个文件  双击打开  我这里使用vscode打开的 用notepad++ 文本打开都可以<br><img src="/img/6.png" alt="要求"><br>红线换成自己的github用户名就行了 其他两行按照这个填写<br>安装 hexo-deployer-git。<br><code>npm install hexo-deployer-git --save</code><br>部署一下就好了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了</p>
+<p>这样你就可以通过自己的git仓库的域名访问你自己的博客了<br>同样还可以部署在码云和coding上这个可以加快访问的速度</p>
+<h1 id="开启github-pages服务，绑定域名"><a href="#开启github-pages服务，绑定域名" class="headerlink" title="开启github pages服务，绑定域名"></a>开启github pages服务，绑定域名</h1><p>如果你觉域名比较难记，可以自己去申请一个域名</p>
+<p>这里我们以腾讯云为例，前提是我已经申请好了<br><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/%E8%85%BE%E8%AE%AF%E4%BA%911.png" alt=""><br>点击解析域名<br><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/%E8%85%BE%E8%AE%AF%E4%BA%912.png" alt=""><br>最好添加一个主机记录为@记录类型为<code>CNAME</code>类型，记录值写自己github仓库的地址名。</p>
+<p>接下来配置github的 pages服务<br><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/%E8%85%BE%E8%AE%AF%E4%BA%913.png" alt=""></p>
+<ul>
+<li>找到博客对应的仓库，点击setting</li>
+<li>下滑找到Github Pages，填入自己的域名，点击save保存</li>
+</ul>
+<p>这样就可以通过自己的域名访问呢了</p>
 
           
             <div class='article_footer'>
@@ -501,7 +509,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-18T15:11:08+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-18T20:17:57+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：May 18, 2020</p>
@@ -733,14 +741,14 @@
       
     
       
-        <div><p>博客內容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW" target="_blank" rel="noopener">姓名標示-非商業性-相同方式分享 4.0 國際 (CC BY-NC-SA 4.0) 協議</a></p>
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         本站使用
         <a href="https://volantis.js.org/" target="_blank" class="codename">张利源</a>
-        作為主題，總訪問量為
+        作为主题，总访问量为
           <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
           次
         
