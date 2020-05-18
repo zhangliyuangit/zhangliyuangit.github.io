@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -16,12 +18,8 @@
 
   <!-- 页面元数据 -->
   
-    <title>redis数据库 - 张利源</title>
+    <title>標籤：数据库 - 张利源</title>
   
-    <meta name="keywords" content="JavaWeb,数据库">
-  
-  
-    <meta name="description" content="Redis">
   
 
   <!-- feed -->
@@ -346,12 +344,25 @@
     <div class='body-wrapper'>
       
 
+
 <div class='l_main'>
   
-
-  
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+    
       
+  <section class="post-list ">
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
 
 
   <section class='meta'>
@@ -361,11 +372,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h1 class="title">
+  <h2 class="title">
     <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
       redis数据库
     </a>
-  </h1>
+  </h2>
 
 
         
@@ -404,6 +415,11 @@
 
             
           
+            
+              
+
+            
+          
         </div>
         
           <hr>
@@ -413,290 +429,135 @@
   </section>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><a id="more"></a>
-<h4 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h4><p><a href="https://pan.baidu.com/s/1FkHPTih-qGrGzFee0GW7QA" target="_blank" rel="noopener">百度云下载</a>       提取码：o1ui</p>
-<p><a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="noopener">Github下载</a></p>
-<h4 id="概念：一款高性能的NOSQL系列的非关系型数据库"><a href="#概念：一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念：一款高性能的NOSQL系列的非关系型数据库"></a>概念：一款高性能的NOSQL系列的非关系型数据库</h4><h4 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h4><pre><code>redis存储的是：key，value格式的数据，其中key都是字符串，value有5中不同的数据结构
-value的数据结构
-    1.字符串类型 string
-    2.哈希类型  hash     ：相当于map集合
-    3.列表集合  list        ：linkedlist格式
-    4.集合类型  set        
-    5.有序集合类型  sortedset</code></pre><h5 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a>字符串类型string</h5><p>1.存储 <font color="#A52A2A">set key value</font></p>
-<p>2.获取 <font color="#A52A2A">get key</font></p>
-<p>3.删除 <font color="#A52A2A">del key</font>    </p>
-<h5 id="哈希类型-hash"><a href="#哈希类型-hash" class="headerlink" title="哈希类型 hash"></a>哈希类型 hash</h5><p>1.存储  <font color="#A52A2A">hset key field value</font></p>
-<p>2.获取 <font color="#A52A2A">hget key field                hgetall key  获取所有的键和值</font> </p>
-<p>3.删除 <font color="#A52A2A">hdel key field</font> </p>
-<h5 id="列表类型-list"><a href="#列表类型-list" class="headerlink" title="列表类型 list"></a>列表类型 list</h5><p>1.<font color="#A52A2A">lpush key value 将元素加入列表左边</font></p>
-<p>2.<font color="#A52A2A">rpush key value 将元素加入列表右边</font></p>
-<p>3.<font color="#A52A2A">lrange key start end  获取范围</font></p>
-<p>4.<font color="#A52A2A">lpop key   删除列表最左边的元素，并将元素返回</font></p>
-<p>5.<font color="#A52A2A">rpop key  删除列表最右边的元素</font></p>
-<h5 id="集合类型-set"><a href="#集合类型-set" class="headerlink" title="集合类型 set"></a>集合类型 set</h5><p>1.<font color="#A52A2A">存储：sadd key value</font> </p>
-<p>2.<font color="#A52A2A">获取：smembers key ：获取集合中所有元素</font></p>
-<p>3.<font color="#A52A2A">删除：srem key value ：删除集合的某个元素</font></p>
-<h5 id="有序集合类型-sortedset"><a href="#有序集合类型-sortedset" class="headerlink" title="有序集合类型 sortedset"></a>有序集合类型 sortedset</h5><p>1.存储：<font color="#A52A2A">zadd key score  value</font></p>
-<p>2.获取：<font color="#A52A2A">zrange key start end</font></p>
-<p>3.删除：<font color="#A52A2A">zrem key value</font></p>
-<h5 id="通用命令："><a href="#通用命令：" class="headerlink" title="通用命令："></a>通用命令：</h5><p>1.<font color="#A52A2A">keys * ：查询所有的键</font></p>
-<p>2.<font color="#A52A2A">type key：获取键对应的value的类型</font></p>
-<p>3.<font color="#A52A2A">del key：删除指定的key value</font></p>
-<h5 id="持久化存储"><a href="#持久化存储" class="headerlink" title="持久化存储"></a>持久化存储</h5><ul>
-<li><p>1.redis是一个内存数据库，东redis服务器重启后，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘中</p>
-</li>
-<li><p>2.redis持久化机制</p>
-<pre><code>1.RDB：默认方式。 在一定的间隔时间中，检测key的变化情况，然后去持久化数据            
-2.AOF：日志记录的方式，可以检测每一条命令的操作。可以每一次命令操作后，持久化数据
-        编辑redis.windows.conf文件    appendonly  no  给成yes</code></pre></li>
-</ul>
-<h3 id="Java客户端Jedis"><a href="#Java客户端Jedis" class="headerlink" title="Java客户端Jedis"></a>Java客户端Jedis</h3><pre><code>Jedis是一款java操作redis数据库的工具</code></pre><h3 id="Jedis连接池：JedisPool"><a href="#Jedis连接池：JedisPool" class="headerlink" title="Jedis连接池：JedisPool"></a>Jedis连接池：JedisPool</h3><pre><code>1.创建JedisPool连接池对象
-2.调用getResource()方法获取Jedis的连接</code></pre><h4 id="工具类代码"><a href="#工具类代码" class="headerlink" title="工具类代码"></a>工具类代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package cn.jedis.utlis;</span><br><span class="line"></span><br><span class="line">import redis.clients.jedis.Jedis;</span><br><span class="line">import redis.clients.jedis.JedisPool;</span><br><span class="line">import redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">JedisPool工具类</span><br><span class="line">加载配置文件，配置连接池参数</span><br><span class="line">提供获取连接的方法</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class JedisPoolUtils &#123;</span><br><span class="line">    private static JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream is &#x3D; JedisPoolUtils.class.getClassLoader().getResourceAsStream(&quot;jedis.properties&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建一个Properties对象</span><br><span class="line">        Properties pro &#x3D; new Properties();</span><br><span class="line">        &#x2F;&#x2F;关联文件</span><br><span class="line">        try &#123;</span><br><span class="line">            pro.load(is);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;获取数据，设置到JedisPoolConfig中</span><br><span class="line">        JedisPoolConfig config &#x3D; new JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(pro.getProperty(&quot;maxTotal&quot;)));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(pro.getProperty(&quot;maxIdle&quot;)));</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;初始化JedisPool</span><br><span class="line">        jedisPool &#x3D; new JedisPool(config,pro.getProperty(&quot;host&quot;),Integer.parseInt(pro.getProperty(&quot;port&quot;)));</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;获取连接</span><br><span class="line">    public static Jedis getJedis()&#123;</span><br><span class="line">        return jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-            <div class='article_footer'>
-              
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-      </blockquote>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-<section class="widget qrcode  desktop mobile">
-  
-
-  <div class='content article-entry'>
-    
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
       
-        <div class='fancybox'><img src='/img/wx.png'
-        
-          height='64px'
-        ></div>
-      
-    
-  </div>
-</section>
-
-  
-
-
-              
-            </div>
-          
-        </div>
-        
-          
-
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-18T15:48:47+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 18, 2020</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaWeb/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaWeb</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>数据库</p></a></div>
-
-
-        
-      
-        
-          
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
-          
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/&title=redis数据库 - 张利源&summary=Redis"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
-          
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/&title=redis数据库 - 张利源&summary=Redis"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
-          
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/&title=redis数据库 - 张利源&summary=Redis"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
-          
-        </a>
-      
-    
-  </div>
-</div>
-
-
-
-        
+        <h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3>
       
     </div>
+    
+      
+        <div class="button readmore">
+          <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
+            阅读全文 <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+      
+    
   </section>
+</article>
 
-
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>抽取Servlet</p>
-                <p class='content'>BaseServlet代码
-1234567891011121314151617181920212223242526272829303132333435363738394041package cn...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/04/28/ajax%E5%92%8CJSON/'>
-                <p class='title'>AJAX和JSON<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>AJAX
-概念：ASynchronous JavaScript And XML   异步的javascript和xml实现方式:
-1.原生的JS实现方式
-
-2.JQuery实现方式
-  1.$....</p>
-              </a>
-            
           </div>
         
-      </section>
-    </article>
+      
+    
+  </section>
   
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
-      
-    </section>
-  </article>
-
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
+    
 
   
 
 
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: 'redis数据库',
-      tools: true
-    }
-  </script>
-
-
+    
+  
 </div>
 <aside class='l_side'>
   
   
+    
+    
+
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box' href='/about/'>
+          <img no-lazy src='https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">张利源</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="/495726603@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/zhangliyuangit"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=1646384615"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+  
 
   
     
     
 
+  
 
-  <section class="widget toc-wrapper shadow desktop mobile">
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow desktop mobile">
     
   <header>
     
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
     
   </header>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-text">Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#下载："><span class="toc-text">下载：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#概念：一款高性能的NOSQL系列的非关系型数据库"><span class="toc-text">概念：一款高性能的NOSQL系列的非关系型数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#命令："><span class="toc-text">命令：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#字符串类型string"><span class="toc-text">字符串类型string</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#哈希类型-hash"><span class="toc-text">哈希类型 hash</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#列表类型-list"><span class="toc-text">列表类型 list</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#集合类型-set"><span class="toc-text">集合类型 set</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#有序集合类型-sortedset"><span class="toc-text">有序集合类型 sortedset</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通用命令："><span class="toc-text">通用命令：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#持久化存储"><span class="toc-text">持久化存储</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java客户端Jedis"><span class="toc-text">Java客户端Jedis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jedis连接池：JedisPool"><span class="toc-text">Jedis连接池：JedisPool</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#工具类代码"><span class="toc-text">工具类代码</span></a></li></ol></li></ol>
+      <a href="/tags/JAVA/" style="font-size: 20.67px; color: #6c6c6c">JAVA</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/JavaWeb/" style="font-size: 24px; color: #555">JavaWeb</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 17.33px; color: #828282">软件</a>
     </div>
   </section>
 
+
+  
 
   
 
@@ -909,60 +770,6 @@ value的数据结构
 
 
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
-  
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
-  function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
-  }
-  var emojiMaps = {};
-  for (var i = 1; i <= 54; i++) {
-    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
-  }
-  for (var i = 1; i <= 101; i++) {
-    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
-  }
-  for (var i = 1; i <= 116; i++) {
-    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
-  }
-  for (var i = 1; i <= 125; i++) {
-    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
-  }
-  for (var i = 1; i <= 4; i++) {
-    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
-  }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
-    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
 
 
 
