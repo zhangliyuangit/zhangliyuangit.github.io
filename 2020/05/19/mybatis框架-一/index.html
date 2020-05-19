@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>AJAX和JSON - 张利源</title>
+    <title>mybatis框架(一) - 张利源</title>
   
-    <meta name="keywords" content="JavaWeb">
+    <meta name="keywords" content="JavaWeb,mybatis">
   
   
-    <meta name="description" content="AJAX">
+    <meta name="description" content="mybatis笔记">
   
 
   <!-- feed -->
@@ -362,8 +362,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/04/28/ajax%E5%92%8CJSON/">
-      AJAX和JSON
+    <a href="/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/">
+      mybatis框架(一)
     </a>
   </h1>
 
@@ -393,7 +393,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 28, 2020</p>
+    <p>发布于：May 19, 2020</p>
   </a>
 </div>
 
@@ -416,35 +416,25 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><a id="more"></a>
-<h4 id="概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml"><a href="#概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml" class="headerlink" title="概念：ASynchronous JavaScript And XML   异步的javascript和xml"></a>概念：ASynchronous JavaScript And XML   异步的javascript和xml</h4><h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式:"></a>实现方式:</h4><ul>
-<li><p>1.原生的JS实现方式</p>
-</li>
-<li><p>2.JQuery实现方式</p>
-<p>  1.<font color="#DC143C">$.ajax()}</font></p>
-<pre><code>$.ajax({键值对});</code></pre><p>  2.<font color="#DC143C">$.get()</font></p>
-<p>  3.<font color="#DC143C">$.post()</font></p>
-</li>
+          <p>mybatis笔记</p>
+<a id="more"></a>
+<h1 id="mybatis概述"><a href="#mybatis概述" class="headerlink" title="mybatis概述"></a>mybatis概述</h1><p>mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了ORM思想，实现了结果集的封装。</p>
+<h3 id="ORM：Object-Relational-Mappging-对象关系映射"><a href="#ORM：Object-Relational-Mappging-对象关系映射" class="headerlink" title="ORM：Object Relational Mappging   对象关系映射"></a>ORM：Object Relational Mappging   对象关系映射</h3><p>简单的说：就是把数据库和实体类及实体类的属性对应起来，让我们可以操作实体类及实现操作数据库</p>
+<h1 id="mybatis环境搭建"><a href="#mybatis环境搭建" class="headerlink" title="mybatis环境搭建"></a>mybatis环境搭建</h1><ul>
+<li>1.创建maven工程并导入坐标<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;3.5.4&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;8.0.18&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure></li>
+<li>2.创建实体类和dao接口</li>
+<li>3.创建mybatis的主配置文件SqlMapConfig.xml</li>
+<li>4.创建映射配置文件<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1></li>
+<li>1.包在创建时 com.demomybatis.dao他是三级目录结构</li>
+<li>2.mybatis的映射配置文件位置必须和dao接口的包结构相同</li>
+<li>3.映射配置文件的mapper标签和namespace属性的取值必须是dao接口的全限定而类名</li>
+<li>4.映射配置文件的擦偶哦配置(select) id的取值必须是dao接口的方法名</li>
 </ul>
-<h3 id="JOSN"><a href="#JOSN" class="headerlink" title="JOSN"></a>JOSN</h3><h4 id="概念：JavaScript-Object-Notation-JavaScript对象表示法"><a href="#概念：JavaScript-Object-Notation-JavaScript对象表示法" class="headerlink" title="概念：JavaScript Object Notation      JavaScript对象表示法"></a>概念：JavaScript Object Notation      JavaScript对象表示法</h4><h4 id="基本规则："><a href="#基本规则：" class="headerlink" title="基本规则："></a>基本规则：</h4><h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据:"></a>获取数据:</h4><p><font color="#DC143C">json对象.键名</font></p>
-<p><font color="#DC143C">json对象[“键名”]</font></p>
-<p><font color="#DC143C">数组对象[索引]</font></p>
-<h4 id="遍历JSON"><a href="#遍历JSON" class="headerlink" title="遍历JSON"></a>遍历JSON</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (var key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="JSON数据和Java对象的相互转换"><a href="#JSON数据和Java对象的相互转换" class="headerlink" title="JSON数据和Java对象的相互转换"></a>JSON数据和Java对象的相互转换</h4><pre><code>1.JSON转为Java
-    1.导入jar包
-    2.创建jackson核心对象   ObjectMapper
-    3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String json &#x3D; &quot;&#123;\&quot;name\&quot;:\&quot;zhangsan\&quot;,\&quot;age\&quot;:20,\&quot;gender\&quot;:\&quot;男\&quot;&#125;&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建ObjectMappper</span><br><span class="line">ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span><br><span class="line">&#x2F;&#x2F;转换为Java的对象</span><br><span class="line">Person person &#x3D; mapper.readValue(json,Person.class);</span><br><span class="line">System.out.println(person);</span><br></pre></td></tr></table></figure>
-<h5 id="2-Java转为JSON"><a href="#2-Java转为JSON" class="headerlink" title="2.Java转为JSON"></a>2.Java转为JSON</h5><pre><code>1.导入jar包
-2.创建jackson核心对象   ObjectMapper
-3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    Person p &#x3D; new Person();</span><br><span class="line">    p.setName(&quot;张三&quot;);</span><br><span class="line">    p.setAge(23);</span><br><span class="line">    p.setGendeer(&quot;男&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;创建Jackson的核心对象  ObjectMapper</span><br><span class="line">    ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">    &#x2F;&#x2F;调用方法 转换</span><br><span class="line">    String JSON &#x3D; mapper.writeValueAsString(p);</span><br><span class="line">    System.out.println(JSON);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;wirterValue  将数据写入到D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt中</span><br><span class="line">    &#x2F;&#x2F;mapper.writeValue(new File(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt&quot;),p);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;writeValue将数据关联到Writer中</span><br><span class="line">    mapper.writeValue(new FileWriter(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;b.txt&quot;),p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h5><pre><code>1.@JsonIgnore:排除属性
-2.@JsonFormat:属性值格式化</code></pre><h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>校验用户是否存在</p>
-<p>html代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;注册&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;JS&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;&#x2F;页面加载完成后 给文本框绑定离开焦点事件</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $(&quot;#username&quot;).blur(function () &#123;</span><br><span class="line">                &#x2F;&#x2F;获取username获取文本输入框的值</span><br><span class="line">                var username &#x3D; $(this).val();</span><br><span class="line">                &#x2F;&#x2F;发送ajax请求</span><br><span class="line">                $.get(&quot;findUserServlet&quot;,&#123;username:username&#125;,function (data) &#123;</span><br><span class="line">                    var span &#x3D; $(&quot;#s_username&quot;)</span><br><span class="line">                    if (data.userExsit)&#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;red&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名不存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;green&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,&quot;json&quot;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">    &lt;input id&#x3D;&quot;username&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; placeholder&#x3D;&quot;请输入用户名&quot;&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;s_username&quot;&gt;&lt;&#x2F;span&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; placeholder&#x3D;&quot;请输入密码&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;注册&quot;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-<p>Servlet代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">package cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;&#x2F;findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        String username &#x3D; request.getParameter(&quot;username&quot;);</span><br><span class="line">        &#x2F;&#x2F;设置响应数据为JSON</span><br><span class="line">        response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">        Map&lt;String,Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        if (&quot;Tom&quot;.equals(username))&#123;</span><br><span class="line">            &#x2F;&#x2F;存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,true);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名已经存在&quot;);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,false);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名可用&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;将map转为json，并且传递给客户端</span><br><span class="line">        ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">        mapper.writeValue(response.getWriter(),map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note success"><p>当我们遵从2，3，4点之后，我们开发中就无需再写dao的实现类</p></div>
+
+<h1 id="SqlMapConfig-xml代码"><a href="#SqlMapConfig-xml代码" class="headerlink" title="SqlMapConfig.xml代码"></a>SqlMapConfig.xml代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">            &lt;!--使用jdbc事务管理 --&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;!-- 数据库连接池(数据源) --&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.cj.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!-- 引入映射配置文件 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;cn&#x2F;demomybatis&#x2F;dao&#x2F;StudentDao.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="StudentDao-xml代码"><a href="#StudentDao-xml代码" class="headerlink" title="StudentDao.xml代码"></a>StudentDao.xml代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- namespace：命名空间，用于隔离sql--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;cn.demomybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">    &lt;!--    配置查询所有 id为dao的方法名--&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;findAll&quot; resultType&#x3D;&quot;cn.demomybatis.domain.Student&quot; parameterType&#x3D;&quot;cn.demomybatis.domain.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package cn.demomybatis.test;</span><br><span class="line"></span><br><span class="line">import cn.demomybatis.dao.StudentDao;</span><br><span class="line">import cn.demomybatis.domain.Student;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * mybatis入门</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class mybatistest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream in &#x3D; Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建工厂</span><br><span class="line">        SqlSessionFactoryBuilder builder &#x3D; new SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory factory &#x3D; builder.build(in);</span><br><span class="line">        &#x2F;&#x2F;使用工厂生产SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; factory.openSession();</span><br><span class="line">        &#x2F;&#x2F;创建Dao接口的代理对象</span><br><span class="line">        StudentDao studentDao &#x3D; sqlSession.getMapper(StudentDao.class);</span><br><span class="line">        &#x2F;&#x2F;使用代理对象执行方法</span><br><span class="line">        List&lt;Student&gt; list &#x3D; studentDao.findAll();</span><br><span class="line">        for (Student student:list)&#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;释放资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
             <div class='article_footer'>
@@ -521,10 +511,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-17T15:39:30+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-19T19:19:09+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 17, 2020</p>
+    <p>更新于：May 19, 2020</p>
   </a>
 </div>
 
@@ -533,7 +523,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaWeb/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaWeb</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaWeb/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaWeb</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>mybatis</p></a></div>
 
 
         
@@ -551,7 +541,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/04/28/ajax%E5%92%8CJSON/&title=AJAX和JSON - 张利源&summary=AJAX"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记"
           
           >
           
@@ -563,7 +553,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/04/28/ajax%E5%92%8CJSON/&title=AJAX和JSON - 张利源&summary=AJAX"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记"
           
           >
           
@@ -575,7 +565,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/04/28/ajax%E5%92%8CJSON/&title=AJAX和JSON - 张利源&summary=AJAX"
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记"
           
           >
           
@@ -599,24 +589,11 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>redis数据库</p>
-                <p class='content'>Redis
-下载：百度云下载       提取码：o1ui
-Github下载
-概念：一款高性能的NOSQL系列的非关系型数据库命令：redis存储的是：key，value格式的数据，其中key都...</p>
-              </a>
             
-            
-              <a class='next' href='/2020/04/26/JQuery%E7%AC%94%E8%AE%B0/'>
-                <p class='title'>JQuery笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>JQuery笔记
-概念：一个JavaScript框架，简化JS开发
-使用步骤：
-    1.下载JQuery
-    2.导入JQuery的js文件  导入min.js
-    3.使用
-JQu...</p>
+              <a class='next' href='/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/'>
+                <p class='title'>抽取Servlet<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>BaseServlet代码
+1234567891011121314151617181920212223242526272829303132333435363738394041package cn...</p>
               </a>
             
           </div>
@@ -661,7 +638,7 @@ JQu...</p>
 
   <script>
     window.subData = {
-      title: 'AJAX和JSON',
+      title: 'mybatis框架(一)',
       tools: true
     }
   </script>
@@ -687,7 +664,7 @@ JQu...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#AJAX"><span class="toc-text">AJAX</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml"><span class="toc-text">概念：ASynchronous JavaScript And XML   异步的javascript和xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现方式"><span class="toc-text">实现方式:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JOSN"><span class="toc-text">JOSN</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概念：JavaScript-Object-Notation-JavaScript对象表示法"><span class="toc-text">概念：JavaScript Object Notation      JavaScript对象表示法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本规则："><span class="toc-text">基本规则：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取数据"><span class="toc-text">获取数据:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#遍历JSON"><span class="toc-text">遍历JSON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSON数据和Java对象的相互转换"><span class="toc-text">JSON数据和Java对象的相互转换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-Java转为JSON"><span class="toc-text">2.Java转为JSON</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#注解："><span class="toc-text">注解：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#案例"><span class="toc-text">案例</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ORM：Object-Relational-Mappging-对象关系映射"><span class="toc-text">ORM：Object Relational Mappging   对象关系映射</span></a></li></ol>
     </div>
   </section>
 
