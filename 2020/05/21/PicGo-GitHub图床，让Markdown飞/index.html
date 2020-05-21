@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,8 +16,11 @@
 
   <!-- 页面元数据 -->
   
-    <title>Archive: 2020/5 - 张利源</title>
+    <title>PicGo-GitHub图床，让Markdown飞 - 张利源</title>
   
+  
+    <meta name="description" content="
+title: PicGo+GitHub图床，让Markdown飞date: 2020-05-21 18:48:53tags:    - 软件​—PicGo+GitHub图床">
   
 
   <!-- feed -->
@@ -85,81 +86,7 @@
 
 <body>
   
-  <div class="cover-wrapper">
-    
-      <cover class='cover  half'>
-        <div class='cover-body'>
-  <div class='a'>
-    
-    
-      <p class="title">欢迎来访</p>
-    
-    
-      <p class="subtitle">他人日复劳动为生计烦，我等廉价风月没心没肝</p>
-    
-  </div>
-  <div class='b'>
-    
-      <div class="m_search">
-        <form name="searchform" class="form u-search-form">
-          <input type="text" class="input u-search-input" placeholder="" />
-          <i class="icon fas fa-search fa-fw"></i>
-        </form>
-      </div>
-    
-    <div class='menu navigation'>
-      <ul class='cover-list-h'>
-        
-          
-            <li>
-              <a class="nav home"
-                href="/categories/"
-                
-                
-                id="categories">
-                <i class='fas fa-folder-open fa-fw'></i>分类
-              </a>
-            </li>
-          
-            <li>
-              <a class="nav home"
-                href="/tags/"
-                
-                
-                id="tags">
-                <i class='fas fa-tags fa-fw'></i>标签
-              </a>
-            </li>
-          
-            <li>
-              <a class="nav home"
-                href="/about/"
-                
-                
-                id="about">
-                <i class='fas fa-info-circle fa-fw'></i>关于
-              </a>
-            </li>
-          
-            <li>
-              <a class="nav home"
-                href="/archives/"
-                
-                
-                id="archives">
-                <i class='fas fa-archive fa-fw'></i>归档
-              </a>
-            </li>
-          
-        
-      </ul>
-    </div>
-  </div>
-</div>
-
-      </cover>
-    
-    <div id="loading-bar-wrapper">
+  <div id="loading-bar-wrapper">
   <div id="loading-bar"></div>
 </div>
 <header class="l_header shadow blur">
@@ -412,36 +339,18 @@
 
 <script>setLoadingBarProgress(40);</script>
 
-  </div>
 
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper'>
       
 
 <div class='l_main'>
-	
-		
-  <section class="post-list ">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
   
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -451,11 +360,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
+  <h1 class="title">
     <a href="/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/">
       PicGo-GitHub图床，让Markdown飞
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -494,11 +403,6 @@
 
             
           
-            
-              
-
-            
-          
         </div>
         
           <hr>
@@ -508,375 +412,87 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <hr>
 <p>title: PicGo+GitHub图床，让Markdown飞<br>date: 2020-05-21 18:48:53<br>tags:<br>    - 软件<br>​—<br>PicGo+GitHub图床</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
+<a id="more"></a>
+<p>一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种<strong>“轻量级标记语言”</strong>。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown去记录。几次寻觅，我找到了两款能够大部分符合我的需求的Markdown编辑器：<strong>Typora</strong>和<strong>马克飞象</strong>。</p>
+<p>目前我是两款编辑器混合时候，当编写的Markdown文档需要和印象笔记对接的时候，则使用马克飞象；至于其他用途的文档就使用Typora。则两款编辑器都<strong>近乎完美但是却又不能达到完美</strong>。我写文档的时候经常需要截图，然后从剪贴板从直接黏贴放进文档，则两款编辑器虽然都能满足这种操作，但是其实现原理不过是<strong>将截图存放在本机电脑上</strong>，所以，一旦文档中有了截图，将Markdown文档的迁移到别的电脑上展示的成本就大大增加（图片也要一并复制过去）。</p>
+<p>这两款编辑器对图片处理的方法简直是丧尽天良，也是我在使用过程中唯一觉得不爽的一点。辛苦搜寻之下，终于让我找到了一种解决方案：<strong>PicGo+GitHub图床</strong></p>
+<blockquote>
+<p>注：实际上，Mac OS 上的Typora编辑器已经支持将本地图片或者截图先上传到服务器生成访问链接后，在存放到Markdown文档中，简单点说，Mac OS上的Typora是完美的（😭无奈我是Windows用户）</p>
+</blockquote>
+<h1 id="PicGo介绍"><a href="#PicGo介绍" class="headerlink" title="PicGo介绍"></a><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGo介绍</a></h1><p>这是一款图片上传的工具，目前支持<code>微博图床</code>，<code>七牛图床</code>，<code>腾讯云</code>，<code>又拍云</code>，<code>GitHub</code>等图床，未来将支持更多图床。</p>
+<p>所以解决问题的思路就是，将本地的文件，或者剪切板上面的截图发送图床，然后生成在线图片的链接，这样就可以让Markdown文档飞起来了，走到哪就可以用到哪😊。</p>
+<h1 id="创建自己的GitHub图床"><a href="#创建自己的GitHub图床" class="headerlink" title="创建自己的GitHub图床"></a>创建自己的GitHub图床</h1><h2 id="1-创建GitHub图床之前，需要注册-登陆GitHub账号"><a href="#1-创建GitHub图床之前，需要注册-登陆GitHub账号" class="headerlink" title="1. 创建GitHub图床之前，需要注册/登陆GitHub账号"></a>1. 创建GitHub图床之前，需要注册/登陆GitHub账号</h2><blockquote>
+<p>申请GitHub账号很简单，我就不演示了</p>
+</blockquote>
+<h2 id="2-创建Repository"><a href="#2-创建Repository" class="headerlink" title="2. 创建Repository"></a>2. 创建Repository</h2><p><img src="C:%5CUsers%5C49572%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200521185659140.png" alt="image-20200521185659140"></p>
+<p>创建完仓库后点击setting</p>
+<p><img src="C:%5CUsers%5C49572%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200521185829419.png" alt="image-20200521185829419"></p>
+<p><img src="C:%5CUsers%5C49572%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200521185907190.png" alt="image-20200521185907190"></p>
+<p><img src="C:%5CUsers%5C49572%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200521190143934.png" alt="image-20200521190143934"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note success, 注：创建成功后，会生成一串token，这串token之后不会再显示，所以第一次看到的时候，就要好好保存 %&#125;</span><br></pre></td></tr></table></figure>
 
 
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
+
+<h1 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h1><h2 id="1-下载运行PicGo"><a href="#1-下载运行PicGo" class="headerlink" title="1. 下载运行PicGo"></a>1. 下载运行PicGo</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-9fe439e9625c741f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1077/format/webp" alt="img"></p>
+<p>下载zip包后，解压，运行可执行文件</p>
+<h2 id="2-配置图床"><a href="#2-配置图床" class="headerlink" title="2. 配置图床"></a>2. 配置图床</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-33b10cfcc147cdc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="img"></p>
+<p>如图配置</p>
+<blockquote>
+<ul>
+<li>设定仓库名的时候，是按照“账户名/仓库名的格式填写”</li>
+<li>分支名统一填写“master”</li>
+<li>将之前的Token黏贴在这里</li>
+<li>存储的路径可以按照我这样子写，就会在repository下创建一个“img”文件夹</li>
+<li>自定义域名的作用是，在上传图片后成功后，PicGo会将“自定义域名+上传的图片名”生成的访问链接，放到剪切板上<code>https://raw.githubusercontent.com/用户名/RepositoryName/分支名，</code>，自定义域名需要按照这样去填写</li>
+</ul>
+</blockquote>
+<h2 id="3-快捷键及相关配置"><a href="#3-快捷键及相关配置" class="headerlink" title="3.快捷键及相关配置"></a>3.快捷键及相关配置</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-8d2c2729e4f16fd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="img"></p>
+<p>可以按照这样配置</p>
+<blockquote>
+<p>注：可以将快捷键设置为<code>ctrl+shift+c</code></p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>将上面的步骤都设置好之后，就可以让自己的Markdown文档飞起来了，每次截图之后，都可以按一下<code>ctrl+shift+c</code>，这样就会将剪切板上面的截图转化为在线网络图片链接，简直就是爽的不要不要的！！</p>
+
           
-  <h2 class="title">
-    <a href="/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/">
-      mybatis框架(一)
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
+            <div class='article_footer'>
               
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>mybatis笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/">
-      抽取Servlet
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 13, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="BaseServlet代码"><a href="#BaseServlet代码" class="headerlink" title="BaseServlet代码"></a>BaseServlet代码</h3>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
-      redis数据库
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 1, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
-
-  
-
-
-	
-</div>
-<aside class='l_side'>
-  
+                
   
     
     
 
-<section class="widget blogger shadow desktop mobile">
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">张利源</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
-          
-            <a href="/495726603@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://github.com/zhangliyuangit"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=1646384615"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -887,29 +503,194 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='/img/wx.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-21T19:08:07+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：May 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/&title=PicGo-GitHub图床，让Markdown飞 - 张利源&summary=
+title: PicGo+GitHub图床，让Markdown飞date: 2020-05-21 18:48:53tags:    - 软件​—PicGo+GitHub图床"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/&title=PicGo-GitHub图床，让Markdown飞 - 张利源&summary=
+title: PicGo+GitHub图床，让Markdown飞date: 2020-05-21 18:48:53tags:    - 软件​—PicGo+GitHub图床"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/&title=PicGo-GitHub图床，让Markdown飞 - 张利源&summary=
+title: PicGo+GitHub图床，让Markdown飞date: 2020-05-21 18:48:53tags:    - 软件​—PicGo+GitHub图床"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/'>
+                <p class='title'>mybatis框架(一)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>mybatis笔记
+
+mybatis概述mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了O...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'PicGo-GitHub图床，让Markdown飞',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow desktop mobile">
+
+  <section class="widget toc-wrapper shadow desktop mobile">
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/tags/JAVA/" style="font-size: 20.67px; color: #6c6c6c">JAVA</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/JavaWeb/" style="font-size: 24px; color: #555">JavaWeb</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 14px; color: #999">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 17.33px; color: #828282">软件</a>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建GitHub图床之前，需要注册-登陆GitHub账号"><span class="toc-text">1. 创建GitHub图床之前，需要注册&#x2F;登陆GitHub账号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建Repository"><span class="toc-text">2. 创建Repository</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-下载运行PicGo"><span class="toc-text">1. 下载运行PicGo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-配置图床"><span class="toc-text">2. 配置图床</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-快捷键及相关配置"><span class="toc-text">3.快捷键及相关配置</span></a></li></ol>
     </div>
   </section>
 
-
-  
 
   
 
@@ -1008,14 +789,6 @@
   </footer>
 
 <script>setLoadingBarProgress(80);</script>
-
-
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
 
 
       <script>setLoadingBarProgress(60);</script>
@@ -1130,6 +903,60 @@
 
 
 
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
 
 
 
