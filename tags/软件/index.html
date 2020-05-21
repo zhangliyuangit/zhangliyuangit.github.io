@@ -357,9 +357,157 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/">
+      PicGo+GitHub图床，让Markdown飞
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
+    <p>张利源</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：May 21, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种<strong>“轻量级标记语言”</strong>。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown去记录。几次寻觅，我找到了两款能够大部分符合我的需求的Markdown编辑器：<strong>Typora</strong>和<strong>马克飞象</strong>。</p>
+<p>目前我是两款编辑器混合时候，当编写的Markdown文档需要和印象笔记对接的时候，则使用马克飞象；至于其他用途的文档就使用Typora。则两款编辑器都<strong>近乎完美但是却又不能达到完美</strong>。我写文档的时候经常需要截图，然后从剪贴板从直接黏贴放进文档，则两款编辑器虽然都能满足这种操作，但是其实现原理不过是<strong>将截图存放在本机电脑上</strong>，所以，一旦文档中有了截图，将Markdown文档的迁移到别的电脑上展示的成本就大大增加（图片也要一并复制过去）。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-7f243dd5df471fc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/693/format/webp" alt="img"></p>
+<p>这是Typora对图片的解决方案</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-4871e650d1bbb1ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/283/format/webp" alt="img"></p>
+<p>这是马克飞象中对图片的解决方案</p>
+<p>这两款编辑器对图片处理的方法简直是丧尽天良，也是我在使用过程中唯一觉得不爽的一点。辛苦搜寻之下，终于让我找到了一种解决方案：<strong>PicGo+GitHub图床</strong></p>
+<blockquote>
+<p>注：实际上，Mac OS 上的Typora编辑器已经支持将本地图片或者截图先上传到服务器生成访问链接后，在存放到Markdown文档中，简单点说，Mac OS上的Typora是完美的（😭无奈我是Windows用户）</p>
+</blockquote>
+<h1 id="PicGo介绍"><a href="#PicGo介绍" class="headerlink" title="PicGo介绍"></a><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGo介绍</a></h1><p>这是一款图片上传的工具，目前支持<code>微博图床</code>，<code>七牛图床</code>，<code>腾讯云</code>，<code>又拍云</code>，<code>GitHub</code>等图床，未来将支持更多图床。</p>
+<p>所以解决问题的思路就是，将本地的文件，或者剪切板上面的截图发送图床，然后生成在线图片的链接，这样就可以让Markdown文档飞起来了，走到哪就可以用到哪😊。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-a818a6851f18d336.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="img"></p>
+<p>Pic Go支持的图床</p>
+<p>在众多的图床中，我选择的GitHub图床，其它类型的图床如果你们有兴趣的话可以试一下。</p>
+<h1 id="创建自己的GitHub图床"><a href="#创建自己的GitHub图床" class="headerlink" title="创建自己的GitHub图床"></a>创建自己的GitHub图床</h1><h2 id="1-创建GitHub图床之前，需要注册-登陆GitHub账号"><a href="#1-创建GitHub图床之前，需要注册-登陆GitHub账号" class="headerlink" title="1. 创建GitHub图床之前，需要注册/登陆GitHub账号"></a>1. 创建GitHub图床之前，需要注册/登陆GitHub账号</h2><blockquote>
+<p>申请GitHub账号很简单，我就不演示了</p>
+</blockquote>
+<h2 id="2-创建Repository"><a href="#2-创建Repository" class="headerlink" title="2. 创建Repository"></a>2. 创建Repository</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-25f1990a188f9103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>点击”New repository”按钮</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-596d8282a217da7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1097/format/webp" alt="img"></p>
+<p>最后1234步骤执行</p>
+<blockquote>
+<ul>
+<li>我已经建立过一个同名的repository的，所以第一步会显示红色</li>
+<li>第三步，为repository初始化一个README.md文件可以根据需求选择，非必选</li>
+</ul>
+</blockquote>
+<h2 id="3-生成一个Token用于操作GitHub-repository"><a href="#3-生成一个Token用于操作GitHub-repository" class="headerlink" title="3.生成一个Token用于操作GitHub repository"></a>3.生成一个Token用于操作GitHub repository</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-69a2b38f4634e509.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>回到主页，点击”Settings”按钮</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-833a01142ad92e6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1060/format/webp" alt="img"></p>
+<p>进入页面后，点击”Developer settings”按钮</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-3ba67ab9f5224bda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>点击”Personal access tokens”按钮</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-8d67725f463f5fc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>创建新的Token</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/3146329-2cddeffa8fe35933.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1123/format/webp" alt="img"></p>
+<p>填写描述，选择”repo”,然后点击”Generate token”按钮</p>
+<blockquote>
+<p>注：创建成功后，会生成一串token，这串token之后不会再显示，所以第一次看到的时候，就要好好保存</p>
+</blockquote>
+<h1 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h1><h2 id="1-下载运行PicGo"><a href="#1-下载运行PicGo" class="headerlink" title="1. 下载运行PicGo"></a>1. 下载运行PicGo</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-9fe439e9625c741f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1077/format/webp" alt="img"></p>
+<p>下载zip包后，解压，运行可执行文件</p>
+<h2 id="2-配置图床"><a href="#2-配置图床" class="headerlink" title="2. 配置图床"></a>2. 配置图床</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-33b10cfcc147cdc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="img"></p>
+<p>如图配置</p>
+<blockquote>
+<ul>
+<li>设定仓库名的时候，是按照“账户名/仓库名的格式填写”</li>
+<li>分支名统一填写“master”</li>
+<li>将之前的Token黏贴在这里</li>
+<li>存储的路径可以按照我这样子写，就会在repository下创建一个“img”文件夹</li>
+<li>自定义域名的作用是，在上传图片后成功后，PicGo会将“自定义域名+上传的图片名”生成的访问链接，放到剪切板上<code>https://raw.githubusercontent.com/用户名/RepositoryName/分支名，</code>，自定义域名需要按照这样去填写</li>
+</ul>
+</blockquote>
+<h2 id="3-快捷键及相关配置"><a href="#3-快捷键及相关配置" class="headerlink" title="3.快捷键及相关配置"></a>3.快捷键及相关配置</h2><p><img src="https:////upload-images.jianshu.io/upload_images/3146329-8d2c2729e4f16fd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp" alt="img"></p>
+<p>可以按照这样配置</p>
+<blockquote>
+<p>注：可以将快捷键设置为<code>ctrl+shift+c</code></p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>将上面的步骤都设置好之后，就可以让自己的Markdown文档飞起来了，每次截图之后，都可以按一下<code>ctrl+shift+c</code>，这样就会将剪切板上面的截图转化为在线网络图片链接，简直就是爽的不要不要的！！</p>
+<p>作者：小罗希冀<br>链接：<a href="https://www.jianshu.com/p/2756724a5dee" target="_blank" rel="noopener">https://www.jianshu.com/p/2756724a5dee</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+      
+    </div>
+    
+      
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -645,7 +793,7 @@
 
 
     <div class='content'>
-      <a href="/tags/JAVA/" style="font-size: 20.67px; color: #6c6c6c">JAVA</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/JavaWeb/" style="font-size: 24px; color: #555">JavaWeb</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 14px; color: #999">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 17.33px; color: #828282">软件</a>
+      <a href="/tags/JAVA/" style="font-size: 19px; color: #777">JAVA</a> <a href="/tags/Java/" style="font-size: 14px; color: #999">Java</a> <a href="/tags/JavaWeb/" style="font-size: 24px; color: #555">JavaWeb</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 14px; color: #999">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 19px; color: #777">软件</a>
     </div>
   </section>
 
