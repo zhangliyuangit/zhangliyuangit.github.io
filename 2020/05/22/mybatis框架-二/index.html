@@ -486,9 +486,66 @@
 <p>方式三：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 将包内的映射器接口实现全部注册为映射器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"cn.demomybatis.dao"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<h3 id="生命周期和作用域"><a href="#生命周期和作用域" class="headerlink" title="生命周期和作用域"></a>生命周期和作用域</h3><p>生命周期和作用域是只管重要的，因为错误的使用会导致非常严重的<strong>并发问题</strong></p>
+<h3 id="解决属性名和字段名不一致问题"><a href="#解决属性名和字段名不一致问题" class="headerlink" title="解决属性名和字段名不一致问题"></a>解决属性名和字段名不一致问题</h3><h4 id="resultMap"><a href="#resultMap" class="headerlink" title="resultMap"></a>resultMap</h4><p>结果集映射</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--    结果集映射--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentMap"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--        column是数据库中的字段，property是实体类中的字段--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"u_id"</span> <span class="attr">property</span>=<span class="string">"id"</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>resultMap元素是MyBatis中最重要最强大的元素</p>
+</li>
+<li><p>ResultMap的设计思想是，对于简单的语句根本不需要配置显式的结果映射，对于复杂一点的语句只需要猫叔他们的关系就行了</p>
+</li>
+<li><p>ResultMap最优秀的地方在于，虽然你已经对他相当了解了，但根本不需要显式的用到他们。</p>
+</li>
+</ul>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><h4 id="日志工厂"><a href="#日志工厂" class="headerlink" title="日志工厂"></a>日志工厂</h4><p>如果一个数据库操作出现了异常，我们需要排错。日志就是最好的帮手！</p>
+<table>
+<thead>
+<tr>
+<th align="center">设置名</th>
+<th align="left">描述</th>
+<th align="left">有效值</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">logImpl</td>
+<td align="left">指定 MyBatis 所用日志的具体实现，未指定时将自动查找。</td>
+<td align="left">SLF4J，LOG4J，LOG4J2，JDK_LOGGING，COMMONS_LOGGING，STDOUT_LOGGING，NO_LOGGING</td>
+<td align="left">未设置</td>
+</tr>
+</tbody></table>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--        标准的日志实现--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"logImpl"</span> <span class="attr">value</span>=<span class="string">"STDOUT_LOGGING"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="LOG4J"><a href="#LOG4J" class="headerlink" title="LOG4J"></a>LOG4J</h4><p>什么式log4j？</p>
+<ul>
+<li>Log4j是<a href="https://baike.baidu.com/item/Apache/8512995" target="_blank" rel="noopener">Apache</a>的一个开源项目，通过使用Log4j，我们可以控制日志信息输送的目的地是<a href="https://baike.baidu.com/item/控制台/2438626" target="_blank" rel="noopener">控制台</a>、文件、<a href="https://baike.baidu.com/item/GUI" target="_blank" rel="noopener">GUI</a>组件</li>
+<li>我们也可以控制每一条日志的输出格式</li>
+<li>通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。</li>
+<li>通过一个<a href="https://baike.baidu.com/item/配置文件/286550" target="_blank" rel="noopener">配置文件</a>来灵活地进行配置，而不需要修改应用的代码。</li>
+</ul>
+<p>1.先导入LOG4J的jar包</p>
+<p>2.log4j.properties配置文件</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#############################################</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Log4J 配置文件</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#############################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义缺省的日志级别和输出对象</span></span><br><span class="line"><span class="meta">log4j.rootLogger</span>=<span class="string">DEBUG,INFO, logfile,console</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定控制台输出模式</span></span><br><span class="line"><span class="meta">log4j.appender.console</span>=<span class="string">org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="meta">log4j.appender.console.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.console.layout.ConversionPattern</span>=<span class="string">[%d&#123;MM/dd HH:mm:ss&#125;] [%-3p] %c&#123;1&#125;: %m%n</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 针对package定义日志级别</span></span><br><span class="line"><span class="meta">log4j.logger.org.apache</span>=<span class="string">WARN</span></span><br><span class="line"><span class="meta">log4j.logger.com.paic.pafademo</span>=<span class="string">DEBUG</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定日志文件的输出模式</span></span><br><span class="line"><span class="meta">log4j.appender.logfile</span>=<span class="string">org.apache.log4j.DailyRollingFileAppender</span></span><br><span class="line"><span class="meta">log4j.appender.logfile.DatePattern</span>=<span class="string">yyyyMMdd</span></span><br><span class="line"><span class="comment"># $&#123;pafa.log.home&#125;通过参数-D指定，比如启动WebLogic时加入参数-Dpafa.log.home=c:/</span></span><br><span class="line"><span class="meta">log4j.appender.logfile.File</span>=<span class="string">$&#123;log.home&#125;/appdemo/pafa.log</span></span><br><span class="line"><span class="meta">log4j.appender.logfile.layout</span>=<span class="string">org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="meta">log4j.appender.logfile.layout.ConversionPattern</span>=<span class="string">%d&#123;MM/dd HH:mm:ss&#125; [%-3p] %c&#123;1&#125;: %m%n</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果要查看iBATIS的SQL日志信息，确保有下面配置</span></span><br><span class="line"><span class="meta">log4j.logger.com.ibatis</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.Connection</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.Statement</span>=<span class="string">DEBUG</span></span><br><span class="line"><span class="meta">log4j.logger.java.sql.PreparedStatement</span>=<span class="string">DEBUG</span></span><br></pre></td></tr></table></figure>
 
+<p>3.配置log4j为日志的实现</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"logImpl"</span> <span class="attr">value</span>=<span class="string">"LOG4J"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h5><p>1.在要使用的Log4j的类中，导入import org.apache.log4j.Logger;</p>
+<p>2.日志对象，参数为当前类的class</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Logger logger = Logger.getLogger(mybatistest<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><h4 id="使用limit分类"><a href="#使用limit分类" class="headerlink" title="使用limit分类"></a>使用limit分类</h4><p>使用MyBatis实现分页，核心SQL</p>
+<p>1.接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分页</span></span><br><span class="line">   <span class="function">List&lt;Student&gt; <span class="title">getStudentByLimit</span><span class="params">(Map&lt;String,Integer&gt; map)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>2.StudentDao.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentByLimit"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">        select * from student limit #&#123;startIndex&#125;,#&#123;pageSize&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getStudentByLimit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtils.getSqlSession();</span><br><span class="line">        StudentDao studentDao = sqlSession.getMapper(StudentDao<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        Map&lt;String,Integer&gt; map = <span class="keyword">new</span> HashMap();</span><br><span class="line">        map.put(<span class="string">"startIndex"</span>,<span class="number">0</span>);</span><br><span class="line">        map.put(<span class="string">"pageSize"</span>,<span class="number">2</span>);</span><br><span class="line">        List&lt;Student&gt; studentList = studentDao.getStudentByLimit(map);</span><br><span class="line">        <span class="keyword">for</span> (Student student : studentList) &#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="RowBounds分页"><a href="#RowBounds分页" class="headerlink" title="RowBounds分页"></a>RowBounds分页</h4>
           
             <div class='article_footer'>
               
@@ -564,10 +621,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-22T19:12:39+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-23T18:34:51+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 22, 2020</p>
+    <p>更新于：May 23, 2020</p>
   </a>
 </div>
 
@@ -722,7 +779,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置解析"><span class="toc-text">配置解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核心配置文件"><span class="toc-text">核心配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境配置"><span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性-properties"><span class="toc-text">属性(properties)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类型别名"><span class="toc-text">类型别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置"><span class="toc-text">设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#映射器"><span class="toc-text">映射器</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置解析"><span class="toc-text">配置解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#核心配置文件"><span class="toc-text">核心配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#环境配置"><span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性-properties"><span class="toc-text">属性(properties)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类型别名"><span class="toc-text">类型别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置"><span class="toc-text">设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#映射器"><span class="toc-text">映射器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生命周期和作用域"><span class="toc-text">生命周期和作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决属性名和字段名不一致问题"><span class="toc-text">解决属性名和字段名不一致问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#resultMap"><span class="toc-text">resultMap</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志"><span class="toc-text">日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#日志工厂"><span class="toc-text">日志工厂</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LOG4J"><span class="toc-text">LOG4J</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#简单使用"><span class="toc-text">简单使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页"><span class="toc-text">分页</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用limit分类"><span class="toc-text">使用limit分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RowBounds分页"><span class="toc-text">RowBounds分页</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -801,16 +858,16 @@
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
       
-        本站使用
+        Use
         <a href="https://zhangliyuanblog.club/" target="_blank" class="codename">张利源</a>
-        作为主题，总访问量为
+        as theme, total visits
           <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          次
+          times
         
       
     
