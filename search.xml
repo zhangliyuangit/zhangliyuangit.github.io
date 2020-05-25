@@ -1048,7 +1048,10 @@ value的数据结构
   <entry>
     <title>mybatis框架(三)</title>
     <url>/2020/05/24/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%89/</url>
-    <content><![CDATA[<h3 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h3><p>1.注解在接口上使用</p>
+    <content><![CDATA[<p>mybatis笔记(三)</p>
+<a id="more"></a>
+
+<h3 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h3><p>1.注解在接口上使用</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Select</span>(<span class="string">"select * from student"</span>)</span><br><span class="line">    <span class="function">List&lt;Student&gt; <span class="title">getStudents</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>2.需要在核心配置文件中绑定接口</p>
