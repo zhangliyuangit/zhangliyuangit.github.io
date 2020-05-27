@@ -1093,7 +1093,7 @@ value的数据结构
 <p>4.ofType：用来指定映射到List或者集合中的实体类类型，泛型中的约束类型</p>
 ]]></content>
       <tags>
-        <tag>JavwWeb</tag>
+        <tag>JavaWeb</tag>
         <tag>MyBatis</tag>
       </tags>
   </entry>
