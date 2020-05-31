@@ -1102,7 +1102,8 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
 <p>2.在要使用二级缓存的Mapper中开启</p>
 ]]></content>
       <tags>
-        <tag>-JavaWeb -MyBatis</tag>
+        <tag>JavaWeb</tag>
+        <tag>mybatis</tag>
       </tags>
   </entry>
   <entry>
