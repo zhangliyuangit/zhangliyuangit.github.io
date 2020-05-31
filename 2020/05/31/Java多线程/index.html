@@ -576,7 +576,8 @@
 <p>由于我们可以通private关键字来保证数据对象只能被方法访问，所有我们只需要对方法提出一套机制，这套机制就是synchronized关键字，它包括两种用法：synchronized方法和synchronized块</p>
 <p><code>同步方法：public synchronized void method(int args){}</code></p>
 <p>synchronized方法控制对”对象”的访问，每个对象对应一把锁，每个synchronized方法都必须获得调用该方法的对象的锁才能执行，否则线程会阻塞，方法一旦执行，就独占该锁，直到该方法返回才释放锁，后面被阻塞的线程才能获得这个锁，继续执行。</p>
-<p><strong>缺陷：若将一个大的方法申明为synchronized将会影响效率</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note warning, 缺陷：若将一个大的方法申明为synchronized将会影响效率  %&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="同步块"><a href="#同步块" class="headerlink" title="同步块"></a>同步块</h4><p>synchronized(obj){ }</p>
 <p>Obj称为<strong>同步监视器</strong></p>
 <ul>
@@ -598,7 +599,10 @@
 <li>3.不剥夺条件：进程已获得的资源，在未使用完之前，不能强行剥夺</li>
 <li>4.循环等待条件：若干进程之间实现了一种头尾相接的循环等待资源关系</li>
 </ul>
-<p><strong>上面列出了死锁的四个必要条件，我们只要想办法破其中的任意一个或者多个条件就可以避免死锁发生</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note success, 上面列出了死锁的四个必要条件，我们只要想办法破其中的任意一个或者多个条件就可以避免死锁发生 %&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="Lock-锁"><a href="#Lock-锁" class="headerlink" title="Lock(锁)"></a>Lock(锁)</h3><ul>
 <li>从JDK5.0开始，Java提供了更强大的线程同步机制——通过显式定义同步锁对象实现同步。同步锁使用Lock对象充当</li>
 <li>java.util.concurrent.locks.Lock接口时控制多个线程对共享资源进行访问的工具。锁提供了对共享资源的独占访问，每次只能有一个线程对Lock对象加锁，线程开始访问共享资源之前应先获得Lock对象</li>
@@ -641,7 +645,8 @@
 <td>唤醒同一个对象上所有调用wait()方法的线程，优先级别高的线程优先调度</td>
 </tr>
 </tbody></table>
-<p>注意：均是Object类的方法，都只能在同步方法或者同步代码块中使用，否则会抛出异常lllegalMonitorStateException</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note, 注意：均是Object类的方法，都只能在同步方法或者同步代码块中使用，否则会抛出异常lllegalMonitorStateException %&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>背景：经常创建和销毁使用量特别大的资源，比如并发情况下的线程，对性能影响很大。</p>
 <p>思路：提前创建好多个线程，放入线程池中，使用时直接获取，使用完放回池中。可以避免频繁的创建和销毁、实现重复利用。类似生活中的交通工具</p>
 <p>好处：</p>
@@ -743,7 +748,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-31T16:14:38+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-31T16:18:41+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：May 31, 2020</p>
@@ -979,16 +984,16 @@
       
     
       
-        <div><p>博客內容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW" target="_blank" rel="noopener">姓名標示-非商業性-相同方式分享 4.0 國際 (CC BY-NC-SA 4.0) 協議</a></p>
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
       
-        本站使用
+        Use
         <a href="https://zhangliyuanblog.club/" target="_blank" class="codename">张利源</a>
-        作為主題，總訪問量為
+        as theme, total visits
           <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          次
+          times
         
       
     
