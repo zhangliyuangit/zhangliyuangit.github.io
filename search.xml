@@ -1,6 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>BeanUtils工具类的使用</title>
+    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><a id="more"></a>
+<h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
+<li>1.类必须被public修饰</li>
+<li>2.必须提供空参的构造器</li>
+<li>3.成员变量必须使用private修饰</li>
+<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+</ul>
+<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BeanUtils对象</td>
+<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
+<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
+</tr>
+<tr>
+<td></td>
+<td>setProperty(Object obj,String name,Object value)</td>
+<td>设置属性值</td>
+</tr>
+<tr>
+<td></td>
+<td>getProperty(Object obj,String name)</td>
+<td>获得属性值</td>
+</tr>
+</tbody></table>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JAVA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Filter过滤器</title>
+    <url>/2020/04/23/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/</url>
+    <content><![CDATA[<h2 id="Filter：过滤器"><a href="#Filter：过滤器" class="headerlink" title="Filter：过滤器"></a>Filter：过滤器</h2><a id="more"></a>
+<h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><ul>
+<li>1.定义一个类，实现Filter</li>
+<li>2.复写方法</li>
+<li>3.配置拦截路径</li>
+</ul>
+<h5 id="web-xml的配置"><a href="#web-xml的配置" class="headerlink" title="web.xml的配置"></a>web.xml的配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;cn.filter.demo1&lt;&#x2F;filter-class&gt;</span><br><span class="line">&lt;&#x2F;filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;&#x2F;&#x2F;拦截路径</span><br><span class="line">&lt;&#x2F;filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤器的生命周期"><a href="#过滤器的生命周期" class="headerlink" title="过滤器的生命周期"></a>过滤器的生命周期</h4><ul>
+<li>1.init:在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次用于加载资源</li>
+<li>2.doFilter:每次拦截资源时被执行，执行很多次。</li>
+<li>3.destroy:在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭，则会执行destroy方法。执行一次，用于释放资源。</li>
+</ul>
+<h4 id="拦截路径的配置"><a href="#拦截路径的配置" class="headerlink" title="拦截路径的配置"></a>拦截路径的配置</h4><ul>
+<li>1.具体的资源路径:/index.jsp    只有访问index.jsp资源时，过滤器才会被执行</li>
+<li>2.目录拦截:  /user/*    访问/user下的所有资源时，过滤器都会被执行</li>
+<li>3.后缀名拦截： *.jsp   访问所有后缀名为jsp的资源时，过滤器都会被执行</li>
+<li>4.拦截所有资源： /*    访问所有资源时，过滤器都会被执行</li>
+</ul>
+<h4 id="拦截方式的配置"><a href="#拦截方式的配置" class="headerlink" title="拦截方式的配置"></a>拦截方式的配置</h4><pre><code>注解配置：
+    1.REQUEST:默认值 浏览器直接请求资源
+    2.FORWARD:转发访问资源
+    3.INCLUDE:包含访问资源
+    4.ERROR:错误跳转
+    5.ASYNC:异步访问资源 </code></pre><h4 id="过滤器先后顺序问题"><a href="#过滤器先后顺序问题" class="headerlink" title="过滤器先后顺序问题"></a>过滤器先后顺序问题</h4><pre><code>1.注解配置:按照类名的字符串比较规则比较，值小的先执行
+2.web.xml配置:&lt;filter-mappping&gt;谁定义在前面，谁先执行</code></pre><h4 id="登录案例"><a href="#登录案例" class="headerlink" title="登录案例"></a>登录案例</h4><h5 id="判断是否登录"><a href="#判断是否登录" class="headerlink" title="判断是否登录"></a>判断是否登录</h5><h6 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h6><pre><code>1.判断是否是登录的相关资源
+* 是 直接放行
+* 不是 判断是否登录
+2.判断当前用户是否登录，判断Session是否有user
+* 有  已经登录  放行
+* 没有  没有登录   跳转到登录页面</code></pre><h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录验证的过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class loginFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;0.强制转换</span><br><span class="line">        HttpServletRequest request &#x3D; (HttpServletRequest) req;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1.获取请求资源的路径</span><br><span class="line">        String uri &#x3D; request.getRequestURI();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;2.判断是否包含登录相关的路径</span><br><span class="line">        if (uri.contains(&quot;&#x2F;login.jsp&quot;) || uri.contains(&quot;&#x2F;loginServlet&quot;) || uri.contains(&quot;&#x2F;checkcodeServlet&quot;) || uri.contains(&quot;&#x2F;js&#x2F;&quot;))&#123;</span><br><span class="line">            &#x2F;&#x2F;放行</span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不包含  需要验证用户是否登录</span><br><span class="line">            &#x2F;&#x2F;从Session获取user</span><br><span class="line">            Object user &#x3D; request.getSession().getAttribute(&quot;user&quot;);</span><br><span class="line">            if (user!&#x3D;null)&#123;</span><br><span class="line">                &#x2F;&#x2F;登录了  放行</span><br><span class="line">                chain.doFilter(req, resp);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                &#x2F;&#x2F;没有登录  跳转登录页面</span><br><span class="line">                request.setAttribute(&quot;login_msg&quot;,&quot;您尚未登录，请登录&quot;);</span><br><span class="line">                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,resp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="敏感词汇过滤"><a href="#敏感词汇过滤" class="headerlink" title="敏感词汇过滤"></a>敏感词汇过滤</h4><h5 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h5><pre><code>1.对request对象进行增强。增强获取参数相关方法
+2.放行。爨地代理对象</code></pre><h5 id="增强对象的功能"><a href="#增强对象的功能" class="headerlink" title="增强对象的功能"></a>增强对象的功能</h5><pre><code>设计模式：一些通用的解决固定问题的方式
+* 1.装饰模式
+* 2.代理模式
+
+实现步骤：
+    - 1.代理对象和真实对象实现相同的接口
+    - 2.代理对象  =  Proxy.newProxyInstance();
+    - 3.使用代理对象调用方法
+    - 4.增强方法 
+增强方式：
+    - 1.增强参数列表
+    - 2.增强返回值类型
+    - 3.增强方法体执行逻辑</code></pre><h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 敏感词汇过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class sensitiveWordsFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;创建代理对象，增强getParameter方法</span><br><span class="line">        ServletRequest proxy_req &#x3D; (ServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameter</span><br><span class="line">                if (method.getName().equals(&quot;getParameter&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;增强返回值</span><br><span class="line">                    &#x2F;&#x2F;获取返回值</span><br><span class="line">                    String value &#x3D; (String) method.invoke(req,args);</span><br><span class="line">                    if (value !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            if (value.contains(str))&#123;</span><br><span class="line">                                value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return value;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameterMap</span><br><span class="line">                if (method.getName().equals(&quot;getParameterMap&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;由request得到的原数组不可改变，他是被锁住的，所以这里创建一个新数组来复制原数组，返回新的数组</span><br><span class="line">                    &#x2F;&#x2F;其实想法很想简单，既然传递进来的映射不可改变，那么自己new一个出来不就行了</span><br><span class="line">                    Map&lt;String,String[]&gt; map1 &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">                    Map&lt;String,String[]&gt; map &#x3D; (Map&lt;String, String[]&gt;) method.invoke(req,args);</span><br><span class="line">                    Set&lt;String&gt; keySet &#x3D; map.keySet();</span><br><span class="line"></span><br><span class="line">                    if (keySet !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            for (String key:keySet)&#123;</span><br><span class="line">                                String[] values &#x3D; map.get(key);</span><br><span class="line">                                for (int i&#x3D;0;i&lt;values.length;i++)&#123;</span><br><span class="line">                                    String value &#x3D; values[i];</span><br><span class="line">                                    if (value.contains(str))&#123;</span><br><span class="line">                                        value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                                        values[i] &#x3D; value;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;map1.put(key,values);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return map1;</span><br><span class="line">                &#125;</span><br><span class="line">                return method.invoke(req,args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;放行</span><br><span class="line">        chain.doFilter(proxy_req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    private List&lt;String&gt; list &#x3D; new ArrayList&lt;String&gt;();&#x2F;&#x2F;敏感词汇</span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;获取文件真实路径</span><br><span class="line">            ServletContext context &#x3D; config.getServletContext();</span><br><span class="line">            String realPath &#x3D; context.getRealPath(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;敏感词汇.txt&quot;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;读取文件</span><br><span class="line">            BufferedReader br &#x3D; new BufferedReader(new FileReader(realPath));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将文件的每一行数据添加到list集合中</span><br><span class="line">            String line &#x3D; null;</span><br><span class="line">            while ((line&#x3D;br.readLine())!&#x3D;null)&#123;</span><br><span class="line">                list.add(line);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            br.close();&#x2F;&#x2F;释放资源</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring学习笔记(二)</title>
+    <url>/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/</url>
+    <content><![CDATA[<p>Spring学习笔记</p>
+<a id="more"></a>
+
+<h3 id="Spring配置"><a href="#Spring配置" class="headerlink" title="Spring配置"></a>Spring配置</h3><h4 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    别名，如果添加了别名，我们也可以使用别名获取到对象--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">alias</span>=<span class="string">"USER"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Bean的配置"><a href="#Bean的配置" class="headerlink" title="Bean的配置"></a>Bean的配置</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    id：Bean的唯一标识符，也就是相当于我们的对象名</span></span><br><span class="line"><span class="comment">    class:对象对应的全限定名</span></span><br><span class="line"><span class="comment">    name：也是别名</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Java"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>这个import一般用于团队开发使用，它可以将多个配置文件，导入合并为一个。</p>
+<h3 id="DI依赖注入"><a href="#DI依赖注入" class="headerlink" title="DI依赖注入"></a>DI依赖注入</h3><h4 id="构造器注入"><a href="#构造器注入" class="headerlink" title="构造器注入"></a>构造器注入</h4><h4 id="Set方式注入【重点】"><a href="#Set方式注入【重点】" class="headerlink" title="Set方式注入【重点】"></a>Set方式注入【重点】</h4><p>实体类属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Address address;</span><br><span class="line">    <span class="keyword">private</span> String[] books;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; hobbys;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,String&gt; card;</span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; games;</span><br><span class="line">    <span class="keyword">private</span> Properties info;</span><br><span class="line">    <span class="keyword">private</span> String wife;</span><br></pre></td></tr></table></figure>
+
+<p>xml配置</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"student"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"张三"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"address"</span> <span class="attr">ref</span>=<span class="string">"address"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"books"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>红楼梦<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>西游记<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>水浒传<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>三国演义<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hobbys"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>打篮球<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>敲代码<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>看电影<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"card"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"身份证"</span> <span class="attr">value</span>=<span class="string">"123456789"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"银行卡"</span> <span class="attr">value</span>=<span class="string">"987654321"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"games"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>LOL<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>CS<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>PUBG<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"wife"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">null</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"info"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"学号"</span>&gt;</span>2019052531<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"性别"</span>&gt;</span>男<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="拓展方式注入"><a href="#拓展方式注入" class="headerlink" title="拓展方式注入"></a>拓展方式注入</h4><h5 id="P命名空间注入"><a href="#P命名空间注入" class="headerlink" title="P命名空间注入"></a>P命名空间注入</h5><p>需要添加xml约束</p>
+<p><code>xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    p命名空间注入，可以直接注入属性的值:property--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.User"</span> <span class="attr">p:name</span>=<span class="string">"李四"</span> <span class="attr">p:age</span>=<span class="string">"23"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="C命名空间注入"><a href="#C命名空间注入" class="headerlink" title="C命名空间注入"></a>C命名空间注入</h5><p>需要添加xml约束</p>
+<p><code>xmlns:c=&quot;http://www.springframework.org/schema/c&quot;</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    c命名空间注入，通过构造器注入：construct-args--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user1"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.User"</span> <span class="attr">c:name</span>=<span class="string">"王五"</span> <span class="attr">c:age</span>=<span class="string">"38"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h4><table>
+<thead>
+<tr>
+<th align="left">Scope</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a href="https://docs.spring.io/spring/docs/5.3.0-SNAPSHOT/spring-framework-reference/core.html#beans-factory-scopes-singleton" target="_blank" rel="noopener">singleton</a></td>
+<td align="left">(Default) Scopes a single bean definition to a single object instance for each Spring IoC container.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://docs.spring.io/spring/docs/5.3.0-SNAPSHOT/spring-framework-reference/core.html#beans-factory-scopes-prototype" target="_blank" rel="noopener">prototype</a></td>
+<td align="left">Scopes a single bean definition to any number of object instances.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://docs.spring.io/spring/docs/5.3.0-SNAPSHOT/spring-framework-reference/core.html#beans-factory-scopes-request" target="_blank" rel="noopener">request</a></td>
+<td align="left">Scopes a single bean definition to the lifecycle of a single HTTP request. That is, each HTTP request has its own instance of a bean created off the back of a single bean definition. Only valid in the context of a web-aware Spring <code>ApplicationContext</code>.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://docs.spring.io/spring/docs/5.3.0-SNAPSHOT/spring-framework-reference/core.html#beans-factory-scopes-session" target="_blank" rel="noopener">session</a></td>
+<td align="left">Scopes a single bean definition to the lifecycle of an HTTP <code>Session</code>. Only valid in the context of a web-aware Spring <code>ApplicationContext</code>.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://docs.spring.io/spring/docs/5.3.0-SNAPSHOT/spring-framework-reference/core.html#beans-factory-scopes-application" target="_blank" rel="noopener">application</a></td>
+<td align="left">Scopes a single bean definition to the lifecycle of a <code>ServletContext</code>. Only valid in the context of a web-aware Spring <code>ApplicationContext</code>.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://docs.spring.io/spring/docs/5.3.0-SNAPSHOT/spring-framework-reference/web.html#websocket-stomp-websocket-scope" target="_blank" rel="noopener">websocket</a></td>
+<td align="left">Scopes a single bean definition to the lifecycle of a <code>WebSocket</code>. Only valid in the context of a web-aware Spring <code>ApplicationContext</code>.</td>
+</tr>
+</tbody></table>
+<p>1.单例模式(Spring默认机制)</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.User"</span> <span class="attr">p:name</span>=<span class="string">"李四"</span> <span class="attr">p:age</span>=<span class="string">"23"</span> <span class="attr">scope</span>=<span class="string">"singleton"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.原型模式：每次从容器get的时候，都会产生一个新对象！</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user1"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.User"</span> <span class="attr">c:name</span>=<span class="string">"王五"</span> <span class="attr">c:age</span>=<span class="string">"38"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.其余的request，session，application这些只能在web开发中用到</p>
+<h3 id="Bean的自动装配"><a href="#Bean的自动装配" class="headerlink" title="Bean的自动装配"></a>Bean的自动装配</h3><ul>
+<li>自动装配是Spring满足bean依赖的一种方式</li>
+<li>Spring会在上下文中寻找，并自动给bean装配属性</li>
+</ul>
+<p>在Spring中有三种装配的方式</p>
+<ol>
+<li>在xml中显式的配置</li>
+<li>在java中显式的配置</li>
+<li>隐式的自动装配bean【重要】</li>
+</ol>
+<h4 id="ByName自动装配"><a href="#ByName自动装配" class="headerlink" title="ByName自动装配"></a>ByName自动装配</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"people"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.People"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"张三"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>autowire=&quot;byName&quot;</code></p>
+<p>ByName：会自动在容器上下文中查找，和自己对象set方法后面的值对象的beanid！</p>
+<hr>
+<h4 id="Bytype自动装配"><a href="#Bytype自动装配" class="headerlink" title="Bytype自动装配"></a>Bytype自动装配</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"people"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.People"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"张三"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>autowire=&quot;byType&quot;</code></p>
+<p>ByType：会自动在容器上下文中查找，和自己对象属性类型相同的bean</p>
+<p><strong>小结：</strong></p>
+<ul>
+<li>byname的时候，需要保证所有bean的id唯一，并且这个bean需要和自动注入的属性的set方法的值一致！</li>
+<li>bytype的时候，需要保证所有bean的class唯一，并且这个bean需要和自动注入的属性的类型一样</li>
+</ul>
+<h4 id="使用注解实现自动装配"><a href="#使用注解实现自动装配" class="headerlink" title="使用注解实现自动装配"></a>使用注解实现自动装配</h4><p>1.导入约束：context约束</p>
+<p>2.配置注解的支持：<a href="context:annotation-config/">context:annotation-config/</a></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>@Autowired</strong></p>
+<p>直接在属性上使用即可！也可以在set方法上使用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">   <span class="keyword">private</span> Dog dog;</span><br><span class="line">   <span class="meta">@Autowired</span></span><br><span class="line">   <span class="keyword">private</span> Cat cat;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
+
+<p>使用Autowird我们可以不用编写Set方法了，前提是你这个自动装配的属性在IOC容器存在</p>
+<p>如果@Autowired自动装配的环境比较复杂，自动装配无法通过一个注解【@Autowired】完成的时候，我们可以使用@Qualifier(value=”xxxx”)去配置@Autowired的使用，指定一个唯一的bean对象注入！</p>
+]]></content>
+      <tags>
+        <tag>Spring框架</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java多线程</title>
     <url>/2020/05/31/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
     <content><![CDATA[<p>Java多线程笔记</p>
@@ -265,43 +468,72 @@
       </tags>
   </entry>
   <entry>
-    <title>BeanUtils工具类的使用</title>
-    <url>/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><a id="more"></a>
-<h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>1.类必须被public修饰</li>
-<li>2.必须提供空参的构造器</li>
-<li>3.成员变量必须使用private修饰</li>
-<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+    <title>Spring学习笔记(一)</title>
+    <url>/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/</url>
+    <content><![CDATA[<p>Spring学习笔记</p>
+<a id="more"></a>
+
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
+<li><p><strong>简介</strong>：Spring框架是由于软件开发的复杂性而创建的。Spring使用的是基本的JavaBean来完成以前只可能由EJB完成的事情。然而，Spring的用途不仅仅限于服务器端的开发。从简单性、可测试性和松耦合性角度而言，绝大部分Java应用都可以从</p>
+</li>
+<li><p><strong>Spring理念</strong>：使现有的技术更加容易使用，本身是一个大杂烩，整合现有的技术框架！</p>
+</li>
+<li><p><strong>SSM</strong>：SpringMvc + Spring +  Mybatis！</p>
+</li>
 </ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BeanUtils对象</td>
-<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
-<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
-</tr>
-<tr>
-<td></td>
-<td>setProperty(Object obj,String name,Object value)</td>
-<td>设置属性值</td>
-</tr>
-<tr>
-<td></td>
-<td>getProperty(Object obj,String name)</td>
-<td>获得属性值</td>
-</tr>
-</tbody></table>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优点：<ol>
+<li>Spring是一个开源的免费的框架(容器)！</li>
+<li>Spring一个轻量级的、非入侵式的框架</li>
+<li>控制反转(IOC)，面向切面编程(AOP)</li>
+<li>支持事务的处理,对框架整合的支持</li>
+</ol>
+</li>
+<li>总结：Spring就是一个轻量级的控制反转(IOC)和切面编程的框架！</li>
+</ul>
+<h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200601152845.png" alt=""></p>
+<p><strong>核心容器（Spring Core）</strong></p>
+<p>　　核心容器提供Spring框架的基本功能。Spring以bean的方式组织和管理Java应用中的各个组件及其关系。Spring使用BeanFactory来产生和管理Bean，它是工厂模式的实现。BeanFactory使用控制反转(IoC)模式将应用的配置和依赖性规范与实际的应用程序代码分开。</p>
+<p><strong>应用上下文（Spring Context）</strong></p>
+<p>　　Spring上下文是一个配置文件，向Spring框架提供上下文信息。Spring上下文包括企业服务，如JNDI、EJB、电子邮件、国际化、校验和调度功能。</p>
+<p><strong>Spring面向切面编程（Spring AOP）</strong></p>
+<p>　　通过配置管理特性，Spring AOP 模块直接将面向方面的编程功能集成到了 Spring框架中。所以，可以很容易地使 Spring框架管理的任何对象支持 AOP。Spring AOP 模块为基于 Spring 的应用程序中的对象提供了事务管理服务。通过使用 Spring AOP，不用依赖 EJB 组件，就可以将声明性事务管理集成到应用程序中。</p>
+<p><strong>JDBC和DAO模块（Spring DAO）</strong></p>
+<p>　　JDBC、DAO的抽象层提供了有意义的异常层次结构，可用该结构来管理异常处理，和不同数据库供应商所抛出的错误信息。异常层次结构简化了错误处理，并且极大的降低了需要编写的代码数量，比如打开和关闭链接。</p>
+<p><strong>对象实体映射（Spring ORM）</strong></p>
+<p>　　Spring框架插入了若干个ORM框架，从而提供了ORM对象的关系工具，其中包括了Hibernate、JDO和 IBatis SQL Map等，所有这些都遵从Spring的通用事物和DAO异常层次结构。</p>
+<p><strong>Web模块（Spring Web）</strong></p>
+<p>　　Web上下文模块建立在应用程序上下文模块之上，为基于web的应用程序提供了上下文。所以Spring框架支持与Struts集成，web模块还简化了处理多部分请求以及将请求参数绑定到域对象的工作。</p>
+<p><strong>MVC模块（Spring Web MVC）</strong></p>
+<p>　　MVC框架是一个全功能的构建Web应用程序的MVC实现。通过策略接口，MVC框架变成为高度可配置的。MVC容纳了大量视图技术，其中包括JSP、POI等，模型来有JavaBean来构成，存放于m当中，而视图是一个街口，负责实现模型，控制器表示逻辑代码，由c的事情。Spring框架的功能可以用在任何J2EE服务器当中，大多数功能也适用于不受管理的环境。Spring的核心要点就是支持不绑定到特定J2EE服务的可重用业务和数据的访问的对象，毫无疑问这样的对象可以在不同的J2EE环境，独立应用程序和测试环境之间重用。</p>
+<h3 id="IOC理论"><a href="#IOC理论" class="headerlink" title="IOC理论"></a>IOC理论</h3><p>控制反转Ioc(Inversion of Control)，是一种设计思想，DI(依赖注入)式实现IoC的一种方法，也有人认为Di只是Ioc的另一种说法。没有IoC的程序中，我们使用面向对象编程，对象的创建与对象间的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象创建转移给第三方，个人认为所谓的控制反转就是：获得依赖对象的方式反转了</p>
+<p>采用XML配置Bean的时候，Bean的定义信息是和实现分离的，而采用注入的方式可以把二者和为一体，Bean的定义信息直接以注解的形式定义在实现类中，从而达到零配置的目的</p>
+<p><strong>控制反转是一种通过描述(XML或注解)并通过第三方去生产或者获取特定对象的方式。在Spring中实现控制反转的是Ioc容器，其实现方法是依赖注入(Dependency Injection,DI)</strong></p>
+<p>由容器动态地将某种依赖关系注入到组件之间。<br>控制反转也称为”依赖注入“（Dependency Injection DI)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20180731111256629.jpg" alt=""></p>
+<p>IoC/DI示例：<br>依赖注入是Java编程思想中”面向接口编程“的体现，因此在设计程序是，对于程序所依赖的组件往往以忌口的形式出现，而不直接使用具体的实现类</p>
+<h3 id="第一个Spring程序"><a href="#第一个Spring程序" class="headerlink" title="第一个Spring程序"></a>第一个Spring程序</h3><ul>
+<li><strong>besns.xml</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.demospring.pojo.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Java"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>测试代码</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.demospring.pojo.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/2 17:05</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</span><br><span class="line">        User user = (User) context.getBean(<span class="string">"user"</span>);</span><br><span class="line">        user.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>实体类</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demospring.pojo;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/2 17:03</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"name---&gt;"</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong>：在配置文件加载的时候，容器中的管理对象就已经初始化了！</p>
+]]></content>
       <tags>
-        <tag>JAVA</tag>
+        <tag>Spring框架</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -468,56 +700,74 @@ $(&quot;A[属性名=&apos;值&apos;][ ]...&quot;)   包含多个属性条件的�
       </tags>
   </entry>
   <entry>
-    <title>Filter过滤器</title>
-    <url>/2020/04/23/Filter%E8%BF%87%E6%BB%A4%E5%99%A8/</url>
-    <content><![CDATA[<h2 id="Filter：过滤器"><a href="#Filter：过滤器" class="headerlink" title="Filter：过滤器"></a>Filter：过滤器</h2><a id="more"></a>
-<h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><ul>
-<li>1.定义一个类，实现Filter</li>
-<li>2.复写方法</li>
-<li>3.配置拦截路径</li>
-</ul>
-<h5 id="web-xml的配置"><a href="#web-xml的配置" class="headerlink" title="web.xml的配置"></a>web.xml的配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;filter&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;filter-class&gt;cn.filter.demo1&lt;&#x2F;filter-class&gt;</span><br><span class="line">&lt;&#x2F;filter&gt;</span><br><span class="line">&lt;filter-mapping&gt;</span><br><span class="line">    &lt;filter-name&gt;demo1&lt;&#x2F;filter-name&gt;</span><br><span class="line">    &lt;url-pattern&gt;&#x2F;*&lt;&#x2F;url-pattern&gt;&#x2F;&#x2F;拦截路径</span><br><span class="line">&lt;&#x2F;filter-mapping&gt;</span><br></pre></td></tr></table></figure>
+    <title>PicGo+GitHub图床，让Markdown飞</title>
+    <url>/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/</url>
+    <content><![CDATA[<p>PicGo+GitHub图床</p>
+<a id="more"></a>
 
-<h4 id="过滤器的生命周期"><a href="#过滤器的生命周期" class="headerlink" title="过滤器的生命周期"></a>过滤器的生命周期</h4><ul>
-<li>1.init:在服务器启动后，会创建Filter对象，然后调用init方法。只执行一次用于加载资源</li>
-<li>2.doFilter:每次拦截资源时被执行，执行很多次。</li>
-<li>3.destroy:在服务器关闭后，Filter对象被销毁。如果服务器是正常关闭，则会执行destroy方法。执行一次，用于释放资源。</li>
+<p>一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种<strong>“轻量级标记语言”</strong>。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown去记录。几次寻觅，我找到了两款能够大部分符合我的需求的Markdown编辑器：<strong>Typora</strong>和<strong>马克飞象</strong>。</p>
+<p>目前我是两款编辑器混合时候，当编写的Markdown文档需要和印象笔记对接的时候，则使用马克飞象；至于其他用途的文档就使用Typora。则两款编辑器都<strong>近乎完美但是却又不能达到完美</strong>。我写文档的时候经常需要截图，然后从剪贴板从直接黏贴放进文档，则两款编辑器虽然都能满足这种操作，但是其实现原理不过是<strong>将截图存放在本机电脑上</strong>，所以，一旦文档中有了截图，将Markdown文档的迁移到别的电脑上展示的成本就大大增加（图片也要一并复制过去）。</p>
+<p>这两款编辑器对图片处理的方法简直是丧尽天良，也是我在使用过程中唯一觉得不爽的一点。辛苦搜寻之下，终于让我找到了一种解决方案：<strong>PicGo+GitHub图床</strong></p>
+<blockquote>
+<p>注：实际上，Mac OS 上的Typora编辑器已经支持将本地图片或者截图先上传到服务器生成访问链接后，在存放到Markdown文档中，简单点说，Mac OS上的Typora是完美的（😭无奈我是Windows用户）</p>
+</blockquote>
+<h1 id="PicGo介绍"><a href="#PicGo介绍" class="headerlink" title="PicGo介绍"></a><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGo介绍</a></h1><p>这是一款图片上传的工具，目前支持<code>微博图床</code>，<code>七牛图床</code>，<code>腾讯云</code>，<code>又拍云</code>，<code>GitHub</code>等图床，未来将支持更多图床。</p>
+<p>所以解决问题的思路就是，将本地的文件，或者剪切板上面的截图发送图床，然后生成在线图片的链接，这样就可以让Markdown文档飞起来了，走到哪就可以用到哪😊。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523183627.png" alt=""></p>
+<p>Pic Go支持的图床</p>
+<p>在众多的图床中，我选择的GitHub图床，其它类型的图床如果你们有兴趣的话可以试一下。</p>
+<h1 id="创建自己的GitHub图床"><a href="#创建自己的GitHub图床" class="headerlink" title="创建自己的GitHub图床"></a>创建自己的GitHub图床</h1><h2 id="1-创建GitHub图床之前，需要注册-登陆GitHub账号"><a href="#1-创建GitHub图床之前，需要注册-登陆GitHub账号" class="headerlink" title="1. 创建GitHub图床之前，需要注册/登陆GitHub账号"></a>1. 创建GitHub图床之前，需要注册/登陆GitHub账号</h2><blockquote>
+<p>申请GitHub账号很简单，我就不演示了</p>
+</blockquote>
+<h2 id="2-创建Repository"><a href="#2-创建Repository" class="headerlink" title="2. 创建Repository"></a>2. 创建Repository</h2><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523183819.png" alt=""></p>
+<p>点击”New repository”按钮</p>
+<blockquote>
+<ul>
+<li>我已经建立过一个同名的repository的，所以第一步会显示红色</li>
+<li>第三步，为repository初始化一个README.md文件可以根据需求选择，非必选</li>
 </ul>
-<h4 id="拦截路径的配置"><a href="#拦截路径的配置" class="headerlink" title="拦截路径的配置"></a>拦截路径的配置</h4><ul>
-<li>1.具体的资源路径:/index.jsp    只有访问index.jsp资源时，过滤器才会被执行</li>
-<li>2.目录拦截:  /user/*    访问/user下的所有资源时，过滤器都会被执行</li>
-<li>3.后缀名拦截： *.jsp   访问所有后缀名为jsp的资源时，过滤器都会被执行</li>
-<li>4.拦截所有资源： /*    访问所有资源时，过滤器都会被执行</li>
+</blockquote>
+<h2 id="3-生成一个Token用于操作GitHub-repository"><a href="#3-生成一个Token用于操作GitHub-repository" class="headerlink" title="3.生成一个Token用于操作GitHub repository"></a>3.生成一个Token用于操作GitHub repository</h2><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523183947.png" alt=""></p>
+<p>回到主页，点击”Settings”按钮</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184121.png" alt=""></p>
+<p>进入页面后，点击”Developer settings”按钮</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184453.png" alt=""></p>
+<p>点击”Personal access tokens”按钮</p>
+<p>创建新的Token</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184607.png" alt=""><br>填写描述，选择”repo”,然后点击”Generate token”按钮</p>
+<blockquote>
+<p>注：创建成功后，会生成一串token，这串token之后不会再显示，所以第一次看到的时候，就要好好保存</p>
+</blockquote>
+<h3 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h3><h4 id="1-下载运行PicGo"><a href="#1-下载运行PicGo" class="headerlink" title="1. 下载运行PicGo"></a>1. 下载运行PicGo</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184734.png" alt=""></p>
+<p>推荐下载exe可执行文件</p>
+<h4 id="2-配置图床"><a href="#2-配置图床" class="headerlink" title="2. 配置图床"></a>2. 配置图床</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/img/20200521194551.png" alt=""></p>
+<p>如图配置</p>
+<blockquote>
+<ul>
+<li>设定仓库名的时候，是按照“账户名/仓库名的格式填写”</li>
+<li>分支名统一填写“master”</li>
+<li>将之前的Token黏贴在这里</li>
+<li>存储的路径可以按照我这样子写，就会在repository下创建一个“img”文件夹</li>
+<li>自定义域名的作用是，在上传图片后成功后，PicGo会将“自定义域名+上传的图片名”生成的访问链接，放到剪切板上<code>https://raw.githubusercontent.com/用户名/RepositoryName/分支名，</code>，自定义域名需要按照这样去填写</li>
 </ul>
-<h4 id="拦截方式的配置"><a href="#拦截方式的配置" class="headerlink" title="拦截方式的配置"></a>拦截方式的配置</h4><pre><code>注解配置：
-    1.REQUEST:默认值 浏览器直接请求资源
-    2.FORWARD:转发访问资源
-    3.INCLUDE:包含访问资源
-    4.ERROR:错误跳转
-    5.ASYNC:异步访问资源 </code></pre><h4 id="过滤器先后顺序问题"><a href="#过滤器先后顺序问题" class="headerlink" title="过滤器先后顺序问题"></a>过滤器先后顺序问题</h4><pre><code>1.注解配置:按照类名的字符串比较规则比较，值小的先执行
-2.web.xml配置:&lt;filter-mappping&gt;谁定义在前面，谁先执行</code></pre><h4 id="登录案例"><a href="#登录案例" class="headerlink" title="登录案例"></a>登录案例</h4><h5 id="判断是否登录"><a href="#判断是否登录" class="headerlink" title="判断是否登录"></a>判断是否登录</h5><h6 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h6><pre><code>1.判断是否是登录的相关资源
-* 是 直接放行
-* 不是 判断是否登录
-2.判断当前用户是否登录，判断Session是否有user
-* 有  已经登录  放行
-* 没有  没有登录   跳转到登录页面</code></pre><h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 登录验证的过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class loginFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;0.强制转换</span><br><span class="line">        HttpServletRequest request &#x3D; (HttpServletRequest) req;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;1.获取请求资源的路径</span><br><span class="line">        String uri &#x3D; request.getRequestURI();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;2.判断是否包含登录相关的路径</span><br><span class="line">        if (uri.contains(&quot;&#x2F;login.jsp&quot;) || uri.contains(&quot;&#x2F;loginServlet&quot;) || uri.contains(&quot;&#x2F;checkcodeServlet&quot;) || uri.contains(&quot;&#x2F;js&#x2F;&quot;))&#123;</span><br><span class="line">            &#x2F;&#x2F;放行</span><br><span class="line">            chain.doFilter(req, resp);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不包含  需要验证用户是否登录</span><br><span class="line">            &#x2F;&#x2F;从Session获取user</span><br><span class="line">            Object user &#x3D; request.getSession().getAttribute(&quot;user&quot;);</span><br><span class="line">            if (user!&#x3D;null)&#123;</span><br><span class="line">                &#x2F;&#x2F;登录了  放行</span><br><span class="line">                chain.doFilter(req, resp);</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                &#x2F;&#x2F;没有登录  跳转登录页面</span><br><span class="line">                request.setAttribute(&quot;login_msg&quot;,&quot;您尚未登录，请登录&quot;);</span><br><span class="line">                request.getRequestDispatcher(&quot;&#x2F;login.jsp&quot;).forward(request,resp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="敏感词汇过滤"><a href="#敏感词汇过滤" class="headerlink" title="敏感词汇过滤"></a>敏感词汇过滤</h4><h5 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h5><pre><code>1.对request对象进行增强。增强获取参数相关方法
-2.放行。爨地代理对象</code></pre><h5 id="增强对象的功能"><a href="#增强对象的功能" class="headerlink" title="增强对象的功能"></a>增强对象的功能</h5><pre><code>设计模式：一些通用的解决固定问题的方式
-* 1.装饰模式
-* 2.代理模式
-
-实现步骤：
-    - 1.代理对象和真实对象实现相同的接口
-    - 2.代理对象  =  Proxy.newProxyInstance();
-    - 3.使用代理对象调用方法
-    - 4.增强方法 
-增强方式：
-    - 1.增强参数列表
-    - 2.增强返回值类型
-    - 3.增强方法体执行逻辑</code></pre><h5 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.filter;</span><br><span class="line"></span><br><span class="line">import javax.servlet.*;</span><br><span class="line">import javax.servlet.annotation.WebFilter;</span><br><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.FileNotFoundException;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 敏感词汇过滤器</span><br><span class="line"> *&#x2F;</span><br><span class="line">@WebFilter(&quot;&#x2F;*&quot;)</span><br><span class="line">public class sensitiveWordsFilter implements Filter &#123;</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException &#123;</span><br><span class="line">        &#x2F;&#x2F;创建代理对象，增强getParameter方法</span><br><span class="line">        ServletRequest proxy_req &#x3D; (ServletRequest) Proxy.newProxyInstance(req.getClass().getClassLoader(), req.getClass().getInterfaces(), new InvocationHandler() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameter</span><br><span class="line">                if (method.getName().equals(&quot;getParameter&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;增强返回值</span><br><span class="line">                    &#x2F;&#x2F;获取返回值</span><br><span class="line">                    String value &#x3D; (String) method.invoke(req,args);</span><br><span class="line">                    if (value !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            if (value.contains(str))&#123;</span><br><span class="line">                                value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return value;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;判断是否是getParameterMap</span><br><span class="line">                if (method.getName().equals(&quot;getParameterMap&quot;))&#123;</span><br><span class="line">                    &#x2F;&#x2F;由request得到的原数组不可改变，他是被锁住的，所以这里创建一个新数组来复制原数组，返回新的数组</span><br><span class="line">                    &#x2F;&#x2F;其实想法很想简单，既然传递进来的映射不可改变，那么自己new一个出来不就行了</span><br><span class="line">                    Map&lt;String,String[]&gt; map1 &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">                    Map&lt;String,String[]&gt; map &#x3D; (Map&lt;String, String[]&gt;) method.invoke(req,args);</span><br><span class="line">                    Set&lt;String&gt; keySet &#x3D; map.keySet();</span><br><span class="line"></span><br><span class="line">                    if (keySet !&#x3D; null)&#123;</span><br><span class="line">                        for (String str:list)&#123;</span><br><span class="line">                            for (String key:keySet)&#123;</span><br><span class="line">                                String[] values &#x3D; map.get(key);</span><br><span class="line">                                for (int i&#x3D;0;i&lt;values.length;i++)&#123;</span><br><span class="line">                                    String value &#x3D; values[i];</span><br><span class="line">                                    if (value.contains(str))&#123;</span><br><span class="line">                                        value &#x3D; value.replaceAll(str,&quot;***&quot;);</span><br><span class="line">                                        values[i] &#x3D; value;</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;map1.put(key,values);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    return map1;</span><br><span class="line">                &#125;</span><br><span class="line">                return method.invoke(req,args);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;放行</span><br><span class="line">        chain.doFilter(proxy_req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">    private List&lt;String&gt; list &#x3D; new ArrayList&lt;String&gt;();&#x2F;&#x2F;敏感词汇</span><br><span class="line">    public void init(FilterConfig config) throws ServletException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F;获取文件真实路径</span><br><span class="line">            ServletContext context &#x3D; config.getServletContext();</span><br><span class="line">            String realPath &#x3D; context.getRealPath(&quot;&#x2F;WEB-INF&#x2F;classes&#x2F;敏感词汇.txt&quot;);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;读取文件</span><br><span class="line">            BufferedReader br &#x3D; new BufferedReader(new FileReader(realPath));</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;将文件的每一行数据添加到list集合中</span><br><span class="line">            String line &#x3D; null;</span><br><span class="line">            while ((line&#x3D;br.readLine())!&#x3D;null)&#123;</span><br><span class="line">                list.add(line);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            br.close();&#x2F;&#x2F;释放资源</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>将上面的步骤都设置好之后，就可以让自己的Markdown文档飞起来了，每次截图之后，都可以按一下<code>ctrl+shift+c</code>，这样就会将剪切板上面的截图转化为在线网络图片链接，简直就是爽的不要不要的！！<br>。</p>
+<p>自己在本地用确实没有什么问题，但是提交到博客上发现图片加载失败，或者加载异常慢，于是我发现了一种加速的方法</p>
+<h4 id="CDN-简介"><a href="#CDN-简介" class="headerlink" title="CDN 简介"></a><strong>CDN 简介</strong></h4><blockquote>
+<p><strong>内容分发网络</strong>（英语：<strong>C</strong>ontent <strong>D</strong>elivery <strong>N</strong>etwork或<strong>C</strong>ontent <strong>D</strong>istribution <strong>N</strong>etwork，缩写：<strong>CDN</strong>）是指一种透过<a href="https://link.zhihu.com/?target=https%3A//zh.wikipedia.org/wiki/%E4%BA%92%E8%81%AF%E7%B6%B2">互联网</a>互相连接的电脑网络系统，利用最靠近每位用户的服务器，更快、更可靠地将音乐、图片、影片、应用程序及其他文件发送给用户，来提供高性能、可扩展性及低成本的网络内容传递给用户。<br>—— <a href="https://link.zhihu.com/?target=https%3A//zh.wikipedia.org/wiki/%E5%85%A7%E5%AE%B9%E5%82%B3%E9%81%9E%E7%B6%B2%E8%B7%AF">Wikipedia</a></p>
+</blockquote>
+<p>简而言之就是让服务器距离大陆较远的 GitHub ，将托管在那里的<strong>静态</strong>资源缓存到一个近一点的服务器，从而加快访问。</p>
+<p>看了这样的解释你应该能够理解，CDN 虽然能缓解互联压力，可也是要耗费一定的资源的，从而市面上的 CDN 大多是收费的。Cloudflare 虽然有免费 CDN ，可是国内节点致开放给专业版用户使用，价格偏高，而海外的节点又类似<strong>负优化</strong>，可能还会降低速度。</p>
+<h3 id="jsDelivr"><a href="#jsDelivr" class="headerlink" title="jsDelivr"></a><strong>jsDelivr</strong></h3><p><a href="https://link.zhihu.com/?target=https%3A//www.jsdelivr.com/">jsDelivr</a>是一款公共免费 CDN ，调用多家 CDN 保证全球服务质量、拥有多层缓存和灾后保障 SLA 100 。也是为数不多的有 ICP 备案，提供许多中国节点的海外 CDN 服务商。</p>
+<p>有搜索引擎，支持一键复制文件 URL 和标签，支持分发 NPM、GitHub、WordPress SVN 的文件</p>
+<h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a><strong>基础使用</strong></h3><p>可能看起来，官方的使用方法十分复杂，但其实就一句话：把仓库链接的域名替换成 jsDelivr 的域名。</p>
+<p>如托管在 GitHub 的仓库链接都是 <code>https://github.com/username/repo/branch/file</code> 的形式，而我们就可以将前面的 <code>github.com</code> 改成 jsDelivr 提供加速 GitHub 仓库的域名 <code>cdn.jsdelivr.net/gh</code> 。</p>
+<p>嗯，兴冲冲配置一发，发现什么都没有？其实还是有一点点小差别的。比如分支那里，jsDelivr 默认要直接在仓库名后面 <code>@</code> ，所以真正其实是 <code>https://cdn.jsdelivr.net/gh/username/repo@branch/file</code> 的形式。当然，如果你放在仓库的默认分支，还可以直接将 <code>branch</code> 这个关键字直接删了，变成 <code>https://cdn.jsdelivr.net/gh/username/repo/file</code> 一样能获取到！</p>
+<p>另外，如果是一些比较稳定的文件，后面不会频繁地改动，还可以发布成一个版本，然后在 <code>repo</code> 后 <code>@version</code> 就可以引用对应的版本。</p>
+<h3 id="加速图床"><a href="#加速图床" class="headerlink" title="加速图床"></a><strong>加速图床</strong></h3><p>如果你还记得笔者之前写的 <strong>PicGo + GitHub 搭建免费图床</strong> 的话，不难发现 jsDelivr 也是能加速这个图床（本质不还是一个 GitHub 仓库嘛）的。我们只需要在 <strong>GitHub 图床设置</strong> 中将链接设置为 <code>https://cdn.jsdelivr.net/gh/username/repo</code> 即可！前提是你上传到默认分支。</p>
+]]></content>
       <tags>
-        <tag>JavaWeb</tag>
+        <tag>软件</tag>
       </tags>
   </entry>
   <entry>
@@ -657,114 +907,6 @@ $(&quot;A[属性名=&apos;值&apos;][ ]...&quot;)   包含多个属性条件的�
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package Jsoup;</span><br><span class="line"></span><br><span class="line">import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXDocument;</span><br><span class="line">import cn.wanghaomiao.xpath.model.JXNode;</span><br><span class="line">import org.jsoup.Jsoup;</span><br><span class="line">import org.jsoup.nodes.Document;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class Demo5 &#123;</span><br><span class="line">    public static void main(String[] args) throws IOException, XpathSyntaxErrorException &#123;</span><br><span class="line">        String path &#x3D; Demo1.class.getClassLoader().getResource(&quot;student.xml&quot;).getPath();</span><br><span class="line">        &#x2F;&#x2F;解析xlm文档，加载文档进内存，获取dom树----&gt;document对象</span><br><span class="line">        Document document &#x3D; Jsoup.parse(new File(path),&quot;utf-8&quot;);</span><br><span class="line">        JXDocument jxDocument &#x3D; new JXDocument(document);</span><br><span class="line">&#x2F;&#x2F;        List&lt;JXNode&gt; users &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&quot;);</span><br><span class="line">&#x2F;&#x2F;        for (JXNode j:users)&#123;</span><br><span class="line">&#x2F;&#x2F;            System.out.println(j);</span><br><span class="line">&#x2F;&#x2F;        &#125;</span><br><span class="line">        List&lt;JXNode&gt; list &#x3D; jxDocument.selN(&quot;&#x2F;&#x2F;user&#x2F;name[@id]&quot;);</span><br><span class="line">        for (JXNode jxNode:list)&#123;</span><br><span class="line">            System.out.println(jxNode);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>XML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AJAX和JSON</title>
-    <url>/2020/04/28/ajax%E5%92%8CJSON/</url>
-    <content><![CDATA[<h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><a id="more"></a>
-<h4 id="概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml"><a href="#概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml" class="headerlink" title="概念：ASynchronous JavaScript And XML   异步的javascript和xml"></a>概念：ASynchronous JavaScript And XML   异步的javascript和xml</h4><h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式:"></a>实现方式:</h4><ul>
-<li><p>1.原生的JS实现方式</p>
-</li>
-<li><p>2.JQuery实现方式</p>
-<p>  1.<font color="#DC143C">$.ajax()}</font></p>
-<pre><code>$.ajax({键值对});</code></pre><p>  2.<font color="#DC143C">$.get()</font></p>
-<p>  3.<font color="#DC143C">$.post()</font></p>
-</li>
-</ul>
-<h3 id="JOSN"><a href="#JOSN" class="headerlink" title="JOSN"></a>JOSN</h3><h4 id="概念：JavaScript-Object-Notation-JavaScript对象表示法"><a href="#概念：JavaScript-Object-Notation-JavaScript对象表示法" class="headerlink" title="概念：JavaScript Object Notation      JavaScript对象表示法"></a>概念：JavaScript Object Notation      JavaScript对象表示法</h4><h4 id="基本规则："><a href="#基本规则：" class="headerlink" title="基本规则："></a>基本规则：</h4><h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据:"></a>获取数据:</h4><p><font color="#DC143C">json对象.键名</font></p>
-<p><font color="#DC143C">json对象[“键名”]</font></p>
-<p><font color="#DC143C">数组对象[索引]</font></p>
-<h4 id="遍历JSON"><a href="#遍历JSON" class="headerlink" title="遍历JSON"></a>遍历JSON</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="JSON数据和Java对象的相互转换"><a href="#JSON数据和Java对象的相互转换" class="headerlink" title="JSON数据和Java对象的相互转换"></a>JSON数据和Java对象的相互转换</h4><pre><code>1.JSON转为Java
-    1.导入jar包
-    2.创建jackson核心对象   ObjectMapper
-    3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String json &#x3D; &quot;&#123;\&quot;name\&quot;:\&quot;zhangsan\&quot;,\&quot;age\&quot;:20,\&quot;gender\&quot;:\&quot;男\&quot;&#125;&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建ObjectMappper</span><br><span class="line">ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span><br><span class="line">&#x2F;&#x2F;转换为Java的对象</span><br><span class="line">Person person &#x3D; mapper.readValue(json,Person.class);</span><br><span class="line">System.out.println(person);</span><br></pre></td></tr></table></figure>
-<h5 id="2-Java转为JSON"><a href="#2-Java转为JSON" class="headerlink" title="2.Java转为JSON"></a>2.Java转为JSON</h5><pre><code>1.导入jar包
-2.创建jackson核心对象   ObjectMapper
-3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    Person p &#x3D; new Person();</span><br><span class="line">    p.setName(&quot;张三&quot;);</span><br><span class="line">    p.setAge(23);</span><br><span class="line">    p.setGendeer(&quot;男&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;创建Jackson的核心对象  ObjectMapper</span><br><span class="line">    ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">    &#x2F;&#x2F;调用方法 转换</span><br><span class="line">    String JSON &#x3D; mapper.writeValueAsString(p);</span><br><span class="line">    System.out.println(JSON);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;wirterValue  将数据写入到D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt中</span><br><span class="line">    &#x2F;&#x2F;mapper.writeValue(new File(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt&quot;),p);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;writeValue将数据关联到Writer中</span><br><span class="line">    mapper.writeValue(new FileWriter(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;b.txt&quot;),p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h5><pre><code>1.@JsonIgnore:排除属性
-2.@JsonFormat:属性值格式化</code></pre><h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>校验用户是否存在</p>
-<p>html代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;注册&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;JS&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;&#x2F;页面加载完成后 给文本框绑定离开焦点事件</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $(&quot;#username&quot;).blur(function () &#123;</span><br><span class="line">                &#x2F;&#x2F;获取username获取文本输入框的值</span><br><span class="line">                var username &#x3D; $(this).val();</span><br><span class="line">                &#x2F;&#x2F;发送ajax请求</span><br><span class="line">                $.get(&quot;findUserServlet&quot;,&#123;username:username&#125;,function (data) &#123;</span><br><span class="line">                    var span &#x3D; $(&quot;#s_username&quot;)</span><br><span class="line">                    if (data.userExsit)&#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;red&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名不存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;green&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,&quot;json&quot;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">    &lt;input id&#x3D;&quot;username&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; placeholder&#x3D;&quot;请输入用户名&quot;&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;s_username&quot;&gt;&lt;&#x2F;span&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; placeholder&#x3D;&quot;请输入密码&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;注册&quot;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
-<p>Servlet代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;&#x2F;findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        String username &#x3D; request.getParameter(&quot;username&quot;);</span><br><span class="line">        &#x2F;&#x2F;设置响应数据为JSON</span><br><span class="line">        response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">        Map&lt;String,Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        if (&quot;Tom&quot;.equals(username))&#123;</span><br><span class="line">            &#x2F;&#x2F;存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,true);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名已经存在&quot;);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,false);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名可用&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;将map转为json，并且传递给客户端</span><br><span class="line">        ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">        mapper.writeValue(response.getWriter(),map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PicGo+GitHub图床，让Markdown飞</title>
-    <url>/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/</url>
-    <content><![CDATA[<p>PicGo+GitHub图床</p>
-<a id="more"></a>
-
-<p>一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种<strong>“轻量级标记语言”</strong>。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown去记录。几次寻觅，我找到了两款能够大部分符合我的需求的Markdown编辑器：<strong>Typora</strong>和<strong>马克飞象</strong>。</p>
-<p>目前我是两款编辑器混合时候，当编写的Markdown文档需要和印象笔记对接的时候，则使用马克飞象；至于其他用途的文档就使用Typora。则两款编辑器都<strong>近乎完美但是却又不能达到完美</strong>。我写文档的时候经常需要截图，然后从剪贴板从直接黏贴放进文档，则两款编辑器虽然都能满足这种操作，但是其实现原理不过是<strong>将截图存放在本机电脑上</strong>，所以，一旦文档中有了截图，将Markdown文档的迁移到别的电脑上展示的成本就大大增加（图片也要一并复制过去）。</p>
-<p>这两款编辑器对图片处理的方法简直是丧尽天良，也是我在使用过程中唯一觉得不爽的一点。辛苦搜寻之下，终于让我找到了一种解决方案：<strong>PicGo+GitHub图床</strong></p>
-<blockquote>
-<p>注：实际上，Mac OS 上的Typora编辑器已经支持将本地图片或者截图先上传到服务器生成访问链接后，在存放到Markdown文档中，简单点说，Mac OS上的Typora是完美的（😭无奈我是Windows用户）</p>
-</blockquote>
-<h1 id="PicGo介绍"><a href="#PicGo介绍" class="headerlink" title="PicGo介绍"></a><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGo介绍</a></h1><p>这是一款图片上传的工具，目前支持<code>微博图床</code>，<code>七牛图床</code>，<code>腾讯云</code>，<code>又拍云</code>，<code>GitHub</code>等图床，未来将支持更多图床。</p>
-<p>所以解决问题的思路就是，将本地的文件，或者剪切板上面的截图发送图床，然后生成在线图片的链接，这样就可以让Markdown文档飞起来了，走到哪就可以用到哪😊。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523183627.png" alt=""></p>
-<p>Pic Go支持的图床</p>
-<p>在众多的图床中，我选择的GitHub图床，其它类型的图床如果你们有兴趣的话可以试一下。</p>
-<h1 id="创建自己的GitHub图床"><a href="#创建自己的GitHub图床" class="headerlink" title="创建自己的GitHub图床"></a>创建自己的GitHub图床</h1><h2 id="1-创建GitHub图床之前，需要注册-登陆GitHub账号"><a href="#1-创建GitHub图床之前，需要注册-登陆GitHub账号" class="headerlink" title="1. 创建GitHub图床之前，需要注册/登陆GitHub账号"></a>1. 创建GitHub图床之前，需要注册/登陆GitHub账号</h2><blockquote>
-<p>申请GitHub账号很简单，我就不演示了</p>
-</blockquote>
-<h2 id="2-创建Repository"><a href="#2-创建Repository" class="headerlink" title="2. 创建Repository"></a>2. 创建Repository</h2><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523183819.png" alt=""></p>
-<p>点击”New repository”按钮</p>
-<blockquote>
-<ul>
-<li>我已经建立过一个同名的repository的，所以第一步会显示红色</li>
-<li>第三步，为repository初始化一个README.md文件可以根据需求选择，非必选</li>
-</ul>
-</blockquote>
-<h2 id="3-生成一个Token用于操作GitHub-repository"><a href="#3-生成一个Token用于操作GitHub-repository" class="headerlink" title="3.生成一个Token用于操作GitHub repository"></a>3.生成一个Token用于操作GitHub repository</h2><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523183947.png" alt=""></p>
-<p>回到主页，点击”Settings”按钮</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184121.png" alt=""></p>
-<p>进入页面后，点击”Developer settings”按钮</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184453.png" alt=""></p>
-<p>点击”Personal access tokens”按钮</p>
-<p>创建新的Token</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184607.png" alt=""><br>填写描述，选择”repo”,然后点击”Generate token”按钮</p>
-<blockquote>
-<p>注：创建成功后，会生成一串token，这串token之后不会再显示，所以第一次看到的时候，就要好好保存</p>
-</blockquote>
-<h3 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h3><h4 id="1-下载运行PicGo"><a href="#1-下载运行PicGo" class="headerlink" title="1. 下载运行PicGo"></a>1. 下载运行PicGo</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200523184734.png" alt=""></p>
-<p>推荐下载exe可执行文件</p>
-<h4 id="2-配置图床"><a href="#2-配置图床" class="headerlink" title="2. 配置图床"></a>2. 配置图床</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/img/20200521194551.png" alt=""></p>
-<p>如图配置</p>
-<blockquote>
-<ul>
-<li>设定仓库名的时候，是按照“账户名/仓库名的格式填写”</li>
-<li>分支名统一填写“master”</li>
-<li>将之前的Token黏贴在这里</li>
-<li>存储的路径可以按照我这样子写，就会在repository下创建一个“img”文件夹</li>
-<li>自定义域名的作用是，在上传图片后成功后，PicGo会将“自定义域名+上传的图片名”生成的访问链接，放到剪切板上<code>https://raw.githubusercontent.com/用户名/RepositoryName/分支名，</code>，自定义域名需要按照这样去填写</li>
-</ul>
-</blockquote>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>将上面的步骤都设置好之后，就可以让自己的Markdown文档飞起来了，每次截图之后，都可以按一下<code>ctrl+shift+c</code>，这样就会将剪切板上面的截图转化为在线网络图片链接，简直就是爽的不要不要的！！<br>。</p>
-<p>自己在本地用确实没有什么问题，但是提交到博客上发现图片加载失败，或者加载异常慢，于是我发现了一种加速的方法</p>
-<h4 id="CDN-简介"><a href="#CDN-简介" class="headerlink" title="CDN 简介"></a><strong>CDN 简介</strong></h4><blockquote>
-<p><strong>内容分发网络</strong>（英语：<strong>C</strong>ontent <strong>D</strong>elivery <strong>N</strong>etwork或<strong>C</strong>ontent <strong>D</strong>istribution <strong>N</strong>etwork，缩写：<strong>CDN</strong>）是指一种透过<a href="https://link.zhihu.com/?target=https%3A//zh.wikipedia.org/wiki/%E4%BA%92%E8%81%AF%E7%B6%B2">互联网</a>互相连接的电脑网络系统，利用最靠近每位用户的服务器，更快、更可靠地将音乐、图片、影片、应用程序及其他文件发送给用户，来提供高性能、可扩展性及低成本的网络内容传递给用户。<br>—— <a href="https://link.zhihu.com/?target=https%3A//zh.wikipedia.org/wiki/%E5%85%A7%E5%AE%B9%E5%82%B3%E9%81%9E%E7%B6%B2%E8%B7%AF">Wikipedia</a></p>
-</blockquote>
-<p>简而言之就是让服务器距离大陆较远的 GitHub ，将托管在那里的<strong>静态</strong>资源缓存到一个近一点的服务器，从而加快访问。</p>
-<p>看了这样的解释你应该能够理解，CDN 虽然能缓解互联压力，可也是要耗费一定的资源的，从而市面上的 CDN 大多是收费的。Cloudflare 虽然有免费 CDN ，可是国内节点致开放给专业版用户使用，价格偏高，而海外的节点又类似<strong>负优化</strong>，可能还会降低速度。</p>
-<h3 id="jsDelivr"><a href="#jsDelivr" class="headerlink" title="jsDelivr"></a><strong>jsDelivr</strong></h3><p><a href="https://link.zhihu.com/?target=https%3A//www.jsdelivr.com/">jsDelivr</a>是一款公共免费 CDN ，调用多家 CDN 保证全球服务质量、拥有多层缓存和灾后保障 SLA 100 。也是为数不多的有 ICP 备案，提供许多中国节点的海外 CDN 服务商。</p>
-<p>有搜索引擎，支持一键复制文件 URL 和标签，支持分发 NPM、GitHub、WordPress SVN 的文件</p>
-<h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a><strong>基础使用</strong></h3><p>可能看起来，官方的使用方法十分复杂，但其实就一句话：把仓库链接的域名替换成 jsDelivr 的域名。</p>
-<p>如托管在 GitHub 的仓库链接都是 <code>https://github.com/username/repo/branch/file</code> 的形式，而我们就可以将前面的 <code>github.com</code> 改成 jsDelivr 提供加速 GitHub 仓库的域名 <code>cdn.jsdelivr.net/gh</code> 。</p>
-<p>嗯，兴冲冲配置一发，发现什么都没有？其实还是有一点点小差别的。比如分支那里，jsDelivr 默认要直接在仓库名后面 <code>@</code> ，所以真正其实是 <code>https://cdn.jsdelivr.net/gh/username/repo@branch/file</code> 的形式。当然，如果你放在仓库的默认分支，还可以直接将 <code>branch</code> 这个关键字直接删了，变成 <code>https://cdn.jsdelivr.net/gh/username/repo/file</code> 一样能获取到！</p>
-<p>另外，如果是一些比较稳定的文件，后面不会频繁地改动，还可以发布成一个版本，然后在 <code>repo</code> 后 <code>@version</code> 就可以引用对应的版本。</p>
-<h3 id="加速图床"><a href="#加速图床" class="headerlink" title="加速图床"></a><strong>加速图床</strong></h3><p>如果你还记得笔者之前写的 <strong>PicGo + GitHub 搭建免费图床</strong> 的话，不难发现 jsDelivr 也是能加速这个图床（本质不还是一个 GitHub 仓库嘛）的。我们只需要在 <strong>GitHub 图床设置</strong> 中将链接设置为 <code>https://cdn.jsdelivr.net/gh/username/repo</code> 即可！前提是你上传到默认分支。</p>
-]]></content>
-      <tags>
-        <tag>软件</tag>
       </tags>
   </entry>
   <entry>
@@ -941,246 +1083,6 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
       </tags>
   </entry>
   <entry>
-    <title>mybatis框架(三)</title>
-    <url>/2020/05/24/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%89/</url>
-    <content><![CDATA[<p>mybatis笔记(三)</p>
-<a id="more"></a>
-
-<h3 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h3><p>1.注解在接口上使用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Select</span>(<span class="string">"select * from student"</span>)</span><br><span class="line">    <span class="function">List&lt;Student&gt; <span class="title">getStudents</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>2.需要在核心配置文件中绑定接口</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;mapper resource="cn/demomybatis/dao/StudentDao.xml"/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;mapper class="cn.demomybatis.dao.StudentDao"/&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"cn.demomybatis.dao"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>本质：反射机制实现</p>
-<p>底层：动态代理！</p>
-<p><strong>MyBatis详细执行流程</strong></p>
-<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/asdasdas.jpg" style="zoom: 80%;" />
-
-<h4 id="CRUD"><a href="#CRUD" class="headerlink" title="CRUD"></a>CRUD</h4><p>我们可以在创建工具类的时候实现自动提交事务！</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SqlSession <span class="title">getSqlSession</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sqlSessionFactory.openSession(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>编写接口，增加注释</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法存在多个参数，所有参数前面必须加上@Param注解</span></span><br><span class="line">   <span class="meta">@Select</span>(<span class="string">"select * from student where id = #&#123;id&#125;"</span>)</span><br><span class="line">   <span class="function">Student <span class="title">getStudentById1</span><span class="params">(@Param(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Insert</span>(<span class="string">"insert into student(id,name,age,phone) values(#&#123;id&#125;,#&#123;name&#125;,#&#123;age&#125;,#&#123;phone&#125;)"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">addStudent1</span><span class="params">(Student student)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="meta">@Update</span>(<span class="string">"update student set name=#&#123;name&#125;,age=#&#123;age&#125;,phone=#&#123;phone&#125; where id = #&#123;id&#125;"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">updateStudent1</span><span class="params">(Student student)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="关于-Param注解"><a href="#关于-Param注解" class="headerlink" title="关于@Param注解"></a>关于@Param注解</h4><ul>
-<li>基本类型的参数或者String类型，需要加上</li>
-<li>引用类型不需要加</li>
-<li>如果只有一个基本类型的话，可以忽略，但是建议加上</li>
-<li>我们在SQL中引用的就是我们这里的@Param()中设定的属性名！</li>
-</ul>
-<h3 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h3><p>使用步骤：</p>
-<p>1.在IDEA中安装Lombok插件</p>
-<p>2.在项目导入Lombok的jar包</p>
-<p>3.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span>：生成无参构造，get，set，toString，hashcode，equals</span><br><span class="line"><span class="meta">@AllArgsConstructor</span>   有参构造方法</span><br><span class="line"><span class="meta">@NoArgsConstructor</span>    无参构造方法</span><br></pre></td></tr></table></figure>
-
-<h3 id="多对一处理"><a href="#多对一处理" class="headerlink" title="多对一处理"></a>多对一处理</h3><h4 id="按照插叙嵌套处理"><a href="#按照插叙嵌套处理" class="headerlink" title="按照插叙嵌套处理"></a>按照插叙嵌套处理</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">     思路：</span></span><br><span class="line"><span class="comment">            1.查询所有的学生信息</span></span><br><span class="line"><span class="comment">            2.根据查询出来的tid，寻找对应的老师！   子查询--&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudent"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher"</span>&gt;</span></span><br><span class="line">        select * from student</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--复杂的属性，我们需要单独处理 对象：association 集合：collection--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> <span class="attr">select</span>=<span class="string">"getTeacher"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher"</span> <span class="attr">resultType</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">        select * from teacher where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="按照结果嵌套处理"><a href="#按照结果嵌套处理" class="headerlink" title="按照结果嵌套处理"></a>按照结果嵌套处理</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudent2"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher2"</span>&gt;</span></span><br><span class="line">       select s.id sid,s.name sname,t.name tname from student s,teacher t where s.tid=t.id;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher2"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"sid"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"sname"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"tname"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="一对多处理"><a href="#一对多处理" class="headerlink" title="一对多处理"></a>一对多处理</h3><p>同理</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>1.关联 - association 【多对一】</p>
-<p>2.集合 - collection 【一对多】</p>
-<p>3.javaTape：用来指定实体类中属性的类型</p>
-<p>4.ofType：用来指定映射到List或者集合中的实体类类型，泛型中的约束类型</p>
-]]></content>
-      <tags>
-        <tag>JavaWeb</tag>
-        <tag>MyBatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mybatis框架(四)</title>
-    <url>/2020/05/27/mybatis%E6%A1%86%E6%9E%B6-%E5%9B%9B/</url>
-    <content><![CDATA[<p>mybatis笔记(四)</p>
-<a id="more"></a>
-
-<h3 id="动态SQL"><a href="#动态SQL" class="headerlink" title="动态SQL"></a>动态SQL</h3><p><strong>什么是动态SQL：根据不同的条件生成不同的SQL</strong></p>
-<p><strong>所谓的动态SQl，本质还是SQL语句，只是我么可以在SQl层面，去执行一个逻辑代码</strong></p>
-<p>如果你之前用过 JSTL 或任何基于类 XML 语言的文本处理器，你对动态 SQL 元素可能会感觉似曾相识。在 MyBatis 之前的版本中，需要花时间了解大量的元素。借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。</p>
-<ul>
-<li><p>if</p>
-</li>
-<li><p>choose (when, otherwise)</p>
-</li>
-<li><p>trim (where, set)</p>
-</li>
-<li><p>foreach</p>
-</li>
-</ul>
-<h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><p><strong>BlogMapper.xml代码</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogIf"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from blog where 1 = 1</span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">            and title = #&#123;title&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">            and author = #&#123;author&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="choose、when、otherwise"><a href="#choose、when、otherwise" class="headerlink" title="choose、when、otherwise"></a>choose、when、otherwise</h4><p>有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。</p>
-<p>还是上面的例子，但是策略变为：传入了 “title” 就按 “title” 查找，传入了 “author” 就按 “author” 查找的情形。若两者都没有传入，就返回标记为 featured 的 BLOG（这可能是管理员认为，与其返回大量的无意义随机 Blog，还不如返回一些由管理员挑选的 Blog）。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogChoose"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"title!=null"</span>&gt;</span></span><br><span class="line">                    title = #&#123;title&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"author!=null"</span>&gt;</span></span><br><span class="line">                    and author = #&#123;author&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                    and views = #&#123;views&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>只会选择其中一个条件实现，前面的实现后面的就不看了</strong></p>
-<h4 id="trim、where、set"><a href="#trim、where、set" class="headerlink" title="trim、where、set"></a>trim、where、set</h4><p><strong>where</strong></p>
-<p>如果没有匹配的条件会怎么样？最终这条 SQL 会变成这样：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">SELECT * FROM BLOG</span><br><span class="line">WHERE</span><br></pre></td></tr></table></figure>
-
-<p>这会导致查询失败。如果匹配的只是第二个条件又会怎样？这条 SQL 会是这样:</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">SELECT * FROM BLOG</span><br><span class="line">WHERE</span><br><span class="line">AND title like ‘someTitle’</span><br></pre></td></tr></table></figure>
-
-<p>这个查询也会失败。这个问题不能简单地用条件元素来解决。这个问题是如此的难以解决，以至于解决过的人不会再想碰到这种问题。</p>
-<p>MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场景中，可以对其进行自定义以符合需求。而这，只需要一处简单的改动：</p>
-<p><strong><em>where</em> 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，<em>where</em> 元素也会将它们去除。</strong></p>
-<p><strong>set</strong></p>
-<p>用于动态更新语句的类似解决方案叫做 <em>set<em>。</em>set</em> 元素可以用于动态包含需要更新的列，忽略其它不更新的列。</p>
-<p><em>set</em> 元素会动态地在行首插入 SET 关键字，并会删掉额外的逗号（这些逗号是在使用条件语句给列赋值时引入的）。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateBlogSet"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">        update blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"titlt != null"</span>&gt;</span></span><br><span class="line">                title = #&#123;title&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">                author = #&#123;author&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="SQL片段"><a href="#SQL片段" class="headerlink" title="SQL片段"></a>SQL片段</h4><p>有的时候，我们可能将一些功能的部分抽取出来，方便复用</p>
-<p>1.使用<code>sql</code>标签抽取公共部分</p>
-<p>2.在需要使用的的地方使用<code>include</code>标签引用即可</p>
-<p><strong>注意事项</strong>：</p>
-<p>1.最好基于单表来定义SQL！</p>
-<p>2.不要存在where</p>
-<h4 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h4><p><em>foreach</em> 元素的功能非常强大，它允许你指定一个集合，声明可以在元素体内使用的集合项（item）和索引（index）变量。它也允许你指定开头与结尾的字符串以及集合项迭代之间的分隔符。这个元素也不会错误地添加多余的分隔符，看它多智能！</p>
-<p><strong>提示</strong> 你可以将任何可迭代对象（如 List、Set 等）、Map 对象或者数组对象作为集合参数传递给 <em>foreach</em>。当使用可迭代对象或者数组时，index 是当前迭代的序号，item 的值是本次迭代获取到的元素。当使用 Map 对象（或者 Map.Entry 对象的集合）时，index 是键，item 是值。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryForeach"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"ids"</span> <span class="attr">item</span>=<span class="string">"id"</span> <span class="attr">open</span>=<span class="string">"and ("</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">"or"</span>&gt;</span></span><br><span class="line">                id = #&#123;id&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>1.什么是缓存？</p>
-<ul>
-<li>存在内存的临时数据</li>
-<li>将用户经常查询的数据放在缓存(内存)中，用户去查询数据就不用从磁盘上查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题</li>
-</ul>
-<p>2.为什么使用缓存？</p>
-<ul>
-<li>减少和数据库的交互次数，减少系统开销，提高系统效率</li>
-</ul>
-<p>3.什么样的数据能使用缓存</p>
-<ul>
-<li>经常查询并且不经常改变的数据</li>
-</ul>
-<h4 id="MyBatis缓存"><a href="#MyBatis缓存" class="headerlink" title="MyBatis缓存"></a>MyBatis缓存</h4><ul>
-<li>MyBatis包含了一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存。缓存可以极大的提升查询效率</li>
-<li>MyBatis系统中定义了两级缓存：<strong>一级缓存</strong>和<strong>二级缓存</strong><ul>
-<li>默认情况下，只有一级缓存开启。(SqlSession级别的缓存，也称本地缓存)</li>
-<li>二级缓存需要手动开启和配置，他是基于namespace级别的缓存。</li>
-<li>为了提高扩展性，Mybatis定义了缓存接口Cache。我们可以通过实现Cache接口来定义二级缓存。</li>
-</ul>
-</li>
-</ul>
-<h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><ul>
-<li>一级缓存也叫本地缓存：SqlSession<ul>
-<li>与数据库同一次会话期间查询到的数据会放在本地缓存中</li>
-<li>以后如果需要获取相同的数据，直接从缓存中哪，没必要在去查询数据库</li>
-</ul>
-</li>
-</ul>
-<p><strong>缓存失效的情况：</strong></p>
-<p>1.查询不同的东西</p>
-<p>2.增删改操作，可能会改变原来的数据，所有必定会刷新缓存！</p>
-<p>3.查询不同Mapper.xml</p>
-<p>4.手动清理缓存</p>
-<p><strong>小结</strong></p>
-<p>一级缓存默认是开启的，只在一次SqlSession中有效，也就是拿到连接到关闭连接这个去加段！</p>
-<h4 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h4><ul>
-<li>二级缓存也叫全局缓存，一级缓存作用域太低了，所以诞生了二级缓存</li>
-<li>基于namespace级别的缓存，一个名门空间对应一个二级缓存</li>
-<li>工作机制：<ul>
-<li>一个会话查询一条数据，这个数据就会被放在当前会话的一级缓存中</li>
-<li>如果当前会话关闭了，这个会话对应的一级缓存就没了，但是我们想要的是，会话关闭了，一级缓存中的数据保存到二级缓存中</li>
-<li>新的会话查询信息，就可以从二级缓存中获取内容</li>
-<li>不同的mapper查出的数据会放在自己对应的缓存中</li>
-</ul>
-</li>
-</ul>
-<p>步骤：</p>
-<p>1.开启全局缓存</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--        开启全局缓存--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>2.在要使用二级缓存的Mapper中开启</p>
-]]></content>
-      <tags>
-        <tag>JavaWeb</tag>
-        <tag>mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mybatis框架(一)</title>
-    <url>/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/</url>
-    <content><![CDATA[<p>mybatis笔记(一)</p>
-<a id="more"></a>
-
-<h3 id="mybatis概述"><a href="#mybatis概述" class="headerlink" title="mybatis概述"></a>mybatis概述</h3><p>mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了ORM思想，实现了结果集的封装。</p>
-<h3 id="ORM：Object-Relational-Mappging-对象关系映射"><a href="#ORM：Object-Relational-Mappging-对象关系映射" class="headerlink" title="ORM：Object Relational Mappging   对象关系映射"></a>ORM：Object Relational Mappging   对象关系映射</h3><p>简单的说：就是把数据库和实体类及实体类的属性对应起来，让我们可以操作实体类及实现操作数据库</p>
-<h3 id="mybatis环境搭建"><a href="#mybatis环境搭建" class="headerlink" title="mybatis环境搭建"></a>mybatis环境搭建</h3><ul>
-<li>1.创建maven工程并导入坐标<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;3.5.4&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;8.0.18&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure></li>
-<li>2.创建实体类和dao接口</li>
-<li>3.创建mybatis的主配置文件SqlMapConfig.xml</li>
-<li>4.创建映射配置文件<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3></li>
-<li>1.包在创建时 com.demomybatis.dao他是三级目录结构</li>
-<li>2.mybatis的映射配置文件位置必须和dao接口的包结构相同</li>
-<li>3.映射配置文件的mapper标签和namespace属性的取值必须是dao接口的全限定而类名</li>
-<li>4.映射配置文件的擦偶哦配置(select) id的取值必须是dao接口的方法名</li>
-</ul>
-<div class="note success"><p>当我们遵从2，3，4点之后，我们开发中就无需再写dao的实现类</p></div>
-
-<h3 id="SqlMapConfig-xml代码"><a href="#SqlMapConfig-xml代码" class="headerlink" title="SqlMapConfig.xml代码"></a>SqlMapConfig.xml代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">            &lt;!--使用jdbc事务管理 --&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;!-- 数据库连接池(数据源) --&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.cj.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!-- 引入映射配置文件 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;cn&#x2F;demomybatis&#x2F;dao&#x2F;StudentDao.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="StudentDao-xml代码"><a href="#StudentDao-xml代码" class="headerlink" title="StudentDao.xml代码"></a>StudentDao.xml代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- namespace：命名空间，用于隔离sql--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;cn.demomybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">    &lt;!--    配置查询所有 id为dao的方法名--&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;findAll&quot; resultType&#x3D;&quot;cn.demomybatis.domain.Student&quot; parameterType&#x3D;&quot;cn.demomybatis.domain.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="mybatis入门案例："><a href="#mybatis入门案例：" class="headerlink" title="mybatis入门案例："></a>mybatis入门案例：</h3><ul>
-<li>1.读取配置文件</li>
-<li>2.创建SqlSessionFactory工厂</li>
-<li>3.创建SqlSession</li>
-<li>4.创建Dao接口的代理</li>
-<li>5.执行Dao中的方法</li>
-<li>6.释放资源</li>
-</ul>
-<span class='p red'>注意：需要在映射配置中告知mybatis要封装到哪个实体类中，配置的方式：指定实体类的全类名</span>
-
-<div class="note warning"><p>增删改需要提交事务</p></div>
-
-<p><code>sqlSession.commit()</code></p>
-<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.demomybatis.test;</span><br><span class="line"></span><br><span class="line">import cn.demomybatis.dao.StudentDao;</span><br><span class="line">import cn.demomybatis.domain.Student;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * mybatis入门</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class mybatistest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream in &#x3D; Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建工厂</span><br><span class="line">        SqlSessionFactoryBuilder builder &#x3D; new SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory factory &#x3D; builder.build(in);</span><br><span class="line">        &#x2F;&#x2F;使用工厂生产SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; factory.openSession();</span><br><span class="line">        &#x2F;&#x2F;创建Dao接口的代理对象</span><br><span class="line">        StudentDao studentDao &#x3D; sqlSession.getMapper(StudentDao.class);</span><br><span class="line">        &#x2F;&#x2F;使用代理对象执行方法</span><br><span class="line">        List&lt;Student&gt; list &#x3D; studentDao.findAll();</span><br><span class="line">        for (Student student:list)&#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;释放资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaWeb</tag>
-        <tag>mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ngork内网穿透</title>
-    <url>/2020/05/22/ngork%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
-    <content><![CDATA[<p>将本地的项目运行在公网上</p>
-<a id="more"></a>
-
-<h3 id="1-进入ngrok官网（http-www-ngrok-cc-），注册ngrok账号"><a href="#1-进入ngrok官网（http-www-ngrok-cc-），注册ngrok账号" class="headerlink" title="1.进入ngrok官网（http://www.ngrok.cc/），注册ngrok账号"></a>1.进入ngrok官网（<a href="http://www.ngrok.cc/），注册ngrok账号" target="_blank" rel="noopener">http://www.ngrok.cc/），注册ngrok账号</a></h3><h3 id="2-登录–-gt-隧道管理–-gt-开通隧道"><a href="#2-登录–-gt-隧道管理–-gt-开通隧道" class="headerlink" title="2.登录–&gt;隧道管理–&gt;开通隧道"></a>2.登录–&gt;隧道管理–&gt;开通隧道</h3><p>找到免费的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522091915.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092038.png" alt=""></p>
-<p>隧道名称和前置域名随便填就行了  端口填自己tomcat的端口</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092309.png" alt=""></p>
-<p>点击客户端下载</p>
-<p>下载完成之后点击启动工具</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092538.png" alt=""></p>
-<p>输入隧道id</p>
-<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092753.png" alt=""></p>
-<p>显示这个就已经成功了  可以通过上边哪个域名访问自己本地的项目了</p>
-]]></content>
-      <tags>
-        <tag>软件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫</title>
-    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
-    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><a id="more"></a>
-<p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
-]]></content>
-      <tags>
-        <tag>爬虫</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mybatis框架(二)</title>
     <url>/2020/05/22/mybatis%E6%A1%86%E6%9E%B6-%E4%BA%8C/</url>
     <content><![CDATA[<p>mybatis笔记(二)</p>
@@ -1319,6 +1221,330 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
       </tags>
   </entry>
   <entry>
+    <title>AJAX和JSON</title>
+    <url>/2020/04/28/ajax%E5%92%8CJSON/</url>
+    <content><![CDATA[<h3 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h3><a id="more"></a>
+<h4 id="概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml"><a href="#概念：ASynchronous-JavaScript-And-XML-异步的javascript和xml" class="headerlink" title="概念：ASynchronous JavaScript And XML   异步的javascript和xml"></a>概念：ASynchronous JavaScript And XML   异步的javascript和xml</h4><h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式:"></a>实现方式:</h4><ul>
+<li><p>1.原生的JS实现方式</p>
+</li>
+<li><p>2.JQuery实现方式</p>
+<p>  1.<font color="#DC143C">$.ajax()}</font></p>
+<pre><code>$.ajax({键值对});</code></pre><p>  2.<font color="#DC143C">$.get()</font></p>
+<p>  3.<font color="#DC143C">$.post()</font></p>
+</li>
+</ul>
+<h3 id="JOSN"><a href="#JOSN" class="headerlink" title="JOSN"></a>JOSN</h3><h4 id="概念：JavaScript-Object-Notation-JavaScript对象表示法"><a href="#概念：JavaScript-Object-Notation-JavaScript对象表示法" class="headerlink" title="概念：JavaScript Object Notation      JavaScript对象表示法"></a>概念：JavaScript Object Notation      JavaScript对象表示法</h4><h4 id="基本规则："><a href="#基本规则：" class="headerlink" title="基本规则："></a>基本规则：</h4><h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据:"></a>获取数据:</h4><p><font color="#DC143C">json对象.键名</font></p>
+<p><font color="#DC143C">json对象[“键名”]</font></p>
+<p><font color="#DC143C">数组对象[索引]</font></p>
+<h4 id="遍历JSON"><a href="#遍历JSON" class="headerlink" title="遍历JSON"></a>遍历JSON</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var key in person)&#123;</span><br><span class="line">    alert(key+&quot;:&quot;+person[key])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="JSON数据和Java对象的相互转换"><a href="#JSON数据和Java对象的相互转换" class="headerlink" title="JSON数据和Java对象的相互转换"></a>JSON数据和Java对象的相互转换</h4><pre><code>1.JSON转为Java
+    1.导入jar包
+    2.创建jackson核心对象   ObjectMapper
+    3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">String json &#x3D; &quot;&#123;\&quot;name\&quot;:\&quot;zhangsan\&quot;,\&quot;age\&quot;:20,\&quot;gender\&quot;:\&quot;男\&quot;&#125;&quot;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建ObjectMappper</span><br><span class="line">ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span><br><span class="line">&#x2F;&#x2F;转换为Java的对象</span><br><span class="line">Person person &#x3D; mapper.readValue(json,Person.class);</span><br><span class="line">System.out.println(person);</span><br></pre></td></tr></table></figure>
+<h5 id="2-Java转为JSON"><a href="#2-Java转为JSON" class="headerlink" title="2.Java转为JSON"></a>2.Java转为JSON</h5><pre><code>1.导入jar包
+2.创建jackson核心对象   ObjectMapper
+3.调用ObjectMapper的相关方法进行转换</code></pre><p>代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    Person p &#x3D; new Person();</span><br><span class="line">    p.setName(&quot;张三&quot;);</span><br><span class="line">    p.setAge(23);</span><br><span class="line">    p.setGendeer(&quot;男&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;创建Jackson的核心对象  ObjectMapper</span><br><span class="line">    ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">    &#x2F;&#x2F;调用方法 转换</span><br><span class="line">    String JSON &#x3D; mapper.writeValueAsString(p);</span><br><span class="line">    System.out.println(JSON);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;wirterValue  将数据写入到D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt中</span><br><span class="line">    &#x2F;&#x2F;mapper.writeValue(new File(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;a.txt&quot;),p);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;writeValue将数据关联到Writer中</span><br><span class="line">    mapper.writeValue(new FileWriter(&quot;D:&#x2F;&#x2F;a_test&#x2F;&#x2F;b.txt&quot;),p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注解："><a href="#注解：" class="headerlink" title="注解："></a>注解：</h5><pre><code>1.@JsonIgnore:排除属性
+2.@JsonFormat:属性值格式化</code></pre><h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>校验用户是否存在</p>
+<p>html代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;注册&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;JS&#x2F;jquery-3.4.1.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        &#x2F;&#x2F;页面加载完成后 给文本框绑定离开焦点事件</span><br><span class="line">        $(function () &#123;</span><br><span class="line">            $(&quot;#username&quot;).blur(function () &#123;</span><br><span class="line">                &#x2F;&#x2F;获取username获取文本输入框的值</span><br><span class="line">                var username &#x3D; $(this).val();</span><br><span class="line">                &#x2F;&#x2F;发送ajax请求</span><br><span class="line">                $.get(&quot;findUserServlet&quot;,&#123;username:username&#125;,function (data) &#123;</span><br><span class="line">                    var span &#x3D; $(&quot;#s_username&quot;)</span><br><span class="line">                    if (data.userExsit)&#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;red&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        &#x2F;&#x2F;用户名不存在</span><br><span class="line">                        span.css(&quot;color&quot;,&quot;green&quot;)</span><br><span class="line">                        span.html(data.msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,&quot;json&quot;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form&gt;</span><br><span class="line">    &lt;input id&#x3D;&quot;username&quot; type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; placeholder&#x3D;&quot;请输入用户名&quot;&gt;</span><br><span class="line">    &lt;span id&#x3D;&quot;s_username&quot;&gt;&lt;&#x2F;span&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; placeholder&#x3D;&quot;请输入密码&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;注册&quot;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>Servlet代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.test.web.servlet;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.annotation.WebServlet;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">@WebServlet(&quot;&#x2F;findUserServlet&quot;)</span><br><span class="line">public class findUserServlet extends HttpServlet &#123;</span><br><span class="line">    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        String username &#x3D; request.getParameter(&quot;username&quot;);</span><br><span class="line">        &#x2F;&#x2F;设置响应数据为JSON</span><br><span class="line">        response.setContentType(&quot;application&#x2F;json;charset&#x3D;utf-8&quot;);</span><br><span class="line">        Map&lt;String,Object&gt; map &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">        if (&quot;Tom&quot;.equals(username))&#123;</span><br><span class="line">            &#x2F;&#x2F;存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,true);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名已经存在&quot;);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            &#x2F;&#x2F;不存在</span><br><span class="line">            map.put(&quot;userExsit&quot;,false);</span><br><span class="line">            map.put(&quot;msg&quot;,&quot;用户名可用&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;将map转为json，并且传递给客户端</span><br><span class="line">        ObjectMapper mapper &#x3D; new ObjectMapper();</span><br><span class="line">        mapper.writeValue(response.getWriter(),map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;</span><br><span class="line">        this.doPost(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mybatis框架(三)</title>
+    <url>/2020/05/24/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%89/</url>
+    <content><![CDATA[<p>mybatis笔记(三)</p>
+<a id="more"></a>
+
+<h3 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h3><p>1.注解在接口上使用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Select</span>(<span class="string">"select * from student"</span>)</span><br><span class="line">    <span class="function">List&lt;Student&gt; <span class="title">getStudents</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>2.需要在核心配置文件中绑定接口</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;mapper resource="cn/demomybatis/dao/StudentDao.xml"/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;mapper class="cn.demomybatis.dao.StudentDao"/&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"cn.demomybatis.dao"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>本质：反射机制实现</p>
+<p>底层：动态代理！</p>
+<p><strong>MyBatis详细执行流程</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/asdasdas.jpg" style="zoom: 80%;" />
+
+<h4 id="CRUD"><a href="#CRUD" class="headerlink" title="CRUD"></a>CRUD</h4><p>我们可以在创建工具类的时候实现自动提交事务！</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SqlSession <span class="title">getSqlSession</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sqlSessionFactory.openSession(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写接口，增加注释</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法存在多个参数，所有参数前面必须加上@Param注解</span></span><br><span class="line">   <span class="meta">@Select</span>(<span class="string">"select * from student where id = #&#123;id&#125;"</span>)</span><br><span class="line">   <span class="function">Student <span class="title">getStudentById1</span><span class="params">(@Param(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id)</span>;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Insert</span>(<span class="string">"insert into student(id,name,age,phone) values(#&#123;id&#125;,#&#123;name&#125;,#&#123;age&#125;,#&#123;phone&#125;)"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">addStudent1</span><span class="params">(Student student)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="meta">@Update</span>(<span class="string">"update student set name=#&#123;name&#125;,age=#&#123;age&#125;,phone=#&#123;phone&#125; where id = #&#123;id&#125;"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">updateStudent1</span><span class="params">(Student student)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于-Param注解"><a href="#关于-Param注解" class="headerlink" title="关于@Param注解"></a>关于@Param注解</h4><ul>
+<li>基本类型的参数或者String类型，需要加上</li>
+<li>引用类型不需要加</li>
+<li>如果只有一个基本类型的话，可以忽略，但是建议加上</li>
+<li>我们在SQL中引用的就是我们这里的@Param()中设定的属性名！</li>
+</ul>
+<h3 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h3><p>使用步骤：</p>
+<p>1.在IDEA中安装Lombok插件</p>
+<p>2.在项目导入Lombok的jar包</p>
+<p>3.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span>：生成无参构造，get，set，toString，hashcode，equals</span><br><span class="line"><span class="meta">@AllArgsConstructor</span>   有参构造方法</span><br><span class="line"><span class="meta">@NoArgsConstructor</span>    无参构造方法</span><br></pre></td></tr></table></figure>
+
+<h3 id="多对一处理"><a href="#多对一处理" class="headerlink" title="多对一处理"></a>多对一处理</h3><h4 id="按照插叙嵌套处理"><a href="#按照插叙嵌套处理" class="headerlink" title="按照插叙嵌套处理"></a>按照插叙嵌套处理</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">     思路：</span></span><br><span class="line"><span class="comment">            1.查询所有的学生信息</span></span><br><span class="line"><span class="comment">            2.根据查询出来的tid，寻找对应的老师！   子查询--&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudent"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher"</span>&gt;</span></span><br><span class="line">        select * from student</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--复杂的属性，我们需要单独处理 对象：association 集合：collection--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> <span class="attr">select</span>=<span class="string">"getTeacher"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher"</span> <span class="attr">resultType</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">        select * from teacher where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="按照结果嵌套处理"><a href="#按照结果嵌套处理" class="headerlink" title="按照结果嵌套处理"></a>按照结果嵌套处理</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudent2"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher2"</span>&gt;</span></span><br><span class="line">       select s.id sid,s.name sname,t.name tname from student s,teacher t where s.tid=t.id;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher2"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"sid"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"sname"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"tname"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="一对多处理"><a href="#一对多处理" class="headerlink" title="一对多处理"></a>一对多处理</h3><p>同理</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>1.关联 - association 【多对一】</p>
+<p>2.集合 - collection 【一对多】</p>
+<p>3.javaTape：用来指定实体类中属性的类型</p>
+<p>4.ofType：用来指定映射到List或者集合中的实体类类型，泛型中的约束类型</p>
+]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+        <tag>MyBatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mybatis框架(一)</title>
+    <url>/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/</url>
+    <content><![CDATA[<p>mybatis笔记(一)</p>
+<a id="more"></a>
+
+<h3 id="mybatis概述"><a href="#mybatis概述" class="headerlink" title="mybatis概述"></a>mybatis概述</h3><p>mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了ORM思想，实现了结果集的封装。</p>
+<h3 id="ORM：Object-Relational-Mappging-对象关系映射"><a href="#ORM：Object-Relational-Mappging-对象关系映射" class="headerlink" title="ORM：Object Relational Mappging   对象关系映射"></a>ORM：Object Relational Mappging   对象关系映射</h3><p>简单的说：就是把数据库和实体类及实体类的属性对应起来，让我们可以操作实体类及实现操作数据库</p>
+<h3 id="mybatis环境搭建"><a href="#mybatis环境搭建" class="headerlink" title="mybatis环境搭建"></a>mybatis环境搭建</h3><ul>
+<li>1.创建maven工程并导入坐标<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;3.5.4&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;8.0.18&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure></li>
+<li>2.创建实体类和dao接口</li>
+<li>3.创建mybatis的主配置文件SqlMapConfig.xml</li>
+<li>4.创建映射配置文件<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3></li>
+<li>1.包在创建时 com.demomybatis.dao他是三级目录结构</li>
+<li>2.mybatis的映射配置文件位置必须和dao接口的包结构相同</li>
+<li>3.映射配置文件的mapper标签和namespace属性的取值必须是dao接口的全限定而类名</li>
+<li>4.映射配置文件的擦偶哦配置(select) id的取值必须是dao接口的方法名</li>
+</ul>
+<div class="note success"><p>当我们遵从2，3，4点之后，我们开发中就无需再写dao的实现类</p></div>
+
+<h3 id="SqlMapConfig-xml代码"><a href="#SqlMapConfig-xml代码" class="headerlink" title="SqlMapConfig.xml代码"></a>SqlMapConfig.xml代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">            &lt;!--使用jdbc事务管理 --&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;!-- 数据库连接池(数据源) --&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.cj.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!-- 引入映射配置文件 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;cn&#x2F;demomybatis&#x2F;dao&#x2F;StudentDao.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="StudentDao-xml代码"><a href="#StudentDao-xml代码" class="headerlink" title="StudentDao.xml代码"></a>StudentDao.xml代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- namespace：命名空间，用于隔离sql--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;cn.demomybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">    &lt;!--    配置查询所有 id为dao的方法名--&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;findAll&quot; resultType&#x3D;&quot;cn.demomybatis.domain.Student&quot; parameterType&#x3D;&quot;cn.demomybatis.domain.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="mybatis入门案例："><a href="#mybatis入门案例：" class="headerlink" title="mybatis入门案例："></a>mybatis入门案例：</h3><ul>
+<li>1.读取配置文件</li>
+<li>2.创建SqlSessionFactory工厂</li>
+<li>3.创建SqlSession</li>
+<li>4.创建Dao接口的代理</li>
+<li>5.执行Dao中的方法</li>
+<li>6.释放资源</li>
+</ul>
+<span class='p red'>注意：需要在映射配置中告知mybatis要封装到哪个实体类中，配置的方式：指定实体类的全类名</span>
+
+<div class="note warning"><p>增删改需要提交事务</p></div>
+
+<p><code>sqlSession.commit()</code></p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.demomybatis.test;</span><br><span class="line"></span><br><span class="line">import cn.demomybatis.dao.StudentDao;</span><br><span class="line">import cn.demomybatis.domain.Student;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * mybatis入门</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class mybatistest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream in &#x3D; Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建工厂</span><br><span class="line">        SqlSessionFactoryBuilder builder &#x3D; new SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory factory &#x3D; builder.build(in);</span><br><span class="line">        &#x2F;&#x2F;使用工厂生产SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; factory.openSession();</span><br><span class="line">        &#x2F;&#x2F;创建Dao接口的代理对象</span><br><span class="line">        StudentDao studentDao &#x3D; sqlSession.getMapper(StudentDao.class);</span><br><span class="line">        &#x2F;&#x2F;使用代理对象执行方法</span><br><span class="line">        List&lt;Student&gt; list &#x3D; studentDao.findAll();</span><br><span class="line">        for (Student student:list)&#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;释放资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+        <tag>mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫</title>
+    <url>/2020/04/06/python%E7%88%AC%E8%99%AB/</url>
+    <content><![CDATA[<h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1><a id="more"></a>
+<p>用<code>pip install scrapy</code>命令安装会提示失败，是因为缺少twisted程序<br>进入<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">官网</a> 按住ctrl+f 查找关键字<br><img src="/img/%E7%88%AC%E8%99%AB1.png" alt="图片"><br>下载好与python版本配对的文件<br><img src="/img/%E7%88%AC%E8%99%AB2.png" alt="命令"><br>用命令安装下载好的文件  注意路径最好不要太长 否则容易报错<br>安装好插件以后用命令<br><code>pip install scrapy</code>安装框架<br>安装好以后用命令’scrapy’查看版本<br><img src="/img/%E7%88%AC%E8%99%AB3.png" alt="成功"><br>出现以上代码说明安装成功</p>
+]]></content>
+      <tags>
+        <tag>爬虫</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ngork内网穿透</title>
+    <url>/2020/05/22/ngork%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<p>将本地的项目运行在公网上</p>
+<a id="more"></a>
+
+<h3 id="1-进入ngrok官网（http-www-ngrok-cc-），注册ngrok账号"><a href="#1-进入ngrok官网（http-www-ngrok-cc-），注册ngrok账号" class="headerlink" title="1.进入ngrok官网（http://www.ngrok.cc/），注册ngrok账号"></a>1.进入ngrok官网（<a href="http://www.ngrok.cc/），注册ngrok账号" target="_blank" rel="noopener">http://www.ngrok.cc/），注册ngrok账号</a></h3><h3 id="2-登录–-gt-隧道管理–-gt-开通隧道"><a href="#2-登录–-gt-隧道管理–-gt-开通隧道" class="headerlink" title="2.登录–&gt;隧道管理–&gt;开通隧道"></a>2.登录–&gt;隧道管理–&gt;开通隧道</h3><p>找到免费的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522091915.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092038.png" alt=""></p>
+<p>隧道名称和前置域名随便填就行了  端口填自己tomcat的端口</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092309.png" alt=""></p>
+<p>点击客户端下载</p>
+<p>下载完成之后点击启动工具</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092538.png" alt=""></p>
+<p>输入隧道id</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200522092753.png" alt=""></p>
+<p>显示这个就已经成功了  可以通过上边哪个域名访问自己本地的项目了</p>
+]]></content>
+      <tags>
+        <tag>软件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mybatis框架(四)</title>
+    <url>/2020/05/27/mybatis%E6%A1%86%E6%9E%B6-%E5%9B%9B/</url>
+    <content><![CDATA[<p>mybatis笔记(四)</p>
+<a id="more"></a>
+
+<h3 id="动态SQL"><a href="#动态SQL" class="headerlink" title="动态SQL"></a>动态SQL</h3><p><strong>什么是动态SQL：根据不同的条件生成不同的SQL</strong></p>
+<p><strong>所谓的动态SQl，本质还是SQL语句，只是我么可以在SQl层面，去执行一个逻辑代码</strong></p>
+<p>如果你之前用过 JSTL 或任何基于类 XML 语言的文本处理器，你对动态 SQL 元素可能会感觉似曾相识。在 MyBatis 之前的版本中，需要花时间了解大量的元素。借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。</p>
+<ul>
+<li><p>if</p>
+</li>
+<li><p>choose (when, otherwise)</p>
+</li>
+<li><p>trim (where, set)</p>
+</li>
+<li><p>foreach</p>
+</li>
+</ul>
+<h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><p><strong>BlogMapper.xml代码</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogIf"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from blog where 1 = 1</span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">            and title = #&#123;title&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">            and author = #&#123;author&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="choose、when、otherwise"><a href="#choose、when、otherwise" class="headerlink" title="choose、when、otherwise"></a>choose、when、otherwise</h4><p>有时候，我们不想使用所有的条件，而只是想从多个条件中选择一个使用。针对这种情况，MyBatis 提供了 choose 元素，它有点像 Java 中的 switch 语句。</p>
+<p>还是上面的例子，但是策略变为：传入了 “title” 就按 “title” 查找，传入了 “author” 就按 “author” 查找的情形。若两者都没有传入，就返回标记为 featured 的 BLOG（这可能是管理员认为，与其返回大量的无意义随机 Blog，还不如返回一些由管理员挑选的 Blog）。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogChoose"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"title!=null"</span>&gt;</span></span><br><span class="line">                    title = #&#123;title&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"author!=null"</span>&gt;</span></span><br><span class="line">                    and author = #&#123;author&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                    and views = #&#123;views&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>只会选择其中一个条件实现，前面的实现后面的就不看了</strong></p>
+<h4 id="trim、where、set"><a href="#trim、where、set" class="headerlink" title="trim、where、set"></a>trim、where、set</h4><p><strong>where</strong></p>
+<p>如果没有匹配的条件会怎么样？最终这条 SQL 会变成这样：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">SELECT * FROM BLOG</span><br><span class="line">WHERE</span><br></pre></td></tr></table></figure>
+
+<p>这会导致查询失败。如果匹配的只是第二个条件又会怎样？这条 SQL 会是这样:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">SELECT * FROM BLOG</span><br><span class="line">WHERE</span><br><span class="line">AND title like ‘someTitle’</span><br></pre></td></tr></table></figure>
+
+<p>这个查询也会失败。这个问题不能简单地用条件元素来解决。这个问题是如此的难以解决，以至于解决过的人不会再想碰到这种问题。</p>
+<p>MyBatis 有一个简单且适合大多数场景的解决办法。而在其他场景中，可以对其进行自定义以符合需求。而这，只需要一处简单的改动：</p>
+<p><strong><em>where</em> 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，<em>where</em> 元素也会将它们去除。</strong></p>
+<p><strong>set</strong></p>
+<p>用于动态更新语句的类似解决方案叫做 <em>set<em>。</em>set</em> 元素可以用于动态包含需要更新的列，忽略其它不更新的列。</p>
+<p><em>set</em> 元素会动态地在行首插入 SET 关键字，并会删掉额外的逗号（这些逗号是在使用条件语句给列赋值时引入的）。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateBlogSet"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">        update blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"titlt != null"</span>&gt;</span></span><br><span class="line">                title = #&#123;title&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">                author = #&#123;author&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="SQL片段"><a href="#SQL片段" class="headerlink" title="SQL片段"></a>SQL片段</h4><p>有的时候，我们可能将一些功能的部分抽取出来，方便复用</p>
+<p>1.使用<code>sql</code>标签抽取公共部分</p>
+<p>2.在需要使用的的地方使用<code>include</code>标签引用即可</p>
+<p><strong>注意事项</strong>：</p>
+<p>1.最好基于单表来定义SQL！</p>
+<p>2.不要存在where</p>
+<h4 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h4><p><em>foreach</em> 元素的功能非常强大，它允许你指定一个集合，声明可以在元素体内使用的集合项（item）和索引（index）变量。它也允许你指定开头与结尾的字符串以及集合项迭代之间的分隔符。这个元素也不会错误地添加多余的分隔符，看它多智能！</p>
+<p><strong>提示</strong> 你可以将任何可迭代对象（如 List、Set 等）、Map 对象或者数组对象作为集合参数传递给 <em>foreach</em>。当使用可迭代对象或者数组时，index 是当前迭代的序号，item 的值是本次迭代获取到的元素。当使用 Map 对象（或者 Map.Entry 对象的集合）时，index 是键，item 是值。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryForeach"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"ids"</span> <span class="attr">item</span>=<span class="string">"id"</span> <span class="attr">open</span>=<span class="string">"and ("</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">"or"</span>&gt;</span></span><br><span class="line">                id = #&#123;id&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>1.什么是缓存？</p>
+<ul>
+<li>存在内存的临时数据</li>
+<li>将用户经常查询的数据放在缓存(内存)中，用户去查询数据就不用从磁盘上查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题</li>
+</ul>
+<p>2.为什么使用缓存？</p>
+<ul>
+<li>减少和数据库的交互次数，减少系统开销，提高系统效率</li>
+</ul>
+<p>3.什么样的数据能使用缓存</p>
+<ul>
+<li>经常查询并且不经常改变的数据</li>
+</ul>
+<h4 id="MyBatis缓存"><a href="#MyBatis缓存" class="headerlink" title="MyBatis缓存"></a>MyBatis缓存</h4><ul>
+<li>MyBatis包含了一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存。缓存可以极大的提升查询效率</li>
+<li>MyBatis系统中定义了两级缓存：<strong>一级缓存</strong>和<strong>二级缓存</strong><ul>
+<li>默认情况下，只有一级缓存开启。(SqlSession级别的缓存，也称本地缓存)</li>
+<li>二级缓存需要手动开启和配置，他是基于namespace级别的缓存。</li>
+<li>为了提高扩展性，Mybatis定义了缓存接口Cache。我们可以通过实现Cache接口来定义二级缓存。</li>
+</ul>
+</li>
+</ul>
+<h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><ul>
+<li>一级缓存也叫本地缓存：SqlSession<ul>
+<li>与数据库同一次会话期间查询到的数据会放在本地缓存中</li>
+<li>以后如果需要获取相同的数据，直接从缓存中哪，没必要在去查询数据库</li>
+</ul>
+</li>
+</ul>
+<p><strong>缓存失效的情况：</strong></p>
+<p>1.查询不同的东西</p>
+<p>2.增删改操作，可能会改变原来的数据，所有必定会刷新缓存！</p>
+<p>3.查询不同Mapper.xml</p>
+<p>4.手动清理缓存</p>
+<p><strong>小结</strong></p>
+<p>一级缓存默认是开启的，只在一次SqlSession中有效，也就是拿到连接到关闭连接这个去加段！</p>
+<h4 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h4><ul>
+<li>二级缓存也叫全局缓存，一级缓存作用域太低了，所以诞生了二级缓存</li>
+<li>基于namespace级别的缓存，一个名门空间对应一个二级缓存</li>
+<li>工作机制：<ul>
+<li>一个会话查询一条数据，这个数据就会被放在当前会话的一级缓存中</li>
+<li>如果当前会话关闭了，这个会话对应的一级缓存就没了，但是我们想要的是，会话关闭了，一级缓存中的数据保存到二级缓存中</li>
+<li>新的会话查询信息，就可以从二级缓存中获取内容</li>
+<li>不同的mapper查出的数据会放在自己对应的缓存中</li>
+</ul>
+</li>
+</ul>
+<p>步骤：</p>
+<p>1.开启全局缓存</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--        开启全局缓存--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.在要使用二级缓存的Mapper中开启</p>
+]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+        <tag>mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis数据库</title>
+    <url>/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><a id="more"></a>
+<h4 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h4><p><a href="https://pan.baidu.com/s/1FkHPTih-qGrGzFee0GW7QA" target="_blank" rel="noopener">百度云下载</a>       提取码：o1ui</p>
+<p><a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="noopener">Github下载</a></p>
+<h4 id="概念：一款高性能的NOSQL系列的非关系型数据库"><a href="#概念：一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念：一款高性能的NOSQL系列的非关系型数据库"></a>概念：一款高性能的NOSQL系列的非关系型数据库</h4><h4 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h4><pre><code>redis存储的是：key，value格式的数据，其中key都是字符串，value有5中不同的数据结构
+value的数据结构
+    1.字符串类型 string
+    2.哈希类型  hash     ：相当于map集合
+    3.列表集合  list        ：linkedlist格式
+    4.集合类型  set        
+    5.有序集合类型  sortedset</code></pre><h5 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a>字符串类型string</h5><p>1.存储 <font color="#A52A2A">set key value</font></p>
+<p>2.获取 <font color="#A52A2A">get key</font></p>
+<p>3.删除 <font color="#A52A2A">del key</font>    </p>
+<h5 id="哈希类型-hash"><a href="#哈希类型-hash" class="headerlink" title="哈希类型 hash"></a>哈希类型 hash</h5><p>1.存储  <font color="#A52A2A">hset key field value</font></p>
+<p>2.获取 <font color="#A52A2A">hget key field                hgetall key  获取所有的键和值</font> </p>
+<p>3.删除 <font color="#A52A2A">hdel key field</font> </p>
+<h5 id="列表类型-list"><a href="#列表类型-list" class="headerlink" title="列表类型 list"></a>列表类型 list</h5><p>1.<font color="#A52A2A">lpush key value 将元素加入列表左边</font></p>
+<p>2.<font color="#A52A2A">rpush key value 将元素加入列表右边</font></p>
+<p>3.<font color="#A52A2A">lrange key start end  获取范围</font></p>
+<p>4.<font color="#A52A2A">lpop key   删除列表最左边的元素，并将元素返回</font></p>
+<p>5.<font color="#A52A2A">rpop key  删除列表最右边的元素</font></p>
+<h5 id="集合类型-set"><a href="#集合类型-set" class="headerlink" title="集合类型 set"></a>集合类型 set</h5><p>1.<font color="#A52A2A">存储：sadd key value</font> </p>
+<p>2.<font color="#A52A2A">获取：smembers key ：获取集合中所有元素</font></p>
+<p>3.<font color="#A52A2A">删除：srem key value ：删除集合的某个元素</font></p>
+<h5 id="有序集合类型-sortedset"><a href="#有序集合类型-sortedset" class="headerlink" title="有序集合类型 sortedset"></a>有序集合类型 sortedset</h5><p>1.存储：<font color="#A52A2A">zadd key score  value</font></p>
+<p>2.获取：<font color="#A52A2A">zrange key start end</font></p>
+<p>3.删除：<font color="#A52A2A">zrem key value</font></p>
+<h5 id="通用命令："><a href="#通用命令：" class="headerlink" title="通用命令："></a>通用命令：</h5><p>1.<font color="#A52A2A">keys * ：查询所有的键</font></p>
+<p>2.<font color="#A52A2A">type key：获取键对应的value的类型</font></p>
+<p>3.<font color="#A52A2A">del key：删除指定的key value</font></p>
+<h5 id="持久化存储"><a href="#持久化存储" class="headerlink" title="持久化存储"></a>持久化存储</h5><ul>
+<li><p>1.redis是一个内存数据库，东redis服务器重启后，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘中</p>
+</li>
+<li><p>2.redis持久化机制</p>
+<pre><code>1.RDB：默认方式。 在一定的间隔时间中，检测key的变化情况，然后去持久化数据            
+2.AOF：日志记录的方式，可以检测每一条命令的操作。可以每一次命令操作后，持久化数据
+        编辑redis.windows.conf文件    appendonly  no  给成yes</code></pre></li>
+</ul>
+<h3 id="Java客户端Jedis"><a href="#Java客户端Jedis" class="headerlink" title="Java客户端Jedis"></a>Java客户端Jedis</h3><pre><code>Jedis是一款java操作redis数据库的工具</code></pre><h3 id="Jedis连接池：JedisPool"><a href="#Jedis连接池：JedisPool" class="headerlink" title="Jedis连接池：JedisPool"></a>Jedis连接池：JedisPool</h3><pre><code>1.创建JedisPool连接池对象
+2.调用getResource()方法获取Jedis的连接</code></pre><h4 id="工具类代码"><a href="#工具类代码" class="headerlink" title="工具类代码"></a>工具类代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.jedis.utlis;</span><br><span class="line"></span><br><span class="line">import redis.clients.jedis.Jedis;</span><br><span class="line">import redis.clients.jedis.JedisPool;</span><br><span class="line">import redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">JedisPool工具类</span><br><span class="line">加载配置文件，配置连接池参数</span><br><span class="line">提供获取连接的方法</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class JedisPoolUtils &#123;</span><br><span class="line">    private static JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream is &#x3D; JedisPoolUtils.class.getClassLoader().getResourceAsStream(&quot;jedis.properties&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建一个Properties对象</span><br><span class="line">        Properties pro &#x3D; new Properties();</span><br><span class="line">        &#x2F;&#x2F;关联文件</span><br><span class="line">        try &#123;</span><br><span class="line">            pro.load(is);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;获取数据，设置到JedisPoolConfig中</span><br><span class="line">        JedisPoolConfig config &#x3D; new JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(pro.getProperty(&quot;maxTotal&quot;)));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(pro.getProperty(&quot;maxIdle&quot;)));</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;初始化JedisPool</span><br><span class="line">        jedisPool &#x3D; new JedisPool(config,pro.getProperty(&quot;host&quot;),Integer.parseInt(pro.getProperty(&quot;port&quot;)));</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;获取连接</span><br><span class="line">    public static Jedis getJedis()&#123;</span><br><span class="line">        return jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaWeb</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>搭建个人博客及其部署</title>
     <url>/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1><a id="more"></a>
@@ -1415,53 +1641,6 @@ ServletContext对象范围:所有用户请求的数据</code></pre></li>
 ]]></content>
       <tags>
         <tag>JAVA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>redis数据库</title>
-    <url>/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><a id="more"></a>
-<h4 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h4><p><a href="https://pan.baidu.com/s/1FkHPTih-qGrGzFee0GW7QA" target="_blank" rel="noopener">百度云下载</a>       提取码：o1ui</p>
-<p><a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="noopener">Github下载</a></p>
-<h4 id="概念：一款高性能的NOSQL系列的非关系型数据库"><a href="#概念：一款高性能的NOSQL系列的非关系型数据库" class="headerlink" title="概念：一款高性能的NOSQL系列的非关系型数据库"></a>概念：一款高性能的NOSQL系列的非关系型数据库</h4><h4 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h4><pre><code>redis存储的是：key，value格式的数据，其中key都是字符串，value有5中不同的数据结构
-value的数据结构
-    1.字符串类型 string
-    2.哈希类型  hash     ：相当于map集合
-    3.列表集合  list        ：linkedlist格式
-    4.集合类型  set        
-    5.有序集合类型  sortedset</code></pre><h5 id="字符串类型string"><a href="#字符串类型string" class="headerlink" title="字符串类型string"></a>字符串类型string</h5><p>1.存储 <font color="#A52A2A">set key value</font></p>
-<p>2.获取 <font color="#A52A2A">get key</font></p>
-<p>3.删除 <font color="#A52A2A">del key</font>    </p>
-<h5 id="哈希类型-hash"><a href="#哈希类型-hash" class="headerlink" title="哈希类型 hash"></a>哈希类型 hash</h5><p>1.存储  <font color="#A52A2A">hset key field value</font></p>
-<p>2.获取 <font color="#A52A2A">hget key field                hgetall key  获取所有的键和值</font> </p>
-<p>3.删除 <font color="#A52A2A">hdel key field</font> </p>
-<h5 id="列表类型-list"><a href="#列表类型-list" class="headerlink" title="列表类型 list"></a>列表类型 list</h5><p>1.<font color="#A52A2A">lpush key value 将元素加入列表左边</font></p>
-<p>2.<font color="#A52A2A">rpush key value 将元素加入列表右边</font></p>
-<p>3.<font color="#A52A2A">lrange key start end  获取范围</font></p>
-<p>4.<font color="#A52A2A">lpop key   删除列表最左边的元素，并将元素返回</font></p>
-<p>5.<font color="#A52A2A">rpop key  删除列表最右边的元素</font></p>
-<h5 id="集合类型-set"><a href="#集合类型-set" class="headerlink" title="集合类型 set"></a>集合类型 set</h5><p>1.<font color="#A52A2A">存储：sadd key value</font> </p>
-<p>2.<font color="#A52A2A">获取：smembers key ：获取集合中所有元素</font></p>
-<p>3.<font color="#A52A2A">删除：srem key value ：删除集合的某个元素</font></p>
-<h5 id="有序集合类型-sortedset"><a href="#有序集合类型-sortedset" class="headerlink" title="有序集合类型 sortedset"></a>有序集合类型 sortedset</h5><p>1.存储：<font color="#A52A2A">zadd key score  value</font></p>
-<p>2.获取：<font color="#A52A2A">zrange key start end</font></p>
-<p>3.删除：<font color="#A52A2A">zrem key value</font></p>
-<h5 id="通用命令："><a href="#通用命令：" class="headerlink" title="通用命令："></a>通用命令：</h5><p>1.<font color="#A52A2A">keys * ：查询所有的键</font></p>
-<p>2.<font color="#A52A2A">type key：获取键对应的value的类型</font></p>
-<p>3.<font color="#A52A2A">del key：删除指定的key value</font></p>
-<h5 id="持久化存储"><a href="#持久化存储" class="headerlink" title="持久化存储"></a>持久化存储</h5><ul>
-<li><p>1.redis是一个内存数据库，东redis服务器重启后，数据会丢失，我们可以将redis内存中的数据持久化保存到硬盘中</p>
-</li>
-<li><p>2.redis持久化机制</p>
-<pre><code>1.RDB：默认方式。 在一定的间隔时间中，检测key的变化情况，然后去持久化数据            
-2.AOF：日志记录的方式，可以检测每一条命令的操作。可以每一次命令操作后，持久化数据
-        编辑redis.windows.conf文件    appendonly  no  给成yes</code></pre></li>
-</ul>
-<h3 id="Java客户端Jedis"><a href="#Java客户端Jedis" class="headerlink" title="Java客户端Jedis"></a>Java客户端Jedis</h3><pre><code>Jedis是一款java操作redis数据库的工具</code></pre><h3 id="Jedis连接池：JedisPool"><a href="#Jedis连接池：JedisPool" class="headerlink" title="Jedis连接池：JedisPool"></a>Jedis连接池：JedisPool</h3><pre><code>1.创建JedisPool连接池对象
-2.调用getResource()方法获取Jedis的连接</code></pre><h4 id="工具类代码"><a href="#工具类代码" class="headerlink" title="工具类代码"></a>工具类代码</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.jedis.utlis;</span><br><span class="line"></span><br><span class="line">import redis.clients.jedis.Jedis;</span><br><span class="line">import redis.clients.jedis.JedisPool;</span><br><span class="line">import redis.clients.jedis.JedisPoolConfig;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">JedisPool工具类</span><br><span class="line">加载配置文件，配置连接池参数</span><br><span class="line">提供获取连接的方法</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class JedisPoolUtils &#123;</span><br><span class="line">    private static JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream is &#x3D; JedisPoolUtils.class.getClassLoader().getResourceAsStream(&quot;jedis.properties&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建一个Properties对象</span><br><span class="line">        Properties pro &#x3D; new Properties();</span><br><span class="line">        &#x2F;&#x2F;关联文件</span><br><span class="line">        try &#123;</span><br><span class="line">            pro.load(is);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;获取数据，设置到JedisPoolConfig中</span><br><span class="line">        JedisPoolConfig config &#x3D; new JedisPoolConfig();</span><br><span class="line">        config.setMaxTotal(Integer.parseInt(pro.getProperty(&quot;maxTotal&quot;)));</span><br><span class="line">        config.setMaxIdle(Integer.parseInt(pro.getProperty(&quot;maxIdle&quot;)));</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;初始化JedisPool</span><br><span class="line">        jedisPool &#x3D; new JedisPool(config,pro.getProperty(&quot;host&quot;),Integer.parseInt(pro.getProperty(&quot;port&quot;)));</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;获取连接</span><br><span class="line">    public static Jedis getJedis()&#123;</span><br><span class="line">        return jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaWeb</tag>
-        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
