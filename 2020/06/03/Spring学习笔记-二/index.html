@@ -517,6 +517,37 @@
 
 <p>使用Autowird我们可以不用编写Set方法了，前提是你这个自动装配的属性在IOC容器存在</p>
 <p>如果@Autowired自动装配的环境比较复杂，自动装配无法通过一个注解【@Autowired】完成的时候，我们可以使用@Qualifier(value=”xxxx”)去配置@Autowired的使用，指定一个唯一的bean对象注入！</p>
+<h3 id="使用注解开发"><a href="#使用注解开发" class="headerlink" title="使用注解开发"></a>使用注解开发</h3><p>在Spring4之后，需要使用注解开发，必须要保证aop的包导入了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200604155231.png" alt=""></p>
+<p>使用注解需要导入context约束，增加注解的支持</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--    指定要扫描的包，这个包下的注解就会生效--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.demospring"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>@Component</strong>:组件，放在类上，说明这个类被Spring管理了，就是Bean！</p>
+</blockquote>
+<hr>
+<p>注入属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/4 16:00</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//等价于    &lt;bean id="user" class="com.demospring.pojo.User"&gt;&lt;/bean&gt;</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="comment">//相当于&lt;property name="name" value="张三"/&gt;</span></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"张三"</span>)</span><br><span class="line">    <span class="keyword">public</span> String name ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>衍生的注解</p>
+<p>@Component有几个衍生注解，我们在web开发中，会按照MVC三成架构分层    </p>
+<ul>
+<li>dao【@Repository】</li>
+<li>service【@Service】</li>
+<li>controller【@Controller】</li>
+</ul>
+<p>这四个注解的功能都是一样的，都是代表将某个类注册到Spring容器中装配</p>
+<hr>
+<p>作用域</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用Java的方式配置Spring"><a href="#使用Java的方式配置Spring" class="headerlink" title="使用Java的方式配置Spring"></a>使用Java的方式配置Spring</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demospring.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.demospring.pojo.User;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/4 17:42</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//这个也会被Spring容器托管，注册到容器中，因为它本来就是一个@Component</span></span><br><span class="line"><span class="comment">//@Configuration代表这是一个配置类，就和我们之前看的bean.xml</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">//注册一个Bean，就相当于我们之前写的一个bean标签</span></span><br><span class="line">    <span class="comment">//这个方法的名字，就相当于bean标签中的id属性</span></span><br><span class="line">    <span class="comment">//这个方法的返回值，就相当于bena标签的class属性</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> User();<span class="comment">//就是返回要注入到bean的对象！</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
           
             <div class='article_footer'>
@@ -593,10 +624,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-03T20:05:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-06T18:39:17+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jun 3, 2020</p>
+    <p>更新于：Jun 6, 2020</p>
   </a>
 </div>
 
@@ -670,6 +701,14 @@
         
         
           <div class="prev-next">
+            
+              <a class='prev' href='/2020/06/06/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spring学习笔记(三)</p>
+                <p class='content'>Spring学习笔记
+
+
+AOP什么是AOP？AOP(Aspect Oriented Programming)意为：面向切面编程，通过预编译的方式和运行期动态代理实现程序功能的统一维护的一种技术...</p>
+              </a>
             
             
               <a class='next' href='/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/'>
@@ -749,7 +788,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring配置"><span class="toc-text">Spring配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#别名"><span class="toc-text">别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bean的配置"><span class="toc-text">Bean的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#import"><span class="toc-text">import</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DI依赖注入"><span class="toc-text">DI依赖注入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造器注入"><span class="toc-text">构造器注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Set方式注入【重点】"><span class="toc-text">Set方式注入【重点】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展方式注入"><span class="toc-text">拓展方式注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#P命名空间注入"><span class="toc-text">P命名空间注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C命名空间注入"><span class="toc-text">C命名空间注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bean的作用域"><span class="toc-text">Bean的作用域</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean的自动装配"><span class="toc-text">Bean的自动装配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ByName自动装配"><span class="toc-text">ByName自动装配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bytype自动装配"><span class="toc-text">Bytype自动装配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用注解实现自动装配"><span class="toc-text">使用注解实现自动装配</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring配置"><span class="toc-text">Spring配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#别名"><span class="toc-text">别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bean的配置"><span class="toc-text">Bean的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#import"><span class="toc-text">import</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DI依赖注入"><span class="toc-text">DI依赖注入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造器注入"><span class="toc-text">构造器注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Set方式注入【重点】"><span class="toc-text">Set方式注入【重点】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展方式注入"><span class="toc-text">拓展方式注入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#P命名空间注入"><span class="toc-text">P命名空间注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#C命名空间注入"><span class="toc-text">C命名空间注入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bean的作用域"><span class="toc-text">Bean的作用域</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean的自动装配"><span class="toc-text">Bean的自动装配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ByName自动装配"><span class="toc-text">ByName自动装配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bytype自动装配"><span class="toc-text">Bytype自动装配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用注解实现自动装配"><span class="toc-text">使用注解实现自动装配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用注解开发"><span class="toc-text">使用注解开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Java的方式配置Spring"><span class="toc-text">使用Java的方式配置Spring</span></a></li></ol>
     </div>
   </section>
 
@@ -828,16 +867,16 @@
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
       
     
       
-        本站使用
+        Use
         <a href="https://zhangliyuanblog.club/" target="_blank" class="codename">张利源</a>
-        作为主题，总访问量为
+        as theme, total visits
           <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          次
+          times
         
       
     
