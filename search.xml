@@ -1740,4 +1740,104 @@ value的数据结构
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Spring学习笔记(四)</title>
+    <url>/2020/06/10/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/</url>
+    <content><![CDATA[<p>Spring学习笔记</p>
+<a id="more"></a>
+
+<h3 id="整合MyBatis"><a href="#整合MyBatis" class="headerlink" title="整合MyBatis"></a>整合MyBatis</h3><p>步骤：</p>
+<ol>
+<li>导入相关jar包<ul>
+<li>junit</li>
+<li>mybatis</li>
+<li>mysql数据库</li>
+<li>spring相关的</li>
+<li>aop植入</li>
+<li>mybatis-spring【new】</li>
+</ul>
+</li>
+<li>编写配置文件</li>
+<li>测试</li>
+</ol>
+<h4 id="回忆MyBatis"><a href="#回忆MyBatis" class="headerlink" title="回忆MyBatis"></a>回忆MyBatis</h4><ol>
+<li>编写实体类</li>
+<li>编写核心配置文件</li>
+<li>编写接口</li>
+<li>编写Mapper.xml</li>
+<li>测试</li>
+</ol>
+<h4 id="Mybatis-Spring"><a href="#Mybatis-Spring" class="headerlink" title="Mybatis-Spring"></a>Mybatis-Spring</h4><p>MyBatis-Spring 会帮助你将 MyBatis 代码无缝地整合到 Spring 中。它将允许 MyBatis 参与到 Spring 的事务管理之中，创建映射器 mapper 和 <code>SqlSession</code> 并注入到 bean 中，以及将 Mybatis 的异常转换为 Spring 的 <code>DataAccessException</code>。最终，可以做到应用代码不依赖于 MyBatis，Spring 或 MyBatis-Spring。</p>
+<p>要使用 MyBatis-Spring 模块，只需要在类路径下包含 <code>mybatis-spring-2.0.5.jar</code> 文件和相关依赖即可。如果使用 Maven 作为构建工具，仅需要在 pom.xml 中加入以下代码即可：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>步骤：</p>
+<ol>
+<li>编写数据源</li>
+<li>sqlSessionfactory</li>
+<li>sqlSessionTemplate</li>
+<li>需要接口加实现类</li>
+<li>将自己写的实现类注入到spring中测试使用</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--DataSource:使用Spring的数据源替换Mybatis的配置--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"datasource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/test1?serverTimezone=UTC"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--sqlSessionFactory--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"datasource"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--绑定MyBatis配置文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:mybatis-config.xml"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperLocations"</span> <span class="attr">value</span>=<span class="string">"classpath:com/demo/mapper/*.xml"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--sqlSessionTemplate就是我们使用的sqlSession--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSession"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionTemplate"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--只能使用构造器注入 没有set方法--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactory"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"teacherMapper"</span> <span class="attr">class</span>=<span class="string">"com.demo.mapper.TeacherMapperImpl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSession"</span> <span class="attr">ref</span>=<span class="string">"sqlSession"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>TeacherMapperImpl.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/6/7 18:42</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TeacherMapperImpl</span> <span class="keyword">implements</span> <span class="title">TeacherMapper</span></span>&#123;</span><br><span class="line">    <span class="comment">//我们的所有操作都需要SqlSession来执行，现在使用SqlSessionTemplate</span></span><br><span class="line">    <span class="keyword">private</span> SqlSessionTemplate sqlSession;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSqlSession</span><span class="params">(SqlSessionTemplate sqlSession)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sqlSession = sqlSession;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Teacher&gt; <span class="title">selectTeacher</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TeacherMapper mapper = sqlSession.getMapper(TeacherMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        <span class="keyword">return</span> mapper.selectTeacher();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="SqlSessionDaoSupport"><a href="#SqlSessionDaoSupport" class="headerlink" title="SqlSessionDaoSupport"></a>SqlSessionDaoSupport</h4><p><code>SqlSessionDaoSupport</code> 是一个抽象的支持类，用来为你提供 <code>SqlSession</code>。调用 <code>getSqlSession()</code> 方法你会得到一个 <code>SqlSessionTemplate</code>，之后可以用于执行 SQL 方法，就像下面这样:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">extends</span> <span class="title">SqlSessionDaoSupport</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(String userId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getSqlSession().selectOne(<span class="string">"org.mybatis.spring.sample.mapper.UserMapper.getUser"</span>, userId);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个类里面，通常更倾向于使用 <code>MapperFactoryBean</code>，因为它不需要额外的代码。但是，如果你需要在 DAO 中做其它非 MyBatis 的工作或需要一个非抽象的实现类，那么这个类就很有用了。</p>
+<p><code>SqlSessionDaoSupport</code> 需要通过属性设置一个 <code>sqlSessionFactory</code> 或 <code>SqlSessionTemplate</code>。如果两个属性都被设置了，那么 <code>SqlSessionFactory</code> 将被忽略。</p>
+<p>假设类 <code>UserMapperImpl</code> 是 <code>SqlSessionDaoSupport</code> 的子类，可以编写如下的 Spring 配置来执行设置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;userDao&quot; class&#x3D;&quot;org.mybatis.spring.sample.dao.UserDaoImpl&quot;&gt;</span><br><span class="line">  &lt;property name&#x3D;&quot;sqlSessionFactory&quot; ref&#x3D;&quot;sqlSessionFactory&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="声明式事务"><a href="#声明式事务" class="headerlink" title="声明式事务"></a>声明式事务</h3><h4 id="回顾事务"><a href="#回顾事务" class="headerlink" title="回顾事务"></a>回顾事务</h4><ul>
+<li>把一组业务当成一个业务来做，要么都成功，要么都失败</li>
+<li>事务在项目开发中十分重要，涉及到数据的一致性问题，不能马虎</li>
+<li>确保完整性和一致性</li>
+</ul>
+<p>事务的ACID原则：</p>
+<ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性</li>
+<li>持久性</li>
+</ul>
+<h4 id="Spring中事务管理"><a href="#Spring中事务管理" class="headerlink" title="Spring中事务管理"></a>Spring中事务管理</h4><ul>
+<li>声明式事务：AOP</li>
+<li>编程式事务：需要在代码中，进行事务的管理</li>
+</ul>
+<p>一个使用 MyBatis-Spring 的其中一个主要原因是它允许 MyBatis 参与到 Spring 的事务管理中。而不是给 MyBatis 创建一个新的专用事务管理器，MyBatis-Spring 借助了 Spring 中的 DataSourceTransactionManager 来实现事务管理。</p>
+<p>一旦配置好了 Spring 的事务管理器，你就可以在 Spring 中按你平时的方式来配置事务。并且支持 @Transactional 注解和 AOP 风格的配置。在事务处理期间，一个单独的 <code>SqlSession</code> 对象将会被创建和使用。当事务完成时，这个 session 会以合适的方式提交或回滚。</p>
+<p>事务配置好了以后，MyBatis-Spring 将会透明地管理事务。这样在你的 DAO 类中就不需要额外的代码了。</p>
+<h4 id="标准配置"><a href="#标准配置" class="headerlink" title="标准配置"></a>标准配置</h4><p>要开启 Spring 的事务处理功能，在 Spring 的配置文件中创建一个 <code>DataSourceTransactionManager</code> 对象：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"transactionManager"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span><br><span class="line">  &lt;constructor-arg ref=<span class="string">"dataSource"</span> /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSourceTransactionManager <span class="title">transactionManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> DataSourceTransactionManager(dataSource());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传入的 <code>DataSource</code> 可以是任何能够与 Spring 兼容的 JDBC <code>DataSource</code>。包括连接池和通过 JNDI 查找获得的 <code>DataSource</code>。</p>
+<p>注意：为事务管理器指定的 <code>DataSource</code> <strong>必须</strong>和用来创建 <code>SqlSessionFactoryBean</code> 的是同一个数据源，否则事务管理器就无法工作了。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置声明式事务--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"datasource"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!--结合AOP实现事务的织入--&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--配置事务通知--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"add"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"delete"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"update"</span>/&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--配置事务切入--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"txPointcut"</span> <span class="attr">expression</span>=<span class="string">"execution(* com.demospring.Mapper.*.*(..))"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"txPointcut"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<blockquote>
+<p>为什么需要事务？</p>
+</blockquote>
+<ul>
+<li>如果不配置事务，可能存在数据提交不一致情况</li>
+<li>如果我们不在Spring中去配置声明事务，我们就需要在代码中手动配置事务</li>
+<li>事务在项目的开发中十分重要，涉及到数据的一致性和完整性问题，不能马虎</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Spring框架</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>
