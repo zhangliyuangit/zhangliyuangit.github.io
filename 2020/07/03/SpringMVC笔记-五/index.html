@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>mybatis框架(一) - 张利源</title>
+    <title>SpringMVC笔记(五) - 张利源</title>
   
-    <meta name="keywords" content="JavaWeb,mybatis">
+    <meta name="keywords" content="SprigMVC">
   
   
-    <meta name="description" content="mybatis笔记(一)">
+    <meta name="description" content="SpringMVC学习笔记">
   
 
   <!-- feed -->
@@ -365,8 +365,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/">
-      mybatis框架(一)
+    <a href="/2020/07/03/SpringMVC%E7%AC%94%E8%AE%B0-%E4%BA%94/">
+      SpringMVC笔记(五)
     </a>
   </h1>
 
@@ -396,7 +396,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2020</p>
+    <p>发布于：Jul 3, 2020</p>
   </a>
 </div>
 
@@ -419,39 +419,80 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>mybatis笔记(一)</p>
+          <p>SpringMVC学习笔记</p>
 <a id="more"></a>
 
-<h3 id="mybatis概述"><a href="#mybatis概述" class="headerlink" title="mybatis概述"></a>mybatis概述</h3><p>mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了ORM思想，实现了结果集的封装。</p>
-<h3 id="ORM：Object-Relational-Mappging-对象关系映射"><a href="#ORM：Object-Relational-Mappging-对象关系映射" class="headerlink" title="ORM：Object Relational Mappging   对象关系映射"></a>ORM：Object Relational Mappging   对象关系映射</h3><p>简单的说：就是把数据库和实体类及实体类的属性对应起来，让我们可以操作实体类及实现操作数据库</p>
-<h3 id="mybatis环境搭建"><a href="#mybatis环境搭建" class="headerlink" title="mybatis环境搭建"></a>mybatis环境搭建</h3><ul>
-<li>1.创建maven工程并导入坐标<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;3.5.4&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;8.0.18&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure></li>
-<li>2.创建实体类和dao接口</li>
-<li>3.创建mybatis的主配置文件SqlMapConfig.xml</li>
-<li>4.创建映射配置文件<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3></li>
-<li>1.包在创建时 com.demomybatis.dao他是三级目录结构</li>
-<li>2.mybatis的映射配置文件位置必须和dao接口的包结构相同</li>
-<li>3.映射配置文件的mapper标签和namespace属性的取值必须是dao接口的全限定而类名</li>
-<li>4.映射配置文件的擦偶哦配置(select) id的取值必须是dao接口的方法名</li>
+<p>重点@ResponseBody阻止视图解析器的效果，会直接返回一个字</p>
+<h2 id="Json交互处理"><a href="#Json交互处理" class="headerlink" title="Json交互处理"></a>Json交互处理</h2><blockquote>
+<p>什么是JSON？</p>
+</blockquote>
+<ul>
+<li>JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。</li>
+<li>采用完全独立于编程语言的<strong>文本格式</strong>来存储和表示数据。</li>
+<li>简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。</li>
+<li>易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。</li>
 </ul>
-<div class="note success"><p>当我们遵从2，3，4点之后，我们开发中就无需再写dao的实现类</p></div>
-
-<h3 id="SqlMapConfig-xml代码"><a href="#SqlMapConfig-xml代码" class="headerlink" title="SqlMapConfig.xml代码"></a>SqlMapConfig.xml代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">            &lt;!--使用jdbc事务管理 --&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;!-- 数据库连接池(数据源) --&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.cj.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!-- 引入映射配置文件 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;cn&#x2F;demomybatis&#x2F;dao&#x2F;StudentDao.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="StudentDao-xml代码"><a href="#StudentDao-xml代码" class="headerlink" title="StudentDao.xml代码"></a>StudentDao.xml代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- namespace：命名空间，用于隔离sql--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;cn.demomybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">    &lt;!--    配置查询所有 id为dao的方法名--&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;findAll&quot; resultType&#x3D;&quot;cn.demomybatis.domain.Student&quot; parameterType&#x3D;&quot;cn.demomybatis.domain.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="mybatis入门案例："><a href="#mybatis入门案例：" class="headerlink" title="mybatis入门案例："></a>mybatis入门案例：</h3><ul>
-<li>1.读取配置文件</li>
-<li>2.创建SqlSessionFactory工厂</li>
-<li>3.创建SqlSession</li>
-<li>4.创建Dao接口的代理</li>
-<li>5.执行Dao中的方法</li>
-<li>6.释放资源</li>
+<p>在 JavaScript 语言中，一切都是对象。因此，任何JavaScript 支持的类型都可以通过 JSON 来表示，例如字符串、数字、对象、数组等。看看他的要求和语法格式：</p>
+<ul>
+<li>对象表示为键值对，数据由逗号分隔</li>
+<li>花括号保存对象</li>
+<li>方括号保存数组</li>
 </ul>
-<span class='p red'>注意：需要在映射配置中告知mybatis要封装到哪个实体类中，配置的方式：指定实体类的全类名</span>
+<p><strong>JSON 键值对</strong>是用来保存 JavaScript 对象的一种方式，和 JavaScript 对象的写法也大同小异，键/值对组合中的键名写在前面并用双引号 “” 包裹，使用冒号 : 分隔，然后紧接着值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"name"</span>: <span class="string">"QinJiang"</span>&#125;</span><br><span class="line">&#123;<span class="string">"age"</span>: <span class="string">"3"</span>&#125;</span><br><span class="line">&#123;<span class="string">"sex"</span>: <span class="string">"男"</span>&#125;</span><br></pre></td></tr></table></figure>
 
-<div class="note warning"><p>增删改需要提交事务</p></div>
+<p>很多人搞不清楚 JSON 和 JavaScript 对象的关系，甚至连谁是谁都不清楚。其实，可以这么理解：</p>
+<p>JSON 是 JavaScript 对象的字符串表示法，它使用文本表示一个 JS 对象的信息，本质是一个字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>: <span class="string">'Hello'</span>, <span class="attr">b</span>: <span class="string">'World'</span>&#125;; <span class="comment">//这是一个对象，注意键名也是可以使用引号包裹的</span></span><br><span class="line"><span class="keyword">var</span> json = <span class="string">'&#123;"a": "Hello", "b": "World"&#125;'</span>; <span class="comment">//这是一个 JSON 字符串，本质是一个字符串</span></span><br></pre></td></tr></table></figure>
 
-<p><code>sqlSession.commit()</code></p>
-<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package cn.demomybatis.test;</span><br><span class="line"></span><br><span class="line">import cn.demomybatis.dao.StudentDao;</span><br><span class="line">import cn.demomybatis.domain.Student;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * mybatis入门</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class mybatistest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream in &#x3D; Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建工厂</span><br><span class="line">        SqlSessionFactoryBuilder builder &#x3D; new SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory factory &#x3D; builder.build(in);</span><br><span class="line">        &#x2F;&#x2F;使用工厂生产SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; factory.openSession();</span><br><span class="line">        &#x2F;&#x2F;创建Dao接口的代理对象</span><br><span class="line">        StudentDao studentDao &#x3D; sqlSession.getMapper(StudentDao.class);</span><br><span class="line">        &#x2F;&#x2F;使用代理对象执行方法</span><br><span class="line">        List&lt;Student&gt; list &#x3D; studentDao.findAll();</span><br><span class="line">        for (Student student:list)&#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;释放资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>JSON 和 JavaScript 对象互转</strong></p>
+<p>要实现从JSON字符串转换为JavaScript 对象，使用 JSON.parse() 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="built_in">JSON</span>.parse(<span class="string">'&#123;"a": "Hello", "b": "World"&#125;'</span>);</span><br><span class="line"><span class="comment">//结果是 &#123;a: 'Hello', b: 'World'&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>要实现从JavaScript 对象转换为JSON字符串，使用 JSON.stringify() 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = <span class="built_in">JSON</span>.stringify(&#123;<span class="attr">a</span>: <span class="string">'Hello'</span>, <span class="attr">b</span>: <span class="string">'World'</span>&#125;);</span><br><span class="line"><span class="comment">//结果是 '&#123;"a": "Hello", "b": "World"&#125;'</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Controller返回JSON数据</p>
+</blockquote>
+<p>Jackson应该是目前比较好的json解析工具了</p>
+<p>当然工具不止这一个，比如还有阿里巴巴的 fastjson 等等。</p>
+<p>我们这里使用Jackson，使用它需要导入它的jar包；</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@RequestMapping</span>(<span class="string">"/json1"</span>)</span><br><span class="line">   <span class="meta">@ResponseBody</span><span class="comment">//阻止视图解析器的效果，会直接返回一个字符串</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">json1</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line">       <span class="comment">//创建一个jackson的对象映射器，用来解析数据</span></span><br><span class="line">       ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">       <span class="comment">//创建一个对象</span></span><br><span class="line">       User user = <span class="keyword">new</span> User(<span class="string">"秦疆1号"</span>, <span class="number">3</span>, <span class="string">"男"</span>);</span><br><span class="line">       <span class="comment">//将我们的对象解析成为json格式</span></span><br><span class="line">       String str = mapper.writeValueAsString(user);</span><br><span class="line">       <span class="comment">//由于@ResponseBody注解，这里会将str转成json格式返回；十分方便</span></span><br><span class="line">       <span class="keyword">return</span> str;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>发现出现了乱码问题，我们需要设置一下他的编码格式为utf-8，以及它返回的类型；</p>
+<p>通过@RequestMaping的produces属性来实现，修改下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//produces:指定响应体返回类型和编码</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/json1"</span>,produces = <span class="string">"application/json;charset=utf-8"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>再次测试， <a href="http://localhost:8080/json1" target="_blank" rel="noopener">http://localhost:8080/json1</a> ， 乱码问题OK！</p>
+<p>【注意：使用json记得处理乱码问题】</p>
+<blockquote>
+<p>代码优化</p>
+</blockquote>
+<p><strong>乱码统一解决</strong></p>
+<p>上一种方法比较麻烦，如果项目中有许多请求则每一个都要添加，可以通过Spring配置统一指定，这样就不用每次都去处理了！</p>
+<p>我们可以在springmvc的配置文件上添加一段消息StringHttpMessageConverter转换配置！</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">mvc:message-converters</span> <span class="attr">register-defaults</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.http.converter.StringHttpMessageConverter"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"UTF-8"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"objectMapper"</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"failOnEmptyBeans"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>返回json字符串统一解决</strong></p>
+<p>在类上直接使用 <strong>@RestController</strong> ，这样子，里面所有的方法都只会返回 json 字符串了，不用再每一个都添加@ResponseBody ！我们在前后端分离开发中，一般都使用 @RestController ，十分便捷！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//produces:指定响应体返回类型和编码</span></span><br><span class="line">   <span class="meta">@RequestMapping</span>(value = <span class="string">"/json1"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">json1</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line">       <span class="comment">//创建一个jackson的对象映射器，用来解析数据</span></span><br><span class="line">       ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">       <span class="comment">//创建一个对象</span></span><br><span class="line">       User user = <span class="keyword">new</span> User(<span class="string">"秦疆1号"</span>, <span class="number">3</span>, <span class="string">"男"</span>);</span><br><span class="line">       <span class="comment">//将我们的对象解析成为json格式</span></span><br><span class="line">       String str = mapper.writeValueAsString(user);</span><br><span class="line">       <span class="comment">//由于@ResponseBody注解，这里会将str转成json格式返回；十分方便</span></span><br><span class="line">       <span class="keyword">return</span> str;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动tomcat测试，结果都正常输出！</p>
+<blockquote>
+<p>测试集合输出</p>
+</blockquote>
+<p>增加一个新的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/json2"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">json2</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//创建一个jackson的对象映射器，用来解析数据</span></span><br><span class="line">   ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">   <span class="comment">//创建一个对象</span></span><br><span class="line">   User user1 = <span class="keyword">new</span> User(<span class="string">"秦疆1号"</span>, <span class="number">3</span>, <span class="string">"男"</span>);</span><br><span class="line">   User user2 = <span class="keyword">new</span> User(<span class="string">"秦疆2号"</span>, <span class="number">3</span>, <span class="string">"男"</span>);</span><br><span class="line">   User user3 = <span class="keyword">new</span> User(<span class="string">"秦疆3号"</span>, <span class="number">3</span>, <span class="string">"男"</span>);</span><br><span class="line">   User user4 = <span class="keyword">new</span> User(<span class="string">"秦疆4号"</span>, <span class="number">3</span>, <span class="string">"男"</span>);</span><br><span class="line">   List&lt;User&gt; list = <span class="keyword">new</span> ArrayList&lt;User&gt;();</span><br><span class="line">   list.add(user1);</span><br><span class="line">   list.add(user2);</span><br><span class="line">   list.add(user3);</span><br><span class="line">   list.add(user4);</span><br><span class="line"></span><br><span class="line">   <span class="comment">//将我们的对象解析成为json格式</span></span><br><span class="line">   String str = mapper.writeValueAsString(list);</span><br><span class="line">   <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果 : 十分完美，没有任何问题！</p>
+
           
             <div class='article_footer'>
               
@@ -527,10 +568,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-22T19:12:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-03T20:27:53+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 22, 2020</p>
+    <p>更新于：Jul 3, 2020</p>
   </a>
 </div>
 
@@ -539,7 +580,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaWeb/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaWeb</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>mybatis</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SprigMVC/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>SprigMVC</p></a></div>
 
 
         
@@ -557,7 +598,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/07/03/SpringMVC%E7%AC%94%E8%AE%B0-%E4%BA%94/&title=SpringMVC笔记(五) - 张利源&summary=SpringMVC学习笔记"
           
           >
           
@@ -569,7 +610,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/07/03/SpringMVC%E7%AC%94%E8%AE%B0-%E4%BA%94/&title=SpringMVC笔记(五) - 张利源&summary=SpringMVC学习笔记"
           
           >
           
@@ -581,7 +622,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/07/03/SpringMVC%E7%AC%94%E8%AE%B0-%E4%BA%94/&title=SpringMVC笔记(五) - 张利源&summary=SpringMVC学习笔记"
           
           >
           
@@ -605,19 +646,14 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>PicGo+GitHub图床，让Markdown飞</p>
-                <p class='content'>PicGo+GitHub图床
+            
+              <a class='next' href='/2020/07/03/SpringMVC%E7%AC%94%E8%AE%B0-%E5%9B%9B/'>
+                <p class='title'>SpringMVC笔记(四)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>SpringMVC学习笔记
 
 
-一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种“轻量级标记语言”。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/'>
-                <p class='title'>抽取Servlet<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>BaseServlet代码
-1234567891011121314151617181920212223242526272829303132333435363738394041package cn...</p>
+结果跳转方式ModelAndView设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .
+页面 : {视图解析器前缀} +...</p>
               </a>
             
           </div>
@@ -662,7 +698,7 @@
 
   <script>
     window.subData = {
-      title: 'mybatis框架(一)',
+      title: 'SpringMVC笔记(五)',
       tools: true
     }
   </script>
@@ -688,7 +724,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis概述"><span class="toc-text">mybatis概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ORM：Object-Relational-Mappging-对象关系映射"><span class="toc-text">ORM：Object Relational Mappging   对象关系映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis环境搭建"><span class="toc-text">mybatis环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SqlMapConfig-xml代码"><span class="toc-text">SqlMapConfig.xml代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StudentDao-xml代码"><span class="toc-text">StudentDao.xml代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis入门案例："><span class="toc-text">mybatis入门案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试代码"><span class="toc-text">测试代码</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Json交互处理"><span class="toc-text">Json交互处理</span></a></li></ol>
     </div>
   </section>
 
