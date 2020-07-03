@@ -2409,7 +2409,7 @@ value的数据结构
     <content><![CDATA[<p>SpringMVC学习笔记</p>
 <a id="more"></a>
 
-<p>重点@ResponseBody阻止视图解析器的效果，会直接返回一个字</p>
+<p>重点@ResponseBody阻止视图解析器的效果，会直接返回一个字符串</p>
 <h2 id="Json交互处理"><a href="#Json交互处理" class="headerlink" title="Json交互处理"></a>Json交互处理</h2><blockquote>
 <p>什么是JSON？</p>
 </blockquote>
@@ -2481,7 +2481,7 @@ value的数据结构
 <p>运行结果 : 十分完美，没有任何问题！</p>
 ]]></content>
       <tags>
-        <tag>SprigMVC</tag>
+        <tag>SpringMVC</tag>
       </tags>
   </entry>
   <entry>
