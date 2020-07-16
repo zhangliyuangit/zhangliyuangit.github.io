@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,8 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>标签：Java - 张利源</title>
+    <title>Java位运算符 - 张利源</title>
   
+    <meta name="keywords" content="Java">
+  
+  
+    <meta name="description" content="位运算符">
   
 
   <!-- feed -->
@@ -347,39 +349,12 @@
     <div class='body-wrapper'>
       
 
-
 <div class='l_main'>
   
-    
-      
-  <section class="post-list ">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
+
   
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -389,11 +364,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
+  <h1 class="title">
     <a href="/2020/07/16/Java%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/">
       Java位运算符
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -432,11 +407,6 @@
 
             
           
-            
-              
-
-            
-          
         </div>
         
           <hr>
@@ -446,739 +416,103 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>位运算符</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/07/16/Java%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
           
-  <h2 class="title">
-    <a href="/2020/06/12/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/">
-      注解和反射
-    </a>
-  </h2>
+          <p>位运算符</p>
+<a id="more"></a>
 
+<h2 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h2><p><strong>关于位运算符无非也就 与(&amp;)、或(|)、异或(^)、取反(~)、左移(&lt;&lt;)、右移(&gt;&gt;)、无符号右移(&gt;&gt;&gt;)</strong></p>
+<p>位运算其实就是二进制的运算，加减乘除适用于十进制，而位运算就是二进制的运算,但是由于我们的运算都是基于十进制来说的，所以会有点绕，略微有点难懂，接下来言归正传</p>
+<h2 id="与运算符-amp"><a href="#与运算符-amp" class="headerlink" title="与运算符(&amp;)"></a>与运算符(&amp;)</h2><p><strong>4&amp;7</strong></p>
+<p>我们需要把两个二进制转换成十进制</p>
+<p>4：0000 0100</p>
+<p>7：0000 0111</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204022745-1107563193.png" alt=""></p>
+<blockquote>
+<p>这里提到一点：1表示true，0表示false</p>
+</blockquote>
+<p>而与运算的时候相同位之间其实就是两个Boolean的运算</p>
+<p>​           全true(1),即为true(1)</p>
+<p>​           全false(0),即为false(0)</p>
+<p>​           一false(0)一true(1),还是false(0)</p>
+<h2 id="或运算符"><a href="#或运算符" class="headerlink" title="或运算符(|)"></a>或运算符(|)</h2><p> 以  5|9  为例</p>
+<p>  5 ： 0000 0101 </p>
+<p>  9 ： 0000 1001</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200716184319.png" alt=""></p>
+<p>在做与运算的时候</p>
+<p>​         <strong>遇true(1)就是true(1),</strong></p>
+<p>​         <strong>无true(1)就是false(0)</strong></p>
+<h2 id="异或运算符"><a href="#异或运算符" class="headerlink" title="异或运算符(^)"></a>异或运算符(^)</h2><p> <strong>以 7^15 为例</strong></p>
+<p> <strong>7：  0000 0111</strong></p>
+<p><strong>15： 0000 1111</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204024149-967390106.png" alt=""></p>
+<p>在异或的时候</p>
+<p>​        只要相同都是false(0)</p>
+<p>​        只有不同才是true(1)</p>
+<h2 id="取反运算符"><a href="#取反运算符" class="headerlink" title="取反运算符(~)"></a>取反运算符(~)</h2><p>例：  ~15</p>
+<p>同样的先变成二进制：15：0000 1111</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204024870-227422826.png" alt=""></p>
+<p>   这个其实挺简单的，就是把1变0，0变1</p>
+<p>注意：二进制中，最高位是符号位  1表示负数，0表示正数</p>
+<h2 id="左移运算-lt-lt"><a href="#左移运算-lt-lt" class="headerlink" title="左移运算(&lt;&lt;)"></a>左移运算(&lt;&lt;)</h2><p>   左移就是把所有位向左移动几位</p>
+<p>  如：  12 &lt;&lt; 2  意思就是12向左移动两位</p>
+<p>​     12的二进制是： 0000 1100</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204025326-1518482974.png" alt=""></p>
+<p>通过这个图我们可以看出来，所有的位全都向左移动两位，然后把右边空的两个位用0补上，最左边多出的两个位去掉，最后得到的结果就是00110000 结果就是48</p>
+<p><strong>我们用同样的办法算 12&lt;&lt;3 结果是 96</strong></p>
+<p>​              <strong>8&lt;&lt;4 结果是 128</strong></p>
+<blockquote>
+<p> <strong>由此我们得出一个快速的算法  M &lt;&lt; n  其实可以这么算  M &lt;&lt; n = M * 2n</strong></p>
+</blockquote>
+<h2 id="右移运算符-gt-gt"><a href="#右移运算符-gt-gt" class="headerlink" title="右移运算符(&gt;&gt;)"></a><strong>右移运算符(&gt;&gt;)</strong></h2><p><strong>这个跟左移运算大体是一样的</strong></p>
+<p>   <strong>例： 12 &gt;&gt; 2</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204025862-1215072643.png" alt=""></p>
+<p><strong>我们可以看出来右移和左移其实是一样的，但是还是有点不同的，不同点在于对于正数和负数补位的时候补的不一样，负数补1，正数补0</strong></p>
+<p><strong>如我们再做一个 –8 的  -8&gt;&gt;2</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204026563-746326181.png" alt=""></p>
+<p><strong>这里总结一下，关于负数或者正数来说，移位的时候是一样的，但是在补位的时候，如果最高位是0就补0，如果最高位是1就补1</strong></p>
+<blockquote>
+<p><strong>由此我们得出一个快速的算法  M &gt;&gt; n  其实可以这么算  M &gt;&gt; n = M / 2^**</strong>n**</p>
+</blockquote>
+<h2 id="无符号右移-gt-gt-gt"><a href="#无符号右移-gt-gt-gt" class="headerlink" title="无符号右移(&gt;&gt;&gt;)"></a>无符号右移(&gt;&gt;&gt;)</h2><p>无符号右移(&gt;&gt;&gt;)只对32位和64位有意义</p>
+<p>在移动位的时候与右移运算符的移动方式一样的，区别只在于补位的时候不管是0还是1，都补0</p>
 
-        
-        <div class='new-meta-box'>
           
-            
-          
-            
+            <div class='article_footer'>
               
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jun 12, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>注解和反射笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/06/12/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/06/10/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/">
-      Spring学习笔记(四)
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jun 10, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Spring学习笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/06/10/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/06/06/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
-      Spring学习笔记(三)
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jun 6, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Spring学习笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/06/06/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
-      Spring学习笔记(二)
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jun 3, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Spring学习笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
-      Spring学习笔记(一)
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jun 3, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Spring学习笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/06/03/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/05/31/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-      Java多线程
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 31, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Java多线程笔记</p>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/31/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/">
-      抽取Servlet
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 13, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="BaseServlet代码"><a href="#BaseServlet代码" class="headerlink" title="BaseServlet代码"></a>BaseServlet代码</h3>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
-
-  
-
-
-    
-  
-</div>
-<aside class='l_side'>
-  
+                
   
     
     
 
-<section class="widget blogger shadow desktop mobile">
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">张利源</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
-          
-            <a href="/495726603@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://github.com/zhangliyuangit"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=1646384615"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -1189,29 +523,200 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='/img/wx.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-16T18:52:05+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jul 16, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/07/16/Java%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/&title=Java位运算符 - 张利源&summary=位运算符"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/07/16/Java%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/&title=Java位运算符 - 张利源&summary=位运算符"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/07/16/Java%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/&title=Java位运算符 - 张利源&summary=位运算符"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/07/03/SpringMVC%E7%AC%94%E8%AE%B0-%E4%BA%94/'>
+                <p class='title'>SpringMVC笔记(五)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>SpringMVC学习笔记
+
+
+重点@ResponseBody阻止视图解析器的效果，会直接返回一个字符串
+Json交互处理
+什么是JSON？
+
+
+JSON(JavaScript Object N...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Java位运算符',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow desktop mobile">
+
+  <section class="widget toc-wrapper shadow desktop mobile">
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/tags/JAVA/" style="font-size: 16px; color: #8b8b8b">JAVA</a> <a href="/tags/Java/" style="font-size: 22px; color: #636363">Java</a> <a href="/tags/JavaWeb/" style="font-size: 24px; color: #555">JavaWeb</a> <a href="/tags/MyBatis/" style="font-size: 14px; color: #999">MyBatis</a> <a href="/tags/SpringMVC/" style="font-size: 20px; color: #707070">SpringMVC</a> <a href="/tags/Spring%E6%A1%86%E6%9E%B6/" style="font-size: 18px; color: #7e7e7e">Spring框架</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 16px; color: #8b8b8b">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 18px; color: #7e7e7e">软件</a>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#位运算符"><span class="toc-text">位运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与运算符-amp"><span class="toc-text">与运算符(&amp;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#或运算符"><span class="toc-text">或运算符(|)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异或运算符"><span class="toc-text">异或运算符(^)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取反运算符"><span class="toc-text">取反运算符(~)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#左移运算-lt-lt"><span class="toc-text">左移运算(&lt;&lt;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#右移运算符-gt-gt"><span class="toc-text">右移运算符(&gt;&gt;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无符号右移-gt-gt-gt"><span class="toc-text">无符号右移(&gt;&gt;&gt;)</span></a></li></ol>
     </div>
   </section>
 
-
-  
 
   
 
@@ -1424,6 +929,60 @@
 
 
 
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
 
 
 
