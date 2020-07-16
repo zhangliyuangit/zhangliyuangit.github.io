@@ -2682,7 +2682,7 @@ value的数据结构
 <p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/1470032-20181023204026563-746326181.png" alt=""></p>
 <p><strong>这里总结一下，关于负数或者正数来说，移位的时候是一样的，但是在补位的时候，如果最高位是0就补0，如果最高位是1就补1</strong></p>
 <blockquote>
-<p><strong>由此我们得出一个快速的算法  M &gt;&gt; n  其实可以这么算  M &gt;&gt; n = M / 2^**</strong>n**</p>
+<p><strong>由此我们得出一个快速的算法  M &gt;&gt; n  其实可以这么算  M &gt;&gt; n = M / 2^n</strong></p>
 </blockquote>
 <h2 id="无符号右移-gt-gt-gt"><a href="#无符号右移-gt-gt-gt" class="headerlink" title="无符号右移(&gt;&gt;&gt;)"></a>无符号右移(&gt;&gt;&gt;)</h2><p>无符号右移(&gt;&gt;&gt;)只对32位和64位有意义</p>
 <p>在移动位的时候与右移运算符的移动方式一样的，区别只在于补位的时候不管是0还是1，都补0</p>
