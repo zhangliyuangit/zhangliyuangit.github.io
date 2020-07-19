@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>mybatis框架(一) - 张利源</title>
+    <title>Java类加载机制 - 张利源</title>
   
-    <meta name="keywords" content="JavaWeb,mybatis">
+    <meta name="keywords" content="Java">
   
   
-    <meta name="description" content="mybatis笔记(一)">
+    <meta name="description" content="Java类加载机制">
   
 
   <!-- feed -->
@@ -365,8 +365,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/">
-      mybatis框架(一)
+    <a href="/2020/07/19/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+      Java类加载机制
     </a>
   </h1>
 
@@ -396,7 +396,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2020</p>
+    <p>发布于：Jul 19, 2020</p>
   </a>
 </div>
 
@@ -419,39 +419,69 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>mybatis笔记(一)</p>
+          <p>Java类加载机制</p>
 <a id="more"></a>
 
-<h3 id="mybatis概述"><a href="#mybatis概述" class="headerlink" title="mybatis概述"></a>mybatis概述</h3><p>mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了ORM思想，实现了结果集的封装。</p>
-<h3 id="ORM：Object-Relational-Mappging-对象关系映射"><a href="#ORM：Object-Relational-Mappging-对象关系映射" class="headerlink" title="ORM：Object Relational Mappging   对象关系映射"></a>ORM：Object Relational Mappging   对象关系映射</h3><p>简单的说：就是把数据库和实体类及实体类的属性对应起来，让我们可以操作实体类及实现操作数据库</p>
-<h3 id="mybatis环境搭建"><a href="#mybatis环境搭建" class="headerlink" title="mybatis环境搭建"></a>mybatis环境搭建</h3><ul>
-<li>1.创建maven工程并导入坐标<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;3.5.4&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;8.0.18&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure></li>
-<li>2.创建实体类和dao接口</li>
-<li>3.创建mybatis的主配置文件SqlMapConfig.xml</li>
-<li>4.创建映射配置文件<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3></li>
-<li>1.包在创建时 com.demomybatis.dao他是三级目录结构</li>
-<li>2.mybatis的映射配置文件位置必须和dao接口的包结构相同</li>
-<li>3.映射配置文件的mapper标签和namespace属性的取值必须是dao接口的全限定而类名</li>
-<li>4.映射配置文件的擦偶哦配置(select) id的取值必须是dao接口的方法名</li>
-</ul>
-<div class="note success"><p>当我们遵从2，3，4点之后，我们开发中就无需再写dao的实现类</p></div>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200719152255.png" alt=""></p>
+<h3 id="1、什么是类的加载"><a href="#1、什么是类的加载" class="headerlink" title="1、什么是类的加载"></a>1、什么是类的加载</h3><p>类的加载指的是将类的.class文件中的<strong>二进制数据读入到内存中</strong>，将其放在运行时数据区的方法区内，然后在java堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构。类的加载的最终产品是位于堆区中的Class 对象。Class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。</p>
+<h3 id="2、-类的加载过程"><a href="#2、-类的加载过程" class="headerlink" title="2、 类的加载过程"></a>2、 类的加载过程</h3><p>JVM 将类的加载过程分为三个大的步骤：<strong>加载(loading)，链接(link)，初始化(initialize)</strong>。其中链接又分为三个步骤：验证，准备，解析。</p>
+<blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/845772-20190601111501609-1158980314.png" alt=""></p>
+</blockquote>
+<h4 id="1-加载：查找并加载类的二进制数据"><a href="#1-加载：查找并加载类的二进制数据" class="headerlink" title="(1) 加载：查找并加载类的二进制数据"></a>(1) 加载：查找并加载类的二进制数据</h4><p>加载是类加载过程中的第一个阶段，加载过程虚拟机需要完成以下三件事情：</p>
+<p>1) 通过一个类的全限定名来获取其定义的二进制字节流；</p>
+<p>2) 将这个字节流所代表的静态存储结构转为方法区的运行时数据结构；</p>
+<p>3) 在Java 堆中生成一个代表这个类的java.lang.Class 对象，作为方法区中这些数据的访问入口。</p>
+<p>相对于类加载的其他阶段而言，加载阶段（准确地说，是加载阶段获取类的二进制字节流的动作）是可控性最强的阶段，因为开发人员既可以使用系统提供的类加载器来完成加载，也可以自定义自己的类加载器来完成加载。</p>
+<p>加载阶段完成后，虚拟机外部的二进制字节流就按照虚拟机所需的格式存储在方法区之中，而且在Java堆中也创建一个java.lang.Class类的对象，这样便可以通过该对象访问方法区中的这些数据</p>
+<h4 id="2-链接："><a href="#2-链接：" class="headerlink" title="(2) 链接："></a>(2) 链接：</h4><p>① 验证：确保被加载类的正确性；</p>
+<p>主要是为了安全考虑，为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全。</p>
+<p>② 准备：为类的静态变量分配内存，并将其初始化为默认值；</p>
+<p>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段，这些内存都将在方法区中分配。对于该阶段有以下几点需要注意：</p>
+<p>1)、这时候进行内存分配的仅包括类变量（static），而不包括实例变量，实例变量会在对象实例化时随着对象一块分配在Java堆中。</p>
+<p>2)、这里所设置的初始值通常情况下是数据类型默认的零值（如0、0L、null、false等），而不是被在Java代码中被显式地赋予的值。</p>
+<p>假设一个类变量的定义为：public static int value = 3；</p>
+<p>那么变量value在准备阶段过后的初始值为0，而不是3，因为这时候尚未开始执行任何Java方法，而把value赋值为3的putstatic指令是在程序编译后，存放于类构造器<clinit>（）方法之中的，所以把value赋值为3的动作将在初始化阶段才会执行。</p>
+<p>③ 解析：把类中的符号引用转换为直接引用；</p>
+<p>解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程，解析动作主要针对类或接口、字段、类方法、接口方法、方法类型、方法句柄和调用点限定符7类符号引用进行。</p>
+<h4 id="3-初始化：为类的静态变量赋予正确的初始值"><a href="#3-初始化：为类的静态变量赋予正确的初始值" class="headerlink" title="(3) 初始化：为类的静态变量赋予正确的初始值"></a>(3) 初始化：为类的静态变量赋予正确的初始值</h4><p>为类的静态变量赋予正确的初始值，JVM负责对类进行初始化，主要对类变量进行初始化。在Java中对类变量进行初始值设定有两种方式：</p>
+<p>① 声明类变量是指定初始值；</p>
+<p>② 使用静态代码块为类变量指定初始值；</p>
+<p>③ JVM初始化步骤</p>
+<p> 1)、假如这个类还没有被加载和连接，则程序先加载并连接该类</p>
+<p> 2)、假如该类的直接父类还没有被初始化，则先初始化其直接父类</p>
+<p> 3)、假如类中有初始化语句，则系统依次执行这些初始化语句</p>
+<p>④ 类初始化时机：只有当对类的主动使用的时候才会导致类的初始化，类的主动使用包括以下六种：</p>
+<p>– 创建类的实例，也就是new的方式</p>
+<p>– 访问某个类或接口的静态变量，或者对该静态变量赋值</p>
+<p>– 调用类的静态方法</p>
+<p>– 反射（如Class.forName(“com.shengsiyuan.Test”)）</p>
+<p>– 初始化某个类的子类，则其父类也会被初始化</p>
+<p>– Java虚拟机启动时被标明为启动类的类（Java Test），直接使用java.exe命令来运行某个主类</p>
+<h4 id="4-结束生命周期"><a href="#4-结束生命周期" class="headerlink" title="(4) 结束生命周期"></a>(4) 结束生命周期</h4><p>在如下几种情况下，Java虚拟机将结束生命周期</p>
+<p>– 执行了System.exit()方法</p>
+<p>– 程序正常执行结束</p>
+<p>– 程序在执行过程中遇到了异常或错误而异常终止</p>
+<p>– 由于操作系统出现错误而导致Java虚拟机进程终止</p>
+<h3 id="3、类加载器"><a href="#3、类加载器" class="headerlink" title="3、类加载器"></a>3、类加载器</h3><p>JVM 类加载器作用，将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口。</p>
+<p>类加载器是通过ClassLoader 及其子类来完成的，类的层次关系和加载顺序可以由下图来描述：</p>
+<p><img src="http://hi.csdn.net/attachment/201009/25/0_1285421756PHyZ.gif" alt="img"></p>
+<p>(1) Bootstrap ClassLoader 引导类加载器</p>
+<p>负责加载Java核心库$JAVA_HOME中的jre/lib/rt.jar 里所有的class，由c++实现，不是ClassLoader子类。</p>
+<p>(2) Extension ClassLoader 扩展类加载器</p>
+<p>负责加载Java 平台中扩展功能的一些jar包，包括$JAVA_HOME中的jre/lib/ext/*.jar 或 -D java.ext.dirs指定目录下的jar包。</p>
+<p>(3) App ClassLoader</p>
+<p>负责加载classpath 中指定的jar包及目录中class</p>
+<p>(4) Custom ClassLoader</p>
+<p>应用程序根据自身需要自定义的ClassLoader，如tomcat，jboss 都会根据j2ee规范自行实现ClassLoader，加载过程中会先检查是否已被加载，检查顺序是自底向上，从Custom ClassLoader 到BootStrap ClassLoader逐层检查，只要某个classloader已加载就视为已加载此类，保证此类在所有ClassLoader 只加载一次。而加载的顺序是自顶向下，也就是由上层来逐层尝试加载此类。</p>
+<h3 id="4、JVM-三种预定义加载器"><a href="#4、JVM-三种预定义加载器" class="headerlink" title="4、JVM 三种预定义加载器"></a>4、JVM 三种预定义加载器</h3><p>JVM预定义有三种类加载器，当一个 JVM启动的时候，Java 默认开始使用如下三种类加载器：</p>
+<p>(1) 引导类加载器（Bootstrap class loader）：它用来加载 Java 的核心库，是用原生代码来实现的，并不继承自 java.lang.ClassLoader。它负责将<Java_Runtime_Home>/lib下面的核心类库或-Xbootclasspath选项指定的jar包加载到内存中。由于引导类加载器涉及到虚拟机本地实现细节，开发者无法直接获取到启动类加载器的引用，所以不允许直接通过引用进行操作。</p>
+<p>(2) 扩展类加载器（Extensions class loader）：该类加载器在此目录里面查找并加载 Java 类。扩展类加载器是由Sun的 ExtClassLoader（sun.misc.Launcher$ExtClassLoader）实现的。它用来加载 Java 的扩展库。Java 虚拟机的实现会提供一个扩展库目录。它负责将&lt; Java_Runtime_Home &gt;/lib/ext或者由系统变量-Djava.ext.dirs指定位置中的类库加载到内存中。开发者可以直接使用标准扩展类加载器。</p>
+<p>(3) 系统类加载器（System class loader）：系统类加载器是由 Sun的 AppClassLoader（sun.misc.Launcher$AppClassLoader）实现的。它负责将系统类路径java -classpath或-Djava.class.path变量所指的目录下的类库加载到内存中。开发者可以直接使用系统类加载器。一般来说，Java 应用的类都是由它来完成加载的。可以通过 ClassLoader.getSystemClassLoader()来获取它。</p>
+<h3 id="5、类加载器-“双亲委派”-机制"><a href="#5、类加载器-“双亲委派”-机制" class="headerlink" title="5、类加载器 “双亲委派” 机制"></a>5、类加载器 “双亲委派” 机制</h3><p>(1) 双亲委派机制介绍</p>
+<p>在这里需要着重说明，JVM在加载类时默认采用的是双亲委派机制。所谓的双亲委派机制，就是某个特定的类加载器在接到类的请求时，首先将加载任务委托给父加载器，依次递归，如果父加载器可以完成类加载任务，就成功返回；只有父加载器无法完成此加载任务时，才自己去加载。关于虚拟机默认的双亲委派机制，我们可以从系统类加载器和标准扩展类加载器为例作简单分析。</p>
+<p><strong>双亲委派机制是为了保证Java核心库的类型安全。**</strong>这种机制能保证不会出现用户自己能定义java.lang.Object类的情况，因为即使定义了，也加载不了。**</p>
 
-<h3 id="SqlMapConfig-xml代码"><a href="#SqlMapConfig-xml代码" class="headerlink" title="SqlMapConfig.xml代码"></a>SqlMapConfig.xml代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">            &lt;!--使用jdbc事务管理 --&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;!-- 数据库连接池(数据源) --&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.cj.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!-- 引入映射配置文件 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;cn&#x2F;demomybatis&#x2F;dao&#x2F;StudentDao.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="StudentDao-xml代码"><a href="#StudentDao-xml代码" class="headerlink" title="StudentDao.xml代码"></a>StudentDao.xml代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- namespace：命名空间，用于隔离sql--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;cn.demomybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">    &lt;!--    配置查询所有 id为dao的方法名--&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;findAll&quot; resultType&#x3D;&quot;cn.demomybatis.domain.Student&quot; parameterType&#x3D;&quot;cn.demomybatis.domain.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="mybatis入门案例："><a href="#mybatis入门案例：" class="headerlink" title="mybatis入门案例："></a>mybatis入门案例：</h3><ul>
-<li>1.读取配置文件</li>
-<li>2.创建SqlSessionFactory工厂</li>
-<li>3.创建SqlSession</li>
-<li>4.创建Dao接口的代理</li>
-<li>5.执行Dao中的方法</li>
-<li>6.释放资源</li>
-</ul>
-<span class='p red'>注意：需要在映射配置中告知mybatis要封装到哪个实体类中，配置的方式：指定实体类的全类名</span>
-
-<div class="note warning"><p>增删改需要提交事务</p></div>
-
-<p><code>sqlSession.commit()</code></p>
-<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package cn.demomybatis.test;</span><br><span class="line"></span><br><span class="line">import cn.demomybatis.dao.StudentDao;</span><br><span class="line">import cn.demomybatis.domain.Student;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * mybatis入门</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class mybatistest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream in &#x3D; Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建工厂</span><br><span class="line">        SqlSessionFactoryBuilder builder &#x3D; new SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory factory &#x3D; builder.build(in);</span><br><span class="line">        &#x2F;&#x2F;使用工厂生产SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; factory.openSession();</span><br><span class="line">        &#x2F;&#x2F;创建Dao接口的代理对象</span><br><span class="line">        StudentDao studentDao &#x3D; sqlSession.getMapper(StudentDao.class);</span><br><span class="line">        &#x2F;&#x2F;使用代理对象执行方法</span><br><span class="line">        List&lt;Student&gt; list &#x3D; studentDao.findAll();</span><br><span class="line">        for (Student student:list)&#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;释放资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
             <div class='article_footer'>
               
@@ -527,10 +557,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-22T19:12:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-19T15:34:40+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 22, 2020</p>
+    <p>更新于：Jul 19, 2020</p>
   </a>
 </div>
 
@@ -539,7 +569,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaWeb/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaWeb</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>mybatis</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
 
 
         
@@ -557,7 +587,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/07/19/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/&title=Java类加载机制 - 张利源&summary=Java类加载机制"
           
           >
           
@@ -569,7 +599,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/07/19/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/&title=Java类加载机制 - 张利源&summary=Java类加载机制"
           
           >
           
@@ -581,7 +611,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/07/19/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/&title=Java类加载机制 - 张利源&summary=Java类加载机制"
           
           >
           
@@ -605,19 +635,14 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>PicGo+GitHub图床，让Markdown飞</p>
-                <p class='content'>PicGo+GitHub图床
+            
+              <a class='next' href='/2020/07/16/Java%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6/'>
+                <p class='title'>Java位运算符<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>位运算符
 
 
-一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种“轻量级标记语言”。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/'>
-                <p class='title'>抽取Servlet<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>BaseServlet代码
-1234567891011121314151617181920212223242526272829303132333435363738394041package cn...</p>
+位运算符关于位运算符无非也就 与(&amp;)、或(|)、异或(^)、取反(~)、左移(&lt;&lt;)、右移(&gt;&gt;)、无符号右移(&gt;&gt;&gt;)
+位运算...</p>
               </a>
             
           </div>
@@ -662,7 +687,7 @@
 
   <script>
     window.subData = {
-      title: 'mybatis框架(一)',
+      title: 'Java类加载机制',
       tools: true
     }
   </script>
@@ -688,7 +713,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis概述"><span class="toc-text">mybatis概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ORM：Object-Relational-Mappging-对象关系映射"><span class="toc-text">ORM：Object Relational Mappging   对象关系映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis环境搭建"><span class="toc-text">mybatis环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SqlMapConfig-xml代码"><span class="toc-text">SqlMapConfig.xml代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StudentDao-xml代码"><span class="toc-text">StudentDao.xml代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis入门案例："><span class="toc-text">mybatis入门案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试代码"><span class="toc-text">测试代码</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、什么是类的加载"><span class="toc-text">1、什么是类的加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、-类的加载过程"><span class="toc-text">2、 类的加载过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-加载：查找并加载类的二进制数据"><span class="toc-text">(1) 加载：查找并加载类的二进制数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-链接："><span class="toc-text">(2) 链接：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-初始化：为类的静态变量赋予正确的初始值"><span class="toc-text">(3) 初始化：为类的静态变量赋予正确的初始值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-结束生命周期"><span class="toc-text">(4) 结束生命周期</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、类加载器"><span class="toc-text">3、类加载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、JVM-三种预定义加载器"><span class="toc-text">4、JVM 三种预定义加载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、类加载器-“双亲委派”-机制"><span class="toc-text">5、类加载器 “双亲委派” 机制</span></a></li></ol>
     </div>
   </section>
 
