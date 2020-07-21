@@ -16,12 +16,10 @@
 
   <!-- 页面元数据 -->
   
-    <title>BeanUtils工具类的使用 - 张利源</title>
+    <title>Java的堆区、栈区和方法区简单分析 - 张利源</title>
   
     <meta name="keywords" content="Java">
   
-  
-    <meta name="description" content="BeanUtils工具类，简化数据封装">
   
 
   <!-- feed -->
@@ -365,8 +363,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/">
-      BeanUtils工具类的使用
+    <a href="/2020/07/21/Java%E7%9A%84%E5%A0%86%E5%8C%BA%E3%80%81%E6%A0%88%E5%8C%BA%E5%92%8C%E6%96%B9%E6%B3%95%E5%8C%BA%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/">
+      Java的堆区、栈区和方法区简单分析
     </a>
   </h1>
 
@@ -396,7 +394,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 11, 2020</p>
+    <p>发布于：Jul 21, 2020</p>
   </a>
 </div>
 
@@ -419,39 +417,19 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><a id="more"></a>
-<h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>1.类必须被public修饰</li>
-<li>2.必须提供空参的构造器</li>
-<li>3.成员变量必须使用private修饰</li>
-<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
-</ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BeanUtils对象</td>
-<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
-<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
-</tr>
-<tr>
-<td></td>
-<td>setProperty(Object obj,String name,Object value)</td>
-<td>设置属性值</td>
-</tr>
-<tr>
-<td></td>
-<td>getProperty(Object obj,String name)</td>
-<td>获得属性值</td>
-</tr>
-</tbody></table>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+          <a id="more"></a>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200721212509.png" alt=""></p>
+<p><strong>堆：**</strong>堆主要存放Java在运行过程中new出来的对象，凡是通过new生成的对象都存放在堆中，对于堆中的对象生命周期的管理由Java虚拟机的垃圾回收机制GC进行回收和统一管理。类的非静态成员变量也放在堆区，其中基本数据类型是直接保存值，而复杂类型是保存指向对象的引用，非静态成员变量在类的实例化时开辟空间并且初始化。所以你要知道类的几个时机，加载-连接-初始化-实例化。**</p>
+<p><strong>栈：**</strong>栈主要存放在运行期间用到的一些局部变量（基本数据类型的变量）或者是指向其他对象的一些引用，因为方法执行时，被分配的内存就在栈中，所以当然存储的局部变量就在栈中咯。当一段代码或者一个方法调用完毕后，栈中为这段代码所提供的基本数据类型或者对象的引用立即被释放；**</p>
+<p><strong>常量池：**</strong>常量池是方法区的一部分内存。常量池在编译期间就将一部分数据存放于该区域，包含基本数据类型如int、long等以final声明的常量值，和String字符串、特别注意的是对于方法运行期位于栈中的局部变量String常量的值可以通过 String.intern()方法将该值置入到常量池中。**</p>
+<p><strong>静态域：**</strong>位于方法区的一块内存。存放类中以static声明的静态成员变量。**</p>
+<p><strong>方法区：**</strong>是各个线程共享的内存区域，它用于存储class二进制文件，包含了虚拟机加载的类信息、常量、静态变量、即时编译后的代码等数据。它有个名字叫做Non-Heap(非堆)，目的是与Java堆区分开。**</p>
+<p><strong>需要特别注意的是：</strong></p>
+<p><strong>方法区是线程安全的。由于所有的线程都共享方法区，所以，方法区里的数据访问必须被设计成线程安全的。例如，假如同时有两个线程都企图访问方法区中的同一个类，而这个类还没有被装入JVM，那么只允许一个线程去装载它，而其它线程必须等待 ！</strong></p>
+<p><strong>最后总结起来就是：</strong></p>
+<p><strong>栈：**</strong>为即时调用的方法开辟空间，存储局部变量值(基本数据类型)，局部变量引用。注意：局部变量必须手动初始化。**<br><strong>堆：**</strong>存放引用类型的对象，即new出来的对象、数组值、类的非静态成员变量值(基本数据类型)、非静态成员变量引用。其中非静态成员变量在实例化时开辟空间初始化值。更具体点，个人感觉非静态成员变量是放在堆的对象中。**<br><strong>方法区：**</strong>存放class二进制文件。包含类信息、静态变量，常量池（String字符串和final修饰的常量值等），类的版本号等基本信息。因为是共享的区域，所以如果静态成员变量的值或者常量值(String类型的值能够非修改，具体请查看博客)被修改了直接就会反应到其它类的对象中。**</p>
+
           
             <div class='article_footer'>
               
@@ -527,10 +505,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-19T15:33:52+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-21T21:30:30+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 19, 2020</p>
+    <p>更新于：Jul 21, 2020</p>
   </a>
 </div>
 
@@ -557,7 +535,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/07/21/Java%E7%9A%84%E5%A0%86%E5%8C%BA%E3%80%81%E6%A0%88%E5%8C%BA%E5%92%8C%E6%96%B9%E6%B3%95%E5%8C%BA%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/&title=Java的堆区、栈区和方法区简单分析 - 张利源&summary="
           
           >
           
@@ -569,7 +547,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/07/21/Java%E7%9A%84%E5%A0%86%E5%8C%BA%E3%80%81%E6%A0%88%E5%8C%BA%E5%92%8C%E6%96%B9%E6%B3%95%E5%8C%BA%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/&title=Java的堆区、栈区和方法区简单分析 - 张利源&summary="
           
           >
           
@@ -581,7 +559,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/07/21/Java%E7%9A%84%E5%A0%86%E5%8C%BA%E3%80%81%E6%A0%88%E5%8C%BA%E5%92%8C%E6%96%B9%E6%B3%95%E5%8C%BA%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/&title=Java的堆区、栈区和方法区简单分析 - 张利源&summary="
           
           >
           
@@ -605,22 +583,14 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/04/15/Jetbrains%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%812020-1%E6%9C%80%E6%96%B0%E6%BF%80%E6%B4%BB%E6%96%B9%E6%B3%95/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Jetbrains系列产品2020.1最新激活方法</p>
-                <p class='content'>本文假定你知道Jetbrains家的产品。不知道可以问问搜索引擎。
-
-
-大家熟知Jetbrains的话应该知道：他们家的所有产品升级到2018.2.1及以上版本后，先前可用的注册服务器都失效了，...</p>
-              </a>
             
-            
-              <a class='next' href='/2020/04/10/http/'>
-                <p class='title'>http的request对象和response对象<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>http的request对象和response对象
-概念：Hyper Text Transfer Protocol 超文本传输协议特点：
-1.基于TCP/IP的高级协议
+              <a class='next' href='/2020/07/19/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/'>
+                <p class='title'>Java类加载机制<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Java类加载机制
 
-2.默认端口号8080...</p>
+
+
+1、什么是类的加载类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在java堆区创建一个java.lang.Clas...</p>
               </a>
             
           </div>
@@ -665,7 +635,7 @@
 
   <script>
     window.subData = {
-      title: 'BeanUtils工具类的使用',
+      title: 'Java的堆区、栈区和方法区简单分析',
       tools: true
     }
   </script>
@@ -680,20 +650,6 @@
     
     
 
-
-  <section class="widget toc-wrapper shadow desktop mobile">
-    
-  <header>
-    
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
-    
-  </header>
-
-
-    <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanUtils工具类，简化数据封装"><span class="toc-text">BeanUtils工具类，简化数据封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用于封装JavaBean的"><span class="toc-text">用于封装JavaBean的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#要求："><span class="toc-text">要求：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能：封装数据"><span class="toc-text">功能：封装数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li></ol>
-    </div>
-  </section>
 
 
   
