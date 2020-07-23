@@ -2788,4 +2788,55 @@ value的数据结构
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java单例模式</title>
+    <url>/2020/07/23/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>单例模式</p>
+<a id="more"></a>
+
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>单例模式的<strong>定义</strong>就是<strong>确保某一个类只有一个实例，并且提供一个全局访问点。</strong>属于设计模式三大类中的<strong><code>创建型模式</code></strong>。<br>单例模式具有典型的三个<strong>特点</strong>：</p>
+<ul>
+<li>只有一个实例。</li>
+<li>自我实例化。</li>
+<li>提供全局访问点。</li>
+</ul>
+<p>其<strong>UML</strong>结构图非常简单，就只有一个类，如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200723175531.png" alt=""></p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><strong>优点</strong>：由于单例模式只生成一个实例，所以能够节省系统资源，减少性能开销，提高系统效率，同时也能够严格的控制客户对他的访问。</li>
+<li><strong>缺点</strong>：也正是因为系统只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责”的原则，同时也没有抽象类，这样扩展起来有一定的困难。</li>
+</ul>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul>
+<li><strong>饿汉式：线程安全</strong>，调用效率高，但是不能延迟加载。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">class</span>类</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/7/23 18:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo1</span> </span>&#123;</span><br><span class="line">    <span class="comment">//线程安全，类初始化立即加载这个对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonDemo1 singletonDemo1 = <span class="keyword">new</span> SingletonDemo1();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有构造方法--&gt;外界不能通过new来创建对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo1</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提供一个公开的静态方法来创建当前类的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo1 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> singletonDemo1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200723181255.png" alt=""></p>
+<p>由于该模式类加载的时候对象就已创建了，所以加载类的速度比较慢，但是获取对象的速度比较块，且是<strong>线程安全</strong></p>
+<p>的。</p>
+<ul>
+<li><strong>懒汉式：线程不安全</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">class</span>类</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.PSource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/7/23 18:09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonDemo2 singletonDemo2;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提供私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo2 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singletonDemo2 == <span class="keyword">null</span>)&#123;</span><br><span class="line">            singletonDemo2 = <span class="keyword">new</span> SingletonDemo2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singletonDemo2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于该模式是在运行时加载对象的，所以加载类比较快，但是对象的获取速度相对较慢，且<strong>线程不安全</strong>。<strong>如果想要线程安全的话可以加上<code>synchronized</code>关键字</strong>，但是这样会付出惨重的效率代价</p>
+<ul>
+<li><strong>懒汉式(双重同步锁)</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">class</span>类</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/7/23 18:19</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo3</span> </span>&#123;</span><br><span class="line">    <span class="comment">//使用双重锁机制</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SingletonDemo3 singletonDemo3;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提供私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo3</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo3 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singletonDemo3 == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//线程同步加锁</span></span><br><span class="line">            <span class="keyword">synchronized</span> (SingletonDemo3<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (singletonDemo3 == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    singletonDemo3 = <span class="keyword">new</span> SingletonDemo3();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singletonDemo3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优点：线程安全，缺点：每次获取实例都要加锁，耗费资源，其实只要实例已经生成，以后获取就不需要再锁了</p>
+<h3 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h3><ol>
+<li>网站计数器。</li>
+<li>项目中用于读取配置文件的类。</li>
+<li>数据库连接池。因为数据库连接池是一种数据库资源。</li>
+<li>Spring中，每个<code>Bean</code>默认都是单例的，这样便于Spring容器进行管理。</li>
+<li>Servlet中<code>Application</code></li>
+<li>Windows中任务管理器，回收站。<br> 等等。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>

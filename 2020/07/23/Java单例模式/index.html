@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,8 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>归档：2020 - 张利源</title>
+    <title>Java单例模式 - 张利源</title>
   
+    <meta name="keywords" content="Java">
+  
+  
+    <meta name="description" content="单例模式">
   
 
   <!-- feed -->
@@ -88,79 +90,7 @@
 <script type="text/javascript" src="/js/fireworks.js"></script>
 <body>
   
-  <div class="cover-wrapper">
-    
-      <cover class='cover  half'>
-        <div class='cover-body'>
-  <div class='a'>
-    
-    
-      <p class="title">再小的帆也能远航</p>
-    
-    
-  </div>
-  <div class='b'>
-    
-      <div class="m_search">
-        <form name="searchform" class="form u-search-form">
-          <input type="text" class="input u-search-input" placeholder="" />
-          <i class="icon fas fa-search fa-fw"></i>
-        </form>
-      </div>
-    
-    <div class='menu navigation'>
-      <ul class='cover-list-h'>
-        
-          
-            <li>
-              <a class="nav home"
-                href="/categories/"
-                
-                
-                id="categories">
-                <i class='fas fa-folder-open fa-fw'></i>分类
-              </a>
-            </li>
-          
-            <li>
-              <a class="nav home"
-                href="/tags/"
-                
-                
-                id="tags">
-                <i class='fas fa-tags fa-fw'></i>标签
-              </a>
-            </li>
-          
-            <li>
-              <a class="nav home"
-                href="/about/"
-                
-                
-                id="about">
-                <i class='fas fa-info-circle fa-fw'></i>关于
-              </a>
-            </li>
-          
-            <li>
-              <a class="nav home"
-                href="/archives/"
-                
-                
-                id="archives">
-                <i class='fas fa-archive fa-fw'></i>归档
-              </a>
-            </li>
-          
-        
-      </ul>
-    </div>
-  </div>
-</div>
-
-      </cover>
-    
-    <div id="loading-bar-wrapper">
+  <div id="loading-bar-wrapper">
   <div id="loading-bar"></div>
 </div>
 <header class="l_header shadow blur">
@@ -413,24 +343,18 @@
 
 <script>setLoadingBarProgress(40);</script>
 
-  </div>
 
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper'>
       
 
 <div class='l_main'>
-	
-		
-  <section class="post-list ">
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
   
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -440,11 +364,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
-    <a href="/2020/04/07/XML%E8%A7%A3%E6%9E%90%E5%99%A8/">
-      XML解析器
+  <h1 class="title">
+    <a href="/2020/07/23/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+      Java单例模式
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -472,14 +396,9 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 7, 2020</p>
+    <p>发布于：Jul 23, 2020</p>
   </a>
 </div>
-
-            
-          
-            
-              
 
             
           
@@ -497,298 +416,88 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="解析：操作xml文档，将文档中的数据读取到内存中"><a href="#解析：操作xml文档，将文档中的数据读取到内存中" class="headerlink" title="解析：操作xml文档，将文档中的数据读取到内存中"></a>解析：操作xml文档，将文档中的数据读取到内存中</h3>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/04/07/XML%E8%A7%A3%E6%9E%90%E5%99%A8/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
           
-  <h2 class="title">
-    <a href="/2020/04/06/python%E7%88%AC%E8%99%AB/">
-      python爬虫
-    </a>
-  </h2>
+          <p>单例模式</p>
+<a id="more"></a>
 
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>单例模式的<strong>定义</strong>就是<strong>确保某一个类只有一个实例，并且提供一个全局访问点。</strong>属于设计模式三大类中的<strong><code>创建型模式</code></strong>。<br>单例模式具有典型的三个<strong>特点</strong>：</p>
+<ul>
+<li>只有一个实例。</li>
+<li>自我实例化。</li>
+<li>提供全局访问点。</li>
+</ul>
+<p>其<strong>UML</strong>结构图非常简单，就只有一个类，如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200723175531.png" alt=""></p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><ul>
+<li><strong>优点</strong>：由于单例模式只生成一个实例，所以能够节省系统资源，减少性能开销，提高系统效率，同时也能够严格的控制客户对他的访问。</li>
+<li><strong>缺点</strong>：也正是因为系统只有一个实例，这样就导致了单例类的职责过重，违背了“单一职责”的原则，同时也没有抽象类，这样扩展起来有一定的困难。</li>
+</ul>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ul>
+<li><strong>饿汉式：线程安全</strong>，调用效率高，但是不能延迟加载。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">class</span>类</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/7/23 18:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo1</span> </span>&#123;</span><br><span class="line">    <span class="comment">//线程安全，类初始化立即加载这个对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonDemo1 singletonDemo1 = <span class="keyword">new</span> SingletonDemo1();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有构造方法--&gt;外界不能通过new来创建对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo1</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提供一个公开的静态方法来创建当前类的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo1 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> singletonDemo1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
-        <div class='new-meta-box'>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200723181255.png" alt=""></p>
+<p>由于该模式类加载的时候对象就已创建了，所以加载类的速度比较慢，但是获取对象的速度比较块，且是<strong>线程安全</strong></p>
+<p>的。</p>
+<ul>
+<li><strong>懒汉式：线程不安全</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">class</span>类</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.PSource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/7/23 18:09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonDemo2 singletonDemo2;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提供私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo2 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singletonDemo2 == <span class="keyword">null</span>)&#123;</span><br><span class="line">            singletonDemo2 = <span class="keyword">new</span> SingletonDemo2();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singletonDemo2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于该模式是在运行时加载对象的，所以加载类比较快，但是对象的获取速度相对较慢，且<strong>线程不安全</strong>。<strong>如果想要线程安全的话可以加上<code>synchronized</code>关键字</strong>，但是这样会付出惨重的效率代价</p>
+<ul>
+<li><strong>懒汉式(双重同步锁)</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">class</span>类</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/7/23 18:19</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonDemo3</span> </span>&#123;</span><br><span class="line">    <span class="comment">//使用双重锁机制</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> SingletonDemo3 singletonDemo3;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提供私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SingletonDemo3</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonDemo3 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singletonDemo3 == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//线程同步加锁</span></span><br><span class="line">            <span class="keyword">synchronized</span> (SingletonDemo3<span class="class">.<span class="keyword">class</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (singletonDemo3 == <span class="keyword">null</span>)&#123;</span><br><span class="line">                    singletonDemo3 = <span class="keyword">new</span> SingletonDemo3();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singletonDemo3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优点：线程安全，缺点：每次获取实例都要加锁，耗费资源，其实只要实例已经生成，以后获取就不需要再锁了</p>
+<h3 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h3><ol>
+<li>网站计数器。</li>
+<li>项目中用于读取配置文件的类。</li>
+<li>数据库连接池。因为数据库连接池是一种数据库资源。</li>
+<li>Spring中，每个<code>Bean</code>默认都是单例的，这样便于Spring容器进行管理。</li>
+<li>Servlet中<code>Application</code></li>
+<li>Windows中任务管理器，回收站。<br> 等等。</li>
+</ol>
+
           
-            
-          
-            
+            <div class='article_footer'>
               
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 6, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="scrapy爬虫框架的安装"><a href="#scrapy爬虫框架的安装" class="headerlink" title="scrapy爬虫框架的安装"></a>scrapy爬虫框架的安装</h1>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/04/06/python%E7%88%AC%E8%99%AB/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/">
-      搭建个人博客及其部署
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
-    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
-    <p>张利源</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 6, 2020</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="特别鸣up主CodeSheep"><a href="#特别鸣up主CodeSheep" class="headerlink" title="特别鸣up主CodeSheep"></a>特别鸣up主<a href="https://www.bilibili.com/video/BV1Yb411a7ty?t=26" target="_blank" rel="noopener">CodeSheep</a></h1>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/04/06/%E5%AE%89%E8%A3%85Hexo%E7%8E%AF%E5%A2%83/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/archives/2020/page/3/">
-            <section class="post prev white-box shadow" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          4 / 4
-        </p>
-        
-      </div>
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
-
-  
-
-
-	
-</div>
-<aside class='l_side'>
-  
+                
   
     
     
 
-<section class="widget blogger shadow desktop mobile">
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">张利源</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
-          
-            <a href="/495726603@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://github.com/zhangliyuangit"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=1646384615"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -799,29 +508,196 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='/img/wx.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-23T18:28:30+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jul 23, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/07/23/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=Java单例模式 - 张利源&summary=单例模式"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/07/23/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=Java单例模式 - 张利源&summary=单例模式"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/07/23/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=Java单例模式 - 张利源&summary=单例模式"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/07/21/Java%E7%9A%84%E5%A0%86%E5%8C%BA%E3%80%81%E6%A0%88%E5%8C%BA%E5%92%8C%E6%96%B9%E6%B3%95%E5%8C%BA%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/'>
+                <p class='title'>Java的堆区、栈区和方法区简单分析<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Java的堆区、栈区和方法区简单分析
+
+
+
+堆：**堆主要存放Java在运行过程中new出来的对象，凡是通过new生成的对象都存放在堆中，对于堆中的对象生命周期的管理由Java虚拟机的垃圾回收机...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Java单例模式',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow desktop mobile">
+
+  <section class="widget toc-wrapper shadow desktop mobile">
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/JavaWeb/" style="font-size: 22px; color: #636363">JavaWeb</a> <a href="/tags/MyBatis/" style="font-size: 14px; color: #999">MyBatis</a> <a href="/tags/SpringMVC/" style="font-size: 20px; color: #707070">SpringMVC</a> <a href="/tags/Spring%E6%A1%86%E6%9E%B6/" style="font-size: 18px; color: #7e7e7e">Spring框架</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 16px; color: #8b8b8b">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 18px; color: #7e7e7e">软件</a>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优缺点"><span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现方式"><span class="toc-text">实现方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见应用场景"><span class="toc-text">常见应用场景</span></a></li></ol>
     </div>
   </section>
 
-
-  
 
   
 
@@ -920,14 +796,6 @@
   </footer>
 
 <script>setLoadingBarProgress(80);</script>
-
-
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
 
 
       <script>setLoadingBarProgress(60);</script>
@@ -1042,6 +910,60 @@
 
 
 
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
 
 
 
