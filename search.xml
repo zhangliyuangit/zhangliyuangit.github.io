@@ -2988,14 +2988,14 @@ value的数据结构
 <p>这里说一下为什么要重写clone方法，并且提升为public类型</p>
 </blockquote>
 <p>如果不重写，由于Object的clone()方法时protected修饰的，在不同包下别的类即使使用目标类的对象也不能访问目标类继承的clone()方法，只能在目标类内部使用，局限性大。</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>![](<a href="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot</a> (1).png)</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>![](<a href="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot</a> (3).png)</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshotsds.png" alt=""></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/aaaaaaaaa.png" alt=""></p>
 <p>遇到点麻烦，我们之修改了克隆对象的地址，发现原来对象的地址也被改变了，这就涉及到了clone的浅拷贝和深拷贝。</p>
 <h3 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h3><p>clone()方法默认浅拷贝，即<strong>基本数据类型+常用类型(日期，字符串)</strong>，拷贝一份，修改克隆对象，不影响原对象。</p>
 <p>但是对象类型的属性，拷贝的是引用(地址),它是两个对象共用的，所以修改克隆对象影响原对象。</p>
 <p>如果想实现深拷贝，我们可以让属性对应的实体类同样实现Cloneable接口，重写clone()方法。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot.png" alt=""></p>
-<p>![](<a href="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/zhangliyuangit/img/code-snapshot</a> (4).png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/bbsdfsdfs.png" alt=""></p>
 <p>再次测试发现克隆对象的属性，原对象的属性不会发生变化，深克隆实现成功！</p>
 ]]></content>
       <tags>
