@@ -3105,7 +3105,10 @@ value的数据结构
   <entry>
     <title>NIO</title>
     <url>/2020/08/09/NIO/</url>
-    <content><![CDATA[<h3 id="NIO流"><a href="#NIO流" class="headerlink" title="NIO流"></a>NIO流</h3><p>在 JDK 1.4 中新加入了 NIO( New Input/ Output)类,引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。 </p>
+    <content><![CDATA[<p>Java NIO</p>
+<a id="more"></a>
+
+<h3 id="NIO流"><a href="#NIO流" class="headerlink" title="NIO流"></a>NIO流</h3><p>在 JDK 1.4 中新加入了 NIO( New Input/ Output)类,引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。 </p>
 <p>NIO是一种非线程阻塞的IO模型。同步是指线程不断轮询IO事件是否就绪，非阻塞是指线程在等待IO时，可以同时做其他任务。同步的核心就是Selector，Selector代表了线程本事轮询IO事件，避免了阻塞同时减少了不必要的线程消耗；非阻塞的核心就是线程和缓冲区，当IO事件就绪时，可以通过写道缓冲区，保证IO的成功，而无需线程阻塞时的等待。</p>
 <h3 id="Buffer-缓冲区"><a href="#Buffer-缓冲区" class="headerlink" title="Buffer 缓冲区"></a>Buffer 缓冲区</h3><p>Java.nio.Buffer是特定的基本类型元素的线性有序序列。</p>
 <p>缓冲区的类都有四个属性：</p>
