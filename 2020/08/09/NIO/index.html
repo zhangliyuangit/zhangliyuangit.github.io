@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,7 +16,9 @@
 
   <!-- 页面元数据 -->
   
-    <title>Tag: 数据库 - 张利源</title>
+    <title>NIO - 张利源</title>
+  
+    <meta name="keywords" content="Java">
   
   
 
@@ -347,25 +347,12 @@
     <div class='body-wrapper'>
       
 
-
 <div class='l_main'>
   
-    
-      
-  <section class="post-list ">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box shadow reveal ">
+
   
+    <article id="java" class="post white-box reveal shadow article-type-java" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -375,11 +362,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
-    <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
-      redis数据库
+  <h1 class="title">
+    <a href="/2020/08/09/NIO/">
+      NIO
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -407,14 +394,9 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 1, 2020</p>
+    <p>发布于：Aug 9, 2020</p>
   </a>
 </div>
-
-            
-          
-            
-              
 
             
           
@@ -432,135 +414,120 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3>
-      
-    </div>
-    
-      
-        <div class="button readmore">
-          <a href="/2020/05/01/redis%E6%95%B0%E6%8D%AE%E5%BA%93/">
-            阅读全文 <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
-      
-    
-  </section>
-</article>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h3 id="NIO流"><a href="#NIO流" class="headerlink" title="NIO流"></a>NIO流</h3><p>在 JDK 1.4 中新加入了 NIO( New Input/ Output)类,引入了一种基于通道和缓冲区的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆的 DirectByteBuffer 对象作为这块内存的引用进行操作，避免了在 Java 堆和 Native 堆中来回复制数据。 </p>
+<p>NIO是一种非线程阻塞的IO模型。同步是指线程不断轮询IO事件是否就绪，非阻塞是指线程在等待IO时，可以同时做其他任务。同步的核心就是Selector，Selector代表了线程本事轮询IO事件，避免了阻塞同时减少了不必要的线程消耗；非阻塞的核心就是线程和缓冲区，当IO事件就绪时，可以通过写道缓冲区，保证IO的成功，而无需线程阻塞时的等待。</p>
+<h3 id="Buffer-缓冲区"><a href="#Buffer-缓冲区" class="headerlink" title="Buffer 缓冲区"></a>Buffer 缓冲区</h3><p>Java.nio.Buffer是特定的基本类型元素的线性有序序列。</p>
+<p>缓冲区的类都有四个属性：</p>
+<ul>
+<li>容量(Capacity)</li>
+<li>上界(Limit)</li>
+<li>位置(Position)</li>
+<li>标记(Mark)</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>flip()确定缓冲区数据的起始点和终止点</li>
+<li>clear()缓冲区初始化，准备再次接收新数据到缓冲区</li>
+<li>hasRemaining()判断postion到limit之间是否还有元素</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200809165345.png" alt=""></p>
+<p>缓冲区的分类有ByteBuffer(字节缓冲区)、CharBuffer(字符缓冲区)、ShortBuffer(短整型缓冲区)、IntBuffer(整形缓冲区)、LongBuffer(长整型缓冲区)、FloatBuffer(单精度缓冲区)、DoubleBuffer(双精度缓冲区)，就是没有布尔缓冲区。</p>
+<p>他们都是抽象类所以不能实例化，然后他们都继承Buffer类，所以都有get()和set()方法，也都可以通过各自的静态方法allocation()创建缓冲区。</p>
+<blockquote>
+<p>该方法是将现有的数组包装到缓冲区中来为缓冲区中的内容分配空间。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/lllll.png" alt=""></p>
+<h3 id="Channel-通道"><a href="#Channel-通道" class="headerlink" title="Channel 通道"></a>Channel 通道</h3><p>java.nio.Channel通过buffer(缓冲区)进行读写操作,read表示读取通道数据到缓冲区，writer表示把缓冲区数据写入到通道。</p>
+<p>Channel需要通过节点流作为创建基础，例如FileInputStream和FileOutputStream的<code>getChannel()</code>方法.RandomAccessFile()也能创建文件通道，支持读写模式。通过IO创建通道是单向的，使用RandomAccessFile创建的通道支持双向。</p>
+<p>通道可以异步读写，异步读写表示通道执行读写操作时，也能做别的事情， 解决线程阻塞。如果使用文件管道（FileChannel），建议用 RandomAccessFile 来创建管道，因为该类支持读写模式以及有大量处理文件的方法。</p>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/nasdasd.png" alt=""></p>
+<h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/kklklksadasd.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200809184500.png" alt=""></p>
 
+          
+        </div>
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/08/01/Java%E9%9B%86%E5%90%88%E6%AF%94%E8%BE%83%E5%99%A8%E8%A7%84%E5%88%99/'>
+                <p class='title'>Java集合比较器规则<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Java集合框架自带一个排序的方法sort()，但是需要传入一个比较器对象
+
+
+我们可以定义一个比较器的类，实现Comparator接口，重写compare方法
+123456789101112/...</p>
+              </a>
+            
           </div>
         
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
       
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
 
   
 
 
-    
-  
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+
 </div>
 <aside class='l_side'>
   
   
-    
-    
-
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">张利源</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="/495726603@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://github.com/zhangliyuangit"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=1646384615"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-  
 
   
     
     
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
+  <section class="widget toc-wrapper shadow desktop mobile">
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/JavaWeb/" style="font-size: 22px; color: #636363">JavaWeb</a> <a href="/tags/MyBatis/" style="font-size: 14px; color: #999">MyBatis</a> <a href="/tags/SpringMVC/" style="font-size: 20px; color: #707070">SpringMVC</a> <a href="/tags/Spring%E6%A1%86%E6%9E%B6/" style="font-size: 18px; color: #7e7e7e">Spring框架</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 16px; color: #8b8b8b">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 18px; color: #7e7e7e">设计模式</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 18px; color: #7e7e7e">软件</a>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#NIO流"><span class="toc-text">NIO流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer-缓冲区"><span class="toc-text">Buffer 缓冲区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Channel-通道"><span class="toc-text">Channel 通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取文件"><span class="toc-text">读取文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写入文件"><span class="toc-text">写入文件</span></a></li></ol>
     </div>
   </section>
 
-
-  
 
   
 
@@ -774,6 +741,60 @@
 
 
 
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
 
 
 
@@ -905,4 +926,5 @@
 
 
   <script>setLoadingBarProgress(100);</script>
-<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</body>
+</html>
