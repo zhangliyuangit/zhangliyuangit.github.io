@@ -3158,4 +3158,48 @@ value的数据结构
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Servlet生命周期</title>
+    <url>/2020/09/08/Servlet%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+    <content><![CDATA[<p>Servlet生命周期总共由四个阶段：创建对象，初始化，服务，销毁</p>
+<a id="more"></a>
+
+<ul>
+<li>servlet类图</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200908214738.png" alt=""></p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gem.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/9/8 14:44</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HelloServlet</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"这是构造方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.init();</span><br><span class="line">        System.out.println(<span class="string">"初始化方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"这是服务方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"这是销毁方法"</span>);</span><br><span class="line">        <span class="keyword">super</span>.destroy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20200908215155.png" alt=""></p>
+<p>多次请求hello 构造方法和初始化方法只加载一次，服务方法加载多次</p>
+<h3 id="创建对象-不存在线程安全问题"><a href="#创建对象-不存在线程安全问题" class="headerlink" title="创建对象(不存在线程安全问题)"></a>创建对象(不存在线程安全问题)</h3><p>调用构造方法，默认情况下，当第一次访问到达服务器时，将调用构造方法创建对象，而且只创建一次(单例模式)，我们可用通过load-on-startup来调节Servlet的创建时机</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(urlPatterns = <span class="string">"/hello"</span>,loadOnStartup = <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>整数表示服务器启动创建对象，值越小，约优先创建，0表示不在乎创建顺序，负数表示默认情况，表示当第一次到达创建</p>
+<h3 id="初始化-不存在线程安全问题"><a href="#初始化-不存在线程安全问题" class="headerlink" title="初始化(不存在线程安全问题)"></a>初始化(不存在线程安全问题)</h3><p>调用完构造方法之后，紧接着调用init初始化方法。</p>
+<p>init方法一般用于初始化数据，执行费时费力的重量级代码，</p>
+<p>我们可以配置初始化参数，通过ServletConfig对象来获取初始化参数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(urlPatterns = <span class="string">"/hello"</span>,initParams = &#123;<span class="meta">@WebInitParam</span>(name = <span class="string">"username"</span>,value = <span class="string">"root"</span>),<span class="meta">@WebInitParam</span>(name = <span class="string">"password"</span>,value = <span class="string">"root"</span>)&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>获取初始化参数</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ServletConfig config = getServletConfig();</span><br><span class="line">String username = config.getInitParameter(<span class="string">"username"</span>);</span><br><span class="line">String password = config.getInitParameter(<span class="string">"password"</span>);</span><br><span class="line">System.out.println(username + <span class="string">"-------"</span> + password);</span><br></pre></td></tr></table></figure>
+
+<div class="note warning"><p>注意:Servlet顶级接口的init(ServletConfig config)方法时带参数的 。</p></div>
+
+<p>我们可以发现HttpServlet的父类GenericServlet重写了带参数的init()方法，同时又提供了一个没有参数的init方法</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200909185234.png" alt=""></p>
+<p>在GenericServlet中,从servlet接口带来的init(ServletConfig config)对它进行重写时,如果忘了调用super.init(config)时,就会出现空指针异常,为了解决这样的</p>
+<p>情况,GenericServlet中于是有了一个无参的init()方法,推荐大家重写init方法时,</p>
+<p>重写无参的init()方法.</p>
+<h3 id="服务-非多线程安全"><a href="#服务-非多线程安全" class="headerlink" title="服务(非多线程安全)"></a>服务(非多线程安全)</h3><p>如果有必要的话，需要进行线程同步，保证线程并发安全。</p>
+<p>HttpServlet对service方法进行了大量的细分，例如doGet、doPost、doPut、doDelete…</p>
+<h3 id="销毁-不存在线程安全问题"><a href="#销毁-不存在线程安全问题" class="headerlink" title="销毁(不存在线程安全问题)"></a>销毁(不存在线程安全问题)</h3><p>当卸载应用时，服务器会调用destory()方法，销毁当前Servlet的实例</p>
+<p>注意：</p>
+<p>如果当前Servlet没有提供服务，则可以被销毁。</p>
+<p>如果当前Servlet实例正在提供服务，则调用destory()方法时，会等待一段时间，超时后销毁。</p>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>
