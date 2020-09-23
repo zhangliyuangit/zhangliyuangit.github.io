@@ -586,6 +586,154 @@
 
 <p>输出结果</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/asdasdqweqwf.png" alt=""></p>
+<p>我们还可以通过<code>&lt;selectKey&gt;</code>实现</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertCustomer"</span> <span class="attr">parameterType</span>=<span class="string">"Customer"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span> <span class="attr">resultType</span>=<span class="string">"int"</span> <span class="attr">order</span>=<span class="string">"AFTER"</span>&gt;</span></span><br><span class="line">        select last_insert_id();</span><br><span class="line">    <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line">    insert into hbm_customer(name) value (#&#123;name&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h3><p>打开延迟加载开关</p>
+<table>
+<thead>
+<tr>
+<th>设置项</th>
+<th>描述</th>
+<th>允许值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lazyLoadingEnabled</td>
+<td>全局性设置懒加载。如果设为‘false’，则所有相关联的都会被初始化加载。</td>
+<td>true | false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>aggressiveLazyLoading</td>
+<td>当设置为‘true’的时候，懒加载的对象可能被任何懒属性全部加载。否则，每个属性都按需加载。</td>
+<td>true | false</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<p>在mybatis核心配置文件中配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--延迟加载--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--开启延迟加载--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--关闭积极加载--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"aggressiveLazyLoading"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实现</p>
+<p>需求：根据姓名查询丈夫信息,如果该丈夫有妻子,则延迟加载妻子的信息</p>
+<p>Mapper接口中的两个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Husband <span class="title">selectHusbandAndWifeLazy</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">Wife <span class="title">selectWifeById</span><span class="params">(Long id)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>xml的实现</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"lazyHusbandAndWife"</span> <span class="attr">type</span>=<span class="string">"Husband"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        association,collection中使用select标签调用其他查询来实现延迟加载</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"wife"</span> <span class="attr">javaType</span>=<span class="string">"Wife"</span> <span class="attr">select</span>=<span class="string">"selectWifeById"</span> <span class="attr">column</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectHusbandAndWifeLazy"</span> <span class="attr">resultMap</span>=<span class="string">"lazyHusbandAndWife"</span>&gt;</span></span><br><span class="line">    select *</span><br><span class="line">    from mybatis_husband where name = #&#123;name&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectWifeById"</span> <span class="attr">resultType</span>=<span class="string">"com.gem.entity.Wife"</span>&gt;</span></span><br><span class="line">    select * from mybatis_wife where husband_id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>于正常级联查询不同，将原本一个sql分为两个单独sql，但是不同的是查询丈夫的时候，并没有返回丈夫的实体，而是返回了一个resultMap，association标签也并没有去绑定实体，而是去引用另一个sql，association本身提供懒加载功能</p>
+<p>测试</p>
+<p>我们只打印丈夫的name</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(husband.getName());</span><br></pre></td></tr></table></figure>
+
+<p>sql语句并没有执行查询妻子的部分</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923210630.png" alt=""></p>
+<p>尝试输出妻子的信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(husband.getWife());</span><br></pre></td></tr></table></figure>
+
+<p>两句sql都有执行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923210902.png" alt=""></p>
+<blockquote>
+<p>小结</p>
+</blockquote>
+<p>​    当需要查询关联信息时再去数据库查询，默认不去关联查询，提高数据库性能。</p>
+<p>​    只有使用resultMap支持延迟加载设置。</p>
+<p>场合：</p>
+<p>​    当只有部分记录需要关联查询其它信息时，此时可按需延迟加载，需要关联查询时再向数据库发出sql，以提高数据库性能。</p>
+<p>​    当全部需要关联查询信息时，此时不用延迟加载，直接将关联查询信息全部返回即可，可使用resultType或resultMap完成映射。</p>
+<h3 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h3><p>Mybatis一级缓存的作用域是同一个SqlSession，在同一个sqlSession中两次执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。当一个sqlSession结束后该sqlSession中的一级缓存也就不存在了。Mybatis默认开启一级缓存。</p>
+<p>Mybatis二级缓存是多个SqlSession共享的，其作用域是mapper的同一个namespace，不同的sqlSession两次执行相同namespace下的sql语句且向sql中传递参数也相同即最终执行相同的sql语句，第一次执行完毕会将数据库中查询的数据写到缓存（内存），第二次会从缓存中获取数据将不再从数据库查询，从而提高查询效率。Mybatis默认没有开启二级缓存需要在setting全局参数中配置开启二级缓存</p>
+<h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923211411.png" alt=""></p>
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试一级缓存  默认开启</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFirstLevelCache</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    StudentMapper mapper = sqlSession.getMapper(StudentMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    Student s1 = mapper.selectStudentById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(s1);</span><br><span class="line">    System.out.println(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"</span>);</span><br><span class="line">    Student s2 = mapper.selectStudentById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(s2);</span><br><span class="line">    System.out.println(s1 == s2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923211814.png" alt=""></p>
+<h4 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923213251.png" alt=""></p>
+<p>二级缓存区域是根据mapper的namespace划分的，相同namespace的mapper查询数据放在同一个区域，如果使用mapper代理方法每个mapper的namespace都不同，此时可以理解为二级缓存区域是根据mapper划分。</p>
+<p>每次查询会先从缓存区域找，如果找不到从数据库查询，查询到数据将数据写入缓存。</p>
+<p>Mybatis内部存储缓存使用一个HashMap，key为hashCode+sqlId+Sql语句。value为从查询出来映射生成的java对象</p>
+<p>sqlSession执行insert、update、delete等操作commit提交后会清空缓存区域。</p>
+<p><strong>开启二级缓存</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>描述</th>
+<th>允许值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cacheEnabled</td>
+<td>对在此配置文件下的所有cache 进行全局性开/关设置。</td>
+<td>true false</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<ul>
+<li>在核心配置文件SqlMapConfig.xml中加入</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--开启二级缓存--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>要在你的Mapper映射文件中添加一行：<code>&lt;cache /&gt;</code> ，表示此mapper开启二级缓存</li>
+<li>二级缓存需要查询结果映射的实体对象实现java.io.Serializable接口实现序列化和反序列化操作，注意如果存在父类、成员pojo都需要实现序列化接口。</li>
+</ul>
+<p>测试就可以实现了</p>
+<p>使用ehcache实现二级缓存</p>
+<ul>
+<li>引入maven依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.caches<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>导入ehcahe的xml配置文件</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ehcache</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--二级缓存存储路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">"D:\a_demo\ehcache"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        maxElementsInMemory         内存中存储缓存对象的最大值</span></span><br><span class="line"><span class="comment">        maxElementsOnDisk           磁盘中存储缓存对象的最大值</span></span><br><span class="line"><span class="comment">        eternal                     缓存对象是否是永久的</span></span><br><span class="line"><span class="comment">        overflowToDisk              缓存对象是否允许被写到磁盘中</span></span><br><span class="line"><span class="comment">        timeToIdleSeconds           缓存对象最大空闲时间,超时将被销毁</span></span><br><span class="line"><span class="comment">        timeToLiveSeconds           缓存对象最长存活时间,超时将被销毁</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsInMemory</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsOnDisk</span>=<span class="string">"10000000"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">overflowToDisk</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToIdleSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToLiveSeconds</span>=<span class="string">"600"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">"LRU"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">defaultCache</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--可以配置多套缓存配置--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;cache name="myCache1"&gt;</span></span><br><span class="line"><span class="comment">         maxElementsInMemory="1000"</span></span><br><span class="line"><span class="comment">         eternal="false"</span></span><br><span class="line"><span class="comment">         overflowToDisk="false"</span></span><br><span class="line"><span class="comment">         timeToIdleSeconds="120"</span></span><br><span class="line"><span class="comment">         timeToLiveSeconds="600"&gt;</span></span><br><span class="line"><span class="comment">     &lt;/cache&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在需要开启二级缓存的mapper文件中添加</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--使用ehcache缓存--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"org.mybatis.caches.ehcache.EhcacheCache"</span>&gt;</span><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSecondLevelCache</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    StudentMapper mapper = sqlSession.getMapper(StudentMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    Student s1 = mapper.selectStudentById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(s1);</span><br><span class="line">    MybatisUtil.closeSqlSession();</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    mapper = sqlSession.getMapper(StudentMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    Student s2 = mapper.selectStudentById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(s2);</span><br><span class="line">    System.out.println(s1 == s2);</span><br><span class="line">    MybatisUtil.closeSqlSession();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在第一次查询完毕过后，关闭sqlsession再次查询</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923213144.png" alt=""></p>
+<h3 id="pagehelper分页插件"><a href="#pagehelper分页插件" class="headerlink" title="pagehelper分页插件"></a>pagehelper分页插件</h3><ul>
+<li>导入maven依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在mybatis核心配置文件中添加插件</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--mybatis插件配置--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--pagehelper分页插件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">interceptor</span>=<span class="string">"com.github.pagehelper.PageInterceptor"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"helperDialect"</span> <span class="attr">value</span>=<span class="string">"mysql"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mapper定义查询全部的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProvinceMapper</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Province&gt; <span class="title">selectAllProvinces</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectAllProvinces"</span> <span class="attr">resultType</span>=<span class="string">"Province"</span>&gt;</span></span><br><span class="line">    select *</span><br><span class="line">    from province</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>service层</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> PageInfo&lt;Province&gt; <span class="title">selectAllProvincesByPage</span><span class="params">(<span class="keyword">int</span> pageNow,<span class="keyword">int</span> pageSize)</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtil.getSqlSession();</span><br><span class="line">    ProvinceMapper mapper = sqlSession.getMapper(ProvinceMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置分页参数</span></span><br><span class="line">    PageHelper.startPage(pageNow,pageSize,<span class="keyword">true</span>);</span><br><span class="line">    List&lt;Province&gt; provinces = mapper.selectAllProvinces();</span><br><span class="line">    PageInfo&lt;Province&gt; pageInfo = <span class="keyword">new</span> PageInfo&lt;&gt;(provinces);</span><br><span class="line">    <span class="keyword">return</span> pageInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义方法返回pageInfo对象，设置分页参数，pageInfo构造方法传入全部数据的集合即可</p>
+<ul>
+<li>测试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">selectAllProvincesByPage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    PageInfo&lt;Province&gt; pageInfo = provinceService.selectAllProvincesByPage(<span class="number">1</span>, <span class="number">5</span>);</span><br><span class="line">    System.out.println(<span class="string">"总页码"</span> + pageInfo.getPages());</span><br><span class="line">    System.out.println(<span class="string">"每页显示条数"</span>+pageInfo.getPageSize());</span><br><span class="line">    pageInfo.getList().forEach(System.out::println);</span><br><span class="line">    System.out.println(<span class="string">"是否有下一页"</span> + pageInfo.isHasNextPage());</span><br><span class="line">    System.out.println(<span class="string">"是否是第一页"</span> + pageInfo.isIsFirstPage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/QQ%E6%88%AA%E5%9B%BE20200923215515.png" alt=""></p>
 
           
             <div class='article_footer'>
@@ -662,10 +810,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-22T20:17:23+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-09-23T21:55:37+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Sep 22, 2020</p>
+    <p>更新于：Sep 23, 2020</p>
   </a>
 </div>
 
@@ -821,7 +969,7 @@ servlet类图
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis工具类-线程安全版本"><span class="toc-text">Mybatis工具类(线程安全版本)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置别名"><span class="toc-text">配置别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置类型处理器"><span class="toc-text">配置类型处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引入外部配置文件"><span class="toc-text">引入外部配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用log4j实现日志功能"><span class="toc-text">使用log4j实现日志功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用p6spy探测sql语句"><span class="toc-text">使用p6spy探测sql语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#和"><span class="toc-text">#{} 和 ${}</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态SQL"><span class="toc-text">动态SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#where"><span class="toc-text">where</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#foreach"><span class="toc-text">foreach</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL片段"><span class="toc-text">SQL片段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联查询"><span class="toc-text">关联查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一对一"><span class="toc-text">一对一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一对多"><span class="toc-text">一对多</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多对多"><span class="toc-text">多对多</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取自增id的值"><span class="toc-text">获取自增id的值</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis工具类-线程安全版本"><span class="toc-text">Mybatis工具类(线程安全版本)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置别名"><span class="toc-text">配置别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置类型处理器"><span class="toc-text">配置类型处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引入外部配置文件"><span class="toc-text">引入外部配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用log4j实现日志功能"><span class="toc-text">使用log4j实现日志功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用p6spy探测sql语句"><span class="toc-text">使用p6spy探测sql语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#和"><span class="toc-text">#{} 和 ${}</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态SQL"><span class="toc-text">动态SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#where"><span class="toc-text">where</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#foreach"><span class="toc-text">foreach</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL片段"><span class="toc-text">SQL片段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关联查询"><span class="toc-text">关联查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一对一"><span class="toc-text">一对一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一对多"><span class="toc-text">一对多</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多对多"><span class="toc-text">多对多</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取自增id的值"><span class="toc-text">获取自增id的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#延迟加载"><span class="toc-text">延迟加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询缓存"><span class="toc-text">查询缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一级缓存"><span class="toc-text">一级缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二级缓存"><span class="toc-text">二级缓存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pagehelper分页插件"><span class="toc-text">pagehelper分页插件</span></a></li></ol>
     </div>
   </section>
 
@@ -1223,4 +1371,5 @@ servlet类图
 
 
   <script>setLoadingBarProgress(100);</script>
-<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</body>
+</html>
