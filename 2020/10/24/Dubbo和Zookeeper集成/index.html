@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#blog'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Dubbo和Zookeeper集成 - 张利源</title>
+  
+    <meta name="keywords" content="Java,SpringBoot">
+  
+  
+    <meta name="description" content="
+分布式服务架构
+
+当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/site.webmanifest'>
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            张利源 <b><sup style='color:#3AA757'>blog</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/10/24/Dubbo%E5%92%8CZookeeper%E9%9B%86%E6%88%90/">
+      Dubbo和Zookeeper集成
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
+    <p>张利源</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 24, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <blockquote>
+<p>分布式服务架构</p>
+</blockquote>
+<p>当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的<strong>分布式服务框架(RPC)</strong>是关键。</p>
+<a id="more"></a>
+
+<h3 id="什么是RPC框架"><a href="#什么是RPC框架" class="headerlink" title="什么是RPC框架"></a>什么是RPC框架</h3><p>RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通信方式，他是一种技术的思想，而不是规范。它允许程序调用另一个地址空间（通常是共享网络的另一台机器上）的过程或函数，而不用程序员显式编码这个远程调用的细节。即程序员无论是调用本地的还是远程的函数，本质上编写的调用代码基本相同。</p>
+<p>也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数/方法，由于不在一个内存空间，不能直接调用，需要通过网络来表达调用的语义和传达调用的数据。为什么要用RPC呢？就是无法在一个进程内，甚至一个计算机内通过本地调用的方式完成的需求，比如不同的系统间的通讯，甚至不同的组织间的通讯，由于计算能力需要横向扩展，需要在多台机器组成的集群上部署应用。RPC就是要像调用本地的函数一样去调远程函数；</p>
+<h3 id="dubbo基本概念"><a href="#dubbo基本概念" class="headerlink" title="dubbo基本概念"></a>dubbo基本概念</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201024110802.png" alt=""></p>
+<p><strong>服务提供者(Provider):</strong>暴露服务的服务提供发，服务提供者启动时，向注册中心注册自己提供的服务</p>
+<p><strong>服务消费者(Consumer)</strong>:调用远程服务的服务消费方，服务消费者在启动时，向注册中心订阅自己锁需要的服务，服务消费者从提供者列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选用另一台</p>
+<p><strong>注册中心(Register):</strong>注册中心返回服务提供者地址列表给服务消费者，如果有变更，注册中心将基于长连接推送变更数据给数据消费者</p>
+<p><strong>监控中心(Moiter):</strong>服务消费者和提供者，在内存累计调用次数和调用时间，定义每分钟发送一次统计数据到监控中心</p>
+<h3 id="使用Dubbo-admin"><a href="#使用Dubbo-admin" class="headerlink" title="使用Dubbo-admin"></a>使用Dubbo-admin</h3><p>dubbo本身并不是一个服务软件。它其实就是一个jar包，能够帮你的java程序连接到zookeeper，并利用zookeeper消费、提供服务。</p>
+<p>但是为了让用户更好的管理监控众多的dubbo服务，官方提供了一个可视化的监控程序dubbo-admin，不过这个监控即使不装也不影响使用。</p>
+<p>地址 ：<a href="https://github.com/apache/dubbo-admin/tree/master" target="_blank" rel="noopener">https://github.com/apache/dubbo-admin/tree/master</a></p>
+<p>下载完成后解压,修改dubbo-admin-server下的配置文件，修改成我们自己的配置即可</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201024145251.png" alt=""></p>
+<p>将这个项目达成jar包</p>
+<p><code>mvn clean package -Dmaven.test.skip=true</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201024150033.png" alt=""></p>
+<p>用java -jar启动就好了</p>
+<p>访问localhost:8080</p>
+<h3 id="测试环境搭建"><a href="#测试环境搭建" class="headerlink" title="测试环境搭建"></a>测试环境搭建</h3><h4 id="Linux安装zookeeper"><a href="#Linux安装zookeeper" class="headerlink" title="Linux安装zookeeper"></a>Linux安装zookeeper</h4><ul>
+<li>xftp上传zookeeper到根目录</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201024113336.png" alt=""></p>
+<ul>
+<li>解压zookeeper到指定目录</li>
+</ul>
+<p><code>tar -zxvf zookeeper-3.4.6.tar.gz -C /usr/local/</code></p>
+<ul>
+<li>进入zookeeper目录</li>
+</ul>
+<p><code>cd zookeeper-3.4.6</code></p>
+<ul>
+<li>创建data目录</li>
+</ul>
+<p><code>mkdir data</code></p>
+<ul>
+<li>进入conf目录</li>
+</ul>
+<p><code>cd conf</code></p>
+<ul>
+<li>重命名/拷贝zoo_sample.cfg,修改为zoo.cfg</li>
+</ul>
+<p><code>mv zoo_sample.cfg zoo.cfg</code></p>
+<ul>
+<li>vim进入zoo.cfg文件</li>
+</ul>
+<p><code>vim zoo.cfg</code></p>
+<ul>
+<li>修改zoo.cfg文件</li>
+</ul>
+<p>修改datadir=/usr/local/zookeeper-3.4.6/data<br>注意:使用i进入修改模式,修改后使用esc退出修改,输入:wq退出vim</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201024113850.png" alt=""></p>
+<h4 id="操作zookeeper"><a href="#操作zookeeper" class="headerlink" title="操作zookeeper"></a>操作zookeeper</h4><p>1.<strong>启动</strong><br>进入bin目录下,执行<br><code>./zkServer.sh start</code></p>
+<p>2.<strong>停止</strong><br><code>./zkServer.sh stop</code></p>
+<p>3.<strong>查看状态</strong><br><code>./zkServer.sh status</code></p>
+<h3 id="SpringBoot-dubbo-zookeeper"><a href="#SpringBoot-dubbo-zookeeper" class="headerlink" title="SpringBoot+dubbo+zookeeper"></a>SpringBoot+dubbo+zookeeper</h3><h4 id="编写服务提供者"><a href="#编写服务提供者" class="headerlink" title="编写服务提供者"></a>编写服务提供者</h4><blockquote>
+<p>导入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--dubbo--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--zookeeper--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.github.sgroschupf/zkclient --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.sgroschupf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zkclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 引入zookeeper --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.curator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>curator-framework<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.12.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.curator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>curator-recipes<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.12.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--排除这个slf4j-log4j12--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写service接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gem.service;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/10/24 13:43</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HelloService</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">sayHello</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写实现类</p>
+</blockquote>
+<p>这里注意@Service注解使用的是dubbo的而非spring提供的，loadbalance表示负载均衡，interfaceClass指定接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gem.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.gem.service.HelloService;</span><br><span class="line"><span class="keyword">import</span> org.apache.dubbo.config.annotation.Service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/10/24 13:50</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span>(loadbalance = <span class="string">"random"</span>,interfaceClass = HelloService<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">HelloServiceImpl</span> <span class="keyword">implements</span> <span class="title">HelloService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello,"</span> + name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置文件</p>
+</blockquote>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#当前应用名称</span></span><br><span class="line"><span class="meta">dubbo.application.name</span>=<span class="string">dubbo-prodiver</span></span><br><span class="line"><span class="comment">#注册中心地址</span></span><br><span class="line"><span class="meta">dubbo.registry.address</span>=<span class="string">zookeeper://192.168.40.130:2181</span></span><br><span class="line"><span class="comment">#扫描指定包下的服务</span></span><br><span class="line"><span class="meta">dubbo.scan.base-packages</span>=<span class="string">com.gem.service</span></span><br><span class="line"><span class="comment">#服务器端口</span></span><br><span class="line"><span class="meta">server.port</span>=<span class="string">9999</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="编写服务消费者"><a href="#编写服务消费者" class="headerlink" title="编写服务消费者"></a>编写服务消费者</h4><blockquote>
+<p>导入依赖</p>
+</blockquote>
+<p>同上</p>
+<blockquote>
+<p>编写service接口</p>
+</blockquote>
+<p>同上</p>
+<blockquote>
+<p>配置文件</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#当前应用名称</span></span><br><span class="line"><span class="attr">dubbo:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">dubbo-consumer</span></span><br><span class="line">  <span class="attr">registry:</span></span><br><span class="line">    <span class="attr">address:</span> <span class="string">zookeeper://192.168.40.130:2181</span></span><br><span class="line">  <span class="attr">scan:</span></span><br><span class="line">    <span class="attr">base-packages:</span> <span class="string">com.gem.controller</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8888</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写Controller</p>
+</blockquote>
+<p>我们要使用服务提供者的服务，使用@Reference注解去注册中心查找服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gem.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.gem.service.HelloService;</span><br><span class="line"><span class="keyword">import</span> org.apache.dubbo.config.annotation.Reference;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/10/24 13:58</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="comment">//到注册中心查找服务</span></span><br><span class="line">    <span class="meta">@Reference</span>(check = <span class="keyword">false</span>,loadbalance = <span class="string">"random"</span>)</span><br><span class="line">    HelloService helloService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> helloService.sayHello(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>启动服务器，访问呢服务消费者的controller</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201024141943.png" alt=""></p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='/img/wx.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-24T15:02:32+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Oct 24, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SpringBoot/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>SpringBoot</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/10/24/Dubbo%E5%92%8CZookeeper%E9%9B%86%E6%88%90/&title=Dubbo和Zookeeper集成 - 张利源&summary=
+分布式服务架构
+
+当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/10/24/Dubbo%E5%92%8CZookeeper%E9%9B%86%E6%88%90/&title=Dubbo和Zookeeper集成 - 张利源&summary=
+分布式服务架构
+
+当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/10/24/Dubbo%E5%92%8CZookeeper%E9%9B%86%E6%88%90/&title=Dubbo和Zookeeper集成 - 张利源&summary=
+分布式服务架构
+
+当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/10/13/SpringBoot%E9%9B%86%E6%88%90editor-md/'>
+                <p class='title'>SpringBoot集成editor.md<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>SpringBoot集成editor.md
+Editor.md——功能非常丰富的编辑器，左端编辑，右端预览，非常方便，完全免费。
+
+
+
+
+
+
+
+
+基础工程搭建article：文章表
+
+
+
+字段
+...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Dubbo和Zookeeper集成',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是RPC框架"><span class="toc-text">什么是RPC框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dubbo基本概念"><span class="toc-text">dubbo基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Dubbo-admin"><span class="toc-text">使用Dubbo-admin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试环境搭建"><span class="toc-text">测试环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux安装zookeeper"><span class="toc-text">Linux安装zookeeper</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作zookeeper"><span class="toc-text">操作zookeeper</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot-dubbo-zookeeper"><span class="toc-text">SpringBoot+dubbo+zookeeper</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编写服务提供者"><span class="toc-text">编写服务提供者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编写服务消费者"><span class="toc-text">编写服务消费者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='song'
+      id='25706282'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="/495726603@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/zhangliyuangit"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=1646384615"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://zhangliyuanblog.club/" target="_blank" class="codename">张利源</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://zhangliyuangit.github.io/" target="_blank" rel="noopener">Copyright © 2017-2020 张利源</a>)</p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/67239FBB-E15D-4F4F-8EE8-0F1C9F3C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/2884F904-F1F3-479E-AE27-5EBC291B63B0.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/10A0FCE5-36A1-4AD0-8CF0-019259A89E03.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/250662D4-5A21-4AAA-BB63-CD25CF97CFF1.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/298468D7-E388-44A8-8CC5-8213BDC33CED.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
