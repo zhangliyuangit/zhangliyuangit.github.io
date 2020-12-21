@@ -503,6 +503,98 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line"></span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'</span><br><span class="line">&#123;</span><br><span class="line">  "registry-mirrors": ["https://n1p195zp.mirror.aliyuncs.com"]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"></span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
 
+
+
+
+<h3 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h3><p><strong>Docker是怎么工作的？</strong></p>
+<p>Docker是一个Client-Server结构的系统，Docker守护进程运行在主机上， 然后通过Socket连接从客户端访问，守护进程从客户端接受命令并管理运行在主机上的容器。</p>
+<p>DockerServer接收到Docker-Client的指令，就会执行这个命令。</p>
+<p><strong>为什么Docker比VM快？</strong></p>
+<ol>
+<li>Docker有着虚拟机更少的抽象层，由于Docker不需要Hypervisor实现硬件资源虚拟化，运行在Docker容器上的程序直接使用的都是实际物理机的硬件资源，因此在CPU、内存利用率上Docker将会有明显优势。</li>
+<li>Docker利用的是宿主机的内核，而不需要GuestOS，因此，当新建一个容器时Docker不需要和虚拟机一样重新加载一个操作系统，避免了引导、加载操作系统内核这个比较费时费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载GuestOS，这个新建过程是分钟级别的，而Docker由于直接利用宿主机的操作系统则省略了这个过程，因此新建一个Docker只需几秒钟。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Docker容器</th>
+<th>虚拟机（VM）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>操作系统</td>
+<td>与宿主机共享OS</td>
+<td>宿主机OS上运行宿主机OS</td>
+</tr>
+<tr>
+<td>存储大小</td>
+<td>镜像小，便于存储与传输</td>
+<td>镜像庞大（vmdk等）</td>
+</tr>
+<tr>
+<td>运行性能</td>
+<td>几乎无额外性能损失</td>
+<td>操作系统额外的cpu、内存消耗</td>
+</tr>
+<tr>
+<td>移植性</td>
+<td>轻便、灵活、适用于Linux</td>
+<td>笨重、与虚拟化技术耦合度高</td>
+</tr>
+<tr>
+<td>硬件亲和性</td>
+<td>面向软件开发者</td>
+<td>面向硬件运维者</td>
+</tr>
+</tbody></table>
+<h3 id="Docker的常用命令"><a href="#Docker的常用命令" class="headerlink" title="Docker的常用命令"></a>Docker的常用命令</h3><h4 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker --version 	# 显示Docker的版本信息</span><br><span class="line">docker info 	# 显示Docker的系统信息，包括镜像和容器的数量</span><br><span class="line">docker --help	# 帮助命令</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images	# 查看本地所有镜像</span><br><span class="line">docker images -a	# 列出本地所有的镜像（含中间映像层）</span><br><span class="line">docker images -q	# 只显示id</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql		# 搜索镜像</span><br><span class="line">docker search mysql --filter=STARS=3000		# 过滤只搜索3000satr以上的</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql	# 如果不写tag，默认latest最新版</span><br><span class="line">docker pull mysql:5.7 	# 指定版本下载</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi 697daaecf703		# Docker删除镜像</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h4><p>有镜像才能创建容器，下载一个centos镜像来学习。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos</span><br></pre></td></tr></table></figure>
+
+<p>新建容器并启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">docker run [可选参数] image</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 参数说明</span></span><br><span class="line">--name="NAME"	容器名字，用来区别容器</span><br><span class="line">-d				后台方式运行</span><br><span class="line">-it				使用交互方式运行，进入容器查看内容</span><br><span class="line">-p				 -p 8080:8080</span><br><span class="line">	-p 主机端口:容器端口(常用)</span><br><span class="line">	-p 容器端口</span><br><span class="line">	容器端口</span><br><span class="line">-P				随机指定端口</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 测试</span></span><br><span class="line">docker run -it centos /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从容器退回主机</span></span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+
+
+<p>列出所有正在运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@MiWiFi-R4A-srv /]# docker ps</span><br><span class="line">CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES</span><br><span class="line">581a17d041b4   centos    "/bin/bash"   3 minutes ago   Up 3 minutes             nice_roentgen</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker ps -a    # 列出所有容器</span><br><span class="line"></span><br><span class="line">docker ps -a -n=1 	# 显示最近创建的容器</span><br><span class="line"></span><br><span class="line">docker ps -aq  # 显示当前容器的编号</span><br></pre></td></tr></table></figure>
+
+<p>退出容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit  # 直接容器停止并退出</span><br><span class="line">Ctrl + P + Q   # 容器不停止退出</span><br></pre></td></tr></table></figure>
+
+<p>删除容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker rm 容器id		# 删除指定的容器，不能删除正在运行的容器</span><br><span class="line">docker rm -f $(docker ps -ap)		# 删除所有的容器</span><br></pre></td></tr></table></figure>
+
+<p>启动和停止容器操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start容器id  # 启动容器</span><br><span class="line">docker restart 容器id	 # 重启容器</span><br><span class="line">docker stop 容器id	# 停止容器</span><br><span class="line">docker kill 容器id	#强制停止当前容器</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用其他命令"><a href="#常用其他命令" class="headerlink" title="常用其他命令"></a>常用其他命令</h4><p>后台启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d centos</span><br><span class="line"><span class="meta">#</span><span class="bash"> docker ps发现centos停止了</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 常见的坑，dokcer容器使用后台运行，就必须要有一个前台进程，docker发现没有应用，就会自动停止</span></span><br></pre></td></tr></table></figure>
+
+<p>查看日志</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f -t --tail 容器id</span><br></pre></td></tr></table></figure>
+
+<p>查看容器中进程信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@MiWiFi-R4A-srv ~]# docker top 847858ee8a4a</span><br><span class="line">UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD</span><br><span class="line">root                5967                5947                0                   22:28               ?                   00:00:00            /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>查看镜像的元数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 847858ee8a4a</span><br></pre></td></tr></table></figure>
+
+
           
             <div class='article_footer'>
               
@@ -578,7 +670,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T16:37:26+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T22:56:06+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：Dec 21, 2020</p>
@@ -733,7 +825,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机配置网络"><span class="toc-text">虚拟机配置网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker的历史"><span class="toc-text">Docker的历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker能干嘛"><span class="toc-text">Docker能干嘛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker的基本组成"><span class="toc-text">Docker的基本组成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像-image"><span class="toc-text">镜像(image)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#容器-container"><span class="toc-text">容器(container)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#仓库-repository"><span class="toc-text">仓库(repository)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Docker"><span class="toc-text">安装Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阿里云镜像加速"><span class="toc-text">阿里云镜像加速</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虚拟机配置网络"><span class="toc-text">虚拟机配置网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker的历史"><span class="toc-text">Docker的历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker能干嘛"><span class="toc-text">Docker能干嘛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker的基本组成"><span class="toc-text">Docker的基本组成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像-image"><span class="toc-text">镜像(image)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#容器-container"><span class="toc-text">容器(container)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#仓库-repository"><span class="toc-text">仓库(repository)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Docker"><span class="toc-text">安装Docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阿里云镜像加速"><span class="toc-text">阿里云镜像加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#底层原理"><span class="toc-text">底层原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker的常用命令"><span class="toc-text">Docker的常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#帮助命令"><span class="toc-text">帮助命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像命令"><span class="toc-text">镜像命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#容器命令"><span class="toc-text">容器命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用其他命令"><span class="toc-text">常用其他命令</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -812,16 +904,16 @@
       
     
       
-        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
-        Use
+        本站使用
         <a href="https://zhangliyuanblog.club/" target="_blank" class="codename">张利源</a>
-        as theme, total visits
+        作为主题，总访问量为
           <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          times
+          次
         
       
     
