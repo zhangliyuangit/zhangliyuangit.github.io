@@ -16,12 +16,18 @@
 
   <!-- 页面元数据 -->
   
-    <title>mybatis框架(一) - 张利源</title>
+    <title>java动态代理 - 张利源</title>
   
-    <meta name="keywords" content="JavaWeb,mybatis">
+    <meta name="keywords" content="Java">
   
   
-    <meta name="description" content="mybatis笔记(一)">
+    <meta name="description" content="
+目前java动态代理的实现分为两种
+
+
+基于JDK的动态代理(面向接口)
+基于CGILB的动态代理(面向父类)
+">
   
 
   <!-- feed -->
@@ -365,8 +371,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/">
-      mybatis框架(一)
+    <a href="/2020/12/22/java%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">
+      java动态代理
     </a>
   </h1>
 
@@ -396,7 +402,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2020</p>
+    <p>发布于：Dec 22, 2020</p>
   </a>
 </div>
 
@@ -419,39 +425,47 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>mybatis笔记(一)</p>
+          <blockquote>
+<p><strong>目前java动态代理的实现分为两种</strong></p>
+</blockquote>
+<ol>
+<li>基于JDK的动态代理(面向接口)</li>
+<li>基于CGILB的动态代理(面向父类)</li>
+</ol>
 <a id="more"></a>
 
-<h3 id="mybatis概述"><a href="#mybatis概述" class="headerlink" title="mybatis概述"></a>mybatis概述</h3><p>mybatis是一个持久层框架，用java编写，封装了很多jdbc细节，开发者只需要关注sql语句本身，而无需关注注册驱动，创建连接等繁杂过程，它使用了ORM思想，实现了结果集的封装。</p>
-<h3 id="ORM：Object-Relational-Mappging-对象关系映射"><a href="#ORM：Object-Relational-Mappging-对象关系映射" class="headerlink" title="ORM：Object Relational Mappging   对象关系映射"></a>ORM：Object Relational Mappging   对象关系映射</h3><p>简单的说：就是把数据库和实体类及实体类的属性对应起来，让我们可以操作实体类及实现操作数据库</p>
-<h3 id="mybatis环境搭建"><a href="#mybatis环境搭建" class="headerlink" title="mybatis环境搭建"></a>mybatis环境搭建</h3><ul>
-<li>1.创建maven工程并导入坐标<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mybatis&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;3.5.4&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br><span class="line">       &lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">           &lt;version&gt;8.0.18&lt;&#x2F;version&gt;</span><br><span class="line">       &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure></li>
-<li>2.创建实体类和dao接口</li>
-<li>3.创建mybatis的主配置文件SqlMapConfig.xml</li>
-<li>4.创建映射配置文件<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3></li>
-<li>1.包在创建时 com.demomybatis.dao他是三级目录结构</li>
-<li>2.mybatis的映射配置文件位置必须和dao接口的包结构相同</li>
-<li>3.映射配置文件的mapper标签和namespace属性的取值必须是dao接口的全限定而类名</li>
-<li>4.映射配置文件的擦偶哦配置(select) id的取值必须是dao接口的方法名</li>
-</ul>
-<div class="note success"><p>当我们遵从2，3，4点之后，我们开发中就无需再写dao的实现类</p></div>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>在业务中使用动态代理，一般是为了给需要实现的方法添加预处理或者添加后续操作，但是不干预实现类的正常业务，把一些基本业务和主要的业务逻辑分离。我们一般所熟知的Spring的AOP原理就是基于动态代理实现的</p>
+<h3 id="基于JDK的动态代理"><a href="#基于JDK的动态代理" class="headerlink" title="基于JDK的动态代理"></a>基于JDK的动态代理</h3><p>基于JDK的动态代理就需要知道两个类：1.InvocationHandler（接口）、2.Proxy（类）</p>
+<p><strong>第一步</strong>、创建一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/22 17:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">(String param)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="SqlMapConfig-xml代码"><a href="#SqlMapConfig-xml代码" class="headerlink" title="SqlMapConfig.xml代码"></a>SqlMapConfig.xml代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;environments default&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">        &lt;environment id&#x3D;&quot;mysql&quot;&gt;</span><br><span class="line">            &lt;!--使用jdbc事务管理 --&gt;</span><br><span class="line">            &lt;transactionManager type&#x3D;&quot;JDBC&quot;&#x2F;&gt;</span><br><span class="line">            &lt;!-- 数据库连接池(数据源) --&gt;</span><br><span class="line">            &lt;dataSource type&#x3D;&quot;POOLED&quot;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;driver&quot; value&#x3D;&quot;com.mysql.cj.jdbc.Driver&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;url&quot; value&#x3D;&quot;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test?serverTimezone&#x3D;UTC&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;username&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">                &lt;property name&#x3D;&quot;password&quot; value&#x3D;&quot;root&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;dataSource&gt;</span><br><span class="line">        &lt;&#x2F;environment&gt;</span><br><span class="line">    &lt;&#x2F;environments&gt;</span><br><span class="line">    &lt;!-- 引入映射配置文件 --&gt;</span><br><span class="line">    &lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource&#x3D;&quot;cn&#x2F;demomybatis&#x2F;dao&#x2F;StudentDao.xml&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;mappers&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="StudentDao-xml代码"><a href="#StudentDao-xml代码" class="headerlink" title="StudentDao.xml代码"></a>StudentDao.xml代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- namespace：命名空间，用于隔离sql--&gt;</span><br><span class="line">&lt;mapper namespace&#x3D;&quot;cn.demomybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">    &lt;!--    配置查询所有 id为dao的方法名--&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;findAll&quot; resultType&#x3D;&quot;cn.demomybatis.domain.Student&quot; parameterType&#x3D;&quot;cn.demomybatis.domain.Student&quot;&gt;</span><br><span class="line">		select * from student</span><br><span class="line">	&lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="mybatis入门案例："><a href="#mybatis入门案例：" class="headerlink" title="mybatis入门案例："></a>mybatis入门案例：</h3><ul>
-<li>1.读取配置文件</li>
-<li>2.创建SqlSessionFactory工厂</li>
-<li>3.创建SqlSession</li>
-<li>4.创建Dao接口的代理</li>
-<li>5.执行Dao中的方法</li>
-<li>6.释放资源</li>
-</ul>
-<span class='p red'>注意：需要在映射配置中告知mybatis要封装到哪个实体类中，配置的方式：指定实体类的全类名</span>
+<p><strong>第二步</strong>、实现接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/22 17:36</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectImpl</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String param)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello World"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<div class="note warning"><p>增删改需要提交事务</p></div>
+<p><strong>第三步</strong>、创建SubjectImpl的代理类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/22 17:37</span></span><br><span class="line"><span class="comment"> * 创建SubjectImpl代理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectProxy</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Subject subject;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SubjectProxy</span><span class="params">(Subject subject)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject = subject;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------begin-------"</span>);</span><br><span class="line">        <span class="comment">//利用反射调用类里面的实际方法</span></span><br><span class="line">        Object invoke = method.invoke(subject, args);</span><br><span class="line">        System.out.println(<span class="string">"---------end--------"</span>);</span><br><span class="line">        <span class="keyword">return</span> invoke;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><code>sqlSession.commit()</code></p>
-<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package cn.demomybatis.test;</span><br><span class="line"></span><br><span class="line">import cn.demomybatis.dao.StudentDao;</span><br><span class="line">import cn.demomybatis.domain.Student;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.io.Resources;</span><br><span class="line">import org.apache.ibatis.session.SqlSession;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line">import org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * mybatis入门</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class mybatistest &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        &#x2F;&#x2F;读取配置文件</span><br><span class="line">        InputStream in &#x3D; Resources.getResourceAsStream(&quot;SqlMapConfig.xml&quot;);</span><br><span class="line">        &#x2F;&#x2F;创建工厂</span><br><span class="line">        SqlSessionFactoryBuilder builder &#x3D; new SqlSessionFactoryBuilder();</span><br><span class="line">        SqlSessionFactory factory &#x3D; builder.build(in);</span><br><span class="line">        &#x2F;&#x2F;使用工厂生产SqlSession对象</span><br><span class="line">        SqlSession sqlSession &#x3D; factory.openSession();</span><br><span class="line">        &#x2F;&#x2F;创建Dao接口的代理对象</span><br><span class="line">        StudentDao studentDao &#x3D; sqlSession.getMapper(StudentDao.class);</span><br><span class="line">        &#x2F;&#x2F;使用代理对象执行方法</span><br><span class="line">        List&lt;Student&gt; list &#x3D; studentDao.findAll();</span><br><span class="line">        for (Student student:list)&#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;释放资源</span><br><span class="line">        sqlSession.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>第四步</strong>、编写代理类的实际调用，利用Proxy类创建代理之后的Subject类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/22 17:43</span></span><br><span class="line"><span class="comment"> * 代理类实际调用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Subject subject = <span class="keyword">new</span> SubjectImpl();</span><br><span class="line">        InvocationHandler subjectProxy = <span class="keyword">new</span> SubjectProxy(subject);</span><br><span class="line"></span><br><span class="line">        Subject subjectProxy1 = (Subject) Proxy.newProxyInstance(</span><br><span class="line">                subjectProxy.getClass().getClassLoader(),<span class="comment">//代理类的类加载器</span></span><br><span class="line">                subject.getClass().getInterfaces(),<span class="comment">//被代理的接口，如果有多个就是数组形式传入</span></span><br><span class="line">                subjectProxy<span class="comment">//代理类的实例</span></span><br><span class="line">        );</span><br><span class="line">        subjectProxy1.hello(<span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="基于CGLIB的动态代理"><a href="#基于CGLIB的动态代理" class="headerlink" title="基于CGLIB的动态代理"></a>基于CGLIB的动态代理</h3><p>因为基于JDK的动态代理一定要继承一个接口，而绝大部分情况是基于POJO类的动态代理，那么CGLIB就是一个很好的选择，在Hibernate框架中PO的字节码生产工作就是靠CGLIB来完成的。</p>
+<p><strong>引入CGLIB jar包</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>创建代理类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/22 18:06</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CGSubject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String param)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello"</span> + param);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实现MethodInterceptor接口，对方法进行拦截</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/22 18:08</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"----------begin---------"</span>);</span><br><span class="line">        Object object = methodProxy.invokeSuper(o, objects);</span><br><span class="line">        System.out.println(<span class="string">"-----------end-----------"</span>);</span><br><span class="line">        <span class="keyword">return</span> object;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建被代理的类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> dynamicProxy;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/12/24 20:55</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CGTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(CGSubject<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        enhancer.setCallback(<span class="keyword">new</span> HelloInterceptor());</span><br><span class="line">        CGSubject cgSubject = (CGSubject) enhancer.create();</span><br><span class="line">        cgSubject.hello(<span class="string">"zhangsan"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
             <div class='article_footer'>
               
@@ -527,10 +541,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-22T19:12:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-24T20:58:31+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 22, 2020</p>
+    <p>更新于：Dec 24, 2020</p>
   </a>
 </div>
 
@@ -539,7 +553,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaWeb/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaWeb</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>mybatis</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
 
 
         
@@ -557,7 +571,13 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/12/22/java%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/&title=java动态代理 - 张利源&summary=
+目前java动态代理的实现分为两种
+
+
+基于JDK的动态代理(面向接口)
+基于CGILB的动态代理(面向父类)
+"
           
           >
           
@@ -569,7 +589,13 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/12/22/java%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/&title=java动态代理 - 张利源&summary=
+目前java动态代理的实现分为两种
+
+
+基于JDK的动态代理(面向接口)
+基于CGILB的动态代理(面向父类)
+"
           
           >
           
@@ -581,7 +607,13 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/05/19/mybatis%E6%A1%86%E6%9E%B6-%E4%B8%80/&title=mybatis框架(一) - 张利源&summary=mybatis笔记(一)"
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/12/22/java%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/&title=java动态代理 - 张利源&summary=
+目前java动态代理的实现分为两种
+
+
+基于JDK的动态代理(面向接口)
+基于CGILB的动态代理(面向父类)
+"
           
           >
           
@@ -605,19 +637,16 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/05/21/PicGo-GitHub%E5%9B%BE%E5%BA%8A%EF%BC%8C%E8%AE%A9Markdown%E9%A3%9E/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>PicGo+GitHub图床，让Markdown飞</p>
-                <p class='content'>PicGo+GitHub图床
+            
+              <a class='next' href='/2020/12/21/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                <p class='title'>Docker学习笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Docker学习笔记
 
 
-一次偶然的机会让我接触到Markdown语法，随后便疯狂地爱上了这种“轻量级标记语言”。笔记、文章、技术评审文档、业务逻辑文档等等，我都想要使用Markdown...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/05/13/%E6%8A%BD%E5%8F%96Servlet/'>
-                <p class='title'>抽取Servlet<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>BaseServlet代码
-1234567891011121314151617181920212223242526272829303132333435363738394041package cn...</p>
+虚拟机配置网络可以使用dhclint工具为虚拟机分配一个可用的ip
+一.修改网络配置:
+
+vi /etc/sysconfig/network-scripts/ifcfg...</p>
               </a>
             
           </div>
@@ -662,7 +691,7 @@
 
   <script>
     window.subData = {
-      title: 'mybatis框架(一)',
+      title: 'java动态代理',
       tools: true
     }
   </script>
@@ -688,7 +717,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis概述"><span class="toc-text">mybatis概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ORM：Object-Relational-Mappging-对象关系映射"><span class="toc-text">ORM：Object Relational Mappging   对象关系映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis环境搭建"><span class="toc-text">mybatis环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SqlMapConfig-xml代码"><span class="toc-text">SqlMapConfig.xml代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StudentDao-xml代码"><span class="toc-text">StudentDao.xml代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mybatis入门案例："><span class="toc-text">mybatis入门案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试代码"><span class="toc-text">测试代码</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于JDK的动态代理"><span class="toc-text">基于JDK的动态代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于CGLIB的动态代理"><span class="toc-text">基于CGLIB的动态代理</span></a></li></ol>
     </div>
   </section>
 
