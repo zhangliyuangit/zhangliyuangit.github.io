@@ -4224,7 +4224,11 @@ value的数据结构
     <content><![CDATA[<p>Docker学习笔记</p>
 <a id="more"></a>
 
-<h3 id="虚拟机配置网络"><a href="#虚拟机配置网络" class="headerlink" title="虚拟机配置网络"></a>虚拟机配置网络</h3><p>可以使用dhclint工具为虚拟机分配一个可用的ip</p>
+<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><h3 id="虚拟机配置网络"><a href="#虚拟机配置网络" class="headerlink" title="虚拟机配置网络"></a>虚拟机配置网络</h3><p>可以使用dhclient工具为虚拟机分配一个可用的ip</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 分配ip地址</span></span><br><span class="line">dhclient</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改网络配置</span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line">BOOTPROTO="static"</span><br><span class="line">ONBOOT="yes"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加如下配置</span></span><br><span class="line">IPADDR=192.168.31.17 #注意这是分配的IP</span><br><span class="line">GATEWAY=192.168.31.1</span><br><span class="line">DNS1=119.29.29.29</span><br></pre></td></tr></table></figure>
+
+
+
 <p>一.修改网络配置:</p>
 <ol>
 <li><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></li>
@@ -4267,7 +4271,7 @@ value的数据结构
 <li>没有容器间是相互隔离的，每个容器都有属于自己的文件系统，互不影响。 </li>
 </ul>
 <blockquote>
-<p>DevOps(g发、运维)</p>
+<p>DevOps(开发、运维)</p>
 </blockquote>
 <p><strong>更快速的交付和部署。</strong></p>
 <p><strong>更便捷的升级和扩缩容</strong>。</p>
@@ -4396,6 +4400,180 @@ value的数据结构
 <p>查看镜像的元数据</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker inspect 847858ee8a4a</span><br></pre></td></tr></table></figure>
 
+
+
+<h4 id="进入当前正在运行的容器"><a href="#进入当前正在运行的容器" class="headerlink" title="进入当前正在运行的容器"></a>进入当前正在运行的容器</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 方式一  开启一个新的终端</span></span><br><span class="line">docker exec -it 847858ee8a4a /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方式二  执行正在运行的终端</span></span><br><span class="line">docker attach 847858ee8a4a #正在执行当前的代码</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="从容器内部拷贝文件到主机上"><a href="#从容器内部拷贝文件到主机上" class="headerlink" title="从容器内部拷贝文件到主机上"></a>从容器内部拷贝文件到主机上</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker cp 容器id：容器内路径 目的主机路径</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将dockers内部/home下的zhang.java拷贝到主机的home</span></span><br><span class="line">docker cp dc6084befe30:/home/zhang.java /home</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201223212032.png" alt=""></p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><blockquote>
+<p>Docker安装nginx</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 搜索镜像</span></span><br><span class="line">docker search nginx</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载镜像</span></span><br><span class="line">docker pull nginx</span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行镜像 -d后台运行  --name给容器命名  -p宿主机端口</span></span><br><span class="line">docker run -d --name nginx01 -p 3344:80 nginx</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>Docker安装tomcat</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 官方的使用(-rm 用完及删除，用于测试)</span></span><br><span class="line">docker run --rm tomcat:9.0</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h3><ul>
+<li>portainer</li>
+</ul>
+<p>  docker图形化管理工具</p>
+<p>安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8088:9000 \</span><br><span class="line">--restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</span><br></pre></td></tr></table></figure>
+
+<p>访问测试</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12262.png" alt=""></p>
+<ul>
+<li>Rancher(CI/CD)</li>
+</ul>
+<h3 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h3><h4 id="镜像是什么"><a href="#镜像是什么" class="headerlink" title="镜像是什么"></a>镜像是什么</h4><p>镜像是一个轻量级、可执行的的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需要的内容，包括代码，运行时库，环境变量和配置文件。</p>
+<p><strong>如何得到镜像呢？</strong></p>
+<ul>
+<li>远程仓库下载</li>
+<li>拷贝</li>
+<li>自己制作一个镜像</li>
+</ul>
+<h4 id="Docker镜像加载原理"><a href="#Docker镜像加载原理" class="headerlink" title="Docker镜像加载原理"></a>Docker镜像加载原理</h4><blockquote>
+<p>UnionFS(联合文件系统)</p>
+</blockquote>
+<p>Union文件系统是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下。Union文件系统时Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像(没有父镜像)，可以制作各种具体的镜像。</p>
+<p>特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。</p>
+<blockquote>
+<p>Docker镜像的加载原理</p>
+</blockquote>
+<p>docker 的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。</p>
+<p><strong>bootfs</strong>(boot file system) 主要包含bootloader和kernel，bootloader 主要是引导加载kernel，Linux刚启动时会加载bootfs文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之后整个内核就存在内存中了，此时内存的使用权已由bootfs转交给内核，此时系统也会卸载bootfs。</p>
+<p><strong>roorfs</strong> （root file system），在bootfs之上。包含的就是典型Linux系统中的 /dev ，/proc，/bin ，/etx 等标准的目录和文件。rootfs就是各种不同的操作系统发行版。比如Ubuntu，Centos等等。</p>
+<p>对于一个精简的OS，rootfs可以很小，只需要包括最基本的命令、工具和程序库就可以了，因为底层直接用Host（宿主机）的kernel，自己只需要提供rootfs就行了，由此可见对于不同的Linux发行版，bootfs基本是一致的，rootfs会有差别，因此不同的发行版可以公用bootfs。</p>
+<blockquote>
+<p><strong>特点</strong></p>
+</blockquote>
+<p>Docker镜像都是只读的，当容器启动时，一个新的可写层被加到镜像的顶部。这一层就是我们通常说的容器层，容器之下都叫镜像层。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/asdasdaew9097878.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12261.png" alt=""></p>
+<h3 id="Commit镜像"><a href="#Commit镜像" class="headerlink" title="Commit镜像"></a>Commit镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker commit  # 提交容器成为一个新的版本</span><br><span class="line"></span><br><span class="line">docker commit -m="提交的描述信息" -a="作者" 容器id 目标镜像名:[tag]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实战测试</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动一个默认的tomcat</span></span><br><span class="line">docker run -it -p 9999:9999 tomcat</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 发现这个tomcat，webapps下面时没有文件的</span></span><br><span class="line">root@24cc7cd482ff:/usr/local/tomcat# cd webapps</span><br><span class="line">root@24cc7cd482ff:/usr/local/tomcat/webapps# ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 自己拷贝进去基本的文件</span></span><br><span class="line">root@24cc7cd482ff:/usr/local/tomcat# cp -r webapps.dist/* webapps</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成一个新镜像</span></span><br><span class="line">docker commit -a="zhang" -m="add webapps app" 24cc7cd482ff tomcat02:1.0</span><br></pre></td></tr></table></figure>
+
+<p>这就是我们修改过的镜像</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12264.png" alt=""></p>
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><p>mysql数据的持久化问题</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root --name mysql01 mysql</span><br><span class="line">e1911d0e9045f63df828e4639196ce32e1bf631e21df3c7fb789c487055d572b</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动mysql</span></span><br><span class="line">-d 后台运行</span><br><span class="line">-p 端口映射</span><br><span class="line">-v 卷挂载</span><br><span class="line">-e 环境配置  密码</span><br><span class="line">--name 容器名称</span><br></pre></td></tr></table></figure>
+
+<p>测试连接</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12265.png" alt=""></p>
+<p>进入host的home目录，发现mysql目录，进入data目录可以看到数据。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12266.png" alt=""></p>
+<p>我们利用本地navicat新建一个数据库，再次查看data目录下文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12267.png" alt=""></p>
+<p>发现多了test文件，说明映射的路径是ok的。</p>
+<p>假设我们删除容器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12268.png" alt=""></p>
+<p>发现数据并没消失</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12269.png" alt=""></p>
+<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><p>dockerfile就是用来构建docker镜像的构建文件(命令脚本,通过这个脚本可以生成镜像)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个dockerfile文件</span></span><br><span class="line">FROM centos</span><br><span class="line">VOLUME ["volume01","volume02"]</span><br><span class="line">CMD echo "------end--------"</span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build -f /home/docker-test-voume/dockerfile01 -t zhangdemo/centos:1.o .</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker122610.png" alt=""></p>
+<p>启动自己的镜像</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker122611.png" alt=""></p>
+<p>构建步骤</p>
+<ol>
+<li>编写一个dokerfile文件</li>
+<li>docker build构建一个镜像</li>
+<li>docker run 运行镜像</li>
+<li>docker push 发布镜像 </li>
+</ol>
+<h4 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h4><ul>
+<li>每个关键字都是大写</li>
+<li>执行从上到下的顺序</li>
+<li><code>#</code> 表示注释</li>
+<li>每一个指令都会创建提交一个新的镜像层，并提交</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201226181209.png" alt=""></p>
+<p>dockerfile是面向开发。Docker逐渐成为了企业交付的标准。</p>
+<h4 id="DockerFile的指令"><a href="#DockerFile的指令" class="headerlink" title="DockerFile的指令"></a>DockerFile的指令</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM   		# 基础镜像，一切从这里开始构建</span><br><span class="line">MAINTAINER	# 镜像是谁写的，姓名+邮箱</span><br><span class="line">RUN			# 镜像构建的时候需要运行的命令</span><br><span class="line">ADD			# 步骤，tomcat镜像，这个tomcat的压缩包！添加内容</span><br><span class="line">WORKDIR		# 镜像的工作目录</span><br><span class="line">VOLUME		# 挂载的目录位置</span><br><span class="line">EXPOST		# 暴露端口</span><br><span class="line">CMD			# 指定容器启动时要输出的命令，只有最后一个会生效，可被替代</span><br><span class="line">ENTRYPOINT	# 指定容器启动时要输出的命令，可以追加命令</span><br><span class="line">ONBUILD		# 当构建一个被继承DockerFile这个时候就会运行ONBUILD指令，触发指令。</span><br><span class="line">COPY		# 类似ADD命令，将文件拷贝到镜像中</span><br><span class="line">ENV			# 构建的时候设置环境变量</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20201226181721.png" alt=""></p>
+<h4 id="构建自己的Centos"><a href="#构建自己的Centos" class="headerlink" title="构建自己的Centos"></a>构建自己的Centos</h4><p><strong>1.编写dockerfile的配置文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">基于Centos</span></span><br><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">告诉别人我是谁</span></span><br><span class="line">MAINTAINER zhang&lt;495726603@qq.com&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">环境变量</span></span><br><span class="line">ENV MYPATH /usr/local</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">工作目录</span></span><br><span class="line">WORKDIR $MYPATH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">安装一个vim</span></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">RUN yum -y install net-tools</span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line">CMD echo $MYPATH</span><br><span class="line">CMD echo "-----end-------"</span><br><span class="line"></span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.通过文件构建镜像</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build -f mydockerfile -t mycentos:v1 .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> -f 代表dockerfile的文件路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -t 镜像名和版本号</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker122612.png" alt=""></p>
+<p><strong>3.测试运行</strong></p>
+<p>可以看到运行的工作目录为我们在dockerfile中配置的工作目录，</p>
+<p>并且<code>ifconfig</code>命令可用了.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker122613.png" alt=""></p>
+<p><strong>4.可以通过<code>docker history 镜像id</code>列出本地镜像的变更地址</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker122614.png" alt=""></p>
+<blockquote>
+<p>CMD和ENTRYPOINT的区别</p>
+</blockquote>
+<p>测试cmd</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编写dockerfile文件</span></span><br><span class="line">vim dockerfile-cmd-test</span><br><span class="line"></span><br><span class="line">FROM centos</span><br><span class="line">CMD ["ls","-a"]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">构建镜像</span></span><br><span class="line">docker build -f dockerfile-cmd-test -t cmdtest .</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">run运行，发现我们的ls -a命令生效</span></span><br><span class="line">[root@izbp13r5pmefkwfqgkx4i2z dockerfile]# docker run bef2698bd130</span><br><span class="line">.</span><br><span class="line">..</span><br><span class="line">.dockerenv</span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">etc</span><br><span class="line">home</span><br><span class="line">lib</span><br><span class="line">lib64</span><br><span class="line">lost+found</span><br><span class="line">media</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">想追加一个命令 -l ls -al</span></span><br><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# docker run bef2698bd130 -l</span><br><span class="line">docker: Error response from daemon: OCI runtime create failed: container_linux.go:370: starting container process caused: exec: "-l": executable file not found in $PATH: unknown.</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">cmd的情况下 -l替换了CMD[<span class="string">"ls"</span>,<span class="string">"-a"</span>]命令 ，不是命令所以报错</span></span><br></pre></td></tr></table></figure>
+
+<p>测试entryporint(我们追加的命令，是直接在我们的entrypoint命令后面的)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# vim dockerfile-cmd-entrypoint</span><br><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# docker build -f dockerfile-cmd-entrypoint -t entorypoint-test .</span><br><span class="line">Sending build context to Docker daemon    726kB</span><br><span class="line">Step 1/2 : FROM centos</span><br><span class="line"><span class="meta"> ---&gt;</span><span class="bash"> 300e315adb2f</span></span><br><span class="line">Step 2/2 : ENTRYPOINT ["ls","-a"]</span><br><span class="line"><span class="meta"> ---&gt;</span><span class="bash"> Running <span class="keyword">in</span> 51ffcc67a242</span></span><br><span class="line">Removing intermediate container 51ffcc67a242</span><br><span class="line"><span class="meta"> ---&gt;</span><span class="bash"> 4645e2e60db1</span></span><br><span class="line">Successfully built 4645e2e60db1</span><br><span class="line">Successfully tagged entorypoint-test:latest</span><br><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# docker images</span><br><span class="line">REPOSITORY            TAG       IMAGE ID       CREATED          SIZE</span><br><span class="line">entorypoint-test      latest    4645e2e60db1   15 seconds ago   209MB</span><br><span class="line">cmdtest               latest    bef2698bd130   14 minutes ago   209MB</span><br><span class="line">mycentos              v1        ee0d621d29ee   2 hours ago      282MB</span><br><span class="line">zhangdemo/centos      1.o       8bb60281dfef   4 hours ago      209MB</span><br><span class="line">mysql                 latest    a347a5928046   4 days ago       545MB</span><br><span class="line">tomcat                latest    feba8d001e3f   8 days ago       649MB</span><br><span class="line">redis                 latest    ef47f3b6dc11   2 weeks ago      104MB</span><br><span class="line">centos                latest    300e315adb2f   2 weeks ago      209MB</span><br><span class="line">portainer/portainer   latest    62771b0b9b09   5 months ago     79.1MB</span><br><span class="line">hello-world           latest    bf756fb1ae65   11 months ago    13.3kB</span><br><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# docker run 4645e2e60db1</span><br><span class="line">.</span><br><span class="line">..</span><br><span class="line">.dockerenv</span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">etc</span><br><span class="line">home</span><br><span class="line">lib</span><br><span class="line">lib64</span><br><span class="line">lost+found</span><br><span class="line">media</span><br><span class="line">mnt</span><br><span class="line">opt</span><br><span class="line">proc</span><br><span class="line">root</span><br><span class="line">run</span><br><span class="line">sbin</span><br><span class="line">srv</span><br><span class="line">sys</span><br><span class="line">tmp</span><br><span class="line">usr</span><br><span class="line">var</span><br><span class="line">[root@izbp13r5pmefkwfqgkx4i2z ~]# docker run 4645e2e60db1 -l</span><br><span class="line">total 56</span><br><span class="line">drwxr-xr-x  1 root root 4096 Dec 26 13:15 .</span><br><span class="line">drwxr-xr-x  1 root root 4096 Dec 26 13:15 ..</span><br><span class="line">-rwxr-xr-x  1 root root    0 Dec 26 13:15 .dockerenv</span><br><span class="line">lrwxrwxrwx  1 root root    7 Nov  3 15:22 bin -&gt; usr/bin</span><br><span class="line">drwxr-xr-x  5 root root  340 Dec 26 13:15 dev</span><br><span class="line">drwxr-xr-x  1 root root 4096 Dec 26 13:15 etc</span><br><span class="line">drwxr-xr-x  2 root root 4096 Nov  3 15:22 home</span><br><span class="line">lrwxrwxrwx  1 root root    7 Nov  3 15:22 lib -&gt; usr/lib</span><br><span class="line">lrwxrwxrwx  1 root root    9 Nov  3 15:22 lib64 -&gt; usr/lib64</span><br><span class="line">drwx------  2 root root 4096 Dec  4 17:37 lost+found</span><br><span class="line">drwxr-xr-x  2 root root 4096 Nov  3 15:22 media</span><br><span class="line">drwxr-xr-x  2 root root 4096 Nov  3 15:22 mnt</span><br><span class="line">drwxr-xr-x  2 root root 4096 Nov  3 15:22 opt</span><br><span class="line">dr-xr-xr-x 90 root root    0 Dec 26 13:15 proc</span><br><span class="line">dr-xr-x---  2 root root 4096 Dec  4 17:37 root</span><br><span class="line">drwxr-xr-x 11 root root 4096 Dec  4 17:37 run</span><br><span class="line">lrwxrwxrwx  1 root root    8 Nov  3 15:22 sbin -&gt; usr/sbin</span><br><span class="line">drwxr-xr-x  2 root root 4096 Nov  3 15:22 srv</span><br><span class="line">dr-xr-xr-x 13 root root    0 Dec 26 13:15 sys</span><br><span class="line">drwxrwxrwt  7 root root 4096 Dec  4 17:37 tmp</span><br><span class="line">drwxr-xr-x 12 root root 4096 Dec  4 17:37 usr</span><br><span class="line">drwxr-xr-x 20 root root 4096 Dec  4 17:37 var</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="实战：Tomcat镜像"><a href="#实战：Tomcat镜像" class="headerlink" title="实战：Tomcat镜像"></a>实战：Tomcat镜像</h4><p>1.准备镜像文件，tomcat压缩包，tomcat依赖java，需要jdk</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12271.png" alt=""></p>
+<p>2.编写dockekfile文件。官方命名<code>Dockerfile</code>，使用这个就不需要加-f指定文件名</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 基础镜像</span></span><br><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">MAINTAINER zhangliyuan&lt;495726603@qq.com&gt;</span><br><span class="line"></span><br><span class="line">COPY readme.txt /tomcat/readme.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用add命令会自动帮我们解压</span></span><br><span class="line">ADD jdk-11.0.8_linux-x64_bin.tar.gz /usr/local/</span><br><span class="line"></span><br><span class="line">ADD apache-tomcat-9.0.41.tar.gz /usr/local/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装vim</span></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 环境变量</span></span><br><span class="line">ENV MYPATH /usr/local</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 工作目录</span></span><br><span class="line">WORKDIR $MYPATH</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> java环境变量</span></span><br><span class="line">ENV JAVA_HOME /usr/loacl/jdk11.0.8</span><br><span class="line"></span><br><span class="line">ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置tomcat环境变量</span></span><br><span class="line">ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.41</span><br><span class="line">ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.41</span><br><span class="line"></span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">暴露端口</span></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> tomcat日志</span></span><br><span class="line">CMD /usr/local/apache-tomcat-9.0.41/bin/startup.sh &amp;&amp; tail -F /usr/local/apache-tomcat-9.0.41/bin/logs/catalina.out</span><br></pre></td></tr></table></figure>
+
+<p>3.构建镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build -t diytomcat .</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="发布自己的镜像"><a href="#发布自己的镜像" class="headerlink" title="发布自己的镜像"></a>发布自己的镜像</h3><h4 id="DockerHub"><a href="#DockerHub" class="headerlink" title="DockerHub"></a>DockerHub</h4><p>登录dockerhub</p>
+<figure class="highlight docker"><figcaption><span>login -u zhangliyuandocker```</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">增加一个tag</span><br><span class="line"></span><br><span class="line">`docker tag a6c12980154f zhangliyuan/tomcat:<span class="number">1.0</span>`</span><br><span class="line"></span><br><span class="line">提交</span><br><span class="line"></span><br><span class="line">`docker push zhangliyuan/tomcat:<span class="number">1.0</span>`</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12272.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### 阿里云</span></span><br><span class="line"></span><br><span class="line">- 找到镜像容器服务</span><br><span class="line">- 创建命名空间</span><br><span class="line">- 创建容器镜像</span><br><span class="line"></span><br><span class="line">![](https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12273.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### Springboot项目打包</span></span><br><span class="line"></span><br><span class="line">- 在idea中新建Dockerfile文件</span><br><span class="line"></span><br><span class="line">```<span class="keyword">shell</span></span><br><span class="line"><span class="bash">FROM java:8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> upload.jar .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"--server.port=8080"</span>]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> java -jar upload.jar</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将Dockerfile和jar包用xftp上传到服务器</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12274.png" alt=""></p>
+<ul>
+<li>构建镜像</li>
+</ul>
+<p><code>docker build -t zhangupload .</code></p>
+<ul>
+<li>运行</li>
+</ul>
+<p><code>docker run -d -P --name upload zhangupload</code></p>
+<ul>
+<li>测试</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/docker12275.png" alt=""></p>
+<ul>
+<li>查看日志</li>
+</ul>
+<p><code>sudo docker logs -f -t --tail 行数 容器名</code></p>
 ]]></content>
       <tags>
         <tag>Java</tag>
