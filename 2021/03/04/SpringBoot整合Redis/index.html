@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>BeanUtils工具类的使用 - 张利源</title>
+    <title>SpringBoot整合Redis - 张利源</title>
   
-    <meta name="keywords" content="Java">
+    <meta name="keywords" content="SpringBoot">
   
   
-    <meta name="description" content="BeanUtils工具类，简化数据封装">
+    <meta name="description" content="SpringBoot整合Redis">
   
 
   <!-- feed -->
@@ -365,8 +365,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/">
-      BeanUtils工具类的使用
+    <a href="/2021/03/04/SpringBoot%E6%95%B4%E5%90%88Redis/">
+      SpringBoot整合Redis
     </a>
   </h1>
 
@@ -396,7 +396,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 11, 2020</p>
+    <p>发布于：Mar 4, 2021</p>
   </a>
 </div>
 
@@ -419,39 +419,60 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><a id="more"></a>
-<h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>1.类必须被public修饰</li>
-<li>2.必须提供空参的构造器</li>
-<li>3.成员变量必须使用private修饰</li>
-<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
+          <p>SpringBoot整合Redis</p>
+<a id="more"></a>
+
+
+
+<h4 id="0-一些对象信息"><a href="#0-一些对象信息" class="headerlink" title="0.一些对象信息"></a>0.一些对象信息</h4><ul>
+<li><p>1.<code>JedisPoolConfig</code>(这个是配置连接池)</p>
+</li>
+<li><p>2.<code>RedisConnectionFactory</code>（这个是配置连接信息，这里的<code>RedisConnectionFactory</code>是一个接口，<br>我们需要使用它的实现类，在SpringD Data Redis方案中提供了一下四种工厂模型）</p>
+<ul>
+<li><code>JredisConnectionFactory</code></li>
+<li><code>JedisConnectionFactory</code></li>
+<li><code>LettuceConnectionFactory</code></li>
+<li><code>SrpConnectionFactory</code></li>
 </ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BeanUtils对象</td>
-<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
-<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
-</tr>
-<tr>
-<td></td>
-<td>setProperty(Object obj,String name,Object value)</td>
-<td>设置属性值</td>
-</tr>
-<tr>
-<td></td>
-<td>getProperty(Object obj,String name)</td>
-<td>获得属性值</td>
-</tr>
-</tbody></table>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.<code>RedisTemplate</code></p>
+</li>
+</ul>
+<h4 id="1-添加启动类"><a href="#1-添加启动类" class="headerlink" title="1.添加启动类"></a>1.添加启动类</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-配置连接信息"><a href="#2-配置连接信息" class="headerlink" title="2.配置连接信息"></a>2.配置连接信息</h4><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># redis索引，默认为0</span></span><br><span class="line"><span class="meta">spring.redis.database</span>=<span class="string">1</span></span><br><span class="line"><span class="comment"># redis服务地址</span></span><br><span class="line"><span class="meta">spring.redis.host</span>=<span class="string">127.0.0.1</span></span><br><span class="line"><span class="comment"># 端口</span></span><br><span class="line"><span class="meta">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.max-active</span>=<span class="string">8</span></span><br><span class="line"><span class="comment"># 连接池中最大空闲连接数</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池最小空闲连接数</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.min-idle</span>=<span class="string">0</span></span><br><span class="line"><span class="comment"># 连接超时时间</span></span><br><span class="line"><span class="meta">spring.redis.lettuce.shutdown-timeout</span>=<span class="string">1000</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String, String&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"mykey"</span>,<span class="string">"myvalue"</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">"mykey"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304153327831.png" alt=""></p>
+<h4 id="4-序列化器"><a href="#4-序列化器" class="headerlink" title="4.序列化器"></a>4.序列化器</h4><p>这里先说一下Spring提供了那些序列化器（各自作用自行百度，这里不再赘述）<br><strong>Jackson2JsonRedisSerializer</strong><br><strong>JdkSerializationRedisSerializer</strong><br><strong>OxmSerializer</strong><br><strong>StringRedisSerializer</strong><br><strong>GenericToStringRedisSerializer</strong><br><strong>GenericJackson2JsonRedisSerializer</strong></p>
+<blockquote>
+<p>为什么前面的代码没有设置序列化？<br>原因是是因为我们使用了@AutoWired，IOC容器为我们选择了StringRedisTemplate类来注入</p>
+</blockquote>
+<p>这里是RedisTemplate的继承关系图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304154110326.png" alt=""></p>
+<p>然后我们跟踪源码可以发现<code>StringRedisTemplate.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringRedisTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	setKeySerializer(RedisSerializer.string());</span><br><span class="line">	setValueSerializer(RedisSerializer.string());</span><br><span class="line">	setHashKeySerializer(RedisSerializer.string());</span><br><span class="line">	setHashValueSerializer(RedisSerializer.string());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>那假如我们把Value的类型改为Object呢</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"mykey"</span>,<span class="string">"myvalue"</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">"mykey"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里继续使用@AutoWired会报错，需要使用@Resource，这两个注解的区别在前者是根据类型后者<br>是根据名字，具体区别自行查资料（这里说一下为什么会报错：@AutoWired找不到该类型<br>&lt;String,Object&gt;的Bean因为根本没有。使用@Resource直接注入的是RedisTemplate）</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304154803617.png"  />
+
+<p>这是因为没有设置序列化器，RedisTemplate选择了默认的序列化器<code>JdkSerializationRedisSerializer</code></p>
+<h4 id="5-配置序列化器"><a href="#5-配置序列化器" class="headerlink" title="5.配置序列化器"></a>5.配置序列化器</h4><h5 id="5-1实体类实现序列化接口"><a href="#5-1实体类实现序列化接口" class="headerlink" title="5.1实体类实现序列化接口"></a>5.1实体类实现序列化接口</h5><h5 id="5-2然后在配置类中设置序列化器"><a href="#5-2然后在配置类中设置序列化器" class="headerlink" title="5.2然后在配置类中设置序列化器"></a>5.2然后在配置类中设置序列化器</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liyuan.zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021/3/4 15:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, User&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;String, User&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line">        <span class="comment">// 关联</span></span><br><span class="line">        redisTemplate.setConnectionFactory(factory);</span><br><span class="line">        <span class="comment">// 设置key的序列化器</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        <span class="comment">// 设置value的序列化器</span></span><br><span class="line">        redisTemplate.setValueSerializer(<span class="keyword">new</span> Jackson2JsonRedisSerializer&lt;User&gt;(User<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-3测试类"><a href="#5-3测试类" class="headerlink" title="5.3测试类"></a>5.3测试类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String, User&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"user"</span>, User.builder().name(<span class="string">"张三"</span>).address(<span class="string">"上海市"</span>).id(<span class="string">"1"</span>).birthday(<span class="keyword">new</span> Date()).build());</span><br><span class="line">    User user = redisTemplate.opsForValue().get(<span class="string">"user"</span>);</span><br><span class="line">    System.out.println(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304160214666.png" alt=""></p>
+
           
             <div class='article_footer'>
               
@@ -527,10 +548,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-19T15:33:52+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-04T16:08:06+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 19, 2020</p>
+    <p>更新于：Mar 4, 2021</p>
   </a>
 </div>
 
@@ -539,7 +560,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SpringBoot/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>SpringBoot</p></a></div>
 
 
         
@@ -557,7 +578,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2021/03/04/SpringBoot%E6%95%B4%E5%90%88Redis/&title=SpringBoot整合Redis - 张利源&summary=SpringBoot整合Redis"
           
           >
           
@@ -569,7 +590,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2021/03/04/SpringBoot%E6%95%B4%E5%90%88Redis/&title=SpringBoot整合Redis - 张利源&summary=SpringBoot整合Redis"
           
           >
           
@@ -581,7 +602,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2021/03/04/SpringBoot%E6%95%B4%E5%90%88Redis/&title=SpringBoot整合Redis - 张利源&summary=SpringBoot整合Redis"
           
           >
           
@@ -605,22 +626,14 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/04/15/Jetbrains%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%812020-1%E6%9C%80%E6%96%B0%E6%BF%80%E6%B4%BB%E6%96%B9%E6%B3%95/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Jetbrains系列产品2020.1最新激活方法</p>
-                <p class='content'>本文假定你知道Jetbrains家的产品。不知道可以问问搜索引擎。
-
-
-大家熟知Jetbrains的话应该知道：他们家的所有产品升级到2018.2.1及以上版本后，先前可用的注册服务器都失效了，...</p>
-              </a>
             
-            
-              <a class='next' href='/2020/04/10/http/'>
-                <p class='title'>http的request对象和response对象<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>http的request对象和response对象
-概念：Hyper Text Transfer Protocol 超文本传输协议特点：
-1.基于TCP/IP的高级协议
+              <a class='next' href='/2021/03/02/JWT/'>
+                <p class='title'>JWT<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>JWT初体验
 
-2.默认端口号8080...</p>
+
+
+1.什么是JWTJSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and ...</p>
               </a>
             
           </div>
@@ -665,7 +678,7 @@
 
   <script>
     window.subData = {
-      title: 'BeanUtils工具类的使用',
+      title: 'SpringBoot整合Redis',
       tools: true
     }
   </script>
@@ -691,7 +704,7 @@
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanUtils工具类，简化数据封装"><span class="toc-text">BeanUtils工具类，简化数据封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用于封装JavaBean的"><span class="toc-text">用于封装JavaBean的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#要求："><span class="toc-text">要求：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能：封装数据"><span class="toc-text">功能：封装数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-一些对象信息"><span class="toc-text">0.一些对象信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-添加启动类"><span class="toc-text">1.添加启动类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-配置连接信息"><span class="toc-text">2.配置连接信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-测试"><span class="toc-text">3.测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-序列化器"><span class="toc-text">4.序列化器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-配置序列化器"><span class="toc-text">5.配置序列化器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1实体类实现序列化接口"><span class="toc-text">5.1实体类实现序列化接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2然后在配置类中设置序列化器"><span class="toc-text">5.2然后在配置类中设置序列化器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3测试类"><span class="toc-text">5.3测试类</span></a></li></ol></li></ol>
     </div>
   </section>
 

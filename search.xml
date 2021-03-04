@@ -5135,4 +5135,65 @@ value的数据结构
         <tag>JWT</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SpringBoot整合Redis</title>
+    <url>/2021/03/04/SpringBoot%E6%95%B4%E5%90%88Redis/</url>
+    <content><![CDATA[<p>SpringBoot整合Redis</p>
+<a id="more"></a>
+
+
+
+<h4 id="0-一些对象信息"><a href="#0-一些对象信息" class="headerlink" title="0.一些对象信息"></a>0.一些对象信息</h4><ul>
+<li><p>1.<code>JedisPoolConfig</code>(这个是配置连接池)</p>
+</li>
+<li><p>2.<code>RedisConnectionFactory</code>（这个是配置连接信息，这里的<code>RedisConnectionFactory</code>是一个接口，<br>我们需要使用它的实现类，在SpringD Data Redis方案中提供了一下四种工厂模型）</p>
+<ul>
+<li><code>JredisConnectionFactory</code></li>
+<li><code>JedisConnectionFactory</code></li>
+<li><code>LettuceConnectionFactory</code></li>
+<li><code>SrpConnectionFactory</code></li>
+</ul>
+</li>
+<li><p>3.<code>RedisTemplate</code></p>
+</li>
+</ul>
+<h4 id="1-添加启动类"><a href="#1-添加启动类" class="headerlink" title="1.添加启动类"></a>1.添加启动类</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-配置连接信息"><a href="#2-配置连接信息" class="headerlink" title="2.配置连接信息"></a>2.配置连接信息</h4><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># redis索引，默认为0</span></span><br><span class="line"><span class="meta">spring.redis.database</span>=<span class="string">1</span></span><br><span class="line"><span class="comment"># redis服务地址</span></span><br><span class="line"><span class="meta">spring.redis.host</span>=<span class="string">127.0.0.1</span></span><br><span class="line"><span class="comment"># 端口</span></span><br><span class="line"><span class="meta">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="comment"># 连接池最大连接数</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.max-active</span>=<span class="string">8</span></span><br><span class="line"><span class="comment"># 连接池中最大空闲连接数</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.max-idle</span>=<span class="string">10</span></span><br><span class="line"><span class="comment"># 连接池最大阻塞等待时间</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.max-wait</span>=<span class="string">-1</span></span><br><span class="line"><span class="comment"># 连接池最小空闲连接数</span></span><br><span class="line"><span class="meta">spring.redis.jedis.pool.min-idle</span>=<span class="string">0</span></span><br><span class="line"><span class="comment"># 连接超时时间</span></span><br><span class="line"><span class="meta">spring.redis.lettuce.shutdown-timeout</span>=<span class="string">1000</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String, String&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"mykey"</span>,<span class="string">"myvalue"</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">"mykey"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304153327831.png" alt=""></p>
+<h4 id="4-序列化器"><a href="#4-序列化器" class="headerlink" title="4.序列化器"></a>4.序列化器</h4><p>这里先说一下Spring提供了那些序列化器（各自作用自行百度，这里不再赘述）<br><strong>Jackson2JsonRedisSerializer</strong><br><strong>JdkSerializationRedisSerializer</strong><br><strong>OxmSerializer</strong><br><strong>StringRedisSerializer</strong><br><strong>GenericToStringRedisSerializer</strong><br><strong>GenericJackson2JsonRedisSerializer</strong></p>
+<blockquote>
+<p>为什么前面的代码没有设置序列化？<br>原因是是因为我们使用了@AutoWired，IOC容器为我们选择了StringRedisTemplate类来注入</p>
+</blockquote>
+<p>这里是RedisTemplate的继承关系图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304154110326.png" alt=""></p>
+<p>然后我们跟踪源码可以发现<code>StringRedisTemplate.java</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringRedisTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	setKeySerializer(RedisSerializer.string());</span><br><span class="line">	setValueSerializer(RedisSerializer.string());</span><br><span class="line">	setHashKeySerializer(RedisSerializer.string());</span><br><span class="line">	setHashValueSerializer(RedisSerializer.string());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>那假如我们把Value的类型改为Object呢</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"mykey"</span>,<span class="string">"myvalue"</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">"mykey"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里继续使用@AutoWired会报错，需要使用@Resource，这两个注解的区别在前者是根据类型后者<br>是根据名字，具体区别自行查资料（这里说一下为什么会报错：@AutoWired找不到该类型<br>&lt;String,Object&gt;的Bean因为根本没有。使用@Resource直接注入的是RedisTemplate）</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304154803617.png"  />
+
+<p>这是因为没有设置序列化器，RedisTemplate选择了默认的序列化器<code>JdkSerializationRedisSerializer</code></p>
+<h4 id="5-配置序列化器"><a href="#5-配置序列化器" class="headerlink" title="5.配置序列化器"></a>5.配置序列化器</h4><h5 id="5-1实体类实现序列化接口"><a href="#5-1实体类实现序列化接口" class="headerlink" title="5.1实体类实现序列化接口"></a>5.1实体类实现序列化接口</h5><h5 id="5-2然后在配置类中设置序列化器"><a href="#5-2然后在配置类中设置序列化器" class="headerlink" title="5.2然后在配置类中设置序列化器"></a>5.2然后在配置类中设置序列化器</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liyuan.zhang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021/3/4 15:49</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, User&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;String, User&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line">        <span class="comment">// 关联</span></span><br><span class="line">        redisTemplate.setConnectionFactory(factory);</span><br><span class="line">        <span class="comment">// 设置key的序列化器</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        <span class="comment">// 设置value的序列化器</span></span><br><span class="line">        redisTemplate.setValueSerializer(<span class="keyword">new</span> Jackson2JsonRedisSerializer&lt;User&gt;(User<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-3测试类"><a href="#5-3测试类" class="headerlink" title="5.3测试类"></a>5.3测试类</h5><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate&lt;String, User&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"user"</span>, User.builder().name(<span class="string">"张三"</span>).address(<span class="string">"上海市"</span>).id(<span class="string">"1"</span>).birthday(<span class="keyword">new</span> Date()).build());</span><br><span class="line">    User user = redisTemplate.opsForValue().get(<span class="string">"user"</span>);</span><br><span class="line">    System.out.println(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/image-20210304160214666.png" alt=""></p>
+]]></content>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
 </search>
