@@ -5196,4 +5196,100 @@ value的数据结构
         <tag>SpringBoot</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SpringCloud学习笔记</title>
+    <url>/2021/04/18/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>Spring Cloud是一系列框架的<a href="https://baike.baidu.com/item/有序集合/994839" target="_blank" rel="noopener">有序集合</a>。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<a id="more"></a>
+
+
+
+<h3 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a>什么是微服务</h3><blockquote>
+<p>提出者与时间: Martin Fowler ,Mar 2014</p>
+</blockquote>
+<p>微服务架构是一种架构模式,它提倡单一应用程序划分成一组小的服务,服务之间互相协调,互相配合,为用户提供最终价值.每个微服务运行在其独立的<strong>进程</strong>中,服务与服务间采用轻量级的通信机制互相协作(通常是基于http协议的restful api).每个服务都围绕着具体业务进行构建,并且能够内独立的部署到生产环境,类生产环境等。</p>
+<h3 id="微服务技术栈"><a href="#微服务技术栈" class="headerlink" title="微服务技术栈"></a>微服务技术栈</h3><table>
+<thead>
+<tr>
+<th align="left">微服务条目</th>
+<th align="center">微服务落地技术</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">服务注册中心</td>
+<td align="center">Eureka、Zookeeper、Consul、Nacos</td>
+</tr>
+<tr>
+<td align="left">服务调用</td>
+<td align="center">Ribbon、LoadBalance、Feign、OpenFeign</td>
+</tr>
+<tr>
+<td align="left">服务降级</td>
+<td align="center">Hystrix、Sentinel、resilience4j</td>
+</tr>
+<tr>
+<td align="left">服务网关</td>
+<td align="center">Zuul、gateway</td>
+</tr>
+<tr>
+<td align="left">服务配置</td>
+<td align="center">Config、Nacos</td>
+</tr>
+<tr>
+<td align="left">服务总线</td>
+<td align="center">Bus、Nacos</td>
+</tr>
+</tbody></table>
+<p>分布式微服务架构一站式解决方案，是多种微服务架构落地技术的集合体，俗称微服务全家桶。</p>
+<h3 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h3><h4 id="Eureka是什么？"><a href="#Eureka是什么？" class="headerlink" title="Eureka是什么？"></a>Eureka是什么？</h4><p>Eureka 是 <strong>Netflix</strong> 开发的，一个基于 <strong>REST</strong> 服务的，<strong>服务注册与发现</strong>的组件，以实现中间层服务器的负载平衡和故障转移。</p>
+<p>它主要包括两个组件：<strong>Eureka Server</strong> 和 <strong>Eureka Client</strong></p>
+<p>Eureka Client：一个Java客户端，用于简化与 Eureka Server 的交互（通常就是微服务中的客户端和服务端）</p>
+<p>Eureka Server：提供服务注册和发现的能力（通常就是微服务中的注册中心）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210418190106.png" alt=""></p>
+<p>服务启动后向Eureka注册，Eureka Server会将注册的信息向其他Eureka Server进行同步，当服务消费者要调用服务提供者，则向服务注册中心获取提供者地址，然会<strong>会将服务提供者地址缓存到本地</strong>，下次调用时，直接在本地缓存中取，完成一次调用。</p>
+<p>当注册中线Eureka Server检测到服务提供者因为宕机、网络原因不可用时，则会在服务中心将服务置为DOWN状态，并把当前服务提供者状态向订阅者发布，订阅过的服务消费者更新本地缓存。</p>
+<p>服务提供者在启动后，<strong>周期性（默认30秒）</strong>向Eureka Server发送心跳，以证明当前服务是可用状态。Eureka Server在一定的时间（<strong>默认90秒</strong>）未收到客户端的心跳，则认为服务宕机，注销该实例。</p>
+<h4 id="Eureka心跳机制"><a href="#Eureka心跳机制" class="headerlink" title="Eureka心跳机制"></a>Eureka心跳机制</h4><p>在应用启动后，节点们将会向Eureka Server发送心跳,默认周期为30秒，如果Eureka Server在多个心跳周期内没有接收到某个节点的心跳，Eureka Server将会从服务注册表中把这个服务节点移除(默认90秒)。</p>
+<h4 id="Eureka自我保护模式"><a href="#Eureka自我保护模式" class="headerlink" title="Eureka自我保护模式"></a>Eureka自我保护模式</h4><p>自我保护机制的工作机制是：<strong>如果在15分钟内超过85%的客户端节点都没有正常的心跳，那么Eureka就认为客户端与注册中心出现了网络故障，Eureka Server自动进入自我保护机制</strong>，此时会出现以下几种情况：</p>
+<ol>
+<li>Eureka Server不再从注册列表中移除因为长时间没收到心跳而应该过期的服务。</li>
+<li>Eureka Server仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上，保证当前节点依然可用。</li>
+<li>当网络稳定时，当前Eureka Server新的注册信息会被同步到其它节点中。</li>
+</ol>
+<p>Eureka自我保护机制，通过配置 <code>eureka.server.enable-self-preservation</code> 来<code>true</code>打开<code>false</code>禁用自我保护机制，默认打开状态，建议生产环境打开此配置。</p>
+<h4 id="Eureka-Server高可用集群"><a href="#Eureka-Server高可用集群" class="headerlink" title="Eureka Server高可用集群"></a>Eureka Server高可用集群</h4><blockquote>
+<p>相互注册，相互守望</p>
+</blockquote>
+<ul>
+<li>修改host文件</li>
+</ul>
+<p>windows目录：<code>C:\Windows\System32\drivers\etc\hosts</code><br>linux目录：<code>/etc/hosts</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Eureka</span></span><br><span class="line">127.0.0.1	eureka7001.com</span><br><span class="line">127.0.0.1	eureka7002.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>建立两个子模块</li>
+<li>修改pom文件</li>
+<li>启动类添加注解<code>@EnableEurekaServer</code></li>
+<li>修改yml文件</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">7002</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">eureka7002.com</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p>在配置文件中相互注册即可。</p>
+<p><em>注：如果要在服务消费者使用<code>RestTemplate</code>调用服务提供者，需要使用<code>@LoadBalanced</code>注解，来为<code>RestTemplate</code>赋予负载均衡的能力。</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210418194437.png" alt=""></p>
+<h4 id="服务高可用"><a href="#服务高可用" class="headerlink" title="服务高可用"></a>服务高可用</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="comment"># 注册自己，默认true</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 是否在eureka抓取已有的注册信息，默认为true</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line"><span class="comment">#      defaultZone: http://localhost:7001/eureka</span></span><br><span class="line">      <span class="comment"># 集群模式</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka/,</span> <span class="string">http://eureka7002.com:7002/eureka/</span></span><br><span class="line"><span class="comment">#  instance:</span></span><br><span class="line"><span class="comment">#    instance-id: payment8002</span></span><br><span class="line"><span class="comment">#    prefer-ip-address: true # 访问路径显示ip地址</span></span><br></pre></td></tr></table></figure>
+
+<p>将服务注册到多个Eureka上，多个地址用，隔开就可。</p>
+<p><strong>消费者使用<code>RestTemplate</code>进行调用</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/payment/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">getPayment</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> restTemplate.getForObject(PAYMENT_URL + <span class="string">"/payment/"</span> + id, CommonResult<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>SpringCloud</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习笔记</title>
+    <url>/2021/04/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
 </search>
