@@ -5281,7 +5281,59 @@ value的数据结构
 
 <p>将服务注册到多个Eureka上，多个地址用，隔开就可。</p>
 <p><strong>消费者使用<code>RestTemplate</code>进行调用</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/payment/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">getPayment</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> restTemplate.getForObject(PAYMENT_URL + <span class="string">"/payment/"</span> + id, CommonResult<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/payment/&#123;id&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> CommonResult&lt;Payment&gt; <span class="title">getPayment</span><span class="params">(@PathVariable Long id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> restTemplate.getForObject(PAYMENT_URL + <span class="string">"/payment/"</span> + id, CommonResult<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><p>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务，它包含一个简单的原语集，分布式应用程序可以基于它实现同步服务，配置维护和命名服务等。 Zookeeper是<strong>hadoop</strong>的一个子项目，其发展历程无需赘述。在分布式应用中，由于工程师不能很好地使用锁机制，以及基于消息的协调机制不适合在 某些应用中使用，因此需要有一种可靠的、可扩展的、分布式的、可配置的协调机制来统一系统的状态。基于<strong>java</strong>开发。</p>
+<h4 id="centos上安装zookeeper"><a href="#centos上安装zookeeper" class="headerlink" title="centos上安装zookeeper"></a>centos上安装zookeeper</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210419181604.png" alt=""></p>
+<p>官网复制下载地址<code>https://downloads.apache.org/zookeeper/</code></p>
+<p>下载<code>wget https://downloads.apache.org/zookeeper/zookeeper-3.5.9/apache-zookeeper-3.5.9-bin.tar.gz</code></p>
+<p>解压<code>tar -zxvf apache-zookeeper-3.6.3-bin</code></p>
+<p>进入目录<code>cd apache-zookeeper-3.6.3-bin</code></p>
+<p>创建data目录<code>mkdir data</code></p>
+<p>进入conf目录<code>cd conf</code></p>
+<p>重命名/拷贝zoo_sample.cfg,修改为zoo.cfg<code>mv zoo_sample.cfg zoo.cfg</code></p>
+<p>vim进入zookeeper<code>vim zoo.cfg</code></p>
+<p>修改zoo.cfg文件,修改datadir为刚才创建的目录</p>
+<blockquote>
+<p>进入bin目录，启动zookeeper<code>./zkServer.sh start</code></p>
+<p>查看状态<code>./zkServer.sh status</code></p>
+<p>启动客户端<code>./zkCli.sh</code></p>
+</blockquote>
+<h4 id="应用接入"><a href="#应用接入" class="headerlink" title="应用接入"></a>应用接入</h4><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-zookeeper-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 先排除自带的zookeeper --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;exclusions&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;exclusion&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                    &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                    &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;/exclusion&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;/exclusions&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;dependency&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;version&gt;3.5.9&lt;/version&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;/dependency&gt;--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里要注意版本冲突的问题，如果不能正常启动，需要剔除zookeeper的依赖，添加对应版本的依赖</p>
+<p>配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-provider-payment</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">zookeeper:</span></span><br><span class="line">      <span class="attr">connect-string:</span> <span class="number">192.168</span><span class="number">.2</span><span class="number">.104</span><span class="string">:2181</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>zookeeper客户端启动<code>./zkCli.sh</code></p>
+<p>查看节点信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[zk: localhost:2181(CONNECTED) 0] ls /</span><br><span class="line">[services, zookeeper]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 1] ls /services </span><br><span class="line">[cloud-provider-payment]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 2] ls /services/cloud-provider-payment </span><br><span class="line">[0b224d33-d04f-4648-8610-6cda0ba11993]</span><br><span class="line">[zk: localhost:2181(CONNECTED) 3] get /services/cloud-provider-payment/0b224d33-d04f-4648-8610-6cda0ba11993 </span><br><span class="line">&#123;"name":"cloud-provider-payment","id":"0b224d33-d04f-4648-8610-6cda0ba11993","address":"DESKTOP-L79DIJ1","port":8004,"sslPort":null,"payload":&#123;"@class":"org.springframework.cloud.zookeeper.discovery.ZookeeperInstance","id":"application-1","name":"cloud-provider-payment","metadata":&#123;&#125;&#125;,"registrationTimeUTC":1618826887383,"serviceType":"DYNAMIC","uriSpec":&#123;"parts":[&#123;"value":"scheme","variable":true&#125;,&#123;"value":"://","variable":false&#125;,&#123;"value":"address","variable":true&#125;,&#123;"value":":","variable":false&#125;,&#123;"value":"port","variable":true&#125;]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：Zookeeper中的节点是临时的，如果下次没有收到心跳的话就会被移除掉，再次上线的节点的id也会不一样。</p>
+</blockquote>
+<h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><blockquote>
+<p><strong>C:Consistency，数据一致性</strong><br><strong>A:Availability，可用性，系统响应速度</strong><br><strong>P：Partition tolerance，分区容错性</strong></p>
+</blockquote>
+<p>著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。在此Zookeeper保证的是CP, 而Eureka则是AP。</p>
+<ul>
+<li><p><strong>Zookeeper保证CP</strong>。当向注册中心查询服务列表时，我们可以容忍注册中心返回的是几分钟以前的注册信息，但不能接受服务直接down掉不可用。也就是说，服务注册功能对可用性的要求要高于一致性。但是zk会出现这样一种情况，当master节点因为网络故障与其他节点失去联系时，剩余节点会重新进行leader选举。问题在于，选举leader的时间太长，30 ~ 120s, 且选举期间整个zk集群都是不可用的，这就导致在选举期间注册服务瘫痪。在云部署的环境下，因网络问题使得zk集群失去master节点是较大概率会发生的事，虽然服务能够最终恢复，但是漫长的选举时间导致的注册长期不可用是不能容忍的。</p>
+</li>
+<li><p><strong>Eureka保证AP</strong>。Eureka看明白了这一点，因此在设计时就优先保证可用性。Eureka各个节点都是平等的，几个节点挂掉不会影响正常节点的工作，剩余的节点依然可以提供注册和查询服务。而Eureka的客户端在向某个Eureka注册或时如果发现连接失败，则会自动切换至其它节点，只要有一台Eureka还在，就能保证注册服务可用(保证可用性)，只不过查到的信息可能不是最新的(不保证强一致性)。除此之外，Eureka还有一种自我保护机制，如果在15分钟内超过85%的节点都没有正常的心跳，那么Eureka就认为客户端与注册中心出现了网络故障，此时会出现以下几种情况： </p>
+<ol>
+<li>Eureka不再从注册列表中移除因为长时间没收到心跳而应该过期的服务 </li>
+<li>Eureka仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上(即保证当前节点依然可用) </li>
+<li>当网络稳定时，当前实例新的注册信息会被同步到其它节点中</li>
+</ol>
+<p>因此， Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像zookeeper那样使整个注册服务瘫痪。</p>
+</li>
+</ul>
+]]></content>
       <tags>
         <tag>Java</tag>
         <tag>SpringCloud</tag>
