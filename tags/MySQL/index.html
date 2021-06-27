@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -16,12 +18,8 @@
 
   <!-- 页面元数据 -->
   
-    <title>BeanUtils工具类的使用 - 张利源</title>
+    <title>标签：MySQL - 张利源</title>
   
-    <meta name="keywords" content="Java">
-  
-  
-    <meta name="description" content="BeanUtils工具类，简化数据封装">
   
 
   <!-- feed -->
@@ -349,12 +347,25 @@
     <div class='body-wrapper'>
       
 
+
 <div class='l_main'>
   
-
-  
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+    
       
+  <section class="post-list ">
+    
+      
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
 
 
   <section class='meta'>
@@ -364,11 +375,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h1 class="title">
-    <a href="/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/">
-      BeanUtils工具类的使用
+  <h2 class="title">
+    <a href="/2021/06/27/MySQL%E9%AB%98%E7%BA%A7/">
+      MySQL高级
     </a>
-  </h1>
+  </h2>
 
 
         
@@ -396,9 +407,14 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 11, 2020</p>
+    <p>发布于：Jun 27, 2021</p>
   </a>
 </div>
+
+            
+          
+            
+              
 
             
           
@@ -416,285 +432,135 @@
   </section>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <h3 id="BeanUtils工具类，简化数据封装"><a href="#BeanUtils工具类，简化数据封装" class="headerlink" title="BeanUtils工具类，简化数据封装"></a>BeanUtils工具类，简化数据封装</h3><a id="more"></a>
-<h4 id="用于封装JavaBean的"><a href="#用于封装JavaBean的" class="headerlink" title="用于封装JavaBean的"></a>用于封装JavaBean的</h4><pre><code>JavaBean：标准Java类</code></pre><h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>1.类必须被public修饰</li>
-<li>2.必须提供空参的构造器</li>
-<li>3.成员变量必须使用private修饰</li>
-<li>4.提供公共的setter和getter方法<h4 id="功能：封装数据"><a href="#功能：封装数据" class="headerlink" title="功能：封装数据"></a>功能：封装数据</h4><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4>点解<a href="http://commons.apache.org/proper/commons-beanutils/download_beanutils.cgi" target="_blank" rel="noopener">链接</a>下载<br><img src="/img/BeanUtils1.png" alt="点这个"></li>
-</ul>
-<p>BeanUtils工具常用工具类有两个：BeanUtils、ConvertUtils。BeanUtils用于封装数据</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>BeanUtils对象</td>
-<td>populate(Object bean, Map&lt;String,String[]&gt;properties)</td>
-<td>将Map数据封装到指定Javabean中，一般用于将表单的所有数据封装到javabean</td>
-</tr>
-<tr>
-<td></td>
-<td>setProperty(Object obj,String name,Object value)</td>
-<td>设置属性值</td>
-</tr>
-<tr>
-<td></td>
-<td>getProperty(Object obj,String name)</td>
-<td>获得属性值</td>
-</tr>
-</tbody></table>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;获取所有请求参数</span><br><span class="line">        Map&lt;String,String[]&gt; map &#x3D; req.getParameterMap ();</span><br><span class="line">        &#x2F;&#x2F;创建User对象</span><br><span class="line">        User loginuser &#x3D; new User();</span><br><span class="line">        &#x2F;&#x2F;使用BeanUtils</span><br><span class="line">        try &#123;</span><br><span class="line">            BeanUtils.populate(loginuser,map);</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (InvocationTargetException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-          
-            <div class='article_footer'>
-              
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-      </blockquote>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-<section class="widget qrcode  desktop mobile">
-  
-
-  <div class='content article-entry'>
-    
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
       
-        <div class='fancybox'><img src='/img/wx.png'
-        
-          height='64px'
-        ></div>
-      
-    
-  </div>
-</section>
-
-  
-
-
-              
-            </div>
-          
-        </div>
-        
-          
-
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-19T15:33:52+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 19, 2020</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
-
-
-        
-      
-        
-          
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
-          
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
-          
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
-          
-          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/04/11/BeanUtils%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/&title=BeanUtils工具类的使用 - 张利源&summary=BeanUtils工具类，简化数据封装"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
-          
-        </a>
-      
-    
-  </div>
-</div>
-
-
-
-        
+        <p>MySQL高级部分，着重MySQL索引优化</p>
       
     </div>
+    
+      
+        <div class="button readmore">
+          <a href="/2021/06/27/MySQL%E9%AB%98%E7%BA%A7/">
+            阅读全文 <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+      
+    
   </section>
+</article>
 
-
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2020/04/15/Jetbrains%E7%B3%BB%E5%88%97%E4%BA%A7%E5%93%812020-1%E6%9C%80%E6%96%B0%E6%BF%80%E6%B4%BB%E6%96%B9%E6%B3%95/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Jetbrains系列产品2020.1最新激活方法</p>
-                <p class='content'>本文假定你知道Jetbrains家的产品。不知道可以问问搜索引擎。
-
-
-大家熟知Jetbrains的话应该知道：他们家的所有产品升级到2018.2.1及以上版本后，先前可用的注册服务器都失效了，...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/04/10/http/'>
-                <p class='title'>http的request对象和response对象<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>http的request对象和response对象
-概念：Hyper Text Transfer Protocol 超文本传输协议特点：
-1.基于TCP/IP的高级协议
-
-2.默认端口号8080...</p>
-              </a>
-            
           </div>
         
-      </section>
-    </article>
+      
+    
+  </section>
   
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
-      
-    </section>
-  </article>
-
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
+    
 
   
 
 
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: 'BeanUtils工具类的使用',
-      tools: true
-    }
-  </script>
-
-
+    
+  
 </div>
 <aside class='l_side'>
   
   
+    
+    
+
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box' href='/about/'>
+          <img no-lazy src='https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">张利源</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="/495726603@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/zhangliyuangit"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=1646384615"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+  
 
   
     
     
 
+  
 
-  <section class="widget toc-wrapper shadow desktop mobile">
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow desktop mobile">
     
   <header>
     
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
     
   </header>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanUtils工具类，简化数据封装"><span class="toc-text">BeanUtils工具类，简化数据封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#用于封装JavaBean的"><span class="toc-text">用于封装JavaBean的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#要求："><span class="toc-text">要求：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#功能：封装数据"><span class="toc-text">功能：封装数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载"><span class="toc-text">下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li></ol>
+      <a href="/tags/Docker/" style="font-size: 14px; color: #999">Docker</a> <a href="/tags/JWT/" style="font-size: 14px; color: #999">JWT</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/JavaWeb/" style="font-size: 22px; color: #636363">JavaWeb</a> <a href="/tags/MyBatis/" style="font-size: 14px; color: #999">MyBatis</a> <a href="/tags/MySQL/" style="font-size: 14px; color: #999">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 14px; color: #999">Mybatis</a> <a href="/tags/RabbitMQ/" style="font-size: 14px; color: #999">RabbitMQ</a> <a href="/tags/SpringBoot/" style="font-size: 18px; color: #7e7e7e">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 14px; color: #999">SpringCloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px; color: #707070">SpringMVC</a> <a href="/tags/Spring%E6%A1%86%E6%9E%B6/" style="font-size: 18px; color: #7e7e7e">Spring框架</a> <a href="/tags/XML/" style="font-size: 14px; color: #999">XML</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/mybatis/" style="font-size: 16px; color: #8b8b8b">mybatis</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 14px; color: #999">数据结构</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 14px; color: #999">爬虫</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 18px; color: #7e7e7e">设计模式</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 18px; color: #7e7e7e">软件</a>
     </div>
   </section>
 
+
+  
 
   
 
@@ -907,60 +773,6 @@
 
 
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
-  
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
-  function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
-  }
-  var emojiMaps = {};
-  for (var i = 1; i <= 54; i++) {
-    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
-  }
-  for (var i = 1; i <= 101; i++) {
-    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
-  }
-  for (var i = 1; i <= 116; i++) {
-    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
-  }
-  for (var i = 1; i <= 125; i++) {
-    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
-  }
-  for (var i = 1; i <= 4; i++) {
-    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
-  }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
-    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
 
 
 

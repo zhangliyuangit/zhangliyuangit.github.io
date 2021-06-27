@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#blog'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>MySQL高级 - 张利源</title>
+  
+    <meta name="keywords" content="MySQL">
+  
+  
+    <meta name="description" content="MySQL高级部分，着重MySQL索引优化">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+    
+      <meta name='theme-color' content='#FFFFFF'>
+    
+      <meta name='msapplication-TileColor' content='#1BC3FB'>
+    
+      <meta name='msapplication-config' content='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/browserconfig.xml'>
+    
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+  
+  <link rel='shortcut icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/favicon.ico'>
+  <link rel='icon' type='image/x-icon' sizes='32x32' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/favicon-32x32.png'>
+  <link rel='apple-touch-icon' type='image/png' sizes='180x180' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/apple-touch-icon.png'>
+  <link rel='mask-icon' color='#1BC3FB' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/safari-pinned-tab.svg'>
+  <link rel='manifest' href='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-favicon@19.9.6/site.webmanifest'>
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            张利源 <b><sup style='color:#3AA757'>blog</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2021/06/27/MySQL%E9%AB%98%E7%BA%A7/">
+      MySQL高级
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://zhangliyuangit.github.io" target="_blank" rel="nofollow noopener">
+    <img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/touxiang.jpg">
+    <p>张利源</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 27, 2021</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>MySQL高级部分，着重MySQL索引优化</p>
+<a id="more"></a>
+
+<h3 id="卸载之前的版本"><a href="#卸载之前的版本" class="headerlink" title="卸载之前的版本"></a>卸载之前的版本</h3><p>查看已安装的MySQL<code>rpm -qa|grep -i mysql</code></p>
+<p>逐个卸载即可<code>yum remove mysql-community-server-5.6.36-2.el7.x86_64</code></p>
+<h3 id="MySQL-Linux版的安装"><a href="#MySQL-Linux版的安装" class="headerlink" title="MySQL Linux版的安装"></a>MySQL Linux版的安装</h3><ol>
+<li><p>下载MySQL安装包<code>wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm</code></p>
+</li>
+<li><p>安装MySQL源<code>yum -y localinstall mysql57-community-release-el7-11.noarch.rpm</code></p>
+</li>
+<li><p>在线安装MySQL<code>yum -y install mysql-community-server</code></p>
+</li>
+<li><p>启动MySQL<code>systemctl start mysqld</code></p>
+</li>
+<li><p>设置开机启动<code>systemctl enable mysqld</code>，<code>systemctl daemon-reload</code></p>
+</li>
+<li><p>查看默认密码<code>vim /var/log/mysqld.log</code></p>
+<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210609174846.png" style="zoom:150%;" />
+</li>
+<li><p>修改密码<code>ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;新密码&#39;;</code></p>
+</li>
+<li><p>设置远程登录<code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;密码&#39; WITH GRANT OPTION;</code></p>
+</li>
+<li><p>停掉防火墙<code>systemctl stop firewalld</code>，放行3306端口最好。</p>
+</li>
+<li><p>配置MySQL的默认编码</p>
+<p>查看MySQL的编码<code>show variables like &#39;%char%&#39;;</code>(我已经修改过了)</p>
+<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210609183830.png" style="zoom:150%;" />
+
+<p>修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加如下配置</span></span><br><span class="line">character_set_server=utf8</span><br><span class="line">init_connect='SET NAMES utf8'</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启MySQL<code>systemctl restart mysqld</code></p>
+</li>
+</ol>
+<h3 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/fghfghjfgh.png" alt=""></p>
+<ul>
+<li><strong>第一层</strong>：所包含的服务并不是MySQL所独有的技术。它们都是服务于C/S程序或者是这些程序所需要的 ：连接处理，身份验证，安全性等等。</li>
+<li><strong>第二层</strong>：这是MySQL的核心部分，通常叫做SQL Layer。在 MySQL数据库系统处理底层数据之前的所有工作都是在这一层完成的，包括权限判断， sql解析，行计划优化， query cache 的处理以及所有内置的函数(如日期,时间,数学运算,加密)等等。</li>
+<li><strong>第三层</strong>：通常叫做StorEngine Layer ，也就是底层数据存取操作实现部分，由多种存储引擎共同组成。它们负责存储和获取所有存储在MySQL中的数据。就像Linux众多的文件系统 一样。<br>每个存储引擎都有自己的优点和缺陷。服务器是通过存储引擎API来与它们交互的。这个接口隐藏了各个存储引擎不同的地方。对于查询层尽可能的透明。这个API包含了很多底层的操作。如开始一个事务，或者取出有特定主键的行。</li>
+</ul>
+<blockquote>
+<p>存储引擎不能解析SQL(innoDB除外，它会解析外键定义，因为MySQL服务本身没有实现该功能)，互相之间也不能通信。仅仅是简单的响应服务器的请求。</p>
+</blockquote>
+<h3 id="MySQL存储引擎"><a href="#MySQL存储引擎" class="headerlink" title="MySQL存储引擎"></a>MySQL存储引擎</h3><p>查看存储引擎<code>show engines;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210609200819.png" alt=""></p>
+<p>查看当前存储引擎<code>show variables like &#39;%storage_engine%&#39;;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210609201125.png" alt=""></p>
+<p><strong>MyISAM和InnoDB对比</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">对比项</th>
+<th>MyISAM</th>
+<th align="left">InnoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">主外键</td>
+<td>不支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">事务</td>
+<td>不支持</td>
+<td align="left">支持</td>
+</tr>
+<tr>
+<td align="left">行表锁</td>
+<td>表锁，即使操作一条记录也会锁住整个表，不适合高并发操作。</td>
+<td align="left">行锁，操作时只锁住某一行，不对其他的行有影响。</td>
+</tr>
+<tr>
+<td align="left">缓存</td>
+<td>只缓存索引，不缓存真实数据</td>
+<td align="left">不仅缓存索引还缓存真实数据，对内存要求高，而且内存大小对性能有决定性的影响</td>
+</tr>
+<tr>
+<td align="left">表空间</td>
+<td>小</td>
+<td align="left">大</td>
+</tr>
+<tr>
+<td align="left">关注点</td>
+<td>性能</td>
+<td align="left">事务</td>
+</tr>
+</tbody></table>
+<h3 id="MySQL执行加载顺序"><a href="#MySQL执行加载顺序" class="headerlink" title="MySQL执行加载顺序"></a>MySQL执行加载顺序</h3><p>sql语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select distinct &lt;select_list&gt;</span><br><span class="line"></span><br><span class="line">from</span><br><span class="line"></span><br><span class="line">left_table &lt;join_type&gt; join right_table</span><br><span class="line"></span><br><span class="line">on &lt;join_condition&gt;</span><br><span class="line"></span><br><span class="line">where &lt;where_condition&gt;</span><br><span class="line"></span><br><span class="line">group by &lt;group_by_list&gt;</span><br><span class="line"></span><br><span class="line">having &lt;having_condition&gt;</span><br><span class="line"></span><br><span class="line">order by &lt;order_by_conddition&gt;</span><br><span class="line"></span><br><span class="line">limit &lt;limit_num&gt;</span><br></pre></td></tr></table></figure>
+
+<p>MySQL服务器处理后的顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from left_table</span><br><span class="line"></span><br><span class="line">on join_condition</span><br><span class="line"></span><br><span class="line">join_type join right_table</span><br><span class="line"></span><br><span class="line">where where_condition</span><br><span class="line"></span><br><span class="line">group by group_by_list</span><br><span class="line"></span><br><span class="line">having having_condition</span><br><span class="line"></span><br><span class="line">select</span><br><span class="line"></span><br><span class="line">distinct select_list</span><br><span class="line"></span><br><span class="line">order by order_by_condition</span><br><span class="line"></span><br><span class="line">limit limit_num</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>先确定要查询的表</li>
+<li>然后where条件过滤数据</li>
+<li>group by进行分组</li>
+<li>having条件过滤每个组中的数据</li>
+<li>确定要查询的字段</li>
+<li>对于查出来的信息进行排序</li>
+<li>限制查询数据的量</li>
+</ul>
+<h3 id="七种JOIN理论"><a href="#七种JOIN理论" class="headerlink" title="七种JOIN理论"></a>七种JOIN理论</h3><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210610114853.png" alt=""></p>
+<blockquote>
+<p>MySQL并不支持<code>full outer join</code>,这里我们可以使用<code>UNION</code>,<code>UNION</code>用于合并两个或多个SELECT语句的结果集。</p>
+<p>UNION 内部的 SELECT 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每条 SELECT 语句中的列的顺序必须相同。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210610154208.png" alt=""></p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><h4 id="索引是什么"><a href="#索引是什么" class="headerlink" title="索引是什么"></a>索引是什么</h4><blockquote>
+<p>索引是帮助MySQL高效获取数据的<strong>数据结构</strong>。</p>
+<p>排序+查找</p>
+</blockquote>
+<p><strong>目的</strong>： 提高查找效率，可以类比字典。</p>
+<h4 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h4><p><strong>优势</strong>：</p>
+<ul>
+<li>提高数据的检索效率，降低数据库的IO成本。</li>
+<li>通过索引列对数据进行排序，降低数据的排序成本，降低了CPU的消耗。</li>
+</ul>
+<p><strong>劣势</strong>：</p>
+<ul>
+<li>实际索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录，所以索引也是占空间的。一般而言，索引表占用空间是数据表的1.5倍。</li>
+<li>虽然索引大大提高了查询速度，同时却降低了更新表的速度。</li>
+</ul>
+<h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><p>![](<a href="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/索引" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/zhangliyuangit/img/索引</a> (1).png)</p>
+<p><strong>基本语法</strong></p>
+<ul>
+<li><p>创建</p>
+<p><code>CREATE [UNIQUE] INDEX indexName ON myTable(columnname(length));</code></p>
+<p><code>ALTER mytable ADD [UNIQUE] INDEX [indexName] ON (columnname(length))</code></p>
+</li>
+<li><p>删除</p>
+<p><code>DROP INDEX [indexName] ON myTable;</code></p>
+</li>
+<li><p>查看</p>
+<p><code>SHOW INDEX FROM tableName;</code></p>
+</li>
+</ul>
+<h4 id="索引结构"><a href="#索引结构" class="headerlink" title="索引结构"></a>索引结构</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210611101939.png" alt=""></p>
+<p>举个例子，在b树中查询数据如下</p>
+<blockquote>
+<p>假如我们查询值等于10的数据。查询路径磁盘块1-&gt;磁盘块2-&gt;磁盘块5。</p>
+<p>第一次磁盘IO：将磁盘块1加载到内存中，在内存中从头遍历比较，10&lt;15，走左路，到磁盘寻址磁盘块2。</p>
+<p>第二次磁盘IO：将磁盘块2加载到内存中，在内存中从头遍历比较，7&lt;10，到磁盘中寻址定位到磁盘块5。</p>
+<p>第三次磁盘IO：将磁盘块5加载到内存中，在内存中从头遍历比较，10=10，找到10，取出data，如果data存储的行记录，取出data，查询结束。如果存储的是磁盘地址，还需要根据磁盘地址到磁盘中取出数据，查询终止。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210611102257.png" alt=""></p>
+</blockquote>
+<p>看到这里一定觉得B树就很理想了，但是前辈们会告诉你依然存在可以优化的地方：</p>
+<blockquote>
+<ol>
+<li><p>B树不支持范围查询的快速查找，你想想这么一个情况如果我们想要查找10和35之间的数据，查找到15之后，需要回到根节点重新遍历查找，需要从根节点进行多次遍历，查询效率有待提高。</p>
+</li>
+<li><p>如果data存储的是行记录，行的大小随着列数的增多，所占空间会变大。这时，一个页中可存储的数据量就会变少，树相应就会变高，磁盘IO次数就会变大。</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>B+树：改造B树</strong></p>
+<p>B+树，作为B树的升级版，在B树基础上，MySQL在B树的基础上继续改造，使用B+树构建索引。B+树和B树最主要的区别在于<strong>非叶子节点是否存储数据</strong>的问题</p>
+<blockquote>
+<ul>
+<li>B树：非叶子节点和叶子节点都会存储数据。</li>
+<li>B+树：只有叶子节点才会存储数据，非叶子节点至存储键值。叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。</li>
+</ul>
+</blockquote>
+<p><strong>B+树结构</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210611103118.png" alt=""></p>
+<blockquote>
+<p>B+树的最底层叶子节点包含了所有的索引项。从图上可以看到，B+树在查找数据的时候，由于数据都存放在最底层的叶子节点上，所以每次查找都需要检索到叶子节点才能查询到数据。所以在需要查询数据的情况下每次的磁盘的IO跟树高有直接的关系，但是从另一方面来说，由于数据都被放到了叶子节点，所以放索引的磁盘块锁存放的索引数量是会跟这增加的，所以相对于B树来说，B+树的树高理论上情况下是比B树要矮的。也存在索引覆盖查询的情况，在索引中数据满足了当前查询语句所需要的全部数据，此时只需要找到索引即可立刻返回，不需要检索到最底层的叶子节点。</p>
+</blockquote>
+<p>举个例子：</p>
+<blockquote>
+<ul>
+<li><strong>等值查询</strong>：<br>假如我们查询值等于9的数据。查询路径磁盘块1-&gt;磁盘块2-&gt;磁盘块6。</li>
+</ul>
+<ol>
+<li><p>第一次磁盘IO：将磁盘块1加载到内存中，在内存中从头遍历比较，9&lt;15，走左路，到磁盘寻址磁盘块2。</p>
+</li>
+<li><p>第二次磁盘IO：将磁盘块2加载到内存中，在内存中从头遍历比较，7&lt;9&lt;12，到磁盘中寻址定位到磁盘块6。</p>
+</li>
+<li><p>第三次磁盘IO：将磁盘块6加载到内存中，在内存中从头遍历比较，在第三个索引中找到9，取出data，如果data存储的行记录，取出data，查询结束。如果存储的是磁盘地址，还需要根据磁盘地址到磁盘中取出数据，查询终止。（这里需要区分的是在InnoDB中Data存储的为行数据，而MyIsam中存储的是磁盘地址。）</p>
+</li>
+</ol>
+<p>过程如图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210611103337.png" alt=""></p>
+<ul>
+<li><p><strong>范围查询：</strong></p>
+<p>假如我们想要查找9和26之间的数据。查找路径是磁盘块1-&gt;磁盘块2-&gt;磁盘块6-&gt;磁盘块7。</p>
+</li>
+</ul>
+<ol>
+<li><p>首先查找值等于9的数据，将值等于9的数据缓存到结果集。这一步和前面等值查询流程一样，发生了三次磁盘IO。</p>
+</li>
+<li><p>查找到15之后，底层的叶子节点是一个有序列表，我们从磁盘块6，键值9开始向后遍历筛选所有符合筛选条件的数据。</p>
+</li>
+<li><p>第四次磁盘IO：根据磁盘6后继指针到磁盘中寻址定位到磁盘块7，将磁盘7加载到内存中，在内存中从头遍历比较，9&lt;25&lt;26，9&lt;26&lt;=26，将data缓存到结果集。</p>
+</li>
+<li><p>主键具备唯一性（后面不会有&lt;=26的数据），不需再向后查找，查询终止。将结果集返回给用户。</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210611105001.png" alt=""></p>
+</blockquote>
+<p><strong>可以看到B+树可以保证等值和范围查询的快速查找，MySQL的索引就采用了B+树的数据结构。</strong></p>
+<h4 id="索引适用情况"><a href="#索引适用情况" class="headerlink" title="索引适用情况"></a>索引适用情况</h4><p>哪些情况下需要创建索引</p>
+<ul>
+<li>主键自动创建唯一索引</li>
+<li>频繁作为查询条件的字段应该创建索引</li>
+<li>查询中与其他表关联的字段，外键关系建立索引</li>
+<li>频繁更新的字段不适合创建字段</li>
+<li>查询中排序的字段，排序字段若通过索引去访问将大大提高访问排序速度 </li>
+<li>查询中统计或分组的字段</li>
+</ul>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h4 id="MySQL-Query-Optimizer"><a href="#MySQL-Query-Optimizer" class="headerlink" title="MySQL Query Optimizer"></a>MySQL Query Optimizer</h4><ul>
+<li>MySQL中专门负责优化SELECT语句的优化器模块，主要功能：通过计算分析系统中收集到的系统信息，为客户端请求的Query提高它认为最优的执行计划。</li>
+<li>当客户端向MySQL请求一条Query，命令解析器模块完成请求分类，区别出是SELECT并转发给MySQL Query Optimizer时，MySQL Query Optimizer首先会对整条Query进行优化，处理掉一些常量表达式的预算等。然后分析Query中的Hint信息，看到显示Hint信息是否可以完全确定该Query的执行计划。如果没有Hint信息或者Hint信息还不足以完全确定执行计划，则会读取所涉及对象的统计信息，根据Query进行写相应的计算分析，然后得出最后的执行计划。</li>
+</ul>
+<h3 id="Explain"><a href="#Explain" class="headerlink" title="Explain"></a>Explain</h3><p><strong>能干嘛？</strong></p>
+<ol>
+<li>表的读取顺序</li>
+<li>数据读取操作的操作类型</li>
+<li>哪些索引可以使用</li>
+<li>哪些索引被实际使用</li>
+<li>表之间的使用</li>
+<li>每张表有多少行被优化器查询</li>
+</ol>
+<p><strong>执行计划包含的信息</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210611154837.png" alt=""></p>
+<h4 id="id"><a href="#id" class="headerlink" title="id"></a>id</h4><p>id列的编号是 select 的序列号，有几个 select 就有几个id，并且id的顺序是按 select 出现的顺序增长的。</p>
+<p>id列越大执行优先级越高，id相同则从上往下执行，id为NULL最后执行</p>
+<h4 id="select-type"><a href="#select-type" class="headerlink" title="select_type"></a>select_type</h4><ol>
+<li>simple：简单查询</li>
+<li>primary：查询中若包含任何复杂的子查询，则最外层被标记为paimary，俗称是鸡蛋壳</li>
+<li>subquery：在select或where列表包含了子查询</li>
+<li>derived：在from列表中包含的子查询被标记为derived（衍生），mysql会递归执行这些子查询，把结果放在临时表里（临时表会增加系统负担，但有时不得不用）</li>
+<li>union：若第二个select出现在union之后，则被标记为union；若union包含在from子句的子查询中，外层select将被标记为：derived</li>
+<li>union result：两种union结果的合并</li>
+</ol>
+<h4 id="type"><a href="#type" class="headerlink" title="type"></a>type</h4><blockquote>
+<p>从最好到最差依次是</p>
+<p><strong><code>system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all(全表扫描)</code></strong></p>
+<p>一般来说，得保证查询至少达到range级别，最好是能达到ref。</p>
+</blockquote>
+<ul>
+<li><strong><em>system</em></strong>：表只要一行记录（等于系统表），这是const类型的特例，平时不会出现，这个也可以忽略不计</li>
+<li><strong><em>const</em></strong>：表示通过索引一次就找到了，const用于比较primary key 或者 unique索引，因为只匹配一行数据，所以很快，如将主键置于where列表中，mysql就能将该查询转换为一个常量。<code>explain select * from tbl_emp where id = 1;</code></li>
+<li><strong><em>eq_ref</em></strong> ：对于每个索引键，表中只有<strong>一条数据</strong>与之匹配。常见于主键索引或者唯一性索引。</li>
+<li><strong><em>ref</em></strong>：非唯一性索引，对于每个索引键的查询，<strong>返回匹配的所有行（可以是0，多个）</strong><code>explain select * from tbl_emp where name = &#39;z3&#39;</code>，name列上有索引。</li>
+<li><strong><em>range</em></strong>：检索指定范围的行，where是一个范围查询<code>explain select * from tbl_emp where id in (1,2,3);</code></li>
+<li><strong><em>index</em></strong>：查询全部索引中的数据。通常比all快<code>explain select id from tbl_emp;</code></li>
+<li><strong><em>all</em></strong>：全表扫描。</li>
+</ul>
+<h4 id="possible-keys-key"><a href="#possible-keys-key" class="headerlink" title="possible_keys\key"></a>possible_keys\key</h4><p><code>possible_keys</code>表示查询可能用到哪些索引。</p>
+<p><code>key</code>表示实际用了哪些索引，</p>
+<blockquote>
+<p>出现<code>possible_keys</code>有列，而<code>key</code>为NULL的情况，这种情况是因为表中的数据不多，MySQL认为索引对此查询帮助不大，选择了全盘扫描。</p>
+<p>如果<code>possible_keys</code>为NULL，则没有相关索引。在这种情况下，可以通过检查where子句看是否可以创建一个适当的索引来提高查询性能。</p>
+</blockquote>
+<h4 id="key-len"><a href="#key-len" class="headerlink" title="key_len"></a>key_len</h4><p>表示索引中使用的字节数，可通过该列计算查询中使用的索引长度，在不损失精确性的情况下，长度越短越好。</p>
+<p>key_len显示的值为索引字段的最大可能长度，并非实际使用长度，即key_len是根据表定义计算而得，不是通过表内检索出的。</p>
+<h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><blockquote>
+<p>这列显示了在key记录的索引中，表查找值所用到的列或常量，常见的有：const(常量)、字段名(例：t1.id)</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210613105420.png" alt=""></p>
+<h4 id="rows"><a href="#rows" class="headerlink" title="rows"></a>rows</h4><p>根据表统计信息以及索引选用情况，大致估算出找到所需的记录所需要读取的行数。</p>
+<h4 id="EXtra"><a href="#EXtra" class="headerlink" title="EXtra"></a>EXtra</h4><blockquote>
+<p>Extra列是用来说明一些额外信息的，我们可以通过这些额外信息来更准确的理解MySQL到底如何执行给定的查询语句。</p>
+</blockquote>
+<ul>
+<li><strong>using index</strong>：查询的列被<strong>索引覆盖</strong>，并且where筛选条件是索引的前导列，是性能高的表现，一般使是使用了覆盖索引（索引包含了所有查询的字段）。对于innodb来说，如果是辅助索引性能会有不少的提高。</li>
+<li><strong>using where</strong>：当我们使用全盘扫描来执行某个表的查询，并且该语句的where子句中有针对该表的搜索条件。</li>
+<li><strong>using filesort</strong>：说明MySQL会对数据适应一个外部的索引排序。而不是按照表内的索引进行读取，MySQL中无法利用索引完成排序操作称为”文件排序”。</li>
+<li><strong>using temporary</strong>：使用了临时表保存中间结果，mysql在查询结果排序时使用临时表。常见于排序order by和分组查询group by。</li>
+<li>using join buffer：使用了连接缓存</li>
+<li>impossible where：where子句的值总是false，不能用来获取任何元组</li>
+<li>select tables optimized away：在没有group by子句的情况下，基于索引优化Min、max操作或者对于MyISAM存储引擎优化count（*），不必等到执行阶段再进行计算，查询执行计划生成的阶段即完成优化。</li>
+<li>distinct：优化distinct操作，在找到第一匹配的元组后即停止找同样值的动作。</li>
+</ul>
+<h3 id="单表优化案例"><a href="#单表优化案例" class="headerlink" title="单表优化案例"></a>单表优化案例</h3><h4 id="模拟数据"><a href="#模拟数据" class="headerlink" title="模拟数据"></a>模拟数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS &#96;article&#96;(</span><br><span class="line">&#96;id&#96; INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">&#96;author_id&#96; INT (10) UNSIGNED NOT NULL,</span><br><span class="line">&#96;category_id&#96; INT(10) UNSIGNED NOT NULL , </span><br><span class="line">&#96;views&#96; INT(10) UNSIGNED NOT NULL , </span><br><span class="line">&#96;comments&#96; INT(10) UNSIGNED NOT NULL,</span><br><span class="line">&#96;title&#96; VARBINARY(255) NOT NULL,</span><br><span class="line">&#96;content&#96; TEXT NOT NULL</span><br><span class="line">);</span><br><span class="line">INSERT INTO &#96;article&#96;(&#96;author_id&#96;,&#96;category_id&#96; ,&#96;views&#96; ,&#96;comments&#96; ,&#96;title&#96; ,&#96;content&#96; )VALUES</span><br><span class="line">(1,1,1,1,&#39;1&#39;,&#39;1&#39;),</span><br><span class="line">(2,2,2,2,&#39;2&#39;,&#39;2&#39;),</span><br><span class="line">(3,3,3,3,&#39;3&#39;,&#39;3&#39;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查询category_id 为1且comments&gt;1的情况下，观看数量最多的文章**</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select id,author_id from article where category_id &#x3D; 1 and comments &gt; 1 order by views desc limit 1 --分析sql</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614151532.png" alt=""></p>
+<ul>
+<li>type：all，全表扫描</li>
+<li>using filesort：文件内部排序</li>
+</ul>
+<h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p>因为查询用到了三个字段，我们在这个三个字段上建复合索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_article_ccv on article(category_id, comments, views);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614151900.png" alt=""></p>
+<p>再次查看执行计划</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614152005.png" alt=""></p>
+<p>查看<code>comments=3</code>的情况</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614154447.png" alt=""></p>
+<blockquote>
+<p><code>type</code>变成了<code>range</code>，这是可以忍受的。但是<code>extra</code>里使用的<code>using filesort</code>仍然无法接受。</p>
+<p><strong>我们已经建立了索引，为什么没用了？</strong></p>
+<p>这是因为按照BTree索引的工作原理。</p>
+<p>先排序category_id</p>
+<p>如果遇到相同的category_id，则再排序comments，如果遇到相同的comments则再排序views，</p>
+<p>当comments字段在联合索引处于中间位置时，</p>
+<p>因comments &gt; 1条件是一个范围值(所谓range)</p>
+<p>MySQL无法利用索引在对后面的view部分进行检索，即range类型的字段后面的索引无效。</p>
+</blockquote>
+<p>重新创建索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_article_cv on article(category_id,views);</span><br></pre></td></tr></table></figure>
+
+<p>查看执行计划</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614154643.png" alt=""></p>
+<p>完美收工。</p>
+<h3 id="双表优化案例"><a href="#双表优化案例" class="headerlink" title="双表优化案例"></a>双表优化案例</h3><h4 id="模拟数据-1"><a href="#模拟数据-1" class="headerlink" title="模拟数据"></a>模拟数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS &#96;class&#96;(</span><br><span class="line">&#96;id&#96; INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">&#96;card&#96; INT (10) UNSIGNED NOT NULL</span><br><span class="line">);</span><br><span class="line">CREATE TABLE IF NOT EXISTS &#96;book&#96;(</span><br><span class="line">&#96;bookid&#96; INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">&#96;card&#96; INT (10) UNSIGNED NOT NULL</span><br><span class="line">);</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO class(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line"> </span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO book(card)VALUES(FLOOR(1+(RAND()*20)));</span><br></pre></td></tr></table></figure>
+
+<p>查看执行计划</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * from class LEFT JOIN book ON class.card &#x3D; book.card</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614161243.png" alt=""></p>
+<h4 id="优化-1"><a href="#优化-1" class="headerlink" title="优化"></a>优化</h4><ol>
+<li><p>由于是左连接，左表是主表，因此第一次尝试在左表上加索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_class_card on class (card);</span><br></pre></td></tr></table></figure>
+
+<p>再次执行计划</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614161556.png" alt=""></p>
+<p><strong>结论：虽然type变为index，但是扫描行数依然是全表扫描。</strong></p>
+</li>
+<li><p>删除左表索引，对右表创建索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop index idx_class_card on class; -- 删除索引</span><br><span class="line">create index idx_book_card on book (card); -- 创建索引</span><br></pre></td></tr></table></figure>
+
+<p>再次执行计划</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614161943.png" alt=""></p>
+<p><strong>结果：type变为ref，rows只扫描了一行。</strong></p>
+</li>
+</ol>
+<p><strong>结论：这是由于<code>LEFT JOIN</code>的特性决定的，由于左表数据全有，所以关键在于如果从右表进行搜索，所以右表一定要添加索引。</strong></p>
+<h3 id="三表优化案例"><a href="#三表优化案例" class="headerlink" title="三表优化案例"></a>三表优化案例</h3><p>在双表的基础上创建一张phone表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE IF NOT EXISTS &#96;phone&#96;(</span><br><span class="line">&#96;phoneid&#96; INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">&#96;card&#96; INT (10) UNSIGNED NOT NULL</span><br><span class="line">)ENGINE &#x3D; INNODB;</span><br><span class="line"></span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br><span class="line">INSERT INTO phone(card)VALUES(FLOOR(1+(RAND()*20)));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>三表均没有建立索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT * from class LEFT JOIN book ON class.card &#x3D; book.card LEFT JOIN phone ON book.card &#x3D; phone.card</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614174148.png" alt=""></p>
+<p><strong>结论： 全表扫描，且使用了连接缓存</strong></p>
+<p>在phone和book表新增索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX idx_phone_card ON phone(card)</span><br><span class="line">CREATE INDEX idx_book_card ON book (card)</span><br><span class="line">EXPLAIN SELECT * from class LEFT JOIN book ON class.card &#x3D; book.card LEFT JOIN phone ON book.card &#x3D; phone.card</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210614174332.png" alt=""></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>语句优化应尽可能减少join语句中NestedLoop的循环总次数，即“<strong><code>永远用小结果集驱动大结果集</code></strong>”。</li>
+<li>优先优化NestedLoop的内层循环。</li>
+<li>尽量保证join语句中被驱动表的条件字段添加了索引（即LEFT JOIN在右表上添加，反之亦然）。</li>
+<li>当无法保证被驱动表的条件字段添加索引时，且内存资源充足的前提下，不妨调整join buffer以达到性能优化的目的。</li>
+</ul>
+<h3 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h3><h4 id="索引失效"><a href="#索引失效" class="headerlink" title="索引失效"></a>索引失效</h4><h5 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h5><p>建表，并且在<code>name，age，pos</code>列上建立复合索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE staffs(</span><br><span class="line">id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">&#96;name&#96; VARCHAR(24)NOT NULL DEFAULT&#39;&#39; COMMENT&#39;姓名&#39;,</span><br><span class="line">&#96;age&#96; INT NOT NULL DEFAULT 0 COMMENT&#39;年龄&#39;,</span><br><span class="line">&#96;pos&#96; VARCHAR(20) NOT NULL DEFAULT&#39;&#39; COMMENT&#39;职位&#39;,</span><br><span class="line">&#96;add_time&#96; TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT&#39;入职时间&#39;</span><br><span class="line">)CHARSET utf8 COMMENT&#39;员工记录表&#39;;</span><br><span class="line">INSERT INTO staffs(&#96;name&#96;,&#96;age&#96;,&#96;pos&#96;,&#96;add_time&#96;) VALUES(&#39;z3&#39;,22,&#39;manager&#39;,NOW());</span><br><span class="line">INSERT INTO staffs(&#96;name&#96;,&#96;age&#96;,&#96;pos&#96;,&#96;add_time&#96;) VALUES(&#39;July&#39;,23,&#39;dev&#39;,NOW());</span><br><span class="line">INSERT INTO staffs(&#96;name&#96;,&#96;age&#96;,&#96;pos&#96;,&#96;add_time&#96;) VALUES(&#39;2000&#39;,23,&#39;dev&#39;,NOW());</span><br><span class="line"></span><br><span class="line">ALTER TABLE staffs ADD INDEX index_staffs_nameAgePos(&#96;name&#96;,&#96;age&#96;,&#96;pos&#96;)</span><br></pre></td></tr></table></figure>
+
+<p>每次多带一个条件进行查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39;;</span><br><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39; and age &#x3D; 25;</span><br><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39; and age &#x3D; 25 and pos &#x3D; &#39;dev&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>查询结果如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210615160543.png" alt=""></p>
+<blockquote>
+<p>可以发现三次查询都用了索引，并且索引的长度在不断增长。</p>
+</blockquote>
+<p>继续使用三列，但是将三列的位置调换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where age &#x3D; 25 and name &#x3D; &#39;z3&#39; and pos &#x3D; &#39;dev&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210615161120.png" alt=""></p>
+<blockquote>
+<p>可以发现，即使我们调换位置，仍然用到了索引，证明全值匹配时MySQL会自动帮我们优化。</p>
+</blockquote>
+<p>我们使用name和pos列查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39; and pos &#x3D; &#39;dev&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210615161343.png" alt=""></p>
+<blockquote>
+<p>虽然用到了索引，但是len为74，证明只有name的检索用到了索引。</p>
+</blockquote>
+<h5 id="索引列上计算、函数、-手动or自动-类型转换"><a href="#索引列上计算、函数、-手动or自动-类型转换" class="headerlink" title="索引列上计算、函数、(手动or自动)类型转换"></a>索引列上计算、函数、(手动or自动)类型转换</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where left(name,3) &#x3D; &#39;z3&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210615162143.png" alt=""></p>
+<p>发现没有用到索引。</p>
+<p>自动类型转换</p>
+<p>执行如下两条SQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name &#x3D; &#39;2000&#39;;</span><br><span class="line">explain select * from staffs where name &#x3D; 2000;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210616190145.png" alt=""></p>
+<blockquote>
+<p>MySQL会自动的帮我们进行类型的转换，但是索引失效。</p>
+</blockquote>
+<h5 id="范围条件后边的列失效"><a href="#范围条件后边的列失效" class="headerlink" title="范围条件后边的列失效"></a>范围条件后边的列失效</h5><p>我们将三个字段中的<code>age</code>字段变成范围</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39; and age &gt; 23 and pos &#x3D; &#39;dev&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210616172135.png" alt=""></p>
+<p>对比发现后面的范围查找变成了<code>range</code>，并且<code>key_len</code>变成了78，表示后面的<code>pos</code>字段没有用到索引。</p>
+<h5 id="使用不等于-或-lt-gt"><a href="#使用不等于-或-lt-gt" class="headerlink" title="使用不等于(!=或&lt;&gt;)"></a>使用不等于(!=或&lt;&gt;)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name &lt;&gt; &#39;z3&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210616174509.png" alt=""></p>
+<p>可以发现进行了全盘扫描，实际没有用到索引。</p>
+<h5 id="like通配符开头"><a href="#like通配符开头" class="headerlink" title="like通配符开头"></a>like通配符开头</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name like &#39;%z3%&#39;;</span><br><span class="line">explain select * from staffs where name like &#39;z3%&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210616182842.png" alt=""></p>
+<p>可以发现以<code>%</code>开头的like查询并没有用到索引。</p>
+<blockquote>
+<p>如果我们非要使用<code>%</code>开头的like查询，我们可以使用覆盖索引。</p>
+</blockquote>
+<h5 id="or"><a href="#or" class="headerlink" title="or"></a>or</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39; or name &#x3D; &#39;z5&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210616190624.png" alt=""></p>
+<h4 id="尽量使用覆盖索引"><a href="#尽量使用覆盖索引" class="headerlink" title="尽量使用覆盖索引"></a>尽量使用覆盖索引</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">explain select name,age,pos from staffs where name &#x3D; &#39;z3&#39; and age &#x3D; 23 and pos &#x3D; &#39;dev&#39;;</span><br><span class="line">explain select * from staffs where name &#x3D; &#39;z3&#39; and age &#x3D; 23 and pos &#x3D; &#39;dev&#39;;os &#x3D; &#39;dev&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210616173149.png" alt=""></p>
+<blockquote>
+<p>尽量使用覆盖索引(只访问索引的查询(索引列和查询列一致))，减少<code>select *</code>。</p>
+</blockquote>
+<h4 id="总结口诀"><a href="#总结口诀" class="headerlink" title="总结口诀"></a>总结口诀</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">全值匹配我最爱，最左前缀要遵守。</span><br><span class="line">带头大哥不能死，中间兄弟不能断。</span><br><span class="line">索引列上少计算，范围之后全失效。</span><br><span class="line">like百分写最右，覆盖索引不写星。</span><br><span class="line">不等空值还有or，索引失效要少用。</span><br><span class="line">VARCHAR引号不可丢，SQL高级也不难。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="查询截取分析"><a href="#查询截取分析" class="headerlink" title="查询截取分析"></a>查询截取分析</h3><h4 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h4><h4 id="小表驱动大表"><a href="#小表驱动大表" class="headerlink" title="小表驱动大表"></a>小表驱动大表</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/asdbgfhfgt.png" alt=""></p>
+<p><strong>EXISTS</strong></p>
+<ul>
+<li><code>SELECT ... FROM table WHERE EXISTS (subquery)</code></li>
+<li>该语法可以理解为，将主查询的数据，放到子查询中做条件验证，根据验证结果(<strong>TRUE</strong>或<strong>FALSE</strong>)来决定查询结果是否得以保留。</li>
+</ul>
+<p><strong>提示</strong></p>
+<blockquote>
+<ul>
+<li>EXISTS(subquery)只返回<code>true</code>或者<code>false</code>，因此子查询中的<code>select *</code>也可以是<code>select 1</code>或<code>select &#39;x&#39;</code>，官方说法是实际执行时会忽略SELECT清单，因此没有区别。</li>
+<li>EXISTS子查询的实际执行过程可能经过了优化而不是我们理解上的逐条对比，如果担心效率问题，可进行实际检验以确定是否有效率问题。</li>
+<li>EXISTS子查询往往也可以用条件表达式/其他子查询或者JOIN来替代，何种最优需要具体问题具体分析。</li>
+</ul>
+</blockquote>
+<h3 id="ORDER-BY-优化"><a href="#ORDER-BY-优化" class="headerlink" title="ORDER BY 优化"></a>ORDER BY 优化</h3><ul>
+<li>ORDER BY子句，尽量使用<code>index</code>方法排序，避免使用<code>filesort</code>方法排序。</li>
+</ul>
+<p>创建<code>tblA</code>表，在<code>age</code>和<code>birth</code>字段上建立复合索引。</p>
+<p>使用<code>order by</code>进行查询</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> tblA <span class="keyword">where</span> age &gt; <span class="number">20</span> <span class="keyword">order</span> <span class="keyword">by</span> age;</span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> tblA <span class="keyword">where</span> age &gt; <span class="number">20</span> <span class="keyword">order</span> <span class="keyword">by</span> birth;</span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> tblA <span class="keyword">where</span> age &gt; <span class="number">20</span> <span class="keyword">order</span> <span class="keyword">by</span> age,birth;</span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> tblA <span class="keyword">where</span> age &gt; <span class="number">20</span> <span class="keyword">order</span> <span class="keyword">by</span> birth,age;</span><br><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> tblA <span class="keyword">where</span> age = <span class="number">20</span> <span class="keyword">order</span> <span class="keyword">by</span> birth;</span><br></pre></td></tr></table></figure>
+
+<p>查询结果如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210618180644.png" alt=""></p>
+<blockquote>
+<p>可以发现，<code>order by</code> 同样支持最左前缀原则，同时带头大哥为常量时，后面排序同样可以使用索引</p>
+</blockquote>
+<p><strong>文件排序（FileSort）分为两种：</strong></p>
+<ul>
+<li>双路排序(又叫回表排序模式)：先根据相应的条件取出相应的排序字段和可以直接定位行 数据的行 ID，然后在 sort buffer 中进行排序，排序完后需要再次取回其它需要的字段；</li>
+<li>单路排序：是一次性取出满足条件行的所有字段，然后在sort buffer中进行排序；</li>
+</ul>
+<p>举个例子，下面有一段sql：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">"自由的辣条"</span> <span class="keyword">order</span> <span class="keyword">by</span> age;</span><br></pre></td></tr></table></figure>
+
+<p><strong>双路排序过程:</strong><br>MySQL 4.1 之前使用的双路排序，通过两次扫描磁盘得到数据。读取主键id 和 order by 列并对其进行排序，扫描排序好的列表，按照列表中的值重新从列表中读取对应的数据输出。</p>
+<ol>
+<li>从索引 name 找到第一个满足 name = ‘自由的辣条’ 的主键id</li>
+<li>根据主键 id 取出整行，把排序字段 age 和主键 id 这两个字段放到 sort buffer(排序缓存) 中</li>
+<li>从索引 name 取下一个满足 name = ‘自由的辣条’ 记录的主键 id</li>
+<li>重复 3、4 直到不满足 name = ‘自由的辣条’</li>
+<li>对 sort_buffer 中的字段 age 和主键 id 按照字段 age进行排序</li>
+<li>遍历排序好的 id 和字段 age ，按照 id 的值回到原表中取出 所有字段的值返回给客户端</li>
+</ol>
+<p><strong>单路排序过程：</strong></p>
+<ol>
+<li>从索引name找到第一个满足 name = ‘自由的辣条’ 条件的主键 id</li>
+<li>根据主键 id 取出整行，取出所有字段的值，存入 sort_buffer(排序缓存)中</li>
+<li>从索引name找到下一个满足 name = ‘自由的辣条’ 条件的主键 id</li>
+<li>重复步骤 2、3 直到不满足 name = ‘自由的辣条’</li>
+<li>对 sort_buffer 中的数据按照字段 age 进行排序</li>
+<li>返回结果给客户端</li>
+</ol>
+<p>从磁盘中读取查询需要的所有列，按照 order by 列在 sort_buffer(排序缓存) 缓冲区对他们进行排序，然后扫描排序后的列表输出。因为单路排序效率更快，避免了二次读取数据，把随机IO变成了顺序IO，但是会使用更多的空间。</p>
+<p><strong>对比：</strong></p>
+<blockquote>
+<p>其实对比两个排序模式，单路排序会把所有需要查询的字段都放到 sort buffer 中，而双路排序只会把主键 和需要排序的字段放到 sort buffer 中进行排序，然后再通过主键回到原表查询需要的字段。</p>
+</blockquote>
+<p><strong>选型：</strong></p>
+<p>至于mysql优化器使用双路排序还是单路排序是有自己的算法判断的，如果查询的列字段大于max_length_for_sort_data变量，则会使用双路排序，反之则会使用单路排序，<code>单路排序速度是更快的，不过比较占据内存</code>，如果在内存空间允许的情况下想要使用单路排序的话，可以增加max_length_for_sort_data变量的大小，<code>max_length_for_sort_data</code>变量默认为<code>1024字节</code>。</p>
+<blockquote>
+<p>max_length_for_sort_data指某个表的所有列长度总和</p>
+</blockquote>
+<p><strong>注意：</strong><br>如果全部使用sort_buffer内存排序一般情况下效率会高于磁盘文件排序，但不能因为这个就随便增 大sort_buffer(默认1M)，mysql很多参数设置都是做过优化的，不要轻易调整。</p>
+<p><strong>order by关键字优化：</strong></p>
+<ol>
+<li>ORDER BY子句，尽量使用Index方式排序，避免使用FileSort方式排序。</li>
+<li>MySQL支持二种方式的排序，FileSort和Index，Index效率较高，FileSort方式效率较低。</li>
+<li>尽可能在索引列上完成排序操作，遵照索引建的最佳左前缀</li>
+</ol>
+<h3 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h3><blockquote>
+<ul>
+<li>MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阈值的语句，具体指运行时间超过<code>long_query_time</code>值的SQL，则会被记录到慢查询日志中。</li>
+<li>long_query_time的默认值是10，意思是运行10秒以上的语句。</li>
+<li>默认情况下，MySQL数据库没有开启慢查询日志，需要我们手动来设置这个参数。</li>
+<li>当然，如果不是调优需要的话，一般不建议启动该参数，因为开启慢查询日志会或多或少带来一定的性能影响。慢查询日志支持将日志记录写入文件。</li>
+</ul>
+</blockquote>
+<p>查看是否开启慢查询日志以及文件存放的位置。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> SHOW VARIABLES LIKE <span class="string">'%slow_query_log%'</span>;</span></span><br><span class="line">+---------------------+-----------------------------+</span><br><span class="line">| Variable_name       | Value                       |</span><br><span class="line">+---------------------+-----------------------------+</span><br><span class="line">| slow_query_log      | OFF                          |</span><br><span class="line">| slow_query_log_file | /var/lib/mysql/192-slow.log |</span><br><span class="line">+---------------------+-----------------------------+</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<p>开启慢查询日志</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> global slow_query_log = 1;</span></span><br></pre></td></tr></table></figure>
+
+<p>查看当前阈值（默认10s）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show VARIABLES like <span class="string">'long_query_time%'</span>;</span></span><br><span class="line">+-----------------+----------+</span><br><span class="line">| Variable_name   | Value    |</span><br><span class="line">+-----------------+----------+</span><br><span class="line">| long_query_time | 10.000000 |</span><br><span class="line">+-----------------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>将阈值修改为3s</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> global long_query_time=3;</span></span><br></pre></td></tr></table></figure>
+
+<p>查看当前系统有多慢sql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show global status like <span class="string">'%slow_queries%'</span>;</span></span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Slow_queries  | 1     |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>去对应文件查看是那条sql慢</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mysql]# cat 192-slow.log </span><br><span class="line">/usr/sbin/mysqld, Version: 5.7.34 (MySQL Community Server (GPL)). started with:</span><br><span class="line">Tcp port: 3306  Unix socket: /var/lib/mysql/mysql.sock</span><br><span class="line">Time                 Id Command    Argument</span><br><span class="line"><span class="meta">#</span><span class="bash"> Time: 2021-06-19T06:10:16.412412Z</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> User@Host: root[root] @ localhost []  Id:    17</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Query_time: 4.010066  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0</span></span><br><span class="line">SET timestamp=1624083016;</span><br><span class="line">select sleep(4)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>日志分析工具mysqldumpslow</strong></p>
+<blockquote>
+<p>在生产环境中，如果要手工分析日志，查找、分析SQL，显然是个体力活，MySQL提供了日志分析工具<code>mysqldumpslow</code>。</p>
+</blockquote>
+<p>查看mysqldumpslow的帮助信息， <code>mysqldumpslow --help</code></p>
+<ul>
+<li>s：是表示按照何种方式排序</li>
+<li>c：访问次数</li>
+<li>I：锁定时间</li>
+<li>r：返回记录</li>
+<li>t：查询时间</li>
+<li>al：平均锁定时间</li>
+<li>ar：平均返回记录数</li>
+<li>at：平均查询时间</li>
+<li>t：即为返回前面多少条的数据</li>
+<li>g：后边搭配一个正则匹配模式，大小写不敏感</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210619143058.png" alt=""></p>
+<h3 id="批量插入数据脚本"><a href="#批量插入数据脚本" class="headerlink" title="批量插入数据脚本"></a>批量插入数据脚本</h3><ol>
+<li><p>创建SQL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> bigData;</span><br><span class="line"><span class="keyword">use</span> bigData;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	deptno MEDIUMINT <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">	dname <span class="built_in">VARCHAR</span>(<span class="number">20</span>)<span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">""</span>,</span><br><span class="line">	loc <span class="built_in">VARCHAR</span>(<span class="number">13</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">""</span></span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> emp(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    empno mediumint <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">    ename <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">""</span>,</span><br><span class="line">    job <span class="built_in">varchar</span>(<span class="number">9</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">""</span>,</span><br><span class="line">    mgr mediumint <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">    hiredate <span class="built_in">date</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    sal <span class="built_in">decimal</span>(<span class="number">7</span>,<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    comm <span class="built_in">decimal</span>(<span class="number">7</span>,<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    deptno mediumint <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span></span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置参数<code>log_bin_trust_function_creators</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'log_bin_trust_function_creators'</span>;</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> log_bin_trust_function_creators=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建函数，生成随机字符串</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$ <span class="comment"># 两个 $$ 表示结束</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> rand_string(n <span class="built_in">int</span>) <span class="keyword">returns</span> <span class="built_in">varchar</span>(<span class="number">255</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> chars_str <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">default</span> <span class="string">'abcdefghijklmnopqrstuvwxyz'</span>;</span><br><span class="line">    <span class="keyword">declare</span> return_str <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="keyword">default</span> <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">    while i &lt; n do</span><br><span class="line">        <span class="keyword">set</span> return_str = <span class="keyword">concat</span>(return_str,<span class="keyword">substring</span>(chars_str,<span class="keyword">floor</span>(<span class="number">1</span>+<span class="keyword">rand</span>()*<span class="number">52</span>),<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">set</span> i=i+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">while</span>;</span><br><span class="line">    return return_str;</span><br><span class="line"><span class="keyword">end</span> $$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>随机生成部门编号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> rand_num() <span class="keyword">returns</span> <span class="built_in">int</span>(<span class="number">5</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">set</span> i=<span class="keyword">floor</span>(<span class="number">100</span>+<span class="keyword">rand</span>()*<span class="number">10</span>);</span><br><span class="line">    return i;</span><br><span class="line"><span class="keyword">end</span> $$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建存储过程</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> insert_emp(<span class="keyword">in</span> <span class="keyword">start</span> <span class="built_in">int</span>(<span class="number">10</span>),<span class="keyword">in</span> max_num <span class="built_in">int</span>(<span class="number">10</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">set</span> autocommit = <span class="number">0</span>;</span><br><span class="line">    repeat</span><br><span class="line">        <span class="keyword">set</span> i = i+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) <span class="keyword">values</span>((<span class="keyword">start</span>+i),rand_string(<span class="number">6</span>),<span class="string">'salesman'</span>,<span class="number">0001</span>,<span class="keyword">curdate</span>(),<span class="number">2000</span>,<span class="number">400</span>,rand_num());</span><br><span class="line">        until i=max_num</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">repeat</span>;</span><br><span class="line">    <span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">end</span> $$</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">delimiter $$</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> insert_dept(<span class="keyword">in</span> <span class="keyword">start</span> <span class="built_in">int</span>(<span class="number">10</span>),<span class="keyword">in</span> max_num <span class="built_in">int</span>(<span class="number">10</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> i <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">set</span> autocommit = <span class="number">0</span>;</span><br><span class="line">    repeat</span><br><span class="line">        <span class="keyword">set</span> i = i+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>((<span class="keyword">start</span>+i),rand_string(<span class="number">10</span>),rand_string(<span class="number">8</span>));</span><br><span class="line">        until i=max_num</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">repeat</span>;</span><br><span class="line">    <span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">end</span> $$</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> DELIMITER ;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> CALL insert_dept(100, 10);</span></span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="用show-prefile进行sql分析"><a href="#用show-prefile进行sql分析" class="headerlink" title="用show prefile进行sql分析"></a>用show prefile进行sql分析</h3><blockquote>
+<p>Show Profile是mysql提供可以用来分析当前会话中语句执行的资源消耗情况。可以用于SQL的调优的测量。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 查看是否开启</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'profiling'</span>;</span><br><span class="line">- 开启</span><br><span class="line"><span class="keyword">set</span> profiling = <span class="keyword">on</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查看结果，<code>show profiles;</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show profiles;</span></span><br><span class="line">+----------+------------+----------------------------------------------------------------+</span><br><span class="line">| Query_ID | Duration   | Query                                                          |</span><br><span class="line">+----------+------------+----------------------------------------------------------------+</span><br><span class="line">|        1 | 0.00127000 | show variables like 'profiling'                                |</span><br><span class="line">|        2 | 0.00024250 | SELECT DATABASE()                                              |</span><br><span class="line">|        3 | 0.00024875 | show databases                                                 |</span><br><span class="line">|        4 | 0.00018525 | show tables                                                    |</span><br><span class="line">|        5 | 0.00024750 | show tables                                                    |</span><br><span class="line">|        6 | 0.00168025 | show variables like 'profiling'                                |</span><br><span class="line">|        7 | 0.00438350 | select * from tbl_emp te join tbl_dept td on te.deptId = td.id |</span><br><span class="line">|        8 | 0.00046700 | select * from tbl_emp te join tbl_dept td on te.deptId = td.id |</span><br><span class="line">|        9 | 0.00043650 | select * from tbl_emp te join tbl_dept td on te.deptId = td.id |</span><br><span class="line">|       10 | 0.00027800 | select * from tbl_emp te join tbl_dept td on te.deptId = td.id |</span><br><span class="line">|       11 | 0.00012400 | SELECT DATABASE()                                              |</span><br><span class="line">|       12 | 0.00022425 | show databases                                                 |</span><br><span class="line">|       13 | 0.00012100 | show tables                                                    |</span><br><span class="line">|       14 | 0.48516150 | select * from emp group by id % 10 limit 150000                |</span><br><span class="line">|       15 | 0.49136075 | select * from emp group by id % 20 order by 5                  |</span><br><span class="line">+----------+------------+----------------------------------------------------------------+</span><br><span class="line">15 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>诊断SQL</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show profile cpu,block io for query 15;</span><br><span class="line">+<span class="comment">----------------------+----------+----------+------------+--------------+---------------+</span></span><br><span class="line">| Status               | Duration | CPU_user | CPU_system | Block_ops_in | Block_ops_out |</span><br><span class="line">+<span class="comment">----------------------+----------+----------+------------+--------------+---------------+</span></span><br><span class="line">| starting             | 0.000065 | 0.000059 |   0.000000 |            0 |             0 |</span><br><span class="line">| checking permissions | 0.000008 | 0.000007 |   0.000000 |            0 |             0 |</span><br><span class="line">| Opening tables       | 0.000013 | 0.000013 |   0.000000 |            0 |             0 |</span><br><span class="line">| init                 | 0.000027 | 0.000028 |   0.000000 |            0 |             0 |</span><br><span class="line">| System <span class="keyword">lock</span>          | <span class="number">0.000009</span> | <span class="number">0.000008</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| optimizing           | <span class="number">0.000005</span> | <span class="number">0.000004</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| <span class="keyword">statistics</span>           | <span class="number">0.000017</span> | <span class="number">0.000017</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| preparing            | <span class="number">0.000012</span> | <span class="number">0.000012</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| Creating tmp <span class="keyword">table</span>   | <span class="number">0.000034</span> | <span class="number">0.000035</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| Sorting <span class="keyword">result</span>       | <span class="number">0.000005</span> | <span class="number">0.000004</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| executing            | <span class="number">0.000002</span> | <span class="number">0.000002</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| Sending <span class="keyword">data</span>         | <span class="number">0.491050</span> | <span class="number">0.490653</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| Creating <span class="keyword">sort</span> <span class="keyword">index</span>  | <span class="number">0.000052</span> | <span class="number">0.000045</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| <span class="keyword">end</span>                  | <span class="number">0.000005</span> | <span class="number">0.000004</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| <span class="keyword">query</span> <span class="keyword">end</span>            | <span class="number">0.000008</span> | <span class="number">0.000008</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| removing tmp <span class="keyword">table</span>   | <span class="number">0.000005</span> | <span class="number">0.000006</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| <span class="keyword">query</span> <span class="keyword">end</span>            | <span class="number">0.000004</span> | <span class="number">0.000003</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| closing <span class="keyword">tables</span>       | <span class="number">0.000006</span> | <span class="number">0.000006</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| freeing items        | <span class="number">0.000024</span> | <span class="number">0.000023</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">| cleaning up          | <span class="number">0.000012</span> | <span class="number">0.000013</span> |   <span class="number">0.000000</span> |            <span class="number">0</span> |             <span class="number">0</span> |</span><br><span class="line">+<span class="comment">----------------------+----------+----------+------------+--------------+---------------+</span></span><br><span class="line"><span class="number">20</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">1</span> <span class="keyword">warning</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>参数备注</strong></p>
+<ul>
+<li>ALL：显示所有的开销信息。</li>
+<li>BLOCK IO：显示块lO相关开销。</li>
+<li>CONTEXT SWITCHES ：上下文切换相关开销。</li>
+<li>CPU：显示CPU相关开销信息。</li>
+<li>IPC：显示发送和接收相关开销信息。</li>
+<li>MEMORY：显示内存相关开销信息。</li>
+<li>PAGE FAULTS：显示页面错误相关开销信息。</li>
+<li>SOURCE：显示和Source_function，Source_file，Source_line相关的开销信息。</li>
+<li>SWAPS：显示交换次数相关开销的信息。</li>
+</ul>
+<p><strong>日常开发需要注意的结论</strong></p>
+<ul>
+<li>converting HEAP to MyISAM 查询结果太大，内存都不够用了往磁盘上搬了。</li>
+<li>Creating tmp table 创建临时表，拷贝数据到临时表，用完再删除</li>
+<li>Copying to tmp table on disk 把内存中临时表复制到磁盘，危险!</li>
+<li>locked</li>
+</ul>
+<h3 id="MySQL锁机制"><a href="#MySQL锁机制" class="headerlink" title="MySQL锁机制"></a>MySQL锁机制</h3><h4 id="数据库锁理论概述"><a href="#数据库锁理论概述" class="headerlink" title="数据库锁理论概述"></a>数据库锁理论概述</h4><blockquote>
+<p>在数据库中，除传统的计算资源（如CPU、RAM、I/O等）的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
+</blockquote>
+<p><strong>锁的分类</strong></p>
+<p>从对数据操作的类型（读\写）分</p>
+<ul>
+<li>读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而互不影响。</li>
+<li>写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。</li>
+</ul>
+<p>从对数据操作的粒度分</p>
+<ul>
+<li>表锁</li>
+<li>行锁</li>
+</ul>
+<h4 id="MyISAM读写锁"><a href="#MyISAM读写锁" class="headerlink" title="MyISAM读写锁"></a>MyISAM读写锁</h4><p>表锁（偏读）</p>
+<p>特点：偏向MyISAM存储引擎，开销小，加锁快；无死锁；锁定颗粒度大，发生锁冲突的概览高，并发度最低。</p>
+<p>建表SQL（使用MyISAM引擎）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> mylock (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">default</span> <span class="string">''</span></span><br><span class="line">) <span class="keyword">engine</span> myisam;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mylock(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'a'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mylock(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'b'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mylock(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'c'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mylock(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'d'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> mylock(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'e'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> mylock;</span><br></pre></td></tr></table></figure>
+
+<p>手动添加表锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lock</span> <span class="keyword">table</span> 表名字 <span class="keyword">read</span>(write), 表名字<span class="number">2</span> <span class="keyword">read</span>(write), 其他;</span><br><span class="line">- 给mylock表加读锁</span><br><span class="line"><span class="keyword">lock</span> <span class="keyword">table</span> mylock <span class="keyword">read</span>;</span><br></pre></td></tr></table></figure>
+
+<p>查看表上加过的锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">open</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625103011.png" alt=""></p>
+<p><code>in_use</code>是1表示已经上锁。</p>
+<p>释放锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unlock</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>加读锁——为mylock表加read锁（读阻塞写例子）</strong></p>
+<table>
+<thead>
+<tr>
+<th>会话1</th>
+<th>会话2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>获得<code>mylocak</code>的读锁<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625103403.png" alt=""></td>
+<td>连接终端</td>
+</tr>
+<tr>
+<td>当前会话可以查询表记录<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625103542.png" alt=""></td>
+<td>其他会话也可以查询该表的记录<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625103542.png" alt=""></td>
+</tr>
+<tr>
+<td>当前会话不能查询其他没有锁定的表<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625103933.png" alt=""></td>
+<td>其他会话可以查询或更新未锁定的表<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625104053.png" alt=""></td>
+</tr>
+<tr>
+<td>当前会话中插入或者更新锁定的表都会提示错误<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625104316.png" alt=""></td>
+<td>其他会话插入或更新锁定表会一直等待获得锁<img src="C:%5CUsers%5C49572%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210625104439348.png" alt="image-20210625104439348"></td>
+</tr>
+<tr>
+<td>释放锁<img src="C:%5CUsers%5C49572%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210625104559873.png" alt="image-20210625104559873"></td>
+<td>会话2获得锁，更新操作完成<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625104636.png" alt=""></td>
+</tr>
+</tbody></table>
+<p><strong>加写锁——为mylock表加write锁（写阻塞读例子）</strong></p>
+<table>
+<thead>
+<tr>
+<th>会话1</th>
+<th>会话2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>获得<code>mylock</code>的写锁定<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625105015.png" alt=""></td>
+<td>等待会话1开启写锁后，会话2再连接终端</td>
+</tr>
+<tr>
+<td>当前会话对锁定表的查询、更新、插入操作都可以执行<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625105302.png" alt=""></td>
+<td>其他会话的对锁定表的查询被阻塞，需要等待锁被释放<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625105449.png" alt=""></td>
+</tr>
+<tr>
+<td>释放锁<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625105626.png" alt=""></td>
+<td>会话2获得锁，查询返回<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625105715.png" alt=""></td>
+</tr>
+</tbody></table>
+<p><strong>案例结论</strong></p>
+<p>MyISAM在执行查询语句(<code>SELECT</code>)前，会自动给涉及到的所有表加读锁，在执行增删改操作前，会自动给涉及到的表加写锁。</p>
+<p>MySQL的表级锁有两种模式：</p>
+<ol>
+<li>表共享读锁(Table Read Lock)</li>
+<li>表独占写锁(Table Write Lock)</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>锁类型</th>
+<th>可否兼容</th>
+<th>读锁</th>
+<th>写锁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读锁</td>
+<td>是</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>写锁</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<p>结合上表，所以对MyISAM表进行操作，会有以下情况：</p>
+<ol>
+<li><p>对MyISAM表的读操作（加读锁），不会阻塞其他进程对同一表的读请求，但会阻塞对同一表的写请求。只有当读锁释放后，才会执行其它进程的写操作。</p>
+</li>
+<li><p>对MyISAM表的写操作〈加写锁），会阻塞其他进程对同一表的读和写操作，只有当写锁释放后，才会执行其它进程的读写操作。</p>
+</li>
+</ol>
+<p>简而言之，就是读锁会阻塞写，但是不会堵塞读。而写锁则会把读和写都堵塞。</p>
+<h4 id="InnoDB行锁"><a href="#InnoDB行锁" class="headerlink" title="InnoDB行锁"></a>InnoDB行锁</h4><p>行锁偏向InnoDB引擎，开销大，加锁慢；会出现死锁；所得颗粒度小，发生锁冲突的概览低，并发度也最高。</p>
+<p>InnoDB与MyISAM最大不同的两点：1.支持事务。2.采用行级锁</p>
+<p>查看当前数据库的事务隔离级别<code>show variables like &#39;tx_isolation&#39;</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show variables like <span class="string">'tx_isolation'</span>;</span></span><br><span class="line">+---------------+-----------------+</span><br><span class="line">| Variable_name | Value           |</span><br><span class="line">+---------------+-----------------+</span><br><span class="line">| tx_isolation  | REPEATABLE-READ |</span><br><span class="line">+---------------+-----------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<p>新建SQL（使用InnoDB引擎）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test_innodb_lock (a <span class="built_in">INT</span>(<span class="number">11</span>),b <span class="built_in">VARCHAR</span>(<span class="number">16</span>))<span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="string">'b2'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">3</span>,<span class="string">'3'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">4</span>, <span class="string">'4000'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">5</span>,<span class="string">'5000'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">6</span>, <span class="string">'6000'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">7</span>,<span class="string">'7000'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">8</span>, <span class="string">'8000'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">9</span>,<span class="string">'9000'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_innodb_lock <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="string">'b1'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> test_innodb_a_ind <span class="keyword">ON</span> test_innodb_lock(a);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> test_innodb_lock_b_ind <span class="keyword">ON</span> test_innodb_lock(b);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>会话1</th>
+<th>会话2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取消自动提交<code>set autocommit = 0;</code></td>
+<td>取消自动提交<code>set autocommit = 0;</code></td>
+</tr>
+<tr>
+<td>更新但不提交<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625180313.png" alt=""></td>
+<td>会话2被阻塞，只能等待<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625180439.png" alt=""></td>
+</tr>
+<tr>
+<td>提交更新<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625180521.png" alt=""></td>
+<td>接触阻塞，更新正常进行<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625180554.png" alt=""></td>
+</tr>
+<tr>
+<td>更新但不提交<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625180804.png" alt=""></td>
+<td>会话2更新其他行的记录，并没有发生阻塞<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625180926.png" alt=""></td>
+</tr>
+</tbody></table>
+<h4 id="索引失效行锁变表锁"><a href="#索引失效行锁变表锁" class="headerlink" title="索引失效行锁变表锁"></a>索引失效行锁变表锁</h4><p><code>a</code>列为<code>int</code>类型，<code>b</code>列为<code>varchar</code>类型，两个会话都是不自动提交事务</p>
+<table>
+<thead>
+<tr>
+<th>会话1</th>
+<th>会话2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>更新a字段，但是b字段不加引号<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625182233.png" alt=""></td>
+<td>会话2更新其他字段，依然阻塞<img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625182417.png" alt=""></td>
+</tr>
+</tbody></table>
+<p>证明由行锁变为表锁。</p>
+<h4 id="间隙锁的危害"><a href="#间隙锁的危害" class="headerlink" title="间隙锁的危害"></a>间隙锁的危害</h4><p>数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> select * from test_innodb_lock;</span></span><br><span class="line">+------+------+</span><br><span class="line">| a    | b    |</span><br><span class="line">+------+------+</span><br><span class="line">|    1 | b2   |</span><br><span class="line">|    3 | 3    |</span><br><span class="line">|    4 | 4003 |</span><br><span class="line">|    5 | 5000 |</span><br><span class="line">|    6 | 6000 |</span><br><span class="line">|    7 | 7000 |</span><br><span class="line">|    8 | 8000 |</span><br><span class="line">|    9 | 9000 |</span><br><span class="line">|    1 | b2   |</span><br><span class="line">+------+------+</span><br><span class="line">9 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>a列并不连续</p>
+<p>左侧执行sql<code>update test_innodb_lock set b = &#39;600.01&#39; where a &gt; 1 and a &lt; 6;</code>不提交事务</p>
+<p>右侧执行sql<code>insert into test_innodb_lock values(2,&#39;200&#39;);</code></p>
+<p>右侧被阻塞</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625184558.png" alt=""></p>
+<p>左侧提交，右侧插入成功。</p>
+<p><strong>间隙锁</strong></p>
+<blockquote>
+<p>当我们用范围条件而不是相等条件检索数据，并请求共享或排他锁时，InnoDB会给符合条件的已有数据记录的索引项加锁，对于键值在条件范围内但<strong>并不存在的</strong>记录，叫做“间隙（GAP）”。</p>
+<p>InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁（Next-Key锁）。</p>
+</blockquote>
+<h4 id="锁定一行"><a href="#锁定一行" class="headerlink" title="锁定一行"></a>锁定一行</h4><blockquote>
+<p><code>for update</code>是一种行级锁，又叫排它锁，一旦用户对某个行施加了行级加锁，则该用户可以查询也可以更新被加锁的数据行，其它用户只能查询但不能更新被加锁的数据行．如果其它用户想更新该表中的数据行，则也必须对该表施加行级锁．即使多个用户对一个表均使用了共享更新，但也不允许两个事务同时对一个表进行更新，真正对表进行更新时，是以独占方式锁表，一直到提交或复原该事务为止。行锁永远是独占方式锁。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210625191521.png" alt=""></p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>Innodb存储引擎由于实现了行级锁定，虽然在锁定机制的实现方面所带来的性能损耗可能比表级锁定会要更高一些，但是在整体并发处理能力方面要远远优于MyISAM的表级锁定的。当系统并发量较高的时候，Innodb的整体性能和MylISAM相比就会有比较明显的优势了。</p>
+<p>但是，Innodb的行级锁定同样也有其脆弱的一面，当我们使用不当的时候，可能会让Innodb的整体性能表现不仅不能比MyISAM高，甚至可能会更差。</p>
+<p><strong>如何分析行锁定</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show status like <span class="string">'innodb_row_lock%'</span>;</span></span><br><span class="line">+-------------------------------+--------+</span><br><span class="line">| Variable_name                 | Value  |</span><br><span class="line">+-------------------------------+--------+</span><br><span class="line">| Innodb_row_lock_current_waits | 0      |</span><br><span class="line">| Innodb_row_lock_time          | 223670 |</span><br><span class="line">| Innodb_row_lock_time_avg      | 27958  |</span><br><span class="line">| Innodb_row_lock_time_max      | 51460  |</span><br><span class="line">| Innodb_row_lock_waits         | 8      |</span><br><span class="line">+-------------------------------+--------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>对各个状态量的说明如下:</p>
+<ul>
+<li><code>Innodb_row_lock_current_waits</code>：当前正在等待锁定的数量；</li>
+<li><code>Innodb_row_lock_time</code>：从系统启动到现在锁定总时间长度；</li>
+<li><code>Innodb_row_lock_time_avg</code>：每次等待所花平均时间；</li>
+<li><code>Innodb_row_lock_time_max</code>：从系统启动到现在等待最常的一次所花的时间；</li>
+<li><code>Innodb_row_lock_waits</code>：系统启动后到现在总共等待的次数；</li>
+</ul>
+<p><strong>优化建议</strong></p>
+<ul>
+<li>尽可能让所有数据检索都通过索引来完成，避免无索引行锁升级为表锁。</li>
+<li>合理设计索引，尽量缩小锁的范围</li>
+<li>尽可能较少检索条件，避免间隙锁</li>
+<li>尽量控制事务大小，减少锁定资源量和时间长度</li>
+<li>尽可能低级别事务隔离</li>
+</ul>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='/img/wx.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-27T18:26:23+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jun 27, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2021/06/27/MySQL%E9%AB%98%E7%BA%A7/&title=MySQL高级 - 张利源&summary=MySQL高级部分，着重MySQL索引优化"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com/2021/06/27/MySQL%E9%AB%98%E7%BA%A7/&title=MySQL高级 - 张利源&summary=MySQL高级部分，着重MySQL索引优化"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2021/06/27/MySQL%E9%AB%98%E7%BA%A7/&title=MySQL高级 - 张利源&summary=MySQL高级部分，着重MySQL索引优化"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2021/04/18/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+                <p class='title'>SpringCloud学习笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'MySQL高级',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#卸载之前的版本"><span class="toc-text">卸载之前的版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-Linux版的安装"><span class="toc-text">MySQL Linux版的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL逻辑架构"><span class="toc-text">MySQL逻辑架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL存储引擎"><span class="toc-text">MySQL存储引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL执行加载顺序"><span class="toc-text">MySQL执行加载顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七种JOIN理论"><span class="toc-text">七种JOIN理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#索引"><span class="toc-text">索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#索引是什么"><span class="toc-text">索引是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优劣"><span class="toc-text">优劣</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引结构"><span class="toc-text">索引结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引适用情况"><span class="toc-text">索引适用情况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性能分析"><span class="toc-text">性能分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL-Query-Optimizer"><span class="toc-text">MySQL Query Optimizer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Explain"><span class="toc-text">Explain</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#id"><span class="toc-text">id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#select-type"><span class="toc-text">select_type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#type"><span class="toc-text">type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#possible-keys-key"><span class="toc-text">possible_keys\key</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#key-len"><span class="toc-text">key_len</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ref"><span class="toc-text">ref</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rows"><span class="toc-text">rows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EXtra"><span class="toc-text">EXtra</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单表优化案例"><span class="toc-text">单表优化案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟数据"><span class="toc-text">模拟数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优化"><span class="toc-text">优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#双表优化案例"><span class="toc-text">双表优化案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟数据-1"><span class="toc-text">模拟数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优化-1"><span class="toc-text">优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三表优化案例"><span class="toc-text">三表优化案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#索引优化"><span class="toc-text">索引优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#索引失效"><span class="toc-text">索引失效</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#最左前缀原则"><span class="toc-text">最左前缀原则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#索引列上计算、函数、-手动or自动-类型转换"><span class="toc-text">索引列上计算、函数、(手动or自动)类型转换</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#范围条件后边的列失效"><span class="toc-text">范围条件后边的列失效</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用不等于-或-lt-gt"><span class="toc-text">使用不等于(!&#x3D;或&lt;&gt;)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#like通配符开头"><span class="toc-text">like通配符开头</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#or"><span class="toc-text">or</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#尽量使用覆盖索引"><span class="toc-text">尽量使用覆盖索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结口诀"><span class="toc-text">总结口诀</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询截取分析"><span class="toc-text">查询截取分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查询优化"><span class="toc-text">查询优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小表驱动大表"><span class="toc-text">小表驱动大表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ORDER-BY-优化"><span class="toc-text">ORDER BY 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#慢查询日志"><span class="toc-text">慢查询日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批量插入数据脚本"><span class="toc-text">批量插入数据脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用show-prefile进行sql分析"><span class="toc-text">用show prefile进行sql分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL锁机制"><span class="toc-text">MySQL锁机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库锁理论概述"><span class="toc-text">数据库锁理论概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MyISAM读写锁"><span class="toc-text">MyISAM读写锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB行锁"><span class="toc-text">InnoDB行锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引失效行锁变表锁"><span class="toc-text">索引失效行锁变表锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#间隙锁的危害"><span class="toc-text">间隙锁的危害</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁定一行"><span class="toc-text">锁定一行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结-1"><span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='song'
+      id='25706282'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="/495726603@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/zhangliyuangit"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=1646384615"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://zhangliyuanblog.club/" target="_blank" class="codename">张利源</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://zhangliyuangit.github.io/" target="_blank" rel="noopener">Copyright © 2017-2020 张利源</a>)</p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/67239FBB-E15D-4F4F-8EE8-0F1C9F3C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/2884F904-F1F3-479E-AE27-5EBC291B63B0.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/10A0FCE5-36A1-4AD0-8CF0-019259A89E03.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/250662D4-5A21-4AAA-BB63-CD25CF97CFF1.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/298468D7-E388-44A8-8CC5-8213BDC33CED.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
