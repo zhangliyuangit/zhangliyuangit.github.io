@@ -5202,9 +5202,7 @@ value的数据结构
     <content><![CDATA[<p>Spring Cloud是一系列框架的<a href="https://baike.baidu.com/item/有序集合/994839" target="_blank" rel="noopener">有序集合</a>。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring Cloud并没有重复制造轮子，它只是将各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
 <a id="more"></a>
 
-
-
-<h3 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a>什么是微服务</h3><blockquote>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h3 id="什么是微服务"><a href="#什么是微服务" class="headerlink" title="什么是微服务"></a>什么是微服务</h3><blockquote>
 <p>提出者与时间: Martin Fowler ,Mar 2014</p>
 </blockquote>
 <p>微服务架构是一种架构模式,它提倡单一应用程序划分成一组小的服务,服务之间互相协调,互相配合,为用户提供最终价值.每个微服务运行在其独立的<strong>进程</strong>中,服务与服务间采用轻量级的通信机制互相协作(通常是基于http协议的restful api).每个服务都围绕着具体业务进行构建,并且能够内独立的部署到生产环境,类生产环境等。</p>
@@ -5240,7 +5238,7 @@ value的数据结构
 <td align="center">Bus、Nacos</td>
 </tr>
 </tbody></table>
-<p>分布式微服务架构一站式解决方案，是多种微服务架构落地技术的集合体，俗称微服务全家桶。</p>
+<p>SpringCloud是分布式微服务架构一站式解决方案，是多种微服务架构落地技术的集合体，俗称微服务全家桶。</p>
 <h3 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h3><h4 id="Eureka是什么？"><a href="#Eureka是什么？" class="headerlink" title="Eureka是什么？"></a>Eureka是什么？</h4><p>Eureka 是 <strong>Netflix</strong> 开发的，一个基于 <strong>REST</strong> 服务的，<strong>服务注册与发现</strong>的组件，以实现中间层服务器的负载平衡和故障转移。</p>
 <p>它主要包括两个组件：<strong>Eureka Server</strong> 和 <strong>Eureka Client</strong></p>
 <p>Eureka Client：一个Java客户端，用于简化与 Eureka Server 的交互（通常就是微服务中的客户端和服务端）</p>
@@ -5514,17 +5512,29 @@ value的数据结构
 <h4 id="Hystrix概念"><a href="#Hystrix概念" class="headerlink" title="Hystrix概念"></a>Hystrix概念</h4><p>Hystrix [hɪst’rɪks]，中文含义是豪猪，因其背上长满棘刺，从而拥有了自我保护的能力。本文所说的Hystrix是Netflix开源的一款容错框架，同样具有自我保护能力。为了实现容错和自我保护，下面我们看看Hystrix如何设计和实现的。</p>
 <p><strong>Hystrix设计目标：</strong></p>
 <ul>
-<li>对来自依赖的延迟和故障进行防护和控制——这些依赖通常都是通过网络访问的</li>
+<li>对来自依赖的延迟和故障进行控制和防护–这些依赖通常都是通过网络访问的。</li>
 <li>阻止故障的连锁反应</li>
 <li>快速失败并迅速恢复</li>
 <li>回退并优雅降级</li>
 <li>提供近实时的监控与告警</li>
 </ul>
-<p><strong>作用：</strong></p>
+<p><strong>Hystrxi遵循的设计原则</strong></p>
 <ul>
-<li>服务降级：<br>程序运行异常、超时、服务熔断触发服务降级、线程池或信号量打满也会导致服务降级</li>
-<li>服务熔断：<br>类比保险丝达到最大服务访问后，直接拒绝访问，拉闸限电，然后调用服务降级的方法并返回友好提示<br>服务的降级-&gt;进而熔断-&gt;恢复调用链路</li>
-<li>服务限流：秒杀高并发等操作，严禁一窝蜂的过来拥挤，大家排队，一秒钟N个，有序进行<br>接近实时的监控</li>
+<li>防止任何单独的依赖耗尽资源(线程)</li>
+<li>过载立即切断并快速失败，防止排队</li>
+<li>尽可能提供回退以保证用户免受故障</li>
+<li>使用隔离技术(例如隔板，泳道和断路器模式)来限制任何一个依赖的影响</li>
+<li>通过近实时的指标，监控和警告，确保故障被及时发现</li>
+<li>通过动态修改配置属性，确保故障及时恢复</li>
+<li>防止整个依赖客户端执行失败，而不仅仅是网络通信</li>
+</ul>
+<p><strong>Hystrix如何实现这些目标</strong></p>
+<ul>
+<li>使用命令模式将所有对外服务的调用包装在HystrixCommand后者HystrixObservableCommand对象中，并将该对象单独放在线程中执行。</li>
+<li>每个依赖都维护着一个线程池(或者信号量)，线程池被耗尽则拒绝请求，而不是让请求排队。</li>
+<li>记录请求成功，失败和超时和线程拒绝。</li>
+<li>服务错误百分比超过阈值，熔断器自动打开，一段时间内停止对该服务的所有请求。</li>
+<li>请求失败，被拒绝，超时或者熔断时执行降级逻辑。</li>
 </ul>
 <h4 id="服务提供者配置服务降级"><a href="#服务提供者配置服务降级" class="headerlink" title="服务提供者配置服务降级"></a>服务提供者配置服务降级</h4><p>引入依赖</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -5561,6 +5571,324 @@ value的数据结构
 <p>然后我们在<code>PaymentHystrixService</code>的<code>@FeignClient</code>注解的<code>fallback</code>属性指定对应的类即可。</p>
 <p>模拟服务的提供者宕机。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210423224522.png" alt=""></p>
+<h4 id="服务熔断"><a href="#服务熔断" class="headerlink" title="服务熔断"></a>服务熔断</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// =============服务熔断</span></span><br><span class="line"><span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"paymentCircuitBreaker_fallback"</span>, commandProperties = &#123;</span><br><span class="line">        <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.enabled"</span>, value = <span class="string">"true"</span>),<span class="comment">// 是否开启断路器</span></span><br><span class="line">        <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.requestVolumeThreshold"</span>,value = <span class="string">"10"</span>),<span class="comment">// 请求次数</span></span><br><span class="line">        <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.sleepWindowInMilliseconds"</span>, value = <span class="string">"10000"</span>),<span class="comment">// 请求时间</span></span><br><span class="line">        <span class="meta">@HystrixProperty</span>(name = <span class="string">"circuitBreaker.errorThresholdPercentage"</span>, value = <span class="string">"60"</span>)<span class="comment">// 失败率达到多少后跳闸</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">paymentCircuitBreaker</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (id &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"*******id不能为负数"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    String serialNum = IdUtil.simpleUUID();</span><br><span class="line">    <span class="keyword">return</span> Thread.currentThread().getName()+<span class="string">"\t调用成功，流水号："</span>+ serialNum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">paymentCircuitBreaker_fallback</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"id不能为负数，请稍后再试。┭┮﹏┭┮"</span> + id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Hystrix断路器使用时最常用的三个重要指标参数</p>
+<blockquote>
+<p>在微服务中使用Hystrix 作为断路器时，通常涉及到以下三个重要的指标参数（这里是写在@HystrixProperties注解中，当然实际项目中可以全局配置在yml或properties中）</p>
+</blockquote>
+<p><strong>1、circuitBreaker.sleepWindowInMilliseconds</strong></p>
+<blockquote>
+<p>断路器的快照时间窗，也叫做窗口期。可以理解为一个触发断路器的周期时间值，默认为10秒（10000）。</p>
+</blockquote>
+<p><strong>2、circuitBreaker.requestVolumeThreshold</strong></p>
+<blockquote>
+<p>断路器的窗口期内触发断路的请求阈值，默认为20。换句话说，假如某个窗口期内的请求总数都不到该配置值，那么断路器连发生的资格都没有。断路器在该窗口期内将不会被打开。</p>
+</blockquote>
+<p><strong>3、circuitBreaker.errorThresholdPercentage</strong></p>
+<blockquote>
+<p>断路器的窗口期内能够容忍的错误百分比阈值，默认为50（也就是说默认容忍50%的错误率）。打个比方，假如一个窗口期内，发生了100次服务请求，其中50次出现了错误。在这样的情况下，断路器将会被打开。在该窗口期结束之前，即使第51次请求没有发生异常，也将被执行fallback逻辑。</p>
+</blockquote>
+<p>综上所述，在以上三个参数缺省的情况下，Hystrix断路器触发的默认策略为：</p>
+<blockquote>
+<p>在10秒内，发生20次以上的请求时，假如错误率达到50%以上，则断路器将被打开。（当一个窗口期过去的时候，断路器将变成半开（HALF-OPEN）状态，如果这时候发生的请求正常，则关闭，否则又打开）</p>
+</blockquote>
+<h4 id="Hystrix工作流程"><a href="#Hystrix工作流程" class="headerlink" title="Hystrix工作流程"></a>Hystrix工作流程</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210425205214.png" alt=""></p>
+<ol>
+<li>构造一个HystrixCommand或者HystrixObservableCommand对象，用于封装请求，并在构造方法配置请求被执行需要的参数。</li>
+<li>执行命令，Hystrix提供了四种执行命令的方法。</li>
+<li>判断是否使用缓存响应请求，若启用了缓存，且缓存可用，直接使用缓存响应请求。Hystrix支持请求缓存，但需要用户开启。</li>
+<li>判断熔断器是否打开，如果打开，跳到第8步。</li>
+<li>判断线程池/队列/信号量是否已满，已满跳到第8步。</li>
+<li>执行HystrixObservableCommand.construct()或者HystrixCommand.run()，如果执行失败或者超时跳到第8步，否则跳到第9步。</li>
+<li>统计熔断器监控指标</li>
+<li>走Fallback备用逻辑。</li>
+<li>返回请求响应。</li>
+</ol>
+<h4 id="Hystrix图形化监控"><a href="#Hystrix图形化监控" class="headerlink" title="Hystrix图形化监控"></a>Hystrix图形化监控</h4><p>新建模块，引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-netflix-hystrix-dashboard<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>启动类开启监控<code>@EnableHystrixDashboard</code></p>
+<p>需要监控的项目在启动类添加如下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ServletRegistrationBean <span class="title">getServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    HystrixMetricsStreamServlet streamServlet = <span class="keyword">new</span> HystrixMetricsStreamServlet();</span><br><span class="line">    ServletRegistrationBean&lt;HystrixMetricsStreamServlet&gt; registrationBean = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(streamServlet);</span><br><span class="line">    registrationBean.setLoadOnStartup(<span class="number">1</span>);</span><br><span class="line">    registrationBean.addUrlMappings(<span class="string">"/hystrix.stream"</span>);</span><br><span class="line">    registrationBean.setName(<span class="string">"HystrixMetricsStreamServlet"</span>);</span><br><span class="line">    <span class="keyword">return</span> registrationBean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>localhost:9001/hystrix</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210425185442.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210425185523.png" alt=""></p>
+<h3 id="GateWay"><a href="#GateWay" class="headerlink" title="GateWay"></a>GateWay</h3><blockquote>
+<p>Spring Cloud Gateway 是Spring官方基于Spring5.0，Spring Boot2.0和Project Reactor等技术开发的网关，Spring Cloud Gateway旨在为微服务架构提供一种简单而有效的统一的API路由管理方式。Spring Cloud Gateway作为Spring Cloud生态系中的网关，目标是替代ZUUL，其不仅提供统一的路由方式，并且基于Filter链的方式提供了网关基本的功能，例如：安全，监控/埋点，和限流等。</p>
+</blockquote>
+<p><strong>为什么使用GateWay？</strong></p>
+<p>Spring Cloud Gateway 可以看做是一个 Zuul 1.x 的升级版和代替品，比 Zuul 2 更早的使用 Netty 实现异步 IO，从而实现了一个简单、比 Zuul 1.x 更高效的、与 Spring Cloud 紧密配合的 API 网关。<br>Spring Cloud Gateway 里明确的区分了 Router 和 Filter，并且一个很大的特点是内置了非常多的开箱即用功能，并且都可以通过 SpringBoot 配置或者手工编码链式调用来使用。<br>比如内置了 10 种 Router，使得我们可以直接配置一下就可以随心所欲的根据 Header、或者 Path、或者 Host、或者 Query 来做路由。<br>比如区分了一般的 Filter 和全局 Filter，内置了 20 种 Filter 和 9 种全局 Filter，也都可以直接用。当然自定义 Filter 也非常方便。</p>
+<p><strong>重要的几个概念</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210526140335.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210526140537.png" alt=""></p>
+<h4 id="入门配置"><a href="#入门配置" class="headerlink" title="入门配置"></a>入门配置</h4><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意这里不要添加Spring的web依赖和图形化界面依赖</p>
+</blockquote>
+<p>yml文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">hostname:</span> <span class="string">cloud-gateway-service</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-gateway</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route</span>   <span class="comment"># 路由的id，没有固定的规则，但要求唯一，建议配合服务名</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8001</span>   <span class="comment"># 匹配后提供服务的路由地址</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/**</span>     <span class="comment"># 断言，路径相匹配进行路由</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#        - id: payment_route2</span></span><br><span class="line"><span class="comment">#            uri: http://localhost:8001</span></span><br><span class="line"><span class="comment">#            predicates:</span></span><br><span class="line"><span class="comment">#              - Path=/payment/lb</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9527</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里需要注意在配置多个路由的同时格式要对应。</p>
+</blockquote>
+<p>测试访问<code>http://localhost:9527/payment/1</code></p>
+<h4 id="硬编码配置"><a href="#硬编码配置" class="headerlink" title="硬编码配置"></a>硬编码配置</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> RouteLocator <span class="title">customRouteLocator</span><span class="params">(RouteLocatorBuilder routeLocatorBuilder)</span> </span>&#123;</span><br><span class="line">    RouteLocatorBuilder.Builder routes = routeLocatorBuilder.routes();</span><br><span class="line">    routes.route(<span class="string">"path_route_liyuan"</span>,</span><br><span class="line">            r -&gt; r.path(<span class="string">"/guonei"</span>)</span><br><span class="line">                    .uri(<span class="string">"http://news.baidu.com/guonei"</span>)).build();</span><br><span class="line">    <span class="keyword">return</span> routes.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="配置动态路由"><a href="#配置动态路由" class="headerlink" title="配置动态路由"></a>配置动态路由</h4><p>默认情况下GateWay会根据注册中心的服务列表，以注册中心上的微服务名为路径创建动态路由进行转发，从而实现动态路由功能。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">locator:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启从注册中心动态创建路由的功能，利用微服务名进行路由</span></span><br></pre></td></tr></table></figure>
+
+<p>开启从注册中心动态的创建路由</p>
+<p>下面的uri要写成lb://服务名的形式,<code>uri: lb://cloud-payment-service # 匹配后提供服务者的路由</code></p>
+<blockquote>
+<p>这里的lb表示协议的意思，意为启用GateWay的负载均衡功能</p>
+</blockquote>
+<h4 id="Predicate的使用"><a href="#Predicate的使用" class="headerlink" title="Predicate的使用"></a>Predicate的使用</h4><h5 id="通过请求路径进行匹配"><a href="#通过请求路径进行匹配" class="headerlink" title="通过请求路径进行匹配"></a>通过请求路径进行匹配</h5><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">locator:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启从注册中心动态创建路由的功能，利用微服务名进行路由</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route</span>   <span class="comment"># 路由的id，没有固定的规则，但要求唯一，建议配合服务名</span></span><br><span class="line"><span class="comment">#          uri: http://localhost:8001   # 匹配后提供服务的路由地址</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://cloud-payment-service</span> <span class="comment"># 匹配后提供服务者的路由</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/**</span>     <span class="comment"># 断言，路径相匹配进行路由</span></span><br></pre></td></tr></table></figure>
+
+<p>如果单个参数支持<code>{参数名}</code>的形式。</p>
+<h5 id="通过时间匹配"><a href="#通过时间匹配" class="headerlink" title="通过时间匹配"></a>通过时间匹配</h5><p>Predicate 支持设置一个时间，在请求进行转发的时候，可以通过判断在这个时间之前或者之后进行转发。</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route2</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://cloud-payment-service</span> <span class="comment"># 匹配后提供服务者的路由</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/lb</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">After=2021-05-26T17:45:36.022+08:00[Asia/Shanghai]</span>  <span class="comment"># 什么时间之后生效</span></span><br></pre></td></tr></table></figure>
+
+<p>Spring 是通过 ZonedDateTime 来对时间进行的对比，ZonedDateTime 是 Java 8 中日期时间功能里，用于表示带时区的日期与时间信息的类，ZonedDateTime 支持通过时区来设置时间，中国的时区是：<code>Asia/Shanghai</code>。</p>
+<p>同时GateWay支持使用<strong>Before</strong>和<strong>Between</strong> </p>
+<h5 id="通过Cookie匹配"><a href="#通过Cookie匹配" class="headerlink" title="通过Cookie匹配"></a>通过Cookie匹配</h5><p>Cookie Route Predicate 可以接收两个参数，一个是 Cookie name , 一个是正则表达式，路由规则会通过获取对应的 Cookie name 值和正则表达式去匹配，如果匹配上就会执行路由，如果没有匹配上则不执行。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">locator:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启从注册中心动态创建路由的功能，利用微服务名进行路由</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route</span>   <span class="comment"># 路由的id，没有固定的规则，但要求唯一，建议配合服务名</span></span><br><span class="line"><span class="comment">#          uri: http://localhost:8001   # 匹配后提供服务的路由地址</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://cloud-payment-service</span> <span class="comment"># 匹配后提供服务者的路由</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/**</span>     <span class="comment"># 断言，路径相匹配进行路由</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">After=2021-05-26T17:45:36.022+08:00[Asia/Shanghai]</span>  <span class="comment"># 什么时间之后生效</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Cookie=username,</span> <span class="string">zzyy</span> <span class="comment"># 使用Cookie匹配</span></span><br></pre></td></tr></table></figure>
+
+<p>使用curl测试</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl http://localhost:9527/payment/lb --cookie "username=zzyy"</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="通过请求方法匹配"><a href="#通过请求方法匹配" class="headerlink" title="通过请求方法匹配"></a>通过请求方法匹配</h5><p>可以通过是 POST、GET、PUT、DELETE 等不同的请求方式来进行路由。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">locator:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启从注册中心动态创建路由的功能，利用微服务名进行路由</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route2</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://cloud-payment-service</span> <span class="comment"># 匹配后提供服务者的路由</span></span><br><span class="line">          <span class="comment">#          uri: http://localhost:8001</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/lb</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">After=2021-05-26T17:45:36.022+08:00[Asia/Shanghai]</span>  <span class="comment"># 什么时间之后生效</span></span><br><span class="line"><span class="comment">#            - Cookie=username, [a-zA-Z]+   # cookie</span></span><br><span class="line"><span class="comment">#            - Header=X-Request-Id, \d+      #请求头要有X-Request—Id属性并且值为整数的正则表达式</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Method=Get</span></span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl http://localhost:9527/payment/lb</span><br><span class="line">curl -X post http://localhost:9527/payment/lb</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="通过请求参数匹配"><a href="#通过请求参数匹配" class="headerlink" title="通过请求参数匹配"></a>通过请求参数匹配</h5><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">locator:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启从注册中心动态创建路由的功能，利用微服务名进行路由</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route2</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://cloud-payment-service</span> <span class="comment"># 匹配后提供服务者的路由</span></span><br><span class="line">          <span class="comment">#          uri: http://localhost:8001</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/lb</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">After=2021-05-26T17:45:36.022+08:00[Asia/Shanghai]</span>  <span class="comment"># 什么时间之后生效</span></span><br><span class="line"><span class="comment">#            - Cookie=username, [a-zA-Z]+   # cookie</span></span><br><span class="line"><span class="comment">#            - Header=X-Request-Id, \d+      #请求头要有X-Request—Id属性并且值为整数的正则表达式</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Method=Get</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Query=testParameter</span>   <span class="comment"># 参数</span></span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl http://localhost:9527/payment/lb?testParameter=11</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="通过请求-ip-地址进行匹配"><a href="#通过请求-ip-地址进行匹配" class="headerlink" title="通过请求 ip 地址进行匹配"></a>通过请求 ip 地址进行匹配</h5><p>Predicate 也支持通过设置某个 ip 区间号段的请求才会路由，RemoteAddr Route Predicate 接受 cidr 符号 (IPv4 或 IPv6) 字符串的列表(最小大小为 1)，例如 192.168.0.1/16 (其中 192.168.0.1 是 IP 地址，16 是子网掩码)。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">locator:</span></span><br><span class="line">          <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启从注册中心动态创建路由的功能，利用微服务名进行路由</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">payment_route2</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://cloud-payment-service</span> <span class="comment"># 匹配后提供服务者的路由</span></span><br><span class="line">          <span class="comment">#          uri: http://localhost:8001</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/payment/lb</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">After=2021-05-26T17:45:36.022+08:00[Asia/Shanghai]</span>  <span class="comment"># 什么时间之后生效</span></span><br><span class="line"><span class="comment">#            - Cookie=username, [a-zA-Z]+   # cookie</span></span><br><span class="line"><span class="comment">#            - Header=X-Request-Id, \d+      #请求头要有X-Request—Id属性并且值为整数的正则表达式</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Method=Get</span></span><br><span class="line"><span class="comment">#            - Query=testParameter</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">RemoteAddr=192.168.1.5</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>各种 Predicates 同时存在于同一个路由时，请求必须同时满足所有的条件才被这个路由匹配。</p>
+<p>一个请求满足多个路由的断言条件时，请求只会被首个成功匹配的路由转发</p>
+</blockquote>
+<h4 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h4><p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/Filter.png" alt=""></p>
+<h5 id="自定义Filter"><a href="#自定义Filter" class="headerlink" title="自定义Filter"></a>自定义Filter</h5><p>我们需要实现<code>GlobalFilter, Ordered</code>两个接口。</p>
+<p>需要携带uname参数的情况。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyLogGateWayFilter</span> <span class="keyword">implements</span> <span class="title">GlobalFilter</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"******************Come in MyLogGateWayFilter"</span> + System.currentTimeMillis());</span><br><span class="line">        String uname = exchange.getRequest().getQueryParams().getFirst(<span class="string">"uname"</span>);</span><br><span class="line">        <span class="keyword">if</span> (uname == <span class="keyword">null</span>) &#123;</span><br><span class="line">            log.info(<span class="string">"*********用户名为空！！！"</span>);</span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.NOT_ACCEPTABLE);</span><br><span class="line">            <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 表示加载过滤器的顺序，数字越小优先级越高。</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><blockquote>
+<p>在分布式系统中，由于服务数量巨多，为了方便服务配置文件统一管理，实时更新，所以需要分布式配置中心组件。Spring Cloud Config项目是就是这样一个解决分布式系统的配置管理方案。它包含了<strong>Client</strong>和<strong>Server</strong>两个部分，server提供配置文件的存储、以接口的形式将配置文件的内容提供出去，client通过接口获取数据、并依据此数据初始化自己的应用。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/asdasfhgfhfghdfsd.png" alt=""></p>
+<p>入门示例：</p>
+<p>在GitHub上新建一个仓库，放三个配置文件，<code>config-dev.yml，config-test.yml，config-prod.yml</code>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210528185943.png" alt=""></p>
+<h4 id="新建server模块"><a href="#新建server模块" class="headerlink" title="新建server模块"></a>新建server模块</h4><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>yml配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3344</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-config-center</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">server:</span></span><br><span class="line">        <span class="attr">git:</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">git@github.com:zhangliyuangit/springcloud-config.git</span></span><br><span class="line">          <span class="attr">search-paths:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">springcloud-config</span></span><br><span class="line">          <span class="attr">skip-ssl-validation:</span> <span class="literal">true</span>  <span class="comment"># 跳过ssl认证</span></span><br><span class="line">      <span class="attr">label:</span> <span class="string">main</span>       <span class="comment"># 读取分支</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p>在主启动类上添加<code>@EnableConfigServer</code>注解。</p>
+<p>Spring Cloud Config 有它的一套访问规则，我们通过这套规则在浏览器上直接访问就可以。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">/&#123;application&#125;/&#123;profile&#125;[/&#123;<span class="type">label</span>&#125;]</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.properties</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>{application}</strong> 就是应用名称，对应到配置文件上来，就是配置文件的名称部分，例如我上面创建的配置文件。</p>
+<p><strong>{profile}</strong> 就是配置文件的版本，我们的项目有开发版本、测试环境版本、生产环境版本，对应到配置文件上来就是以 application-{profile}.yml 加以区分，例如application-dev.yml、application-sit.yml、application-prod.yml。</p>
+<p><strong>{label}</strong> 表示 git 分支，默认是 master 分支，如果项目是以分支做区分也是可以的，那就可以通过不同的 label 来控制访问不同的配置文件了。</p>
+</blockquote>
+<p>测试<code>curl http://localhost:3344/main/config-test.yml</code></p>
+<h4 id="新建client模块"><a href="#新建client模块" class="headerlink" title="新建client模块"></a>新建client模块</h4><p>添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个<code>bootstrap.yml</code></p>
+<blockquote>
+<p>注意这里的<code>bootstrap.yml</code>代表系统级的配置文件，加载优先于<code>application.yml</code></p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3355</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">config-client</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="comment"># config客户端配置</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">label:</span> <span class="string">main</span>  <span class="comment"># 分支名</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">config</span> <span class="comment"># 配置文件名称</span></span><br><span class="line">      <span class="attr">profile:</span> <span class="string">test</span> <span class="comment"># 读取后缀名</span></span><br><span class="line">      <span class="attr">uri:</span> <span class="string">http://localhost:3344</span> <span class="comment"># 配置中心地址</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://eureka7001.com:7001/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<p>测试业务类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigClientController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;config.info&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String configInfo;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/configInfo"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getConfigInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> configInfo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试<code>curl http://localhost:3355/configInfo</code></p>
+<h4 id="动态更新配置"><a href="#动态更新配置" class="headerlink" title="动态更新配置"></a>动态更新配置</h4><p>我们修改在GitHub仓库配置文件中的版本信息，server端生效但是client端并没有生效。</p>
+<ol>
+<li><p>在pom中添加actuator依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改yml,暴露监控端口</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 暴露监控端点</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>@RefreshScope</code>修饰控制类</p>
+</li>
+<li><p>执行<code>curl -X POST &quot;http://localhost:3355/actuator/refresh&quot;</code></p>
+</li>
+</ol>
+<h3 id="Bus"><a href="#Bus" class="headerlink" title="Bus"></a>Bus</h3><blockquote>
+<p><strong>Spring cloud bus</strong>通过轻量消息代理连接各个分布的节点。这会用在广播状态的变化（例如配置变化）或者其他的消息指令。Spring bus的一个核心思想是通过分布式的启动器对spring boot应用进行扩展，也可以用来建立一个多个应用之间的通信频道。目前唯一实现的方式是用AMQP消息代理作为通道，同样特性的设置（有些取决于通道的设置）在更多通道的文档中。</p>
+</blockquote>
+<p>大家可以将它理解为管理和传播所有分布式项目中的消息既可，其实本质是利用了MQ的广播机制在分布式的系统中传播消息，目前常用的有<strong>Kafka</strong>和<strong>RabbitMQ</strong>。利用bus的机制可以做很多的事情，其中配置中心客户端刷新就是典型的应用场景之一，我们用一张图来描述bus在配置中心使用的机制。</p>
+<h4 id="两种方案"><a href="#两种方案" class="headerlink" title="两种方案"></a>两种方案</h4><ul>
+<li>提交代码触发post给客户端A发送bus/refresh</li>
+<li>提交代码触发post给Server端发送bus/refresh</li>
+</ul>
+<p><strong>第一种方案并不合适，原因如下：</strong></p>
+<ol>
+<li>打破了微服务的职责单一性。微服务本身是业务模块，它本不应该承担配置刷新的职责。</li>
+<li>破坏了微服务各节点的对等性。</li>
+<li>如果客户端ip有变化，这时我们就需要修改WebHook的配置。</li>
+</ol>
+<p><strong>流程：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210529194640.png" alt=""></p>
+<p>这时Spring Cloud Bus做配置更新步骤如下:</p>
+<ol>
+<li>提交代码触发post给Server端发送bus/refresh</li>
+<li>Server端接收到请求并发送给Spring Cloud Bus</li>
+<li>Spring Cloud bus接到消息并通知给其它客户端</li>
+<li>其它客户端接收到通知，请求Server端获取最新配置</li>
+<li>全部客户端均获取到最新的配置</li>
+</ol>
+<h4 id="配置Bus"><a href="#配置Bus" class="headerlink" title="配置Bus"></a>配置Bus</h4><ol>
+<li><p>使用Docker安装RabbitMQ</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d --hostname rabbit-host --name rabbitmq -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_PASS=root -p 15672:15672 -p 5672:5672 rabbitmq:3-management</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务端模块添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务端新增yml配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mq配置</span></span><br><span class="line"><span class="attr">rabbitmq:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">121.196</span><span class="number">.147</span><span class="number">.102</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">"bus-refresh"</span></span><br></pre></td></tr></table></figure>
+
+<p>注意格式缩进</p>
+</li>
+<li><p>两个服务端同样添加bus的依赖</p>
+</li>
+<li><p>服务端yml新增</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mq配置</span></span><br><span class="line"><span class="attr">rabbitmq:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">121.196</span><span class="number">.147</span><span class="number">.102</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">5672</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 暴露断点</span></span><br><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改GitHub中对应的版本号。</p>
+</li>
+<li><p>刷新3344<code>curl -X POST http://localhost:3344/actuator/bus-refresh</code></p>
+</li>
+<li><p>实现定点通知<code>curl -X POST http://localhost:3344/actuator/bus-refresh/config-client-3355:3355</code>,这里的<code>config-client-3355</code>为对应的服务名。</p>
+</li>
+</ol>
+<h3 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><blockquote>
+<p>Spring Cloud Stream官方的说法是一个构建消息驱动微服务的框架。我们可以这么理解，这个Spring Cloud Stream封装了mq的玩法，统一了模型，然后屏蔽各个mq产品中间件不同，降低了我们的学习成本，不过目前只支持<strong>kafka</strong>与<strong>rabbitmq</strong>。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/dsfbfghdfhdfg.png" alt=""></p>
+<p>我们从上往下看，我们的应用程序，也就是spring core ，通过这个input 与output 这两种channel 与binder 进行交互，binder（绑定器对象）屏蔽了咱们的消息中间件产品的差异。这个input 与output相对于应用程序来说的，这个input对于应用程序就是读，从外面到程序，output就是写，由应用程序写到外面。</p>
+<table>
+<thead>
+<tr>
+<th>组成</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Middleware</td>
+<td>中间件，目前只支持RabbitMQ和Kafka</td>
+</tr>
+<tr>
+<td>Binder</td>
+<td>Binder是应用与消息中间件之间的封装，目前实行了Kafka和RabbitMQ的Binder，通过Binder可以很方便的连接中间件，可以动态的改变消息类型(对应于Kafka的topic，RabbitMQ的exchange)，这些都可以通过配置文件来实现</td>
+</tr>
+<tr>
+<td>@Input</td>
+<td>注解标识输入通道，通过该输入通道接收到的消息进入应用程序</td>
+</tr>
+<tr>
+<td>@Output</td>
+<td>注解标识输出通道，发布的消息将通过该通道离开应用程序</td>
+</tr>
+<tr>
+<td>@StreamListener</td>
+<td>监听队列，用于消费者的队列的消息接收</td>
+</tr>
+<tr>
+<td>@EnableBinding</td>
+<td>指信道channel和exchange绑定在一起</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Stream 的消息通信模式遵循了发布-订阅模式，也就是Topic模式。在RabbitMQ中是Exchange交换机，在Kafka是Topic。</p>
+</blockquote>
+<p><strong>术语</strong></p>
+<ol>
+<li>Binder绑定器，通过binder可以很方便的连接中间件，屏蔽差异。</li>
+<li>Channel通道，是Queue的一种抽象，主要实现存储和转发的媒介。</li>
+<li>Source和Sink，简单的理解为参照对象是Spring Cloud Stream自身，从Stream发布消息就是输出，接收消息就是输入。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/ljkfdlgksld123124.png" alt=""></p>
+<h4 id="快速搭建"><a href="#快速搭建" class="headerlink" title="快速搭建"></a>快速搭建</h4><h5 id="新建消息的生产者"><a href="#新建消息的生产者" class="headerlink" title="新建消息的生产者"></a>新建消息的生产者</h5><ol>
+<li><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-stream-rabbit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8801</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-stream-provider</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">stream:</span></span><br><span class="line">      <span class="attr">binders:</span></span><br><span class="line">        <span class="attr">defaultRabbit:</span> <span class="comment"># 表示定义的名称，用于binding整合</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">rabbit</span> <span class="comment">#消息组件类型</span></span><br><span class="line">          <span class="attr">environment:</span> <span class="comment"># 设置rabbitmq相关环境配置</span></span><br><span class="line">            <span class="attr">spring:</span></span><br><span class="line">              <span class="attr">rabbitmq:</span></span><br><span class="line">                <span class="attr">host:</span> <span class="number">121.196</span><span class="number">.147</span><span class="number">.102</span></span><br><span class="line">                <span class="attr">prot:</span> <span class="number">5672</span></span><br><span class="line">                <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">                <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">bindings:</span> <span class="comment"># 服务的整合处理</span></span><br><span class="line">        <span class="attr">output:</span> <span class="comment"># 这个名字是一个通道的名称</span></span><br><span class="line">          <span class="attr">destination:</span> <span class="string">studyExchange</span> <span class="comment"># 表示要使用的Exchange的名称定义</span></span><br><span class="line">          <span class="attr">content-type:</span> <span class="string">application/json</span> <span class="comment"># 设置消息类型，本次为json，文本则设置"text/plain"</span></span><br><span class="line">          <span class="attr">binder:</span> <span class="string">defaultRabbit</span> <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:7001/eureka</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">5</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">2</span> <span class="comment"># 设置心跳时间的间隔，默认是30s</span></span><br><span class="line">    <span class="attr">instance-id:</span> <span class="string">send-8801.com</span> <span class="comment"># 在消息列表时显示的主机名称</span></span><br><span class="line">    <span class="attr">prefer-ip-address:</span> <span class="literal">true</span> <span class="comment"># 访问的路径变为ip地址</span></span><br></pre></td></tr></table></figure>
+
+<p>这里要注意对齐问题，有爆红可以正常启动。</p>
+</li>
+<li><p>创建消息通道绑定的接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@EnableBinding</span>(Source<span class="class">.<span class="keyword">class</span>) // 定义消息的推送管道</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">MessageProvider</span> <span class="keyword">implements</span> <span class="title">IMessageProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> MessageChannel output; <span class="comment">// 消息发送管道</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">send</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String serial = UUID.randomUUID().toString();</span><br><span class="line">        output.send(MessageBuilder.withPayload(serial).build());</span><br><span class="line">        log.info(<span class="string">"**************  serial is &#123;&#125;"</span>, serial);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>controller层直接调用就可以了。</p>
+</li>
+</ol>
+<h5 id="新建消息的消费者"><a href="#新建消息的消费者" class="headerlink" title="新建消息的消费者"></a>新建消息的消费者</h5><ol>
+<li><p>同样引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-stream-rabbit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application.yml</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8802</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">cloud-stream-consumer</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">stream:</span></span><br><span class="line">      <span class="attr">binders:</span></span><br><span class="line">        <span class="attr">defaultRabbit:</span> <span class="comment"># 表示定义的名称，用于binding整合</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">rabbit</span> <span class="comment">#消息组件类型</span></span><br><span class="line">          <span class="attr">environment:</span> <span class="comment"># 设置rabbitmq相关环境配置</span></span><br><span class="line">            <span class="attr">spring:</span></span><br><span class="line">              <span class="attr">rabbitmq:</span></span><br><span class="line">                <span class="attr">host:</span> <span class="number">121.196</span><span class="number">.147</span><span class="number">.102</span></span><br><span class="line">                <span class="attr">prot:</span> <span class="number">5672</span></span><br><span class="line">                <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">                <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">bindings:</span> <span class="comment"># 服务的整合处理</span></span><br><span class="line">        <span class="attr">input:</span> <span class="comment"># 这个名字是一个通道的名称</span></span><br><span class="line">          <span class="attr">destination:</span> <span class="string">studyExchange</span> <span class="comment"># 表示要使用的Exchange的名称定义</span></span><br><span class="line">          <span class="attr">content-type:</span> <span class="string">application/json</span> <span class="comment"># 设置消息类型，本次为json，文本则设置"text/plain"</span></span><br><span class="line">          <span class="attr">binder:</span> <span class="string">defaultRabbit</span> <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://localhost:7001/eureka</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">lease-expiration-duration-in-seconds:</span> <span class="number">5</span></span><br><span class="line">    <span class="attr">lease-renewal-interval-in-seconds:</span> <span class="number">2</span> <span class="comment"># 设置心跳时间的间隔，默认是30s</span></span><br><span class="line">    <span class="attr">instance-id:</span> <span class="string">receive-8802.com</span> <span class="comment"># 在消息列表时显示的主机名称</span></span><br><span class="line">    <span class="attr">prefer-ip-address:</span> <span class="literal">true</span> <span class="comment"># 访问的路径变为ip地址</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>消费者业务代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@EnableBinding</span>(Sink<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">ReceiveMessageLinstenerController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String serverPort;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@StreamListener</span>(Sink.INPUT)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">input</span><span class="params">(Message&lt;String&gt; message)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">"消费者1号，收到的消息：&#123;&#125;, 服务的端口是&#123;&#125;"</span>, message.getPayload(), serverPort);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><p>在现实的业务场景中，每一个微服务应用为了实现高可用和负载均衡，都会集群部署，按照上面我们启动了两个应用的实例，消息被重复消费了两次。为解决这个问题，Spring Cloud Stream 中提供了消费组，通过配置 <code>spring.cloud.stream.bindings.input.group</code> 属性为应用指定一个组名，下面修改下配置文件，修改如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">bindings:</span> <span class="comment"># 服务的整合处理</span></span><br><span class="line">  <span class="attr">input:</span> <span class="comment"># 这个名字是一个通道的名称</span></span><br><span class="line">    <span class="attr">destination:</span> <span class="string">studyExchange</span> <span class="comment"># 表示要使用的Exchange的名称定义</span></span><br><span class="line">    <span class="attr">content-type:</span> <span class="string">application/json</span> <span class="comment"># 设置消息类型，本次为json，文本则设置"text/plain"</span></span><br><span class="line">    <span class="attr">binder:</span> <span class="string">defaultRabbit</span> <span class="comment"># 设置要绑定的消息服务的具体设置</span></span><br><span class="line">    <span class="attr">group:</span> <span class="string">testA</span> <span class="comment"># 分组</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210603172014.png" alt=""></p>
+<p>在MQ的可视化中可以发现当前group下存在两个消费者。</p>
+<p>测试即可。</p>
+<h3 id="Sleuth"><a href="#Sleuth" class="headerlink" title="Sleuth"></a>Sleuth</h3><p>在微服务架构中，众多的微服务之间互相调用，如何清晰地记录服务的调用链路是一个需要解决的问题。同时，由于各种原因，跨进程的服务调用失败时，运维人员希望能够通过查看日志和查看服务之间的调用关系来定位问题，而<code>Spring cloud sleuth</code>组件正是为了解决微服务跟踪的组件。单纯的理解链路追踪，就是指一次任务的开始到结束，期间调用的所有系统及耗时(时间跨度)都可以完整的记录下来，</p>
+<h4 id="Zipkin服务端部署"><a href="#Zipkin服务端部署" class="headerlink" title="Zipkin服务端部署"></a>Zipkin服务端部署</h4><p>服务端是一个单独的jar包，官网貌似已经下载不了了，去Maven仓库下载即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -jar zipkin-server-2.12.9-exec.jar</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="客户端部署"><a href="#客户端部署" class="headerlink" title="客户端部署"></a>客户端部署</h4><ol>
+<li><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-zipkin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">zipkin:</span></span><br><span class="line">    <span class="attr">base-url:</span> <span class="string">http://121.196.147.102:9411</span></span><br><span class="line">    <span class="attr">sleuth:</span></span><br><span class="line">      <span class="attr">sampler:</span></span><br><span class="line">        <span class="attr">percentage:</span> <span class="number">1.0</span>  <span class="comment"># 收集数据百分比，默认 0.1（10%）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问<code>http://121.196.147.102:9411/</code>即可</p>
+<p><img src="https://cdn.jsdelivr.net/gh/zhangliyuangit/img/20210605195502.png" alt=""></p>
+</li>
+</ol>
 ]]></content>
       <tags>
         <tag>Java</tag>
